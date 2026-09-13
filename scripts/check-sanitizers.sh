@@ -6,9 +6,9 @@ repo=$(pwd)
 work=$(mktemp -d "${TMPDIR:-/tmp}/tightarray-sanitize.XXXXXX")
 trap 'rm -rf "$work"' EXIT
 TIGHTARRAY_SANITIZE=1 "$PYTHON" setup.py build_ext --force --build-temp "$work/objects" --build-lib "$work/lib"
-cp tightarray/*.py "$work/lib/tightarray/"
+cp tightarray/*.py tightarray/*.pyi tightarray/py.typed "$work/lib/tightarray/"
 mkdir -p "$work/lib/tightarray/array_api"
-cp tightarray/array_api/*.py "$work/lib/tightarray/array_api/"
+cp tightarray/array_api/*.py tightarray/array_api/*.pyi "$work/lib/tightarray/array_api/"
 runtime=$(clang --print-resource-dir)/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
 test -f "$runtime"
 # Framework launchers can re-exec and drop DYLD variables. Use their real binary.
