@@ -126,7 +126,8 @@ See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.
 [competitor comparisons](docs/competitor-performance.md), and the latest
 [shared-kernel experiment](docs/core-performance.md) and
 [C view experiment](docs/cview-performance.md), followed by
-[strided and axis reductions](docs/axis-performance.md).
+[strided and axis reductions](docs/axis-performance.md), and
+[narrow tile accumulators](docs/tile-performance.md).
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.

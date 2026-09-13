@@ -96,4 +96,5 @@ See [C view measurements](cview-performance.md).
 The strided/axis reduction follow-up adds native default/uint64 sums over axes and
 axis tuples. Negative strides, empty outputs, unaligned result buffers, and exact
 allocation tails have regression coverage. Other accumulation dtypes retain the
-NumPy fallback. See [reduction measurements](axis-performance.md).
+NumPy fallback. See [reduction measurements](axis-performance.md) and
+[tile accumulator measurements](tile-performance.md).

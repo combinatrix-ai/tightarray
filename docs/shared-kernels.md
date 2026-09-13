@@ -86,3 +86,11 @@ Axis sums now write into a caller-owned uint64 result without fully unpacking th
 input. Column tiles and batches of short rows share the unpackers; other layouts
 use reduction runs. Small strides have fixed-mask kernels, with generic fallbacks
 for other offsets and steps. See [measurements and scope](axis-performance.md).
+
+## Narrow column accumulators
+
+Column tiles now accumulate in uint16 or uint32, using the bit-width maximum
+to bound each batch before flushing into uint64 output. Scratch space is at most
+1 KiB decoded values plus 4 KiB accumulators, in addition to view descriptors.
+Row tiles use measured width/layout limits and preserve aligned word-folding
+paths at selected crossovers. See [tile measurements](tile-performance.md).

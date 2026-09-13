@@ -1,5 +1,7 @@
 # Strided and axis reduction experiment
 
+Later measurements: [narrow tile accumulators and row dispatch](tile-performance.md).
+
 Baseline: `bbd572d`. Apple M1 Pro, CPython 3.13.15, NumPy 2.5.3, one thread.
 All inputs contain 65,536 random unsigned values. Views and input construction are
 excluded from timing. Results are checked against NumPy before seven calibrated
