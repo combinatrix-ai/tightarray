@@ -86,3 +86,9 @@ The shared logical-view and reduction implementation passes **281 unit tests** a
 **1,385 upstream tests, 1 xfailed, 0 skipped** on CPython 3.12 / ARM64 macOS,
 including the formerly flaky remainder tests. The existing DLPack exception is
 unchanged. See [architecture](shared-kernels.md) and [performance](core-performance.md).
+
+The C view/storage follow-up passes **293 unit tests** and retains the same
+upstream conformance coverage and DLPack exception. Direct scalar slots, GC/subclass
+lifetimes, tuple indexing, iteration, and all widening width pairs have regression
+coverage; both NEON and portable builds are checked with sanitizers.
+See [C view measurements](cview-performance.md).

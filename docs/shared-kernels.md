@@ -20,16 +20,18 @@ noncontiguous, and repeated-element views, up to 64 dimensions. Footprint and
 shape arithmetic use wide intermediates to reject overflow and invalid bounds.
 An empty view may carry an offset outside storage, but never dereferences it.
 
-These descriptors are currently parsed per operation. Array API shape/stride
-metadata and the shared `_Storage` cell are still Python objects; this is not yet
-a persistent C view type or a complete rewrite of every container. Native
+These descriptors are currently parsed per bulk operation. Array API now uses a
+GC-aware C view base and a C shared storage cell, with direct scalar slots. Shape
+and stride tuples remain Python objects; this is not a complete native ND executor. Native
 Matrix/Ragged storage continues to use its existing flat array plus row metadata.
 
 Scalar Array API reads address one packed element directly. Basic assignment
 snapshots and casts only the selected values before mutating storage, preserving
 overlap semantics and preventing partial writes on validation failure. Existing
 Array API views follow a width increase through the shared storage cell. Width
-growth still decodes and repacks the root; it is an explicit remaining O(n) path.
+growth repacks the root with at most a 1 KiB stack buffer, or expands directly into
+the new allocation for 8-bit output. It remains an O(n) path without an unpacked
+root-sized temporary allocation.
 Advanced indexing continues through the NumPy fallback.
 
 ## Experiments and selected kernels
@@ -72,8 +74,8 @@ and overlapping assignment. The official Array API suite is retained unchanged
 apart from the existing narrow DLPack xfail and flaky-marker removal policy.
 
 This stage does not change default layout, add a bitplane format, release the GIL,
-or promise NumPy zero-copy representation. Next useful experiments are a persistent
-C view/storage object to reduce scalar wrapper overhead, bounded-memory widening,
-and strided/axis kernels. Blocked packing or bitplanes should be compared as
+or promise NumPy zero-copy representation. The C view/storage and bounded-memory widening experiments are now implemented;
+see [their measurements and remaining boundaries](cview-performance.md). Next
+useful experiments are cached numeric ND descriptors and strided/axis kernels. Blocked packing or bitplanes should be compared as
 separate storage experiments with random access, scanning, and conversion costs
 included; current measurements do not establish that either would be better.

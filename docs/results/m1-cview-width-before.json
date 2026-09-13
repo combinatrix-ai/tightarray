@@ -1,0 +1,449 @@
+{
+  "label": "758f6bf",
+  "python": "3.13.15",
+  "numpy": "2.5.3",
+  "rows": [
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 128,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 3375,
+      "samples_ns": [
+        53584,
+        11042,
+        5833,
+        3375,
+        3416,
+        2792,
+        2667,
+        2625,
+        2667
+      ],
+      "traced_peak_bytes": 777,
+      "output_payload_bytes": 32
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 128,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 2917,
+      "samples_ns": [
+        8042,
+        4417,
+        3458,
+        2917,
+        2750,
+        2875,
+        2958,
+        2833,
+        2833
+      ],
+      "traced_peak_bytes": 825,
+      "output_payload_bytes": 80
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 128,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 2792,
+      "samples_ns": [
+        7542,
+        3292,
+        2958,
+        2792,
+        2791,
+        2708,
+        3334,
+        2791,
+        2792
+      ],
+      "traced_peak_bytes": 873,
+      "output_payload_bytes": 128
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 65536,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 17542,
+      "samples_ns": [
+        24291,
+        18791,
+        17708,
+        17667,
+        17542,
+        17541,
+        17500,
+        17375,
+        17417
+      ],
+      "traced_peak_bytes": 82601,
+      "output_payload_bytes": 16384
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 65536,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 25959,
+      "samples_ns": [
+        32416,
+        27459,
+        26209,
+        25959,
+        25709,
+        25792,
+        25791,
+        26292,
+        25750
+      ],
+      "traced_peak_bytes": 107177,
+      "output_payload_bytes": 40960
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 65536,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 17917,
+      "samples_ns": [
+        21542,
+        18708,
+        18000,
+        17875,
+        17834,
+        17792,
+        17833,
+        18542,
+        17917
+      ],
+      "traced_peak_bytes": 131753,
+      "output_payload_bytes": 65536
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 1048576,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 213250,
+      "samples_ns": [
+        360125,
+        218834,
+        213791,
+        213625,
+        213250,
+        213042,
+        212666,
+        213000,
+        212958
+      ],
+      "traced_peak_bytes": 1311401,
+      "output_payload_bytes": 262144
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 1048576,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 361250,
+      "samples_ns": [
+        393917,
+        361250,
+        359792,
+        366042,
+        360125,
+        361958,
+        365542,
+        359791,
+        358875
+      ],
+      "traced_peak_bytes": 1704617,
+      "output_payload_bytes": 655360
+    },
+    {
+      "method": "widen",
+      "layout": "packed",
+      "n": 1048576,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 218709,
+      "samples_ns": [
+        239375,
+        218709,
+        220417,
+        219750,
+        217042,
+        217333,
+        216917,
+        218875,
+        218542
+      ],
+      "traced_peak_bytes": 2097833,
+      "output_payload_bytes": 1048576
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 128,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 2542,
+      "samples_ns": [
+        7250,
+        3542,
+        2708,
+        2542,
+        2417,
+        2583,
+        2459,
+        2375,
+        2375
+      ],
+      "traced_peak_bytes": 783,
+      "output_payload_bytes": 32
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 128,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 2375,
+      "samples_ns": [
+        5125,
+        2916,
+        2458,
+        2375,
+        2375,
+        2333,
+        2333,
+        2291,
+        2250
+      ],
+      "traced_peak_bytes": 839,
+      "output_payload_bytes": 88
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 128,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 2291,
+      "samples_ns": [
+        5625,
+        3083,
+        2500,
+        2250,
+        2250,
+        2208,
+        2250,
+        2291,
+        15833
+      ],
+      "traced_peak_bytes": 879,
+      "output_payload_bytes": 128
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 65536,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 14250,
+      "samples_ns": [
+        19292,
+        15500,
+        14958,
+        14292,
+        14208,
+        14167,
+        14250,
+        14042,
+        14125
+      ],
+      "traced_peak_bytes": 82607,
+      "output_payload_bytes": 16384
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 65536,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 19708,
+      "samples_ns": [
+        22333,
+        20292,
+        19750,
+        19708,
+        19541,
+        20084,
+        19500,
+        19458,
+        19458
+      ],
+      "traced_peak_bytes": 109919,
+      "output_payload_bytes": 43696
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 65536,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 13291,
+      "samples_ns": [
+        16375,
+        13791,
+        13583,
+        13125,
+        13291,
+        13125,
+        13333,
+        13250,
+        13084
+      ],
+      "traced_peak_bytes": 131759,
+      "output_payload_bytes": 65536
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 1048576,
+      "old_bits": 1,
+      "new_bits": 2,
+      "ns": 181625,
+      "samples_ns": [
+        193459,
+        179333,
+        182583,
+        176542,
+        179041,
+        177708,
+        183334,
+        181625,
+        182416
+      ],
+      "traced_peak_bytes": 1311407,
+      "output_payload_bytes": 262144
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 1048576,
+      "old_bits": 3,
+      "new_bits": 5,
+      "ns": 273750,
+      "samples_ns": [
+        312750,
+        268458,
+        270292,
+        273500,
+        272959,
+        273791,
+        273750,
+        275583,
+        275667
+      ],
+      "traced_peak_bytes": 1748319,
+      "output_payload_bytes": 699056
+    },
+    {
+      "method": "widen",
+      "layout": "word-aligned",
+      "n": 1048576,
+      "old_bits": 5,
+      "new_bits": 8,
+      "ns": 185750,
+      "samples_ns": [
+        213041,
+        198250,
+        185125,
+        185625,
+        189041,
+        185750,
+        184750,
+        184208,
+        192416
+      ],
+      "traced_peak_bytes": 2097839,
+      "output_payload_bytes": 1048576
+    },
+    {
+      "method": "matrix-get",
+      "library": "numpy-u8",
+      "ns": 71.07034605269291,
+      "samples_ns": [
+        71.48043934535053,
+        71.46453739892422,
+        72.76406677192426,
+        68.75929514649215,
+        71.07034605269291,
+        68.62831014586845,
+        69.59342968571036
+      ],
+      "loops": 65536,
+      "traced_peak_bytes": 24
+    },
+    {
+      "method": "matrix-set-restore",
+      "library": "numpy-u8",
+      "ns": 164.35116378943349,
+      "samples_ns": [
+        164.35116378943349,
+        170.0986302921592,
+        167.86703582738483,
+        167.3126206469533,
+        158.19678367279266,
+        159.62343979936122,
+        161.3858344740038
+      ],
+      "loops": 32768,
+      "traced_peak_bytes": 24
+    },
+    {
+      "method": "matrix-get",
+      "library": "array-api",
+      "ns": 2520.670477679232,
+      "samples_ns": [
+        2520.670477679232,
+        2472.4731702008285,
+        2468.2211687832023,
+        2531.799395910639,
+        2543.2539132452803,
+        2493.835381756071,
+        2553.5279064570204
+      ],
+      "loops": 2048,
+      "traced_peak_bytes": 641
+    },
+    {
+      "method": "matrix-set-restore",
+      "library": "array-api",
+      "ns": 9117.757599597098,
+      "samples_ns": [
+        9174.886599794263,
+        9105.630851991009,
+        9078.695256903302,
+        9155.517545877956,
+        9012.287137011299,
+        9189.288903144188,
+        9117.757599597098
+      ],
+      "loops": 512,
+      "traced_peak_bytes": 848
+    }
+  ]
+}

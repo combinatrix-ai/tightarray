@@ -1,5 +1,8 @@
 # Common-kernel performance experiment
 
+This records the shared-kernel baseline. See [the subsequent C view experiment](cview-performance.md)
+for scalar dispatch and bounded-memory widening improvements.
+
 Apple M1 Pro, CPython 3.13.15, NumPy 2.5.3, one thread. Baseline: `b793d1f`.
 Times below are microseconds, medians of seven calibrated samples (at least 3 ms per sample, except the loop-count cap).
 Inputs and results are checked against NumPy before timing. Python and NumPy controls use the same harness in both runs.

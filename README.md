@@ -124,7 +124,8 @@ verified before timing. View creation and copying are separate operations.
 
 See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.md),
 [competitor comparisons](docs/competitor-performance.md), and the latest
-[shared-kernel experiment](docs/core-performance.md).
+[shared-kernel experiment](docs/core-performance.md) and
+[C view experiment](docs/cview-performance.md).
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.
