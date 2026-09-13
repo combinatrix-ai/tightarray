@@ -1,0 +1,5 @@
+include tightarray/*.h
+include tests/*.py
+include benchmarks/*.py
+include scripts/*.sh
+recursive-include docs *.md *.json *.csv

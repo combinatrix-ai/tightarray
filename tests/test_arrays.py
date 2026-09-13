@@ -150,3 +150,75 @@ def test_constructor_edges():
         Matrix.from_flat([0], (0, 0))
     with pytest.raises(ValueError):
         Matrix.from_flat([], (-1, 0))
+
+
+def test_randomized_views_search_and_cross_layout(spec):
+    rng = random.Random(1258)
+    limit = 1 << spec["bits"]
+    for trial in range(120):
+        values = [rng.randrange(limit) for _ in range(rng.randrange(200))]
+        a = Array(bytes(values), **spec)
+        start, stop = sorted([rng.randrange(len(values) + 1) for _ in range(2)])
+        v, ref = a[start:stop], values[start:stop]
+        assert v.copy().tolist() == ref
+        assert v == Array(ref, bits=spec["bits"], layout="word-aligned" if spec["layout"] == "packed" else "packed")
+        if ref:
+            different = list(ref)
+            different[-1] ^= 1
+            assert v != Array(different, **spec)
+        for size in [0, 1, 2, 7, 8, 9, 12, 13, 32, 64, 65]:
+            needle = [rng.randrange(limit) for _ in range(size)]
+            assert v.find(needle) == bytes(ref).find(bytes(needle))
+        for value in {0, limit - 1, rng.randrange(limit)}:
+            assert v.count(value) == ref.count(value)
+    for n in [0, 1, 63, 64, 65, 129]:
+        values = bytes([limit - 1]) * n
+        a = Array(values, **spec)
+        for k in range(70):
+            assert a.find(bytes([limit - 1]) * k) == values.find(bytes([limit - 1]) * k)
+            assert a.find(bytes([limit - 1]) * k + b"\0") == -1
+
+
+def test_reentrant_input_and_uninitialized_containers():
+    source = []
+    class ClearsList:
+        def __index__(self):
+            source.clear()
+            return 1
+    source.extend([ClearsList(), 0, 1])
+    assert Array(source, bits=2).tolist() == [1, 0, 1]
+    source.extend([ClearsList(), 0, 1])
+    assert Array([0, 1], bits=2).gather(source).tolist() == [1, 0, 1]
+    for cls in [Matrix, RaggedArray]:
+        obj = cls.__new__(cls)
+        for operation in [lambda: len(obj), lambda: obj[0], lambda: obj.count(0), lambda: obj.tolist(), lambda: obj.copy(), lambda: obj.shape]:
+            with pytest.raises(RuntimeError):
+                operation()
+        assert sys.getsizeof(obj) > 0
+        obj.__init__([[0]])
+        with pytest.raises(RuntimeError):
+            obj.__init__([[1]])
+        assert obj.tolist() == [[0]]
+
+
+def test_view_keeps_original_container_data_alive():
+    for cls in [Matrix, RaggedArray]:
+        original = cls([[0, 1], [1, 0]], bits=2)
+        row, rows = original[1], original[:]
+        del original
+        gc.collect()
+        row[0] = 0
+        assert rows[1, 0] == 0
+        assert rows.copy().tolist() == [[0, 1], [0, 0]]
+
+
+def test_flat_ragged_and_invalid_native_shapes():
+    from tightarray._core import _Rows
+    assert RaggedArray.from_flat(bytes([1, 2, 3]), [0, 0, 2, 3], bits=2).tolist() == [[], [1, 2], [3]]
+    assert RaggedArray.from_flat([], [0]).tolist() == []
+    for offsets in [[], [1], [0, 2], [0, -1, 1], [0, 1, 0, 1], [0, 1 << 100]]:
+        with pytest.raises((ValueError, OverflowError)):
+            RaggedArray.from_flat([0], offsets)
+    for args in [(Array([]), -1, 0), (Array([]), 1, -1), (Array([]), 1 << 62, 8), (Array([]), 0, 0, [0, 0])]:
+        with pytest.raises((ValueError, OverflowError)):
+            _Rows(*args)
