@@ -7,3 +7,7 @@ include tests/array-api-*.txt
 include scripts/array_api_ci.py
 include benchmarks/competitors-requirements.txt
 include benchmarks/competitors_julia.jl
+
+recursive-include tightarray *.pyi py.typed
+recursive-include tests/typing *.py
+include scripts/check-types.py

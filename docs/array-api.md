@@ -121,6 +121,6 @@ and asynchronous contexts. Strict mode only governs storage widening; logical
 dtype conversion and arithmetic rules do not change. Fitting assignments never
 invoke the policy callback. The native fixed-width Array remains range checked.
 
-Static typing is not yet a supported package contract: no public stubs or
-`py.typed` marker are shipped. Logical dtype and mutable storage width remain
+Public stubs and a `py.typed` marker are shipped and checked with mypy.
+See [static typing](typing.md). Logical dtype and mutable storage width remain
 separate; `storage_bits` is runtime metadata, not a static bit-width parameter.

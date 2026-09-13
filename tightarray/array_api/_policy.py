@@ -35,7 +35,7 @@ def strict(enabled: bool = True) -> Iterator[None]:
         _strict.reset(token)
 
 
-def _check_widen(old, new, size):
+def _check_widen(old: int, new: int, size: int) -> None:
     message = (f'shared root storage widens from {old} to {new} bits '
                f'({size} elements); all shared views are affected')
     if _strict.get():

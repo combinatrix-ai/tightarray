@@ -85,6 +85,13 @@ For the standard Python Array API, install `.[array-api]` and use
 `tightarray.array_api`. It provides packed uint8/bool ND arrays and NumPy-backed
 other dtypes. See [conformance results and limitations](docs/array-api.md).
 
+## Static typing
+
+Public type stubs cover native containers and the Array API namespace, including
+standard linalg/FFT operations. Install `.[typecheck]` and run
+`python scripts/check-types.py` to validate the wheel and consumer examples.
+See [typing scope and examples](docs/typing.md).
+
 ## Representation
 
 | Structure | Retained representation |
