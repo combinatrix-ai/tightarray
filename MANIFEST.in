@@ -5,3 +5,5 @@ include scripts/*.sh
 recursive-include docs *.md *.json *.csv
 include tests/array-api-*.txt
 include scripts/array_api_ci.py
+include benchmarks/competitors-requirements.txt
+include benchmarks/competitors_julia.jl

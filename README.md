@@ -121,7 +121,8 @@ additional traced peak memory, and execution time. Sequence cases also include
 bytes/str. Both tightarray layouts are reported separately. Identical values are
 verified before timing. View creation and copying are separate operations.
 
-See [measurement plan](docs/benchmarks.md) and [measured results](docs/performance.md).
+See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.md),
+and [competitor comparisons](docs/competitor-performance.md).
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.
