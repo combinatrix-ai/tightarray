@@ -1,0 +1,1819 @@
+{
+  "metadata": {
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy": "2.5.3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "note": "Public NumPy calls include dispatch and any unpacking; np.asarray(ndarray) may share data, while tightarray always copies. Deterministic periodic input; no isolation or cold-cache control.",
+    "source_sha256": {
+      "tightarray/_core.c": "c54b135295683918d883b58ef864d12280d57fb1a516431336599679c81b564a",
+      "tightarray/_rows.h": "e3fbf3de14b1e41683039d0a939cf53d304d683154e8a5e2a18274aed3295ed1",
+      "tightarray/_numpy.h": "fc9a5a9c59ec28065b0a417d1a12767ea1fc4ea215c7385240676894e6bbd1b9",
+      "tightarray/_numpy.py": "de699b5ad12c5d476e3e745890ac724ce4d07f84b2f94f451c1b1b7d5892d4b3",
+      "tightarray/__init__.py": "8c9e7d1079358e3006bb68a6fb45433d1e07f8503d03f27801a0c1b5fc07db55",
+      "benchmarks/run.py": "e85535a48978042dba19485120a532bd7b305b3af8a5cc7910b39c92418ab435",
+      "benchmarks/run_numpy.py": "5a07900e9ba1b103307fdd00d4eac9feac5f78abe824cbba4258c9693571ae24"
+    }
+  },
+  "results": [
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 52.67079927762097,
+      "min_ns_op": 52.59101065746563,
+      "max_ns_op": 52.852943355219395,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 65648,
+      "loops": 131072,
+      "samples_ns": [
+        52.852943355219395,
+        52.755677160121195,
+        52.67079927762097,
+        52.59450475136873,
+        52.59101065746563
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 4271.565330782323,
+      "min_ns_op": 4268.045813660137,
+      "max_ns_op": 4284.281658328837,
+      "additional_peak_bytes": 66033,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4284.281658328837,
+        4271.565330782323,
+        4268.106977178832,
+        4268.045813660137,
+        4274.515617908037
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 2463.664145579969,
+      "min_ns_op": 2462.381758050469,
+      "max_ns_op": 2474.6094595684553,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 2048,
+      "samples_ns": [
+        2462.6669983263128,
+        2463.664145579969,
+        2462.381758050469,
+        2466.145474500081,
+        2474.6094595684553
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1143.9971956406225,
+      "min_ns_op": 1126.6225499184657,
+      "max_ns_op": 1160.3750067479268,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1160.3750067479268,
+        1143.9971956406225,
+        1158.6761559101433,
+        1126.6225499184657,
+        1126.6479589266964
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1571.5026506768481,
+      "min_ns_op": 1559.9975426994206,
+      "max_ns_op": 1798.3196016757574,
+      "additional_peak_bytes": 65793,
+      "result_retained_bytes": 65648,
+      "loops": 4096,
+      "samples_ns": [
+        1798.3196016757574,
+        1559.9975426994206,
+        1570.3022313573456,
+        1586.7209413045202,
+        1571.5026506768481
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 8960.652166933869,
+      "min_ns_op": 8949.788025347516,
+      "max_ns_op": 8987.834007712081,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 1024,
+      "samples_ns": [
+        8987.834007712081,
+        8986.08413990587,
+        8960.652166933869,
+        8958.740181697067,
+        8949.788025347516
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2698.099592635117,
+      "min_ns_op": 2694.8241611535195,
+      "max_ns_op": 2703.4507183998358,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        2697.570721466036,
+        2703.4507183998358,
+        2698.099592635117,
+        2700.50054496096,
+        2694.8241611535195
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2561.380824772641,
+      "min_ns_op": 2557.4340725142974,
+      "max_ns_op": 2577.250484137039,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        2561.8081735956366,
+        2577.250484137039,
+        2557.4340725142974,
+        2559.651306910382,
+        2561.380824772641
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2372.5483515590895,
+      "min_ns_op": 2359.5683842358994,
+      "max_ns_op": 2398.640845058253,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 136,
+      "loops": 4096,
+      "samples_ns": [
+        2373.1281544314697,
+        2359.5683842358994,
+        2364.2272708457313,
+        2398.640845058253,
+        2372.5483515590895
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 15620.197245880263,
+      "min_ns_op": 15460.367194464197,
+      "max_ns_op": 15681.152490287786,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 512,
+      "samples_ns": [
+        15620.197245880263,
+        15669.842014176538,
+        15681.152490287786,
+        15460.367194464197,
+        15520.832221227465
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 8929.60656528885,
+      "min_ns_op": 8887.044941729982,
+      "max_ns_op": 9125.854376179632,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 1024,
+      "samples_ns": [
+        9125.854376179632,
+        8929.60656528885,
+        8900.879038264975,
+        9119.1816409264,
+        8887.044941729982
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2737.955583143048,
+      "min_ns_op": 2718.7500108993845,
+      "max_ns_op": 2743.428694884642,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        2718.7500108993845,
+        2741.2313556851586,
+        2743.428694884642,
+        2736.083956733637,
+        2737.955583143048
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2576.314500402077,
+      "min_ns_op": 2570.455080785905,
+      "max_ns_op": 2580.1597303143353,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        2576.314500402077,
+        2580.1597303143353,
+        2579.3866598178283,
+        2572.489279373258,
+        2570.455080785905
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 2392.812064044847,
+      "min_ns_op": 2378.5502776263456,
+      "max_ns_op": 2404.469682915078,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 136,
+      "loops": 4096,
+      "samples_ns": [
+        2398.4069912330597,
+        2404.469682915078,
+        2392.812064044847,
+        2378.5502776263456,
+        2388.173584222386
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 16456,
+      "ns_op": 15297.60720586637,
+      "min_ns_op": 15253.744095389266,
+      "max_ns_op": 15347.330190706998,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 512,
+      "samples_ns": [
+        15287.841961253434,
+        15347.330190706998,
+        15297.60720586637,
+        15306.804471038049,
+        15253.744095389266
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 52.53092183465924,
+      "min_ns_op": 52.405678019340485,
+      "max_ns_op": 52.63455982174037,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 65648,
+      "loops": 131072,
+      "samples_ns": [
+        52.51757073665431,
+        52.405678019340485,
+        52.53092183465924,
+        52.63455982174037,
+        52.61707336501331
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 4256.062993590604,
+      "min_ns_op": 4248.738264323038,
+      "max_ns_op": 4262.512220520875,
+      "additional_peak_bytes": 66033,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4250.833967489598,
+        4256.062993590604,
+        4259.582510712789,
+        4248.738264323038,
+        4262.512220520875
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 2419.840257061878,
+      "min_ns_op": 2408.9559929052484,
+      "max_ns_op": 2447.4896918036393,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 2048,
+      "samples_ns": [
+        2447.4896918036393,
+        2433.980512250855,
+        2419.840257061878,
+        2408.9559929052484,
+        2415.0591571014957
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1146.7590468328126,
+      "min_ns_op": 1145.5688309069956,
+      "max_ns_op": 1148.6206119570852,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1146.0977589194954,
+        1147.2625658370816,
+        1146.7590468328126,
+        1148.6206119570852,
+        1145.5688309069956
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1423.4414038583054,
+      "min_ns_op": 1421.3459280654206,
+      "max_ns_op": 1452.5756455441297,
+      "additional_peak_bytes": 65793,
+      "result_retained_bytes": 65648,
+      "loops": 4096,
+      "samples_ns": [
+        1452.5756455441297,
+        1422.343018475658,
+        1423.4414038583054,
+        1433.4308957586472,
+        1421.3459280654206
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 41032,
+      "ns_op": 12802.00194742065,
+      "min_ns_op": 12740.642432618188,
+      "max_ns_op": 12813.394732802408,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 512,
+      "samples_ns": [
+        12740.642432618188,
+        12769.613476848463,
+        12812.011846108362,
+        12802.00194742065,
+        12813.394732802408
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 41032,
+      "ns_op": 3411.193915781041,
+      "min_ns_op": 3378.824771971267,
+      "max_ns_op": 3448.831989771861,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        3411.193915781041,
+        3378.824771971267,
+        3403.707069082884,
+        3448.831989771861,
+        3434.7124255873496
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 41032,
+      "ns_op": 5037.841674493393,
+      "min_ns_op": 5033.732577430783,
+      "max_ns_op": 5215.047849560506,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 1024,
+      "samples_ns": [
+        5215.047849560506,
+        5033.732577430783,
+        5157.104624231579,
+        5037.841674493393,
+        5034.994046582142
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 41032,
+      "ns_op": 2471.78149948013,
+      "min_ns_op": 2460.1542918389896,
+      "max_ns_op": 2503.2043140527094,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 232,
+      "loops": 4096,
+      "samples_ns": [
+        2470.0522089915466,
+        2483.266086983349,
+        2460.1542918389896,
+        2471.78149948013,
+        2503.2043140527094
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 41032,
+      "ns_op": 19465.08791661472,
+      "min_ns_op": 19409.3418031116,
+      "max_ns_op": 20015.056634292705,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 512,
+      "samples_ns": [
+        19509.603589540347,
+        19465.08791661472,
+        19409.3418031116,
+        19431.560303928563,
+        20015.056634292705
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 43768,
+      "ns_op": 11822.265605587745,
+      "min_ns_op": 11776.367045968072,
+      "max_ns_op": 11831.136816908838,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 512,
+      "samples_ns": [
+        11776.367045968072,
+        11789.957170549314,
+        11831.136816908838,
+        11822.265605587745,
+        11826.822628790978
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 43768,
+      "ns_op": 3579.935537345591,
+      "min_ns_op": 3577.555162337376,
+      "max_ns_op": 3591.410177250509,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        3577.555162337376,
+        3584.2895158566535,
+        3591.410177250509,
+        3579.935537345591,
+        3578.0029747911613
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 43768,
+      "ns_op": 3671.5903206641087,
+      "min_ns_op": 3661.152845779725,
+      "max_ns_op": 3677.531253742927,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        3677.531253742927,
+        3677.062977658352,
+        3665.039002953563,
+        3671.5903206641087,
+        3661.152845779725
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 43768,
+      "ns_op": 2408.192870007042,
+      "min_ns_op": 2401.580786681734,
+      "max_ns_op": 2414.703374142846,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 248,
+      "loops": 4096,
+      "samples_ns": [
+        2407.3281679193315,
+        2414.0014716067526,
+        2408.192870007042,
+        2414.703374142846,
+        2401.580786681734
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 43768,
+      "ns_op": 19421.712750045117,
+      "min_ns_op": 19363.851606613025,
+      "max_ns_op": 19569.499727367656,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 512,
+      "samples_ns": [
+        19421.712750045117,
+        19363.851606613025,
+        19490.154500090284,
+        19370.037080079783,
+        19569.499727367656
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 52.605628297897056,
+      "min_ns_op": 51.72983641443807,
+      "max_ns_op": 53.304360037031984,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 65648,
+      "loops": 131072,
+      "samples_ns": [
+        53.304360037031984,
+        51.72983641443807,
+        52.89776616734798,
+        52.586555554512415,
+        52.605628297897056
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 4248.229970471584,
+      "min_ns_op": 4228.495072311489,
+      "max_ns_op": 4253.316433278087,
+      "additional_peak_bytes": 66033,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4228.495072311489,
+        4253.316433278087,
+        4250.2235828578705,
+        4248.229970471584,
+        4243.611783749657
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 2467.9565058249864,
+      "min_ns_op": 2463.0942334624706,
+      "max_ns_op": 2469.9502318981104,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 2048,
+      "samples_ns": [
+        2467.9565058249864,
+        2464.742237862083,
+        2463.0942334624706,
+        2469.9502318981104,
+        2469.197738719231
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1130.4474014650623,
+      "min_ns_op": 1117.5586962508532,
+      "max_ns_op": 1149.3274882923288,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1143.9311435879063,
+        1149.3274882923288,
+        1130.4474014650623,
+        1117.5586962508532,
+        1120.7681893665722
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 65648,
+      "ns_op": 1643.9308865301427,
+      "min_ns_op": 1588.5825064287928,
+      "max_ns_op": 1664.7236407152377,
+      "additional_peak_bytes": 65793,
+      "result_retained_bytes": 65648,
+      "loops": 4096,
+      "samples_ns": [
+        1650.0346760039974,
+        1664.7236407152377,
+        1643.9308865301427,
+        1588.887471370981,
+        1588.5825064287928
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 57416,
+      "ns_op": 15962.482393661048,
+      "min_ns_op": 15938.638625812018,
+      "max_ns_op": 15991.372947610216,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 512,
+      "samples_ns": [
+        15991.372947610216,
+        15962.482393661048,
+        15965.332295309054,
+        15938.638625812018,
+        15949.462977005169
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 57416,
+      "ns_op": 4070.1294210521155,
+      "min_ns_op": 4067.8305595065467,
+      "max_ns_op": 4075.561491845292,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4075.561491845292,
+        4070.1294210521155,
+        4067.8305595065467,
+        4069.68160859833,
+        4073.4863659963594
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 57416,
+      "ns_op": 5186.605449125636,
+      "min_ns_op": 5176.431614017929,
+      "max_ns_op": 5197.265636525117,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 1024,
+      "samples_ns": [
+        5186.605449125636,
+        5197.265636525117,
+        5185.913096283912,
+        5176.431614017929,
+        5196.370921112248
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 57416,
+      "ns_op": 2465.3930950080394,
+      "min_ns_op": 2462.9721337987576,
+      "max_ns_op": 2478.6377252894454,
+      "additional_peak_bytes": 1167,
+      "result_retained_bytes": 296,
+      "loops": 2048,
+      "samples_ns": [
+        2465.3930950080394,
+        2475.891051290091,
+        2464.884801156586,
+        2462.9721337987576,
+        2478.6377252894454
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 57416,
+      "ns_op": 22871.417968417518,
+      "min_ns_op": 22833.824004919734,
+      "max_ns_op": 22934.734261070844,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 256,
+      "samples_ns": [
+        22833.824004919734,
+        22903.972421772778,
+        22934.734261070844,
+        22871.417968417518,
+        22839.520170236938
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 58328,
+      "ns_op": 14417.48054276104,
+      "min_ns_op": 14406.167792913038,
+      "max_ns_op": 14432.697298616404,
+      "additional_peak_bytes": 131514,
+      "result_retained_bytes": 408,
+      "loops": 512,
+      "samples_ns": [
+        14406.167792913038,
+        14417.48054276104,
+        14432.697298616404,
+        14423.828361032065,
+        14416.585599974496
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 58328,
+      "ns_op": 4123.738790440257,
+      "min_ns_op": 4118.509764339251,
+      "max_ns_op": 4140.46246532962,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4123.738790440257,
+        4119.832055948791,
+        4118.509764339251,
+        4140.46246532962,
+        4130.920501665969
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 58328,
+      "ns_op": 4246.1753082534415,
+      "min_ns_op": 4243.672833581513,
+      "max_ns_op": 4255.228532201727,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 2048,
+      "samples_ns": [
+        4255.228532201727,
+        4246.1753082534415,
+        4253.5600641713245,
+        4244.730462232837,
+        4243.672833581513
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 58328,
+      "ns_op": 2431.660902857402,
+      "min_ns_op": 2426.198477678554,
+      "max_ns_op": 2434.5803240066743,
+      "additional_peak_bytes": 1175,
+      "result_retained_bytes": 304,
+      "loops": 4096,
+      "samples_ns": [
+        2434.5803240066743,
+        2431.7321845046536,
+        2431.660902857402,
+        2429.941673653957,
+        2426.198477678554
+      ]
+    },
+    {
+      "elements": 65536,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 58328,
+      "ns_op": 21329.261471692007,
+      "min_ns_op": 21296.550585248042,
+      "max_ns_op": 21554.038539761677,
+      "additional_peak_bytes": 133345,
+      "result_retained_bytes": 65648,
+      "loops": 256,
+      "samples_ns": [
+        21296.550585248042,
+        21554.038539761677,
+        21314.1247513704,
+        21329.261471692007,
+        21404.624931165017
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 52.51534140882086,
+      "min_ns_op": 52.50167767201219,
+      "max_ns_op": 52.60022639674844,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 1048688,
+      "loops": 131072,
+      "samples_ns": [
+        52.50994838945644,
+        52.51534140882086,
+        52.50167767201219,
+        52.60022639674844,
+        52.57320445650748
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 49545.242291060276,
+      "min_ns_op": 49527.01419824734,
+      "max_ns_op": 49621.42156728078,
+      "additional_peak_bytes": 1049073,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        49545.242291060276,
+        49613.92914992757,
+        49527.01419824734,
+        49621.42156728078,
+        49529.944590176456
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 36120.92950788792,
+      "min_ns_op": 36111.327972321305,
+      "max_ns_op": 36141.76148403203,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 256,
+      "samples_ns": [
+        36141.76148403203,
+        36130.210901319515,
+        36111.327972321305,
+        36116.534829488955,
+        36120.92950788792
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 1147.7762313916173,
+      "min_ns_op": 1143.2546216383344,
+      "max_ns_op": 1148.651108451304,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1143.2546216383344,
+        1145.2127637312515,
+        1147.7762313916173,
+        1148.651108451304,
+        1148.3306820991857
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 22833.495677332394,
+      "min_ns_op": 22786.461158830207,
+      "max_ns_op": 22898.76192662632,
+      "additional_peak_bytes": 1048833,
+      "result_retained_bytes": 1048688,
+      "loops": 256,
+      "samples_ns": [
+        22889.484171173535,
+        22786.461158830207,
+        22833.495677332394,
+        22833.167349745054,
+        22898.76192662632
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 121518.87494837865,
+      "min_ns_op": 121368.48454247229,
+      "max_ns_op": 121766.27933513373,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 64,
+      "samples_ns": [
+        121766.27933513373,
+        121585.2826135233,
+        121368.48454247229,
+        121449.87340434454,
+        121518.87494837865
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 9259.27724892972,
+      "min_ns_op": 9251.709116142592,
+      "max_ns_op": 9278.442348659155,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 1024,
+      "samples_ns": [
+        9257.730653189356,
+        9251.709116142592,
+        9278.442348659155,
+        9265.542757930234,
+        9259.27724892972
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 12723.79677175195,
+      "min_ns_op": 12708.984286291525,
+      "max_ns_op": 12761.719062837074,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 512,
+      "samples_ns": [
+        12761.719062837074,
+        12723.79677175195,
+        12708.984286291525,
+        12713.54267373681,
+        12732.910363411065
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 2334.096222966764,
+      "min_ns_op": 2328.7048520614917,
+      "max_ns_op": 2339.437060072669,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 136,
+      "loops": 4096,
+      "samples_ns": [
+        2330.8105596697715,
+        2337.9924414257403,
+        2334.096222966764,
+        2339.437060072669,
+        2328.7048520614917
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 146389.97163274325,
+      "min_ns_op": 146145.18659072928,
+      "max_ns_op": 146427.73385276087,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 64,
+      "samples_ns": [
+        146414.06232840382,
+        146199.2178519722,
+        146427.73385276087,
+        146389.97163274325,
+        146145.18659072928
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 119236.97093152441,
+      "min_ns_op": 119169.26814592443,
+      "max_ns_op": 119310.54541491903,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 64,
+      "samples_ns": [
+        119246.74981855787,
+        119169.26814592443,
+        119199.21598746441,
+        119310.54541491903,
+        119236.97093152441
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 9159.016599369352,
+      "min_ns_op": 9150.431651505642,
+      "max_ns_op": 9199.015494232299,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 1024,
+      "samples_ns": [
+        9150.431651505642,
+        9154.174676950788,
+        9159.016599369352,
+        9179.321295960108,
+        9199.015494232299
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 12759.195215039654,
+      "min_ns_op": 12739.340036205249,
+      "max_ns_op": 12775.63478652155,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 512,
+      "samples_ns": [
+        12752.115253533702,
+        12759.195215039654,
+        12775.63478652155,
+        12771.078218065668,
+        12739.340036205249
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 2374.2370558466064,
+      "min_ns_op": 2369.557648762566,
+      "max_ns_op": 2382.1513650545967,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 136,
+      "loops": 4096,
+      "samples_ns": [
+        2382.1513650545967,
+        2378.1635718478356,
+        2371.7141175438883,
+        2369.557648762566,
+        2374.2370558466064
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 2,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 262216,
+      "ns_op": 144589.2012270633,
+      "min_ns_op": 143723.29678735696,
+      "max_ns_op": 145848.95325242542,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 64,
+      "samples_ns": [
+        144791.672937572,
+        144589.2012270633,
+        145848.95325242542,
+        144354.82808039524,
+        143723.29678735696
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 51.667527145582426,
+      "min_ns_op": 51.42433856519801,
+      "max_ns_op": 52.77538228654066,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 1048688,
+      "loops": 131072,
+      "samples_ns": [
+        51.667527145582426,
+        51.90626595208414,
+        51.42433856519801,
+        51.52034709965392,
+        52.77538228654066
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 49510.414100950584,
+      "min_ns_op": 49429.68735122122,
+      "max_ns_op": 49646.80556440726,
+      "additional_peak_bytes": 1049073,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        49510.414100950584,
+        49646.80556440726,
+        49429.68735122122,
+        49473.961553303525,
+        49517.90651830379
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 36097.49546740204,
+      "min_ns_op": 36091.46824601339,
+      "max_ns_op": 36104.49221014278,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 256,
+      "samples_ns": [
+        36098.63324527396,
+        36091.46824601339,
+        36097.49546740204,
+        36093.58554967912,
+        36104.49221014278
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 1141.2454625769897,
+      "min_ns_op": 1140.4622739519255,
+      "max_ns_op": 1141.42358142999,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1141.2454625769897,
+        1141.42358142999,
+        1140.4622739519255,
+        1141.1336515720905,
+        1141.3524134695763
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 22927.89486091351,
+      "min_ns_op": 22853.19169459399,
+      "max_ns_op": 23071.28943357384,
+      "additional_peak_bytes": 1048833,
+      "result_retained_bytes": 1048688,
+      "loops": 256,
+      "samples_ns": [
+        22999.511202215217,
+        22927.89486091351,
+        22853.19169459399,
+        22897.136659594253,
+        23071.28943357384
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 655432,
+      "ns_op": 179710.93620872125,
+      "min_ns_op": 179604.18335860595,
+      "max_ns_op": 180704.43184114993,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 32,
+      "samples_ns": [
+        180704.43184114993,
+        180212.2496883385,
+        179662.75481740013,
+        179710.93620872125,
+        179604.18335860595
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 655432,
+      "ns_op": 18853.92157419119,
+      "min_ns_op": 18849.203115678392,
+      "max_ns_op": 18875.894511438673,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 512,
+      "samples_ns": [
+        18856.93336589611,
+        18853.92157419119,
+        18849.203115678392,
+        18851.07394627994,
+        18875.894511438673
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 655432,
+      "ns_op": 53945.6323167542,
+      "min_ns_op": 53873.69492382277,
+      "max_ns_op": 54007.163271307945,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        53887.69386627246,
+        53957.679483573884,
+        53945.6323167542,
+        54007.163271307945,
+        53873.69492382277
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 655432,
+      "ns_op": 2528.4423372795573,
+      "min_ns_op": 2526.1431346734753,
+      "max_ns_op": 2531.5956690974417,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 232,
+      "loops": 2048,
+      "samples_ns": [
+        2531.5956690974417,
+        2529.4390297858627,
+        2526.1431346734753,
+        2527.9946385126095,
+        2528.4423372795573
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 655432,
+      "ns_op": 207890.62546100467,
+      "min_ns_op": 207566.40151375905,
+      "max_ns_op": 208688.81256319582,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 32,
+      "samples_ns": [
+        208259.13088629022,
+        208688.81256319582,
+        207566.40151375905,
+        207600.24926858023,
+        207890.62546100467
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 699128,
+      "ns_op": 164986.9664106518,
+      "min_ns_op": 164593.7518333085,
+      "max_ns_op": 168303.40609885752,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 32,
+      "samples_ns": [
+        164593.7518333085,
+        164762.997883372,
+        164986.9664106518,
+        167545.59328546748,
+        168303.40609885752
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 699128,
+      "ns_op": 19940.5940293218,
+      "min_ns_op": 19842.28492801776,
+      "max_ns_op": 19977.3749045562,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 256,
+      "samples_ns": [
+        19842.28492801776,
+        19969.56234506797,
+        19929.36358874431,
+        19977.3749045562,
+        19940.5940293218
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 699128,
+      "ns_op": 30159.668312990107,
+      "min_ns_op": 30118.32814081572,
+      "max_ns_op": 30255.371711973567,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 256,
+      "samples_ns": [
+        30118.32814081572,
+        30255.371711973567,
+        30173.99194504833,
+        30159.668312990107,
+        30122.558200673666
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 699128,
+      "ns_op": 2372.5180540168367,
+      "min_ns_op": 2370.574918586499,
+      "max_ns_op": 2375.8137217555486,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 248,
+      "loops": 4096,
+      "samples_ns": [
+        2370.574918586499,
+        2372.5180540168367,
+        2372.863775690348,
+        2375.8137217555486,
+        2371.815924107068
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 5,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 699128,
+      "ns_op": 190231.78174393252,
+      "min_ns_op": 190100.28336197138,
+      "max_ns_op": 190485.69083679467,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 32,
+      "samples_ns": [
+        190252.5982586667,
+        190170.56183656678,
+        190485.69083679467,
+        190231.78174393252,
+        190100.28336197138
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "asarray",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 52.44413792127034,
+      "min_ns_op": 51.41576409073423,
+      "max_ns_op": 53.23505369858594,
+      "additional_peak_bytes": 64,
+      "result_retained_bytes": 1048688,
+      "loops": 131072,
+      "samples_ns": [
+        52.44413792127034,
+        53.08723416419525,
+        51.41576409073423,
+        52.0772935885816,
+        53.23505369858594
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "array_equal",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 49490.234232507646,
+      "min_ns_op": 49332.68064633012,
+      "max_ns_op": 50052.414735546336,
+      "additional_peak_bytes": 1049073,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        50052.414735546336,
+        49569.00920660701,
+        49490.234232507646,
+        49358.72675559949,
+        49332.68064633012
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 36122.5584128988,
+      "min_ns_op": 36102.70323406439,
+      "max_ns_op": 36162.75716922246,
+      "additional_peak_bytes": 144,
+      "result_retained_bytes": 32,
+      "loops": 256,
+      "samples_ns": [
+        36162.75716922246,
+        36113.28065744601,
+        36122.5584128988,
+        36129.718864685856,
+        36102.70323406439
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "take",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 1144.0937441875576,
+      "min_ns_op": 1142.807008136515,
+      "max_ns_op": 1144.8262853264168,
+      "additional_peak_bytes": 1024,
+      "result_retained_bytes": 368,
+      "loops": 8192,
+      "samples_ns": [
+        1144.546502018784,
+        1144.0937441875576,
+        1144.8262853264168,
+        1142.8883226471953,
+        1142.807008136515
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "numpy",
+      "method": "add",
+      "dataset_retained_bytes": 1048688,
+      "ns_op": 22743.487534171436,
+      "min_ns_op": 22692.218408337794,
+      "max_ns_op": 22881.999939272646,
+      "additional_peak_bytes": 1048833,
+      "result_retained_bytes": 1048688,
+      "loops": 256,
+      "samples_ns": [
+        22743.487534171436,
+        22849.444576422684,
+        22881.999939272646,
+        22692.218408337794,
+        22733.723199053202
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "asarray",
+      "dataset_retained_bytes": 917576,
+      "ns_op": 370959.62034072727,
+      "min_ns_op": 240494.78088272735,
+      "max_ns_op": 536410.1598388515,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 32,
+      "samples_ns": [
+        348377.5944914669,
+        370959.62034072727,
+        536410.1598388515,
+        398109.3759648502,
+        240494.78088272735
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "array_equal",
+      "dataset_retained_bytes": 917576,
+      "ns_op": 25577.6367339422,
+      "min_ns_op": 25465.33232816728,
+      "max_ns_op": 25628.90585977584,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 256,
+      "samples_ns": [
+        25577.6367339422,
+        25465.33232816728,
+        25628.90585977584,
+        25581.866793800145,
+        25482.258024567273
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 917576,
+      "ns_op": 53952.46989792213,
+      "min_ns_op": 53704.10144678317,
+      "max_ns_op": 54056.63978308439,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        53704.10144678317,
+        53952.46989792213,
+        53948.569984640926,
+        54009.11686592735,
+        54056.63978308439
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "take",
+      "dataset_retained_bytes": 917576,
+      "ns_op": 2492.1670274125063,
+      "min_ns_op": 2484.354467924277,
+      "max_ns_op": 2499.9185370688792,
+      "additional_peak_bytes": 1167,
+      "result_retained_bytes": 296,
+      "loops": 2048,
+      "samples_ns": [
+        2499.9185370688792,
+        2498.3926323329797,
+        2492.1670274125063,
+        2486.979042259918,
+        2484.354467924277
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "packed",
+      "method": "add",
+      "dataset_retained_bytes": 917576,
+      "ns_op": 254609.3746786937,
+      "min_ns_op": 253983.08935109526,
+      "max_ns_op": 257212.24665176123,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 32,
+      "samples_ns": [
+        257212.24665176123,
+        254609.3746786937,
+        254848.97196292877,
+        253983.08935109526,
+        254114.55862922594
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "asarray",
+      "dataset_retained_bytes": 932144,
+      "ns_op": 201815.0917137973,
+      "min_ns_op": 201614.59542578086,
+      "max_ns_op": 202011.7244683206,
+      "additional_peak_bytes": 2097594,
+      "result_retained_bytes": 408,
+      "loops": 32,
+      "samples_ns": [
+        201618.4662352316,
+        201614.59542578086,
+        201815.0917137973,
+        202011.7244683206,
+        201916.6568061337
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "array_equal",
+      "dataset_retained_bytes": 932144,
+      "ns_op": 25669.433853181545,
+      "min_ns_op": 25652.0197581267,
+      "max_ns_op": 25686.198569019325,
+      "additional_peak_bytes": 1143,
+      "result_retained_bytes": 28,
+      "loops": 256,
+      "samples_ns": [
+        25686.198569019325,
+        25669.433853181545,
+        25655.92512837611,
+        25680.828912300058,
+        25652.0197581267
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "count_nonzero",
+      "dataset_retained_bytes": 932144,
+      "ns_op": 39465.8200093545,
+      "min_ns_op": 39398.76478398219,
+      "max_ns_op": 39560.22010243032,
+      "additional_peak_bytes": 1191,
+      "result_retained_bytes": 28,
+      "loops": 128,
+      "samples_ns": [
+        39465.8200093545,
+        39560.22010243032,
+        39476.89037886448,
+        39412.758269463666,
+        39398.76478398219
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "take",
+      "dataset_retained_bytes": 932144,
+      "ns_op": 2477.21391133382,
+      "min_ns_op": 2473.6938257774455,
+      "max_ns_op": 2479.797331034206,
+      "additional_peak_bytes": 1175,
+      "result_retained_bytes": 304,
+      "loops": 2048,
+      "samples_ns": [
+        2474.9961085035466,
+        2473.6938257774455,
+        2477.21391133382,
+        2478.292003615934,
+        2479.797331034206
+      ]
+    },
+    {
+      "elements": 1048576,
+      "bits": 7,
+      "implementation": "word-aligned",
+      "method": "add",
+      "dataset_retained_bytes": 932144,
+      "ns_op": 229809.87705523148,
+      "min_ns_op": 229675.78115640208,
+      "max_ns_op": 230048.18649496883,
+      "additional_peak_bytes": 2099425,
+      "result_retained_bytes": 1048688,
+      "loops": 32,
+      "samples_ns": [
+        229725.2503922209,
+        230048.18649496883,
+        229809.87705523148,
+        229675.78115640208,
+        229845.06358625367
+      ]
+    }
+  ]
+}

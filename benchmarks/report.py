@@ -9,7 +9,7 @@ NAMES = ["python-list", "python-bytes", "python-str", "numpy", "packed", "word-a
 
 
 def main():
-    runs = [json.loads((RESULTS / name).read_text()) for name in ["m1-pro-optimized.json"]]
+    runs = [json.loads((RESULTS / name).read_text()) for name in ["m1-pro-numpy-interop.json"]]
     records = [row for run in runs for row in run["results"]]
     meta = runs[0]["metadata"]
     lines = ["# Measured performance", "", "Measured on Apple M1 Pro, ARM64 macOS, 2026-09-13.", "",
@@ -18,6 +18,7 @@ def main():
              "## Measurement boundaries", "",
              "- The machine was not isolated: existing services were left running; recorded load averages are in the JSON metadata. No affinity or cold-cache control was used.",
              "- Inputs are seeded uniform small integers; these are workload-specific results, not universal speedups.",
+             "- `equal` measures native `.equals()` for tightarray and `np.array_equal` for NumPy; elementwise comparison and NumPy dispatch are measured separately in the NumPy API report.",
              "- `get` measures a single Python-level call; `random-get-sum` reads 256 prepared indices through Python and normalizes scalar values.",
              "- `iterate-sum` deliberately iterates in Python; it is not NumPy's native `sum` reduction.",
              "- `find` uses an eight-symbol repeated-maximum needle. An early match may end the scan. Do not compare search times across widths as equal amounts of work.",
@@ -27,7 +28,7 @@ def main():
              "- Retained size counts owned buffers, object headers, shared objects once, and allocations kept alive by views. It is not RSS.",
              "- Additional peak bytes are measured separately with tracemalloc: PyMem and NumPy-tracked allocations are included; untracked system allocations are excluded.",
              "- View creation and copying are separate methods. An array view retains its full root allocation.", "",
-             "Raw results: [optimized](results/m1-pro-optimized.json), [previous small/medium](results/m1-pro.json), [previous large](results/m1-pro-large.json), [initial baseline](results/m1-pro-baseline.json).",
+             "Raw results: [current native methods](results/m1-pro-numpy-interop.json), [before NumPy integration](results/m1-pro-optimized.json), [previous small/medium](results/m1-pro.json), [previous large](results/m1-pro-large.json), [initial baseline](results/m1-pro-baseline.json).",
              "[Per-method CSV](results/methods.csv) includes dataset size, result retained size, additional peak bytes, sample variability, and timings.", "",
              "## Retained memory", "", "KiB, including representation overhead. Lower is better.", "",
              "| Structure | Elements | Bits | Python list | NumPy | Packed | Word-aligned |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
