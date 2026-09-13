@@ -72,7 +72,7 @@ def main():
     (ROOT / "docs/performance.md").write_text("\n".join(lines))
     columns = ["structure", "elements", "bits", "implementation", "method", "dataset_retained_bytes", "result_retained_bytes", "additional_peak_bytes", "ns_op", "ns_element", "min_ns_op", "max_ns_op", "loops"]
     with (RESULTS / "methods.csv").open("w", newline="") as f:
-        writer = csv.DictWriter(f, columns, extrasaction="ignore")
+        writer = csv.DictWriter(f, columns, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     print(f"Rendered {len(records)} method comparisons")
