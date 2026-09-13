@@ -585,6 +585,8 @@ static PyTypeObject ArrayType={
     .tp_methods=methods,.tp_getset=getters,.tp_richcompare=numpy_compare,.tp_as_number=&array_number,.tp_hash=PyObject_HashNotImplemented
 };
 #include "_rows.h"
+#include "_api_storage.h"
+#include "_api_view.h"
 static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1};
 PyMODINIT_FUNC PyInit__core(void) {
     if(PyType_Ready(&ArrayType)<0) return NULL;
@@ -594,5 +596,10 @@ PyMODINIT_FUNC PyInit__core(void) {
     if(PyType_Ready(&RowsType)<0) { Py_DECREF(m); return NULL; }
     Py_INCREF(&RowsType);
     if(PyModule_AddObject(m,"_Rows",(PyObject *)&RowsType)<0) { Py_DECREF(&RowsType); Py_DECREF(m); return NULL; }
+    if(PyType_Ready(&APIStorageType)<0 || PyType_Ready(&APIViewType)<0) { Py_DECREF(m); return NULL; }
+    Py_INCREF(&APIStorageType);
+    if(PyModule_AddObject(m,"_Storage",(PyObject *)&APIStorageType)<0) { Py_DECREF(&APIStorageType); Py_DECREF(m); return NULL; }
+    Py_INCREF(&APIViewType);
+    if(PyModule_AddObject(m,"_APIView",(PyObject *)&APIViewType)<0) { Py_DECREF(&APIViewType); Py_DECREF(m); return NULL; }
     return m;
 }

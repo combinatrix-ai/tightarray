@@ -10,7 +10,7 @@ import functools as _functools
 import math as _math
 import operator as _operator
 import numpy as _np
-from .._core import Array as _NativeArray
+from .._core import Array as _NativeArray, _Storage, _APIView
 
 __array_api_version__ = '2025.12'
 __version__ = '0.1.0.dev0'
@@ -30,16 +30,9 @@ def _strides(shape):
     return tuple(reversed(out))
 
 
-class _Storage:
-    __slots__ = ('data',)
-
-    def __init__(self, data):
-        self.data = data
-
-
-class Array:
+class Array(_APIView):
     """Standard array object; uint8/bool views share a native packed allocation."""
-    __slots__ = ('_storage', '_shape', '_strides', '_offset', '_dtype', '_numpy')
+    __slots__ = ()
     __hash__ = None
 
     @classmethod
@@ -58,10 +51,7 @@ class Array:
         return obj
 
     def _view(self, shape, strides, offset):
-        obj = type(self).__new__(type(self))
-        obj._storage, obj._dtype, obj._numpy = self._storage, self._dtype, None
-        obj._shape, obj._strides, obj._offset = shape, strides, offset
-        return obj
+        return self._new_view(shape, strides, offset)
 
     @property
     def shape(self):
@@ -156,12 +146,6 @@ class Array:
     def __bool__(self):
         return self._scalar(_builtins.bool)
 
-    def __int__(self):
-        return self._scalar(_builtins.int)
-
-    def __float__(self):
-        return self._scalar(_builtins.float)
-
     def __complex__(self):
         return self._scalar(_builtins.complex)
 
@@ -171,7 +155,7 @@ class Array:
     def __repr__(self):
         return f'tightarray.array_api.Array({self._unpack()!r}, storage_bits={self.storage_bits})'
 
-    def __getitem__(self, key):
+    def _getitem(self, key):
         if self._storage is None:
             return _wrap(self._numpy[_unwrap(key)])
         if self.ndim == 1 and isinstance(key, (_builtins.int, _np.integer)) and not isinstance(key, (_builtins.bool, _np.bool_)):
@@ -214,7 +198,7 @@ class Array:
                 offset += i * stride
         return self._view(tuple(shape), tuple(strides), offset)
 
-    def __setitem__(self, key, value):
+    def _setitem(self, key, value):
         if self._storage is None:
             self._numpy[_unwrap(key)] = _unwrap(value)
             return
@@ -233,8 +217,7 @@ class Array:
     def _assign_values(self, values):
         needed = 1 if self.dtype == bool or not values.size else _builtins.max(1, _builtins.int(values.max()).bit_length())
         if needed > self._storage.data.bits:
-            old = self._storage.data
-            self._storage.data = _NativeArray(old.tobytes(), bits=needed, layout=old.layout)
+            self._storage.widen(needed)
         if not self.ndim:
             self._storage.data[self._offset] = _builtins.int(values)
         else:
