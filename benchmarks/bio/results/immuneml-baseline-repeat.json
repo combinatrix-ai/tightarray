@@ -1,0 +1,29 @@
+{
+  "project": "immuneml",
+  "backend": "baseline",
+  "median_s": 0.2594952500076033,
+  "samples_s": [
+    0.2878967080032453,
+    0.253438791987719,
+    0.25890604199958034,
+    0.2595476249989588,
+    0.2594952500076033
+  ],
+  "warm_call_s": 0.2726057919790037,
+  "traced_peak_bytes": 1510524,
+  "worker_peak_rss_bytes": 186204160,
+  "child_peak_rss_bytes": 0,
+  "digest": "502f7cf6bc2f53a5d2e1cd2d98597cf7bfb5a5ec3de0155755f1fadcca477df8",
+  "info": {
+    "input_sha256": "2b9de971af9d54631ea84ea515b43f3af586e03dde86f1ef16f5d1ed4ae986a2",
+    "sequences": 1550
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}

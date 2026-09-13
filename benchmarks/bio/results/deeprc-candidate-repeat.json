@@ -1,0 +1,32 @@
+{
+  "project": "deeprc",
+  "backend": "candidate",
+  "median_s": 0.008327582996571437,
+  "samples_s": [
+    0.008148083987180144,
+    0.007523999986005947,
+    0.008389750000787899,
+    0.008327582996571437,
+    0.008622916997410357
+  ],
+  "warm_call_s": 0.013033208000706509,
+  "traced_peak_bytes": 133194,
+  "worker_peak_rss_bytes": 354664448,
+  "child_peak_rss_bytes": 1196032,
+  "digest": "4c83bc3a465f6563aa0f35b517eb84a3bdfb32e17b9cb113079cb67ebbfa2719",
+  "info": {
+    "input_sha256": "8f31da53f0096c24419ebd17273ce928feb5d22e871ec716fbecfa582f19f6db",
+    "sequences": 2806,
+    "retained_sequence_bytes": 33328,
+    "repertoires": 100,
+    "scope": "all provided example repertoires, resident get_sample; no training or randomized sampling"
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}

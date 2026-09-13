@@ -1,0 +1,26 @@
+{
+  "DeepRC": {
+    "revision": "108d08d8cf2d2d69eb3f6caef1aa04d624dec871",
+    "url": "https://github.com/ml-jku/DeepRC.git"
+  },
+  "MotifBoost": {
+    "revision": "0fd515b787cd0834c02becefc772bc6059247d5a",
+    "url": "https://github.com/hmirin/MotifBoost.git"
+  },
+  "bionumpy": {
+    "revision": "677326612bca193d48d3e6881441d36bf54081e2",
+    "url": "https://github.com/bionumpy/bionumpy.git"
+  },
+  "compairr": {
+    "revision": "26a3312bc4f3d63534f8b5a680196ded59f9a79b",
+    "url": "https://github.com/uio-bmi/compairr.git"
+  },
+  "immuneML": {
+    "revision": "24d74abb2d30b081f9d6359a688a3e827c983e44",
+    "url": "https://github.com/uio-bmi/immuneML.git"
+  },
+  "scirpy": {
+    "revision": "eb04a91cc2f07bfc38c84f4d3ce6778c6fc2cb27",
+    "url": "https://github.com/scverse/scirpy.git"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "median_s": 0.0029492920148186386,
+  "samples_s": [
+    0.002721457974985242,
+    0.00291295800707303,
+    0.0035770410031545907,
+    0.0029492920148186386,
+    0.2457648749987129,
+    0.003087916993536055,
+    0.002767083002254367
+  ],
+  "scope": "cached compiled inner kernel on captured fixed input; excludes encoding/JIT/CSR assembly",
+  "reference_digest": "41a32ee877ae8f70e9c6e3fb2844b82c9415c7a757853f9f90eca36d233a8ac4"
+}

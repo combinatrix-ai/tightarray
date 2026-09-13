@@ -1,0 +1,31 @@
+{
+  "project": "motifboost",
+  "backend": "baseline",
+  "median_s": 0.009260874998290092,
+  "samples_s": [
+    0.00984858299489133,
+    0.008747458981815726,
+    0.00911070901202038,
+    0.009417166002094746,
+    0.009260874998290092
+  ],
+  "warm_call_s": 1.080845791992033,
+  "traced_peak_bytes": 813936,
+  "worker_peak_rss_bytes": 372768768,
+  "child_peak_rss_bytes": 4521984,
+  "digest": "954dcbb4470d63b49e0059a1e3214550f0ead29d312a196e370c5d012eec719c",
+  "info": {
+    "input_sha256": "2b9de971af9d54631ea84ea515b43f3af586e03dde86f1ef16f5d1ed4ae986a2",
+    "sequences": 1550,
+    "retained_payload_bytes": 26460,
+    "scope": "packed resident repertoire -> weighted normalized trigrams; no classifier training"
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}

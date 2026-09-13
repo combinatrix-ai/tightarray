@@ -1,0 +1,30 @@
+{
+  "project": "compairr",
+  "backend": "baseline",
+  "median_s": 0.009398833004524931,
+  "samples_s": [
+    0.012367582996375859,
+    0.00885383298736997,
+    0.009398833004524931,
+    0.008684458007337525,
+    0.011807125003542751
+  ],
+  "warm_call_s": 0.016081374982604757,
+  "traced_peak_bytes": 51321,
+  "worker_peak_rss_bytes": 41549824,
+  "child_peak_rss_bytes": 2392064,
+  "digest": "9ddd19c9f59e622aaf5c56c1ad00604489a6ca4e02325992d331ef48d6750707",
+  "info": {
+    "input_sha256": "2b9de971af9d54631ea84ea515b43f3af586e03dde86f1ef16f5d1ed4ae986a2",
+    "sequences": 1550,
+    "scope": "exact overlap, ignore genes, count products, eight derived repertoires; CLI launch included for CompAIRR"
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}

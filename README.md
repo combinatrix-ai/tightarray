@@ -138,6 +138,9 @@ See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.
 [C view experiment](docs/cview-performance.md), followed by
 [strided and axis reductions](docs/axis-performance.md), and
 [narrow tile accumulators](docs/tile-performance.md).
+The [bio application pilots](benchmarks/bio/README.md) cover MotifBoost, immuneML,
+BioNumPy, Scirpy, DeepRC and CompAIRR, separating numeric-pipeline gains from
+packing-specific effects.
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.

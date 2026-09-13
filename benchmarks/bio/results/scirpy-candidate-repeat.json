@@ -1,0 +1,29 @@
+{
+  "project": "scirpy",
+  "backend": "candidate",
+  "median_s": 0.0020655420084949583,
+  "samples_s": [
+    0.0021480419964063913,
+    0.0019162920070812106,
+    0.0018895420071203262,
+    0.0020655420084949583,
+    0.0021773330227006227
+  ],
+  "warm_call_s": 0.003387124976143241,
+  "traced_peak_bytes": 341807,
+  "worker_peak_rss_bytes": 328400896,
+  "child_peak_rss_bytes": 1196032,
+  "digest": "41a32ee877ae8f70e9c6e3fb2844b82c9415c7a757853f9f90eca36d233a8ac4",
+  "info": {
+    "input_sha256": "2b9de971af9d54631ea84ea515b43f3af586e03dde86f1ef16f5d1ed4ae986a2",
+    "sequences": 1550
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}

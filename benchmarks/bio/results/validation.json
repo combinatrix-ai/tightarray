@@ -1,0 +1,22 @@
+{
+  "core_tests_passed": 456,
+  "asan_ubsan_tests_passed": 456,
+  "adapter_tests_passed": 3,
+  "array_api_passed": 1385,
+  "array_api_xfailed": 1,
+  "strict_type_checks": "passed",
+  "paired_digests": "match for all six projects and additional ablations/string-input tests",
+  "scirpy_upstream_reference": {
+    "shape": [
+      1550,
+      1550
+    ],
+    "nnz": 2090,
+    "mismatches": 0
+  },
+  "source_archive_contents": "checked",
+  "gitleaks": "no leaks found",
+  "core_commit": "745ce40",
+  "platform": "macOS arm64",
+  "python": "3.12.8"
+}

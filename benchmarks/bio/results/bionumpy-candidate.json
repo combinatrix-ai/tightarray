@@ -1,0 +1,32 @@
+{
+  "project": "bionumpy",
+  "backend": "candidate",
+  "median_s": 0.007892958994489163,
+  "samples_s": [
+    0.007792583986883983,
+    0.007560624973848462,
+    0.008285332995001227,
+    0.008181124983821064,
+    0.007892958994489163
+  ],
+  "warm_call_s": 0.010907875024713576,
+  "traced_peak_bytes": 6964033,
+  "worker_peak_rss_bytes": 60424192,
+  "child_peak_rss_bytes": 0,
+  "digest": "ec1675a697d5b67978f821099a16eb0d609c845308ff0d336d35a4ea01e409eb",
+  "info": {
+    "input_sha256": "a7d428559356b9228d2a32e192ec1d247b8a77c851c6d5d596d5f5934dedb14b",
+    "sequences": 1000,
+    "excluded_reads": 0,
+    "bases": 217598,
+    "k": 21
+  },
+  "versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "bionumpy": "1.0.14",
+    "scirpy": "0.25.1",
+    "torch": "2.14.0",
+    "tightarray": "0.1.0.dev0"
+  }
+}
