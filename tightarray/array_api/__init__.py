@@ -494,10 +494,28 @@ def tanh(x, /):
 
 
 def sum(x, /, *, axis=None, dtype=None, keepdims=False):
-    if x._storage is not None and axis is None and (dtype is None or _np.dtype(dtype) == _np.dtype(uint64)):
-        total = x._storage.data._view_sum(x.shape, x._strides, x._offset)
-        out = _np.asarray(total, dtype=_np.int64 if dtype is None and x.dtype == bool else _np.uint64)
-        if keepdims:
-            out = out.reshape((1,) * x.ndim)
+    if x._storage is not None and (dtype is None or _np.dtype(dtype) == _np.dtype(uint64)):
+        target_dtype = _np.int64 if dtype is None and x.dtype == bool else _np.uint64
+        if axis is None:
+            total = x._storage.data._view_sum(x.shape, x._strides, x._offset)
+            out = _np.asarray(total, dtype=target_dtype)
+            if keepdims:
+                out = out.reshape((1,) * x.ndim)
+        else:
+            axes = axis if isinstance(axis, tuple) else (axis,)
+            normalized = []
+            for a in axes:
+                if isinstance(a, (_builtins.bool, _np.bool_)):
+                    raise TypeError('axis must be an integer')
+                a = _operator.index(a)
+                if not -x.ndim <= a < x.ndim:
+                    raise ValueError('axis out of bounds')
+                a %= x.ndim
+                if a in normalized:
+                    raise ValueError('duplicate axis')
+                normalized.append(a)
+            shape = tuple(1 if keepdims and i in normalized else n for i, n in enumerate(x.shape) if keepdims or i not in normalized)
+            out = _np.empty(shape, dtype=target_dtype)
+            x._storage.data._view_reduce(x.shape, x._strides, x._offset, tuple(normalized), out)
         return _wrap(out)
     return _wrap(_np.sum(_unwrap(x), axis=axis, dtype=dtype, keepdims=keepdims))

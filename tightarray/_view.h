@@ -86,9 +86,17 @@ static uint64_t sum_packed##B(const Array *a,Py_ssize_t offset,Py_ssize_t n) { \
     return total; \
 } \
 static uint64_t sum_strided##B(const Array *a,Py_ssize_t offset,Py_ssize_t stride,Py_ssize_t n) { \
-    uint64_t total=0; size_t pos=offset; \
-    if(a->aligned) for(Py_ssize_t i=0;i<n;i++,pos+=(size_t)stride) total+=a##B(a,pos); \
-    else for(Py_ssize_t i=0;i<n;i++,pos+=(size_t)stride) total+=p##B(a,pos); \
+    uint64_t total=0; size_t pos=offset; Py_ssize_t i=0; \
+    if(stride>1 && stride<=(64/(B)-1)/3 && n>=32) { \
+        unsigned take=1+(64/(B)-1)/(unsigned)stride, span=(take-1)*(unsigned)stride+1; \
+        uint64_t mask=0; for(unsigned j=0;j<take;j++) mask|=((1ull<<(B))-1)<<(j*stride*(B)); \
+        for(;n-i>=take;i+=take,pos+=take*(size_t)stride) { \
+            uint64_t x=group(a,pos,B,span)&mask; \
+            total+=(B)==1?(uint64_t)__builtin_popcountll(x):sum_word##B(x); \
+        } \
+    } \
+    if(a->aligned) for(;i<n;i++,pos+=(size_t)stride) total+=a##B(a,pos); \
+    else for(;i<n;i++,pos+=(size_t)stride) total+=p##B(a,pos); \
     return total; \
 }
 SUM_KERNEL(1) SUM_KERNEL(2) SUM_KERNEL(3) SUM_KERNEL(4)
@@ -96,6 +104,45 @@ SUM_KERNEL(5) SUM_KERNEL(6) SUM_KERNEL(7) SUM_KERNEL(8)
 #undef SUM_KERNEL
 static uint64_t (*packed_sums[8])(const Array *,Py_ssize_t,Py_ssize_t)={sum_packed1,sum_packed2,sum_packed3,sum_packed4,sum_packed5,sum_packed6,sum_packed7,sum_packed8};
 static uint64_t (*strided_sums[8])(const Array *,Py_ssize_t,Py_ssize_t,Py_ssize_t)={sum_strided1,sum_strided2,sum_strided3,sum_strided4,sum_strided5,sum_strided6,sum_strided7,sum_strided8};
+
+/* Small fixed strides over byte-aligned packed groups. */
+#define SPARSE_BYTES(B,S) \
+static uint64_t sum_bytes##B##_##S(const Array *a,Py_ssize_t offset,Py_ssize_t n) { \
+    uint64_t masks[S]={0},total=0; \
+    for(unsigned j=0;j<(S);j++) for(unsigned k=0;k<8;k++) if((j*8+k)%(S)==0) masks[j]|=((1ull<<(B))-1)<<(k*(B)); \
+    Py_ssize_t i=0; const uint8_t *src=(const uint8_t *)a->data+(a->start+offset)*(B)/8; \
+    for(;n-i>=32;i+=8,src+=(S)*(B)) { \
+        for(unsigned j=0;j<(S);j++) { uint64_t x; memcpy(&x,src+j*(B),8); total+=sum_word##B(x&masks[j]); } \
+    } \
+    for(;i<n;i++) total+=p##B(a,offset+i*(S)); \
+    return total; \
+}
+#define SPARSE_WIDTH(B) SPARSE_BYTES(B,2) SPARSE_BYTES(B,3) SPARSE_BYTES(B,4)
+SPARSE_WIDTH(3) SPARSE_WIDTH(4) SPARSE_WIDTH(5) SPARSE_WIDTH(6) SPARSE_WIDTH(7) SPARSE_WIDTH(8)
+#undef SPARSE_WIDTH
+#undef SPARSE_BYTES
+static uint64_t (*byte_sums[6][3])(const Array *,Py_ssize_t,Py_ssize_t)={
+ {sum_bytes3_2,sum_bytes3_3,sum_bytes3_4},{sum_bytes4_2,sum_bytes4_3,sum_bytes4_4},
+ {sum_bytes5_2,sum_bytes5_3,sum_bytes5_4},{sum_bytes6_2,sum_bytes6_3,sum_bytes6_4},
+ {sum_bytes7_2,sum_bytes7_3,sum_bytes7_4},{sum_bytes8_2,sum_bytes8_3,sum_bytes8_4}};
+
+#define SPARSE_ALIGNED(B,S) \
+static uint64_t sum_aligned##B##_##S(const Array *a,Py_ssize_t offset,Py_ssize_t n) { \
+    const unsigned lanes=64/(B); uint64_t masks[S]={0},total=0; \
+    for(unsigned j=0;j<(S);j++) for(unsigned k=0;k<lanes;k++) if((j*lanes+k)%(S)==0) masks[j]|=((1ull<<(B))-1)<<(k*(B)); \
+    Py_ssize_t i=0; const uint64_t *src=a->data+(a->start+offset)/lanes; \
+    for(;n-i>=lanes;i+=lanes,src+=(S)) for(unsigned j=0;j<(S);j++) total+=sum_word##B(src[j]&masks[j]); \
+    for(;i<n;i++) total+=a##B(a,offset+i*(S)); \
+    return total; \
+}
+#define ALIGNED_WIDTH(B) SPARSE_ALIGNED(B,2) SPARSE_ALIGNED(B,3) SPARSE_ALIGNED(B,4)
+ALIGNED_WIDTH(3) ALIGNED_WIDTH(5) ALIGNED_WIDTH(6) ALIGNED_WIDTH(7)
+#undef ALIGNED_WIDTH
+#undef SPARSE_ALIGNED
+static uint64_t (*aligned_sparse[8][3])(const Array *,Py_ssize_t,Py_ssize_t)={
+ {NULL,NULL,NULL},{NULL,NULL,NULL},{sum_aligned3_2,sum_aligned3_3,sum_aligned3_4},{NULL,NULL,NULL},
+ {sum_aligned5_2,sum_aligned5_3,sum_aligned5_4},{sum_aligned6_2,sum_aligned6_3,sum_aligned6_4},
+ {sum_aligned7_2,sum_aligned7_3,sum_aligned7_4},{NULL,NULL,NULL}};
 
 static uint64_t sum_range(const Array *a,Py_ssize_t offset,Py_ssize_t n) {
     uint64_t total=0;
@@ -111,6 +158,18 @@ static uint64_t sum_range(const Array *a,Py_ssize_t offset,Py_ssize_t n) {
 #endif
     for(;i<n;i++) total+=values[i];
     return total;
+}
+
+static uint64_t sum_stride_range(const Array *a,Py_ssize_t offset,Py_ssize_t stride,Py_ssize_t n) {
+    if(!n) return 0;
+    if(n==1) return a->read(a,offset);
+    if(!stride) return (uint64_t)n*a->read(a,offset);
+    if(stride<0) { offset=(Py_ssize_t)((__int128)offset+(n-1)*(__int128)stride); stride=-stride; }
+    if(a->aligned && stride>=2 && stride<=4 && n>=128 && aligned_sparse[a->bits-1][stride-2] && (a->start+offset)%(64/a->bits)==0)
+        return aligned_sparse[a->bits-1][stride-2](a,offset,n);
+    if(a->bits>=3 && stride>=2 && stride<=4 && n>=128 && (!a->aligned || 64%a->bits==0) && (a->start+offset)%8==0)
+        return byte_sums[a->bits-3][stride-2](a,offset,n);
+    return stride==1?sum_range(a,offset,n):strided_sums[a->bits-1](a,offset,stride,n);
 }
 
 static PyObject *array_sum(Array *a,PyObject *unused) {
@@ -130,14 +189,14 @@ static PyObject *array_view_sum(Array *a,PyObject *args) {
     if(!PyArg_ParseTuple(args,"OOn",&shape,&strides,&offset) || parse_view(a,shape,strides,offset,&v)<0) return NULL;
     uint64_t total=0;
     if(v.size && v.contiguous) total=sum_range(a,v.offset,v.size);
-    else if(v.size && v.ndim==1) total=strided_sums[a->bits-1](a,v.offset,v.stride[0],v.size);
+    else if(v.size && v.ndim==1) total=sum_stride_range(a,v.offset,v.stride[0],v.size);
     else if(v.size) {
         /* Walk outer dimensions once per inner run, not once per element. */
         Py_ssize_t d=v.ndim-1, length=v.shape[d], stride=v.stride[d];
         while(d>0 && v.stride[d-1]==(__int128)stride*length) length*=v.shape[--d];
         for(Py_ssize_t i=0;i<v.size;i+=length) {
             Py_ssize_t pos=view_position(&v,i);
-            total+=stride==1?sum_range(a,pos,length):strided_sums[a->bits-1](a,pos,stride,length);
+            total+=stride==1?sum_range(a,pos,length):sum_stride_range(a,pos,stride,length);
         }
     }
     return PyLong_FromUnsignedLongLong(total);
