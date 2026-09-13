@@ -222,3 +222,38 @@ def test_flat_ragged_and_invalid_native_shapes():
     for args in [(Array([]), -1, 0), (Array([]), 1, -1), (Array([]), 1 << 62, 8), (Array([]), 0, 0, [0, 0])]:
         with pytest.raises((ValueError, OverflowError)):
             _Rows(*args)
+
+
+def test_native_gather_buffers(spec):
+    rng = random.Random(881)
+    values = [rng.randrange(1 << spec['bits']) for _ in range(301)]
+    a = Array(values, **spec)[3:299]
+    values = values[3:299]
+    for n in [0, 1, 7, 8, 9, 64, 257]:
+        idx = np.array([rng.randrange(-len(a), len(a)) for _ in range(n)], dtype=np.intp)
+        assert a.gather(idx).tolist() == [values[i] for i in idx]
+        raw = bytearray(1 + idx.nbytes)
+        unaligned = np.ndarray(idx.shape, dtype=np.intp, buffer=raw, offset=1)
+        unaligned[:] = idx
+        assert a.gather(unaligned).tolist() == [values[i] for i in idx]
+        assert a.gather(idx[::-1]).tolist() == [values[i] for i in idx[::-1]]
+    for idx in [len(a), -len(a)-1, np.iinfo(np.intp).min, np.iinfo(np.intp).max]:
+        with pytest.raises(IndexError):
+            a.gather(np.array([0, idx], dtype=np.intp))
+
+
+def test_simd_pack_validation_and_copy_edges(spec):
+    bits = spec['bits']
+    for n in range(145):
+        values = bytes(i % (1 << bits) for i in range(n))
+        a = Array(values, **spec)
+        assert a.tobytes() == values
+        for start in [0, 1, 7, 9, 13, 63]:
+            assert a[start:].copy().tobytes() == values[start:]
+        if bits < 8:
+            for at in {0, n // 2, n - 1}:
+                if at >= 0 and n:
+                    bad = bytearray(values)
+                    bad[at] = 1 << bits
+                    with pytest.raises(ValueError):
+                        Array(bad, **spec)

@@ -2,6 +2,9 @@
 #include <Python.h>
 #include <stdint.h>
 #include <string.h>
+#if defined(__aarch64__) && !defined(TIGHTARRAY_NO_NEON)
+#include <arm_neon.h>
+#endif
 #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ != __ORDER_LITTLE_ENDIAN__
 #error "tightarray currently requires a little-endian target"
 #endif
@@ -119,17 +122,78 @@ static int pack##B(Array *a,const uint8_t *src) { \
     } return 0; \
 }
 PACK(1) PACK(2) PACK(3) PACK(4) PACK(5) PACK(6) PACK(7) PACK(8)
-static int (*packers[8])(Array *,const uint8_t *)={pack1,pack2,pack3,pack4,pack5,pack6,pack7,pack8};
+static int (*packers[8])(Array *,const uint8_t *) __attribute__((unused))={pack1,pack2,pack3,pack4,pack5,pack6,pack7,pack8};
+
+#if defined(__aarch64__) && !defined(TIGHTARRAY_NO_NEON)
+/* Eight byte lanes become B bytes; all shifts are compile-time constants. */
+#define SIMD_PACK(B) \
+static inline uint64_t compress##B(uint8x8_t v) { \
+    if((B)<=4 && 8%(B)==0) { \
+        const int8_t shifts[8]={0,(B)%8,(2*(B))%8,(3*(B))%8,(4*(B))%8,(5*(B))%8,(6*(B))%8,(7*(B))%8}; \
+        v=vshl_u8(v,vld1_s8(shifts)); \
+        if((B)<=4) v=vpadd_u8(v,v); \
+        if((B)<=2) v=vpadd_u8(v,v); \
+        if((B)==1) v=vpadd_u8(v,v); \
+        return vget_lane_u64(vreinterpret_u64_u8(v),0)&(UINT64_MAX>>(64-8*(B))); \
+    } \
+    uint16x8_t h=vmovl_u8(v); \
+    const int32_t shifts[4]={0,(B),2*(B),3*(B)}; int32x4_t shift=vld1q_s32(shifts); \
+    uint64_t lo=vaddvq_u32(vshlq_u32(vmovl_u16(vget_low_u16(h)),shift)); \
+    uint64_t hi=vaddvq_u32(vshlq_u32(vmovl_u16(vget_high_u16(h)),shift)); \
+    return lo|(hi<<(4*(B))); \
+} \
+static int simdpack##B(Array *a,const uint8_t *src) { \
+    const unsigned lanes=64/(B); Py_ssize_t i=0; uint8x8_t invalid=vdup_n_u8(0); unsigned tail_invalid=0; \
+    if(!a->aligned || 64%(B)==0) { \
+        if((B)==1 || (B)==2 || (B)==4) { \
+            const int8_t shifts[16]={0,(B)%8,(2*(B))%8,(3*(B))%8,(4*(B))%8,(5*(B))%8,(6*(B))%8,(7*(B))%8,0,(B)%8,(2*(B))%8,(3*(B))%8,(4*(B))%8,(5*(B))%8,(6*(B))%8,(7*(B))%8}; \
+            for(;a->length-i>=16;i+=16) { \
+                uint8x16_t v=vld1q_u8(src+i); invalid=vorr_u8(invalid,vorr_u8(vget_low_u8(v),vget_high_u8(v))); \
+                v=vshlq_u8(v,vld1q_s8(shifts)); v=vpaddq_u8(v,v); \
+                if((B)<=2) v=vpaddq_u8(v,v); if((B)==1) v=vpaddq_u8(v,v); \
+                uint64_t x=vgetq_lane_u64(vreinterpretq_u64_u8(v),0); \
+                memcpy((uint8_t *)a->data+(size_t)i*(B)/8,&x,2*(B)); \
+            } \
+        } \
+        for(;a->length-i>=8;i+=8) { \
+            uint8x8_t v=vld1_u8(src+i); invalid=vorr_u8(invalid,v); uint64_t x=compress##B(v); \
+            memcpy((uint8_t *)a->data+(size_t)i*(B)/8,&x,(B)); \
+        } \
+    } else { \
+        for(;a->length-i>=lanes;i+=lanes) { \
+            uint8x8_t v=vld1_u8(src+i); invalid=vorr_u8(invalid,v); uint64_t x=compress##B(v); \
+            unsigned j=8; \
+            for(;j+8<=lanes;j+=8) { v=vld1_u8(src+i+j); invalid=vorr_u8(invalid,v); x|=compress##B(v)<<(j*(B)); } \
+            for(;j<lanes;j++) { tail_invalid|=src[i+j]; x|=(uint64_t)src[i+j]<<(j*(B)); } \
+            a->data[i/lanes]=x; \
+        } \
+    } \
+    if(i<a->length) { \
+        size_t byte=a->aligned && 64%(B)!=0?(size_t)(i/lanes)*8:(size_t)i*(B)/8; \
+        memset((uint8_t *)a->data+byte,0,a->words*8-byte); \
+    } \
+    for(;i<a->length;i++) { \
+        tail_invalid|=src[i]; size_t pos=a->aligned?(size_t)(i/lanes)*64+(i%lanes)*(B):(size_t)i*(B); \
+        unsigned shift=pos&63; a->data[pos>>6]|=(uint64_t)src[i]<<shift; \
+        if(shift+(B)>64) a->data[(pos>>6)+1]|=(uint64_t)src[i]>>(64-shift); \
+    } \
+    return ((vmaxv_u8(invalid)|tail_invalid)>>(B))?-1:0; \
+}
+SIMD_PACK(1) SIMD_PACK(2) SIMD_PACK(3) SIMD_PACK(4) SIMD_PACK(5) SIMD_PACK(6) SIMD_PACK(7)
+static int (*simdpackers[7])(Array *,const uint8_t *)={simdpack1,simdpack2,simdpack3,simdpack4,simdpack5,simdpack6,simdpack7};
+#endif
 
 /* Short needles: reject whole words by their first symbol before full matching. */
 #define FIND(B) \
 static Py_ssize_t find##B(const Array *a,const uint8_t *p,unsigned n) { \
-    const unsigned lanes=64/(B); uint64_t low=0,high=0,rep=0,needle=0; \
+    const unsigned lanes=64/(B); uint64_t low=0,high=0,rep=0,second=0,needle=0; \
     for(unsigned j=0;j<lanes;j++) { low|=((1ull<<((B)-1))-1)<<(j*(B)); high|=1ull<<(j*(B)+(B)-1); rep|=(uint64_t)p[0]<<(j*(B)); } \
+    if(n>1) for(unsigned j=0;j<lanes;j++) second|=(uint64_t)p[1]<<(j*(B)); \
     for(unsigned j=0;j<n;j++) { if(p[j]>>(B)) return -1; needle|=(uint64_t)p[j]<<(j*(B)); } \
     uint64_t mask=n*(B)==64?UINT64_MAX:(1ull<<(n*(B)))-1; Py_ssize_t i=0,last=a->length-n; \
     for(;a->length-i>=lanes && i<=last;i+=lanes) { \
-        uint64_t x=group(a,i,B,lanes)^rep; uint64_t candidates=~(((x&low)+low)|x|low)&high; \
+        uint64_t raw=group(a,i,B,lanes), x=raw^rep; uint64_t candidates=~(((x&low)+low)|x|low)&high; \
+        if(n>1) { uint64_t y=raw^second; candidates&=((~(((y&low)+low)|y|low)&high)>>(B))|(1ull<<(lanes*(B)-1)); } \
         while(candidates) { unsigned j=__builtin_ctzll(candidates)/(B); Py_ssize_t at=i+j; \
             if(at>last) return -1; \
             if((group(a,at,B,n)&mask)==needle) return at; candidates&=candidates-1; } \
@@ -150,7 +214,7 @@ static void put(Array *a, size_t i, uint8_t value) {
         a->data[w+1]=(a->data[w+1] & ~((1ull<<spill)-1)) | ((uint64_t)value>>(64-s));
     }
 }
-static Array *allocate(Py_ssize_t n, unsigned bits, unsigned aligned) {
+static Array *allocate_storage(Py_ssize_t n, unsigned bits, unsigned aligned,int zero) {
     if (n<0 || (size_t)n > (SIZE_MAX-63)/bits) { PyErr_NoMemory(); return NULL; }
     size_t words=aligned ? (size_t)n/(64/bits)+((size_t)n%(64/bits)!=0) : ((size_t)n*bits+63)/64;
     if (words > (size_t)PY_SSIZE_T_MAX/8) { PyErr_NoMemory(); return NULL; }
@@ -158,9 +222,13 @@ static Array *allocate(Py_ssize_t n, unsigned bits, unsigned aligned) {
     if (!a) return NULL;
     a->data=NULL; a->owner=NULL; a->start=0; a->length=n;
     a->bits=bits; a->aligned=aligned; a->words=words; a->read=readers[aligned][bits-1];
-    a->data=PyMem_Calloc(words ? words : 1,8);
+    a->data=zero?PyMem_Calloc(words ? words : 1,8):PyMem_Malloc((words?words:1)*8);
     if (!a->data) { Py_DECREF(a); PyErr_NoMemory(); return NULL; }
+    if(!zero) a->data[words?words-1:0]=0;
     return a;
+}
+static Array *allocate(Py_ssize_t n,unsigned bits,unsigned aligned) {
+    return allocate_storage(n,bits,aligned,1);
 }
 static int value_of(PyObject *obj, unsigned bits, uint8_t *out) {
     PyObject *idx=PyNumber_Index(obj);
@@ -182,10 +250,22 @@ static PyObject *array_new(PyTypeObject *type, PyObject *args, PyObject *kwargs)
     Py_buffer buf;
     if (PyObject_CheckBuffer(values) && PyObject_GetBuffer(values,&buf,PyBUF_FORMAT|PyBUF_ND)==0) {
         if (buf.ndim==1 && buf.itemsize==1 && buf.format && !strcmp(buf.format,"B")) {
-            Array *a=allocate(buf.len,bits,aligned);
+            Array *a=allocate_storage(buf.len,bits,aligned,
+#if defined(__aarch64__) && !defined(TIGHTARRAY_NO_NEON)
+                0
+#else
+                bits!=8
+#endif
+            );
             if (a) {
                 if(bits==8) memcpy(a->data,buf.buf,buf.len);
-                else if(packers[bits-1](a,buf.buf)<0) {
+                else if(
+#if defined(__aarch64__) && !defined(TIGHTARRAY_NO_NEON)
+                    simdpackers[bits-1](a,buf.buf)<0
+#else
+                    packers[bits-1](a,buf.buf)<0
+#endif
+                ) {
                     PyErr_SetString(PyExc_ValueError,"value outside bit width"); Py_DECREF(a); a=NULL;
                 }
             }
@@ -272,8 +352,23 @@ static PyObject *array_list(Array *a, PyObject *unused) {
     }
     return out;
 }
+static void copy_shifted(uint64_t *dst,const uint64_t *src,size_t full,unsigned right,unsigned left,uint64_t mask) {
+    size_t j=0;
+#if defined(__aarch64__) && !defined(TIGHTARRAY_NO_NEON)
+    int64x2_t r=vdupq_n_s64(-(int64_t)right), l=vdupq_n_s64(left);
+    uint64x2_t m=vdupq_n_u64(mask);
+    for(;full-j>=4;j+=4) {
+        uint64x2_t a=vld1q_u64(src+j), b=vld1q_u64(src+j+1);
+        uint64x2_t c=vld1q_u64(src+j+2), d=vld1q_u64(src+j+3);
+        vst1q_u64(dst+j,vandq_u64(vorrq_u64(vshlq_u64(a,r),vshlq_u64(b,l)),m));
+        vst1q_u64(dst+j+2,vandq_u64(vorrq_u64(vshlq_u64(c,r),vshlq_u64(d,l)),m));
+    }
+#endif
+    for(;j<full;j++) dst[j]=((src[j]>>right)|(src[j+1]<<left))&mask;
+}
+
 static PyObject *array_copy(Array *a, PyObject *unused) {
-    Array *out=allocate(a->length,a->bits,a->aligned);
+    Array *out=allocate_storage(a->length,a->bits,a->aligned,0);
     if (!out) return NULL;
     if(!a->aligned) {
         size_t pos=a->start*a->bits, w=pos>>6; unsigned s=pos&63;
@@ -282,12 +377,15 @@ static PyObject *array_copy(Array *a, PyObject *unused) {
             memcpy(out->data,a->data+w,out->words*8);
             unsigned tail=remaining&63;
             if(tail) out->data[out->words-1]&=(1ull<<tail)-1;
-        } else for(size_t j=0;j<out->words;j++) {
-            unsigned take=remaining>=64?64:(unsigned)remaining;
-            uint64_t x=a->data[w+j]>>s;
-            if(s+take>64) x|=a->data[w+j+1]<<(64-s);
-            out->data[j]=take==64?x:x&((1ull<<take)-1);
-            remaining-=take;
+        } else if(out->words) {
+            size_t full=remaining/64;
+            copy_shifted(out->data,a->data+w,full,s,64-s,UINT64_MAX);
+            unsigned tail=remaining&63;
+            if(tail) {
+                uint64_t x=a->data[w+full]>>s;
+                if(s+tail>64) x|=a->data[w+full+1]<<(64-s);
+                out->data[full]=x&((1ull<<tail)-1);
+            }
         }
     } else {
         unsigned lanes=64/a->bits; Py_ssize_t i=0;
@@ -296,12 +394,62 @@ static PyObject *array_copy(Array *a, PyObject *unused) {
             size_t full=(size_t)a->length/lanes;
             memcpy(out->data,a->data+a->start/lanes,full*8);
             i=full*lanes;
-        } else for(;a->length-i>=lanes;i+=lanes) out->data[i/lanes]=group(a,i,a->bits,lanes)&mask;
+        } else {
+            size_t full=(size_t)a->length/lanes, w=a->start/lanes;
+            unsigned shift=(a->start%lanes)*a->bits, rest=lanes*a->bits-shift;
+            copy_shifted(out->data,a->data+w,full,shift,rest,mask);
+            i=full*lanes;
+        }
         for(;i<a->length;i++) put(out,i,a->read(a,i));
     }
     return (PyObject *)out;
 }
+/* Native signed-index buffers avoid creating Python integers for every index.
+ * memcpy also handles exporters whose data pointer is not naturally aligned. */
+#define GATHER_VALUE(B, K) \
+    Py_ssize_t at; memcpy(&at,indices+(j+(K))*sizeof(at),sizeof(at)); \
+    if(at<0) at+=a->length; \
+    if(at<0 || at>=a->length) { PyErr_SetString(PyExc_IndexError,"array index out of range"); return -1; } \
+    x|=(uint64_t)(a->aligned?a##B(a,at):p##B(a,at))<<((K)*(B));
+#define GATHER(B) \
+static int gather##B(Array *out,const Array *a,const char *indices) { \
+    const unsigned lanes=64/(B); Py_ssize_t j=0; \
+    if(!out->aligned) { \
+        for(;out->length-j>=8;j+=8) { \
+            uint64_t x=0; \
+            { GATHER_VALUE(B,0) } { GATHER_VALUE(B,1) } { GATHER_VALUE(B,2) } { GATHER_VALUE(B,3) } \
+            { GATHER_VALUE(B,4) } { GATHER_VALUE(B,5) } { GATHER_VALUE(B,6) } { GATHER_VALUE(B,7) } \
+            memcpy((uint8_t *)out->data+(size_t)j*(B)/8,&x,(B)); \
+        } \
+    } else { \
+        for(;out->length-j>=lanes;j+=lanes) { \
+            uint64_t x=0; \
+            _Pragma("clang loop unroll(full)") \
+            for(unsigned k=0;k<lanes;k++) { GATHER_VALUE(B,k) } \
+            out->data[j/lanes]=x; \
+        } \
+    } \
+    if(j<out->length) { size_t byte=out->aligned?(size_t)(j/lanes)*8:(size_t)j*(B)/8; \
+        memset((uint8_t *)out->data+byte,0,out->words*8-byte); } \
+    for(;j<out->length;j++) { uint64_t x=0; { GATHER_VALUE(B,0) } put(out,j,(uint8_t)x); } \
+    return 0; \
+}
+GATHER(1) GATHER(2) GATHER(3) GATHER(4) GATHER(5) GATHER(6) GATHER(7) GATHER(8)
+static int (*gatherers[8])(Array *,const Array *,const char *)={gather1,gather2,gather3,gather4,gather5,gather6,gather7,gather8};
+
 static PyObject *array_gather(Array *a, PyObject *indices) {
+    Py_buffer buf;
+    if(PyObject_CheckBuffer(indices) && PyObject_GetBuffer(indices,&buf,PyBUF_FORMAT|PyBUF_ND)==0) {
+        const char *f=buf.format;
+        if(f && *f=='@') f++;
+        if(buf.ndim==1 && buf.itemsize==sizeof(Py_ssize_t) && f &&
+           (!strcmp(f,"n") || !strcmp(f,"l") || !strcmp(f,"q"))) {
+            Array *out=allocate_storage(buf.len/buf.itemsize,a->bits,a->aligned,0);
+            if(out && gatherers[a->bits-1](out,a,buf.buf)<0) { Py_DECREF(out); out=NULL; }
+            PyBuffer_Release(&buf); return (PyObject *)out;
+        }
+        PyBuffer_Release(&buf);
+    } else if(PyErr_Occurred()) PyErr_Clear();
     PyObject *seq=PySequence_Tuple(indices);
     if (!seq) return NULL;
     Py_ssize_t n=PySequence_Fast_GET_SIZE(seq);

@@ -89,6 +89,7 @@ def run_1d(bits, n):
             operations["slice-view"] = lambda d=data: d[lo:hi]
             operations["slice-copy"] = lambda d=data: d[lo:hi].copy()
             operations["gather"] = lambda d=data: d[npindices]
+            operations["gather-list"] = lambda d=data: d[indices]
             operations["equal"] = lambda d=data, o=other: np.array_equal(d, o)
             operations["count"] = lambda d=data: np.count_nonzero(d == value)
             operations["iterate-sum"] = lambda d=data: sum(map(int, d))
@@ -96,7 +97,8 @@ def run_1d(bits, n):
         else:
             operations["slice-view"] = lambda d=data: d[lo:hi]
             operations["slice-copy"] = lambda d=data: d[lo:hi].copy()
-            operations["gather"] = lambda d=data: d.gather(indices)
+            operations["gather"] = lambda d=data: d.gather(npindices)
+            operations["gather-list"] = lambda d=data: d.gather(indices)
             operations["find"] = lambda d=data: d.find(needle)
         if name not in ("python-bytes", "python-str"):
             def setter(d=data):
@@ -110,9 +112,9 @@ def run_1d(bits, n):
             result = fn()
             if method in expected:
                 assert result == expected[method], (name, method, result, expected[method])
-            elif method in ("construct", "slice-copy", "slice-view", "gather"):
+            elif method in ("construct", "slice-copy", "slice-view", "gather", "gather-list"):
                 actual = list(map(ord, result)) if isinstance(result, str) else list(result)
-                ref = list(src) if method == "construct" else [src[i] for i in indices] if method == "gather" else list(src[lo:hi])
+                ref = list(src) if method == "construct" else [src[i] for i in indices] if method in ("gather", "gather-list") else list(src[lo:hi])
                 assert actual == ref
             yield dict(structure="1d", bits=bits, elements=n, implementation=name,
                        method=method, dataset_retained_bytes=deep_size(data)), fn
@@ -202,6 +204,7 @@ def main():
                 load_before=os.getloadavg(), seed="deterministic per case",
                 peak_method="tracemalloc: includes PyMem and NumPy-tracked buffers; excludes untracked system allocations",
                 timing="median of adaptive batches; GC disabled during timing; no CPU affinity",
+                gather_baseline="gather uses prepared native intp buffers for NumPy and tightarray; gather-list uses Python lists for both",
                 find_baseline="Python list and NumPy include conversion to bytes; bytes/str use native find",
                 source_sha256={p: hashlib.sha256(Path(__file__).parents[1].joinpath(p).read_bytes()).hexdigest()
                                for p in ("tightarray/_core.c", "tightarray/_rows.h", "tightarray/__init__.py", "setup.py", "benchmarks/run.py")})

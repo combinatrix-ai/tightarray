@@ -19,8 +19,9 @@ Requires CPython 3.10+ and a C compiler. The tested targets are ARM64 macOS with
 CPython 3.12 and 3.14. Builds on ARM64 macOS use `-O3 -mcpu=apple-m1`.
 Other little-endian targets have portable C kernels but are not yet validated.
 Free-threaded execution and subinterpreters are not supported; operations retain
-the GIL. No NEON intrinsics are required: constant-width kernels allow clang to
-optimize the loops, alongside word-level operations and libc copying/comparison.
+the GIL. ARM64 kernels use NEON for packing and shifted copying, alongside
+constant-width word operations and libc copying/comparison. Defining
+`TIGHTARRAY_NO_NEON` selects the portable C packing/copy fallback.
 
 ## Use
 
@@ -66,7 +67,8 @@ widths/layouts. Matrix/ragged equality includes shape or row boundaries.
 
 `find()` returns the first subsequence position or -1; an empty needle returns 0.
 `count()` counts values across all rows for matrix/ragged containers. Out-of-range
-integers have count zero. Row-wise find/count can use a row view. The raw packed
+integers have count zero. `gather` accepts native contiguous signed-index buffers
+(such as NumPy `intp`) without constructing Python integers, as well as iterables. Row-wise find/count can use a row view. The raw packed
 buffer is intentionally not exposed as a misleading NumPy uint8 array;
 `tobytes()` and `tolist()` explicitly unpack values.
 
