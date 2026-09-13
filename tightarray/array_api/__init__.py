@@ -108,11 +108,8 @@ class Array:
     def _unpack(self):
         if self._storage is None:
             return self._numpy
-        raw = self._storage.data.tobytes()
-        # Empty views may have a sentinel offset beyond the end of the buffer.
-        offset = self._offset if self.size else 0
-        return _np.ndarray(self.shape, dtype=self.dtype, buffer=raw, offset=offset,
-                           strides=self._strides)
+        raw = self._storage.data._view_bytes(self.shape, self._strides, self._offset)
+        return _np.frombuffer(raw, dtype=self.dtype).reshape(self.shape)
 
     def __array__(self, dtype=None, copy=None):
         if copy is False and (self._storage is not None or (dtype is not None and _np.dtype(dtype) != self.dtype)):
@@ -152,7 +149,9 @@ class Array:
     def _scalar(self, convert):
         if self.ndim:
             raise TypeError('scalar conversion requires a zero-dimensional array')
-        return convert(self._unpack())
+        if self._storage is not None:
+            return convert(self.dtype.type(self._storage.data[self._offset]))
+        return convert(self._numpy)
 
     def __bool__(self):
         return self._scalar(_builtins.bool)
@@ -175,6 +174,11 @@ class Array:
     def __getitem__(self, key):
         if self._storage is None:
             return _wrap(self._numpy[_unwrap(key)])
+        if self.ndim == 1 and isinstance(key, (_builtins.int, _np.integer)) and not isinstance(key, (_builtins.bool, _np.bool_)):
+            i = _operator.index(key)
+            if i < 0: i += self.shape[0]
+            if not 0 <= i < self.shape[0]: raise IndexError('index out of bounds')
+            return self._view((), (), self._offset + i * self._strides[0])
         keys = key if isinstance(key, tuple) else (key,)
         basic = _builtins.all(k is None or k is Ellipsis or isinstance(k, (slice, _builtins.int, _np.integer)) and not isinstance(k, (_builtins.bool, _np.bool_)) for k in keys)
         if not basic:
@@ -214,16 +218,27 @@ class Array:
         if self._storage is None:
             self._numpy[_unwrap(key)] = _unwrap(value)
             return
-        a = self._unpack().copy()
-        a[_unwrap(key)] = _unwrap(value)
-        # Widen the shared root, so all existing views see later assignments.
-        needed = 1 if self.dtype == bool or not a.size else _builtins.max(1, _builtins.int(a.max()).bit_length())
+        target = self[key]
+        if target._storage is self._storage:
+            # Snapshot and cast before writing: overlapping views have NumPy semantics.
+            values = _np.empty(target.shape, dtype=self.dtype)
+            values[...] = _unwrap(value)
+            target._assign_values(values)
+        else:
+            # Advanced indexing fallback; shared basic views take the direct path.
+            values = self._unpack().copy()
+            values[_unwrap(key)] = _unwrap(value)
+            self._assign_values(values)
+
+    def _assign_values(self, values):
+        needed = 1 if self.dtype == bool or not values.size else _builtins.max(1, _builtins.int(values.max()).bit_length())
         if needed > self._storage.data.bits:
             old = self._storage.data
             self._storage.data = _NativeArray(old.tobytes(), bits=needed, layout=old.layout)
-        for idx in _np.ndindex(self.shape):
-            pos = self._offset + _builtins.sum(i * s for i, s in zip(idx, self._strides))
-            self._storage.data[pos] = _builtins.int(a[idx])
+        if not self.ndim:
+            self._storage.data[self._offset] = _builtins.int(values)
+        else:
+            self._storage.data._view_assign(self.shape, self._strides, self._offset, values.tobytes())
 
 
 def _device(device):
@@ -493,3 +508,13 @@ def expm1(x, /):
 
 def tanh(x, /):
     return _complex_special('tanh', x)
+
+
+def sum(x, /, *, axis=None, dtype=None, keepdims=False):
+    if x._storage is not None and axis is None and (dtype is None or _np.dtype(dtype) == _np.dtype(uint64)):
+        total = x._storage.data._view_sum(x.shape, x._strides, x._offset)
+        out = _np.asarray(total, dtype=_np.int64 if dtype is None and x.dtype == bool else _np.uint64)
+        if keepdims:
+            out = out.reshape((1,) * x.ndim)
+        return _wrap(out)
+    return _wrap(_np.sum(_unwrap(x), axis=axis, dtype=dtype, keepdims=keepdims))

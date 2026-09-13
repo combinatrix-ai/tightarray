@@ -548,8 +548,13 @@ static PyObject *get_bits(Array *a, void *c) { return PyLong_FromLong(a->bits); 
 static PyObject *get_layout(Array *a, void *c) { return PyUnicode_FromString(a->aligned?"word-aligned":"packed"); }
 static PyObject *get_nbytes(Array *a, void *c) { return PyLong_FromSize_t(a->owner?0:(a->words?a->words:1)*8); }
 static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:Py_None; Py_INCREF(base); return base; }
+#include "_view.h"
 #include "_numpy.h"
 static PyMethodDef methods[]={
+    {"sum",(PyCFunction)array_sum,METH_NOARGS,"Sum values with a bounded-memory native reduction."},
+    {"_view_bytes",(PyCFunction)array_view_bytes,METH_VARARGS,NULL},
+    {"_view_sum",(PyCFunction)array_view_sum,METH_VARARGS,NULL},
+    {"_view_assign",(PyCFunction)array_view_assign,METH_VARARGS,NULL},
     {"equals",(PyCFunction)array_equals,METH_O,"Whole-array value equality without unpacking."},
     {"__array__",(PyCFunction)(void (*)(void))array_numpy,METH_VARARGS|METH_KEYWORDS,"Unpack to a NumPy array."},
     {"__array_ufunc__",(PyCFunction)(void (*)(void))array_ufunc,METH_VARARGS|METH_KEYWORDS,NULL},
