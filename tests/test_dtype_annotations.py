@@ -33,3 +33,22 @@ def test_dtype_preserving_operations(dtype):
     for result in [x[0], x[:], xp.reshape(x, (1, 2)).T,
                    xp.permute_dims(x, (0,)), xp.zeros_like(x), xp.asarray(x)]:
         assert result.dtype == np.dtype(dtype)
+
+
+def test_bounded_unknown_scalar_alias():
+    assert set(get_args(xp.Scalar)) == {xp.bool, xp.uint8, xp.uint16, xp.uint32,
+        xp.uint64, xp.int8, xp.int16, xp.int32, xp.int64, xp.float32, xp.float64,
+        xp.complex64, xp.complex128}
+    assert get_args(xp.Array[xp.Scalar]) == (xp.Scalar,)
+
+
+@pytest.mark.parametrize('dtype,expected', [(xp.bool, xp.int64),
+    (xp.uint8, xp.uint64), (xp.uint16, xp.uint64), (xp.uint32, xp.uint64),
+    (xp.uint64, xp.uint64), (xp.int8, xp.int64), (xp.int16, xp.int64),
+    (xp.int32, xp.int64), (xp.int64, xp.int64), (xp.float32, xp.float32),
+    (xp.float64, xp.float64), (xp.complex64, xp.complex64),
+    (xp.complex128, xp.complex128)])
+def test_declared_default_reduction_dtype(dtype, expected):
+    x = xp.asarray([0, 1], dtype=dtype)
+    for function in [xp.sum, xp.prod, xp.cumulative_sum, xp.cumulative_prod]:
+        assert function(x).dtype == np.dtype(expected)

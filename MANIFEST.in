@@ -11,3 +11,5 @@ include benchmarks/competitors_julia.jl
 recursive-include tightarray *.pyi py.typed
 recursive-include tests/typing *.py
 include scripts/check-types.py
+
+include scripts/generate-namespace-stub.py

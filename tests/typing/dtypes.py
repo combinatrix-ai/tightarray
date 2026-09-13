@@ -1,4 +1,3 @@
-from typing import Any
 from typing_extensions import assert_type
 import numpy as np
 from tightarray import array_api as xp
@@ -27,18 +26,18 @@ assert_type(xp.zeros_like(x, dtype=xp.float32), xp.Array[np.float32])
 assert_type(xp.full((2,), 1, dtype=xp.uint16), xp.Array[np.uint16])
 assert_type(xp.arange(3, dtype=xp.int32), xp.Array[np.int32])
 assert_type(xp.sum(x, dtype=xp.uint64), xp.Array[np.uint64])
-assert_type(xp.sum(x), xp.Array[Any])
-assert_type(x + 1, xp.Array[Any])  # Promotion inference is deliberately deferred.
-assert_type(x.__array__(), np.ndarray[tuple[Any, ...], np.dtype[np.uint8]])
+assert_type(xp.sum(x), xp.Array[np.uint64])
+assert_type(x + 1, xp.Array[xp.Scalar])  # Promotion inference is deliberately deferred.
+assert_type(x.__array__(), np.ndarray[tuple[int, ...], np.dtype[np.uint8]])
 x[0] = 31
 assert_type(x, xp.Array[np.uint8])
-unknown: xp.Array = x
-assert_type(unknown, xp.Array[Any])
+unknown: xp.Array = xp.asarray([0, 1])
+assert_type(unknown, xp.Array[xp.Scalar])
 
 def expects_uint8(value: xp.Array[np.uint8]) -> None:
     pass
 
-def expects_unsigned(value: xp.Array[np.generic]) -> None:
+def expects_unsigned(value: xp.Array[xp.Scalar]) -> None:
     pass
 
 expects_uint8(xp.astype(x, xp.float32))  # type: ignore[arg-type]

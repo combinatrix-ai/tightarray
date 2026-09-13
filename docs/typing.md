@@ -1,9 +1,8 @@
 # Static typing
 
-The wheel ships public `.pyi` stubs and a `py.typed` marker following the
+Public `.pyi` stubs and `py.typed` ship in the wheel, following the
 [Python typing distribution specification](https://typing.python.org/en/latest/spec/distributing.html).
-Install `.[typecheck]` to run the pinned mypy checks, or use the wheel from a
-consumer project with its own type checker.
+Install `.[typecheck]` and run `python scripts/check-types.py`.
 
 ```python
 from tightarray import Array, Matrix
@@ -16,71 +15,83 @@ m = Matrix([[1, 2], [3, 0]], bits=2)
 row: Array = m[0]
 cell: int = m[0, 0]
 
-x = xp.asarray(a)
-scalar: xp.Array[xp.uint8] = x[0]  # A zero-dimensional array, not a Python int.
-total: xp.Array[xp.uint64] = xp.sum(x, dtype=xp.uint64)
-bits: int = x.storage_bits
-with xp.strict():
-    x[0] = 1
+x = xp.asarray(a)                       # Array[uint8]
+scalar: xp.Array[xp.uint8] = x[0]        # Zero-dimensional array.
+view = xp.reshape(x, (1, 3)).T          # Array[uint8]
+mask = x > 1                           # Array[bool]
+floats = xp.astype(x, xp.float32)       # Array[float32]
+total = xp.sum(x)                       # Array[uint64]
+x[0] = 31                              # Warning; dtype stays uint8.
 ```
 
-Typing distinguishes native scalar access, native slices/rows, rectangular and
-ragged shapes, and Array API scalar arrays. Arithmetic and reductions return
-Array API arrays; multi-result operations declare tuples or named tuples with
-array fields. The standardized linalg/FFT entry points are also declared.
-Native NumPy arithmetic returns ndarrays. Native layout and bit-width arguments
-use literals; a dynamic integer bit width may need validation and a cast in
-strictly checked caller code.
+## Known and unknown logical dtypes
 
-## Logical dtype parameters
+`xp.Array[DType]` is invariant and tracks the logical scalar type, independently
+of the packed bit width and shape. The parameter supports evaluated annotations
+and `typing.get_type_hints`; it does not create a specialized runtime array or
+validate values at runtime.
 
-`xp.Array[DType]` is invariant and tracks the logical NumPy scalar type. The
-parameter does not describe the packed bit width. It can be used in evaluated
-annotations and with `typing.get_type_hints`; no specialized array subclass or
-new data allocation is created by the annotation.
+Explicit `dtype=` NumPy scalar classes and typed `np.dtype` objects drive
+inference for construction, casts and reductions. Existing typed Array API or
+NumPy arrays preserve dtype through `asarray` without a cast; native Array inputs
+imply uint8. Basic indexing, iteration and dtype-preserving views retain it.
+Comparisons/predicates return bool; index/count outputs use platform integer
+arrays. Default sum/prod/cumulative reductions use uint64 for unsigned input,
+int64 for signed/bool input, and retain floating/complex input dtype.
+
+When dtype is not statically known, results use `Array[Scalar]`. `Scalar` is the
+explicit union of the 13 supported bool, integer, floating and complex scalar
+types. It is not a dynamic escape hatch: an unknown result cannot be passed as
+`Array[uint8]` or assigned to a variable of that type without an explicit cast or
+conversion. Plain `xp.Array` defaults to this bounded unknown parameter.
 
 ```python
-x = xp.asarray([0, 1, 7], dtype=xp.uint8)  # Array[uint8], 3-bit storage
-view = xp.reshape(x, (1, 3)).T           # Array[uint8]
-mask = x > 1                            # Array[bool]
-floats = xp.astype(x, xp.float32)        # Array[float32]
-x[0] = 31                               # warning; still Array[uint8], now 5-bit
+unknown = xp.asarray([1, 2])       # Array[Scalar]; list inference is deferred.
+def needs_bytes(x: xp.Array[xp.uint8]) -> None:
+    pass
+needs_bytes(unknown)               # Type error.
+needs_bytes(xp.astype(unknown, xp.uint8))  # OK.
 ```
 
-Explicit `dtype=` scalar classes and typed `np.dtype` objects drive inference
-for construction, casts, and sum/prod/cumulative reductions. Existing typed
-Array API/NumPy arrays preserve dtype through `asarray` with no cast; native
-Array inputs imply uint8. Basic indexing, iteration, reshape, permutations and
-other dtype-preserving views keep the parameter. Comparisons and predicates
-return bool arrays. Like-constructors preserve input dtype unless overridden.
+Arithmetic promotion and most linalg/FFT result dtypes are still conservative
+bounded unions, not exact promotion tables. Multi-result containers and their
+fields remain typed. Native NumPy numeric operators similarly return a bounded
+numerical ndarray; conversion without a cast preserves uint8.
 
-Use `xp.uint8`, `xp.float32`, etc. for typed dtype arguments. General dtype
-spellings such as strings retain `Array[Any]` when the checker cannot determine
-the dtype; `np.dtype` inference may itself resolve literal strings. Python
-built-in dtype classes and structured dtype specifications remain accepted by
-some runtime conversions but are outside the precise typed constructor/cast
-signatures in this phase. Keeping these boundaries explicit prevents a broad
-Any-returning overload from hiding known dtype mismatches.
+An invariant `Array[uint8]` is not an `Array[Scalar]`. Functions that preserve an
+arbitrary caller dtype should use a type variable:
 
-Plain `xp.Array` defaults to `xp.Array[Any]`. Arithmetic promotion, implicit
-reduction dtypes, most linalg/FFT dtypes, and untyped input conversion currently
-retain this unknown parameter. The array container itself remains typed. Explicit
-dtype parameters are invariant: `Array[uint8]` cannot be passed where
-`Array[uint16]` or `Array[np.generic]` is required. Use `Array[Any]` for a consumer
-that deliberately accepts arbitrary dtypes, and `astype` for conversion.
+```python
+from typing import TypeVar
+T = TypeVar('T', bound=xp.Scalar)
+def row(x: xp.Array[T]) -> xp.Array[T]:
+    return x[0]
+```
 
-Shape and storage width remain runtime metadata. Value ranges, broadcasting
-compatibility, dimension validity, and overflow are still checked at runtime.
-Annotations do not enforce runtime dtype or alter casting/promotion behavior.
-Broad conversion boundaries such as `asarray(obj)` accept `object`; they do not
-statically validate every possible input object. Private APIs and extra
-NumPy-specific extension functions are outside this public typing contract.
+Public operations accept any supported input dtype through read-only metadata
+protocols where necessary. `__array_namespace__()` has a typed protocol with
+standard functions and extensions, rather than an unconstrained module result.
+That protocol is generated from the public signatures; CI rejects stale copies.
 
-Run `python scripts/check-types.py`. It builds a wheel, checks the type files are
-included, extracts it outside the checkout, and runs strict mypy on both the
-stubs and a consumer fixture. Return types use `assert_type`; deliberately invalid
-calls use error-specific ignores with unused-ignore checking enabled. A lost
-error or a return type silently becoming Any fails the relevant fixture assertion.
-Runtime tests check namespace coverage and structured return fields. The same
-checks run in the Linux/macOS, Python 3.12/3.14 CI matrix. Other type checkers have
-not yet been tested.
+Use `xp.uint8`, `xp.float32`, etc. for precise dtype arguments. Strings remain
+bounded unknowns unless NumPy's dtype typing resolves them. Built-in Python
+dtype classes, structured/object dtype conversions, private APIs and additional
+NumPy-specific extension functions are outside these numerical type signatures.
+Runtime casting and promotion behavior is unchanged. Shape compatibility,
+value ranges and overflow remain runtime checks. `asarray(obj)` accepts `object`
+and does not statically validate all possible conversion inputs.
+
+## Verification
+
+The checker builds a wheel, verifies that its type files are included, extracts
+it outside the checkout, and runs strict mypy on stubs and consumer fixtures.
+Return types are asserted; invalid calls use error-specific ignores and
+unused-ignore checking. It also rejects explicit `Any` in distributed stubs and
+runs a consumer fixture with `--disallow-any-expr`, including array results,
+dtype metadata, NumPy exports, linalg/FFT, and namespace dispatch.
+
+Runtime tests check namespace coverage, named results, evaluated annotations,
+all 13 dtypes and default reduction promotion. Checks run in Linux/macOS,
+Python 3.12/3.14 CI. This guards the public contract; it is not a claim that all
+internal Python implementation functions or all third-party NumPy APIs are
+fully annotated. Other type checkers have not yet been tested.

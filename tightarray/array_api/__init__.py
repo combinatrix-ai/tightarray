@@ -24,6 +24,8 @@ for _name in ('bool', 'uint8', 'uint16', 'uint32', 'uint64', 'int8', 'int16', 'i
 e, pi, inf, nan = _np.e, _np.pi, _np.inf, _np.nan
 newaxis = None
 
+Scalar = _np.bool_ | _np.uint8 | _np.uint16 | _np.uint32 | _np.uint64 | _np.int8 | _np.int16 | _np.int32 | _np.int64 | _np.float32 | _np.float64 | _np.complex64 | _np.complex128
+
 
 def _strides(shape):
     out, step = [], 1

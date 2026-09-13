@@ -7,6 +7,7 @@ import tempfile
 import zipfile
 
 root = Path(__file__).resolve().parents[1]
+subprocess.run([sys.executable, str(root / 'scripts/generate-namespace-stub.py'), '--check'], check=True)
 with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
     tmp = Path(directory)
     subprocess.run([sys.executable, '-m', 'pip', 'wheel', '--no-deps',
@@ -17,6 +18,13 @@ with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
         assert required <= set(wheel.namelist()), 'wheel omitted type information'
         wheel.extractall(tmp / 'wheel')
     env = dict(os.environ, MYPYPATH=str(tmp / 'wheel'))
+    # Forbid explicit dynamic escape hatches in the distributed type contract.
+    import ast
+    for path in (tmp / 'wheel/tightarray').rglob('*.pyi'):
+        tree = ast.parse(path.read_text())
+        assert not any((isinstance(n, ast.Name) and n.id == 'Any') or
+                       (isinstance(n, ast.Attribute) and n.attr == 'Any') or
+                       (isinstance(n, ast.alias) and n.name == 'Any') for n in ast.walk(tree)), path
     # Check stubs themselves, not only their imported use sites.
     subprocess.run([sys.executable, '-m', 'mypy', '--strict',
                     str(tmp / 'wheel/tightarray/__init__.pyi'),
@@ -24,3 +32,6 @@ with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
                    cwd=tmp, env=env, check=True)
     subprocess.run([sys.executable, '-m', 'mypy', '--strict',
                     *[str(p) for p in sorted((root / 'tests/typing').glob('*.py'))]], cwd=tmp, env=env, check=True)
+
+    subprocess.run([sys.executable, '-m', 'mypy', '--strict', '--disallow-any-expr',
+                    str(root / 'tests/typing/no_any.py')], cwd=tmp, env=env, check=True)
