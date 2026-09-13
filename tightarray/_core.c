@@ -551,7 +551,10 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_view.h"
 #include "_reduce.h"
 #include "_numpy.h"
+#include "_wire.h"
 static PyMethodDef methods[]={
+    {"_from_word_bytes",(PyCFunction)array_from_word_bytes,METH_VARARGS|METH_CLASS,NULL},
+    {"_to_word_bytes",(PyCFunction)array_to_word_bytes,METH_O,NULL},
     {"sum",(PyCFunction)array_sum,METH_NOARGS,"Sum values with a bounded-memory native reduction."},
     {"_view_bytes",(PyCFunction)array_view_bytes,METH_VARARGS,NULL},
     {"_view_reduce",(PyCFunction)array_view_reduce,METH_VARARGS,NULL},
