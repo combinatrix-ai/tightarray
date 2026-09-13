@@ -141,6 +141,8 @@ See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.
 The [bio application pilots](benchmarks/bio/README.md) cover MotifBoost, immuneML,
 BioNumPy, Scirpy, DeepRC and CompAIRR, separating numeric-pipeline gains from
 packing-specific effects.
+The separately installable [immune adapters](packages/tightarray-immune/README.md)
+provide explicit feature, padding and distance interfaces for four of those tools.
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.

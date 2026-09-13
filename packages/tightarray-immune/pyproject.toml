@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tightarray-immune"
+version = "0.1.0.dev0"
+description = "Experimental immune sequence adapters backed by tightarray"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["tightarray==0.1.0.dev0", "numpy>=2"]
+
+[project.optional-dependencies]
+scirpy = ["scipy>=1.14"]
+test = ["pytest>=8", "scipy>=1.14", "mypy==2.3.1", "scipy-stubs"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+tightarray_immune = ["py.typed"]
