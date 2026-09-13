@@ -79,3 +79,10 @@ The five remainder checks were additionally exercised with four seeds and
 1,000 successful generated cases per test per seed (20,000 total), with no
 failures. They are now enabled in every CI conformance run; the results above
 record the earlier baseline before this change.
+
+## Shared-kernel validation
+
+The shared logical-view and reduction implementation passes **281 unit tests** and
+**1,385 upstream tests, 1 xfailed, 0 skipped** on CPython 3.12 / ARM64 macOS,
+including the formerly flaky remainder tests. The existing DLPack exception is
+unchanged. See [architecture](shared-kernels.md) and [performance](core-performance.md).

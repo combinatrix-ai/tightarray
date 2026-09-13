@@ -1,5 +1,9 @@
 # Competitor performance on Apple M1 Pro
 
+For the subsequent native-sum and Array API architecture improvements, see
+[the shared-kernel experiment](core-performance.md). The measurements below preserve
+the pre-change baseline.
+
 All reported results passed reference checks before timing. Five timing samples per operation; median shown. Separate operations are not combined into a headline speedup.
 
 Python 3.13.15; Darwin arm64. Source versions: numpy 2.5.3, bitarray 3.11.0, bitstring 4.4.0, bitformat 0.9.0, ml_dtypes 0.6.0, blosc2 4.13.0, bitstruct 8.23.0, cbitstruct 1.2.0, bpack 1.3.0, npstructures 0.2.19, intbitset 4.1.2, tightarray 0.1.0.dev0, tibs 0.5.7, numexpr 2.14.2.

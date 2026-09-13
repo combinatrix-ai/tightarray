@@ -32,6 +32,7 @@ values = Array([0, 1, 3, 2], bits=2, layout="packed")
 assert values[-1] == 2
 values[1] = 3
 assert values.count(3) == 2
+assert values.sum() == 8
 assert values.find([3, 2]) == 2
 assert values.gather([3, 0]).tolist() == [2, 0]
 
@@ -122,7 +123,8 @@ bytes/str. Both tightarray layouts are reported separately. Identical values are
 verified before timing. View creation and copying are separate operations.
 
 See [measurement plan](docs/benchmarks.md), [measured results](docs/performance.md),
-and [competitor comparisons](docs/competitor-performance.md).
+[competitor comparisons](docs/competitor-performance.md), and the latest
+[shared-kernel experiment](docs/core-performance.md).
 Speedups are method- and workload-specific; this is not a claim that packing makes
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.
@@ -130,10 +132,12 @@ inputs, long-needle search, and nonaligned copies remain optimization targets.
 ## Status
 
 Implemented: core arrays, matrices, ragged rows, shared views, mutation, copy,
-gather, conversion, comparison, count, and subsequence search. Boundary tests,
+gather, conversion, comparison, count, native sum, and subsequence search.
+Array API conversion, basic assignment and whole-view sum share validated C kernels;
+see [the architecture and remaining boundaries](docs/shared-kernels.md). Boundary tests,
 randomized reference checks, and ASan/UBSan checks accompany optimized kernels.
 
-Deferred: native C N-dimensional kernels, resizing, serialization/mmap,
+Deferred: full native C N-dimensional execution, resizing, serialization/mmap,
 Zero-copy NumPy dtype integration, parallel mutation, and wider-platform tuning.
-The name is provisional; package-name availability has not been checked.
+The name is provisional and conflicts with existing libraries; a replacement is pending.
 Licensing and public publication remain pending decisions.

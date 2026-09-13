@@ -99,7 +99,7 @@ def run_vector(bits,n,distribution):
         assert tocopy(copy())==values
         row=dict(group='vector',bits=bits,n=n,distribution=distribution,library=name,method='copy',**mem);row.update(timing(copy));ROWS.append(row)
         if name.startswith('tightarray-') and name!='tightarray-api':
-            count=lambda:obj.count(value); gather=lambda:obj.gather(npidx); summ=lambda:sum(obj)
+            count=lambda:obj.count(value); gather=lambda:obj.gather(npidx); summ=lambda:obj.sum()
         elif name=='bitarray':
             count=lambda:obj.count(value); gather=lambda:obj[indexes]; summ=lambda:obj.count(1)
         elif name in ('python-list','python-bytes','array-B','bitstring'):
