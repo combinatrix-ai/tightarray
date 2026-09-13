@@ -102,8 +102,10 @@ def run_1d(bits, n):
             def setter(d=data):
                 d[idx] = src[idx]
             operations["set"] = setter
+        operations["random-get-sum"] = (lambda d=data: sum(ord(d[i]) for i in indices)) if name == "python-str" else (lambda d=data: sum(int(d[i]) for i in indices))
         expected = {"get": src[idx], "iterate-sum": sum(src), "equal": True,
-                    "count": src.count(value), "find": src.find(needle)}
+                    "count": src.count(value), "find": src.find(needle),
+                    "random-get-sum": sum(src[i] for i in indices)}
         for method, fn in operations.items():
             result = fn()
             if method in expected:
@@ -140,7 +142,15 @@ def run_nested(bits, n, ragged):
             def setter():
                 data[r][0] = rows[r][0]
         elif name == "numpy":
-            factory = (lambda: (flat.copy(), offsets.copy())) if ragged else (lambda: flat.reshape(-1, 64).copy())
+            def factory():
+                if not ragged:
+                    return np.array(rows, dtype=np.uint8)
+                values = np.fromiter((x for row in rows for x in row), dtype=np.uint8, count=n)
+                boundaries = np.empty(len(rows) + 1, dtype=np.uint64)
+                boundaries[0] = 0
+                lengths = np.fromiter((len(row) for row in rows), dtype=np.uint64, count=len(rows))
+                np.cumsum(lengths, out=boundaries[1:])
+                return values, boundaries
             data = factory()
             def row():
                 return data[0][int(data[1][r]):int(data[1][r + 1])] if ragged else data[r]
@@ -193,9 +203,11 @@ def main():
                 peak_method="tracemalloc: includes PyMem and NumPy-tracked buffers; excludes untracked system allocations",
                 timing="median of adaptive batches; GC disabled during timing; no CPU affinity",
                 find_baseline="Python list and NumPy include conversion to bytes; bytes/str use native find",
-                source_sha256=hashlib.sha256(Path(__file__).parents[1].joinpath("tightarray/_core.c").read_bytes()).hexdigest())
+                source_sha256={p: hashlib.sha256(Path(__file__).parents[1].joinpath(p).read_bytes()).hexdigest()
+                               for p in ("tightarray/_core.c", "tightarray/_rows.h", "tightarray/__init__.py", "setup.py", "benchmarks/run.py")})
     if sys.platform == "darwin":
-        meta["cpu"] = subprocess.check_output(["sysctl", "-n", "machdep.cpu.brand_string"], text=True).strip()
+        probe = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], text=True, capture_output=True)
+        meta["cpu"] = probe.stdout.strip() if probe.returncode == 0 else "unavailable"
     results = []
     for bits in args.bits:
         for n in args.sizes:

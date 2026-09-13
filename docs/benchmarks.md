@@ -40,4 +40,4 @@ Suggested result columns: method, structure, bit width, shape/length, implementa
 - Include empty arrays, boundary indices, cross-word elements, tail padding, empty rows, and invalid values in correctness checks.
 - Define slice ownership, overflow rejection, and mutation semantics before implementing affected benchmarks.
 
-No speedup or memory result has been measured yet. The benchmark runner and exact measurement tooling remain to be implemented.
+The runner is implemented in `benchmarks/run.py`; measured results and limitations are in `docs/performance.md`. Current retained-size accounting includes native allocations. Additional peak memory uses tracemalloc and therefore excludes untracked system allocations. The current seeded workloads are uniform; skewed distributions, controlled cold-cache runs, and broader search-pattern sweeps remain future extensions.
