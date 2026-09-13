@@ -1,5 +1,7 @@
 # C Array API views and bounded-memory widening
 
+For the subsequent stride and axis work, see [the reduction experiment](axis-performance.md).
+
 Baseline: `758f6bf`. Apple M1 Pro, CPython 3.13.15, NumPy 2.5.3.
 Control implementations and benchmark inputs are unchanged. Times are microseconds.
 

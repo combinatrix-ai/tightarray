@@ -79,3 +79,10 @@ see [their measurements and remaining boundaries](cview-performance.md). Next
 useful experiments are cached numeric ND descriptors and strided/axis kernels. Blocked packing or bitplanes should be compared as
 separate storage experiments with random access, scanning, and conversion costs
 included; current measurements do not establish that either would be better.
+
+## Strided and axis reductions
+
+Axis sums now write into a caller-owned uint64 result without fully unpacking the
+input. Column tiles and batches of short rows share the unpackers; other layouts
+use reduction runs. Small strides have fixed-mask kernels, with generic fallbacks
+for other offsets and steps. See [measurements and scope](axis-performance.md).
