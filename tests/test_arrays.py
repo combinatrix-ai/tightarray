@@ -1,0 +1,152 @@
+import gc
+import itertools
+import random
+import sys
+
+import numpy as np
+import pytest
+
+from tightarray import Array, Matrix, RaggedArray
+
+
+@pytest.fixture(params=itertools.product(range(1, 9), ("packed", "word-aligned")))
+def spec(request):
+    bits, layout = request.param
+    return dict(bits=bits, layout=layout)
+
+
+def test_roundtrip_boundaries_and_mutation(spec):
+    rng = random.Random(719)
+    limit = 1 << spec["bits"]
+    for n in [0, 1, 7, 8, 9, 12, 13, 31, 32, 63, 64, 65, 127, 129, 1025]:
+        values = [rng.randrange(limit) for _ in range(n)]
+        a = Array(values, **spec)
+        assert a.tolist() == values
+        assert a.tobytes() == bytes(values)
+        assert list(a) == values
+        assert Array(bytes(values), **spec) == a
+        assert Array(np.array(values, dtype=np.uint8), **spec) == a
+        for i in range(n):
+            assert a[i] == values[i] == a[i - n]
+            a[i] = limit - 1
+            values[i] = limit - 1
+        assert a.tolist() == values
+        assert a.count(limit - 1) == n
+        assert a.count(limit) == a.count(-1) == a.count(1 << 100) == 0
+
+
+def test_slices_views_and_lifetimes(spec):
+    vals = [i % (1 << spec["bits"]) for i in range(157)]
+    a = Array(vals, **spec)
+    for start, stop, step in itertools.product([None, -200, -1, 0, 3, 12, 64, 157, 200], repeat=3):
+        if step == 0:
+            continue
+        sl = slice(start, stop, step)
+        assert a[sl].tolist() == vals[sl]
+    v = a[3:130][2:90]
+    assert v.base is a
+    v[0] = 0
+    assert a[5] == 0
+    copied = v.copy()
+    v[0] = 1
+    assert copied[0] == 0
+    del a
+    gc.collect()
+    assert v[0] == 1
+    assert v.nbytes == 0
+
+
+def test_gather_compare_count_find(spec):
+    rng = random.Random(93)
+    vals = [rng.randrange(1 << spec["bits"]) for _ in range(701)]
+    a = Array(vals, **spec)
+    assert a.gather([0, -1, 65, 3]).tolist() == [vals[i] for i in [0, -1, 65, 3]]
+    assert a.gather(np.array([3, 5], dtype=np.int64)).tolist() == vals[3:6:2]
+    for offset in [0, 1, 12, 63, 64, 65]:
+        v = a[offset:]
+        for val in range(1 << spec["bits"]):
+            assert v.count(val) == vals[offset:].count(val)
+        for needle in [[], vals[9:12], vals[40:72], vals, [0] * 150, [1]]:
+            expected = bytes(vals[offset:]).find(bytes(needle))
+            assert v.find(needle) == expected
+            assert v.find(Array(needle, **spec)) == expected
+        assert v == Array(vals[offset:], bits=8)
+        assert v.copy() == v
+    assert Array([0], **spec) < Array([1], **spec)
+    assert Array([0], **spec) < Array([0, 0], **spec)
+    assert Array([], **spec) != Array([0], **spec)
+
+
+def test_invalid_inputs(spec):
+    with pytest.raises(ValueError):
+        Array([1 << spec["bits"]], **spec)
+    with pytest.raises(TypeError):
+        Array([1.0], **spec)
+    a = Array([0, 1], **spec)
+    for i in [2, -3, 10 ** 100]:
+        with pytest.raises(IndexError):
+            _ = a[i]
+        with pytest.raises(IndexError):
+            a[i] = 0
+        with pytest.raises(IndexError):
+            a.gather([i])
+    with pytest.raises(TypeError):
+        a[0] = 0.1
+    with pytest.raises(ValueError):
+        a[0] = -1
+    with pytest.raises(TypeError):
+        del a[0]
+    with pytest.raises(ValueError):
+        _ = a[::0]
+    assert a.tolist() == [0, 1]
+
+
+def test_nested(spec):
+    rows = [[0, 1], [1, 0], [0, 0]]
+    m = Matrix(rows, **spec)
+    assert m.shape == (3, 2)
+    assert m.tolist() == rows
+    assert m[-2, -2] == 1
+    m[0, 1] = 0
+    assert m[0].tolist() == [0, 0]
+    m[1][0] = 0
+    assert m.count(1) == 0
+    assert m.copy() == m
+    assert Matrix.from_flat([0, 1, 1, 0], (2, 2), **spec).tolist() == rows[:2]
+    assert Matrix([[], []], **spec).shape == (2, 0)
+    assert Matrix.from_flat([], (0, 10), **spec).shape == (0, 10)
+    with pytest.raises(ValueError):
+        Matrix([[0], [0, 1]], **spec)
+    with pytest.raises(IndexError):
+        _ = m[0, 2]
+    r = RaggedArray([[], [0, 1], [], [1], []], **spec)
+    assert r.tolist() == [[], [0, 1], [], [1], []]
+    assert r[1, -1] == 1
+    r[1, 0] = 1
+    assert r.count(1) == 3
+    assert r.copy() == r
+    assert r != RaggedArray([[1, 1, 1]], **spec)
+    for start, stop, step in itertools.product([None, -20, -1, 0, 2, 4, 20], repeat=3):
+        if step == 0:
+            continue
+        sl = slice(start, stop, step)
+        assert m[sl].tolist() == m.tolist()[sl]
+        assert r[sl].tolist() == r.tolist()[sl]
+    v = r[1:4]
+    v[0, 0] = 0
+    assert r[1, 0] == 0
+    assert sys.getsizeof(r) > r.nbytes
+
+
+def test_constructor_edges():
+    for bits in [0, 9, -1]:
+        with pytest.raises(ValueError):
+            Array([], bits=bits)
+    with pytest.raises(ValueError):
+        Array([], layout="aligned")
+    assert Array(np.arange(10, dtype=np.uint8)[::2]).tolist() == [0, 2, 4, 6, 8]
+    assert Array(memoryview(b"abcd")[::2]).tobytes() == b"ac"
+    with pytest.raises(ValueError):
+        Matrix.from_flat([0], (0, 0))
+    with pytest.raises(ValueError):
+        Matrix.from_flat([], (-1, 0))
