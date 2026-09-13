@@ -99,6 +99,7 @@ def run_1d(bits, n):
             operations["slice-copy"] = lambda d=data: d[lo:hi].copy()
             operations["gather"] = lambda d=data: d.gather(npindices)
             operations["gather-list"] = lambda d=data: d.gather(indices)
+            operations["equal"] = lambda d=data, o=other: d.equals(o)
             operations["find"] = lambda d=data: d.find(needle)
         if name not in ("python-bytes", "python-str"):
             def setter(d=data):
@@ -170,7 +171,7 @@ def run_nested(bits, n, ragged):
             data = factory()
             ops = {"get": lambda: data[r, 0], "row-copy": lambda: data[r].copy(),
                    "row-view": lambda: data[r], "count": lambda: data.count(value),
-                   "equal": lambda other=factory(): data == other}
+                   "equal": lambda other=factory(): data.equals(other)}
             def setter():
                 data[r, 0] = rows[r][0]
         ops.update(construct=factory, set=setter)
@@ -207,7 +208,7 @@ def main():
                 gather_baseline="gather uses prepared native intp buffers for NumPy and tightarray; gather-list uses Python lists for both",
                 find_baseline="Python list and NumPy include conversion to bytes; bytes/str use native find",
                 source_sha256={p: hashlib.sha256(Path(__file__).parents[1].joinpath(p).read_bytes()).hexdigest()
-                               for p in ("tightarray/_core.c", "tightarray/_rows.h", "tightarray/__init__.py", "setup.py", "benchmarks/run.py")})
+                               for p in ("tightarray/_core.c", "tightarray/_rows.h", "tightarray/_numpy.h", "tightarray/_numpy.py", "tightarray/__init__.py", "setup.py", "benchmarks/run.py")})
     if sys.platform == "darwin":
         probe = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], text=True, capture_output=True)
         meta["cpu"] = probe.stdout.strip() if probe.returncode == 0 else "unavailable"

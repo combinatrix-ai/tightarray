@@ -62,8 +62,9 @@ supported. Scalar assignment is supported; resizing and slice assignment are not
 Contiguous slices share data. Slices with a non-unit step copy. Ragged contiguous
 row slices share data but allocate normalized row offsets. Views keep their root
 allocation alive. `copy()` always returns independently mutable data. Array
-comparisons use integer values and lexicographic ordering, including across bit
-widths/layouts. Matrix/ragged equality includes shape or row boundaries.
+and Matrix comparisons return elementwise NumPy boolean arrays with broadcasting.
+Use `.equals()` for native whole-container equality, including across bit widths
+and layouts. Ragged equality remains a whole-container comparison.
 
 `find()` returns the first subsequence position or -1; an empty needle returns 0.
 `count()` counts values across all rows for matrix/ragged containers. Out-of-range
@@ -71,6 +72,13 @@ integers have count zero. `gather` accepts native contiguous signed-index buffer
 (such as NumPy `intp`) without constructing Python integers, as well as iterables. Row-wise find/count can use a row view. The raw packed
 buffer is intentionally not exposed as a misleading NumPy uint8 array;
 `tobytes()` and `tolist()` explicitly unpack values.
+
+## NumPy integration
+
+Install the optional `numpy` extra for conversions, elementwise operators, and
+NumPy dispatch. `np.asarray` unpacks to a writable uint8 ndarray; `np.copy` and
+selected `np.take` calls retain packed storage. General arithmetic returns NumPy
+results. See [the supported subset and explicit boundaries](docs/numpy.md).
 
 ## Representation
 
@@ -121,6 +129,6 @@ gather, conversion, comparison, count, and subsequence search. Boundary tests,
 randomized reference checks, and ASan/UBSan checks accompany optimized kernels.
 
 Deferred: arbitrary N-dimensional strides, resizing, serialization/mmap,
-NumPy dtype integration, parallel mutation, and wider-platform tuning.
+Zero-copy NumPy dtype integration, parallel mutation, and wider-platform tuning.
 The name is provisional; package-name availability has not been checked.
 Licensing and public publication remain pending decisions.

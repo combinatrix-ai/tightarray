@@ -24,8 +24,8 @@ def test_roundtrip_boundaries_and_mutation(spec):
         assert a.tolist() == values
         assert a.tobytes() == bytes(values)
         assert list(a) == values
-        assert Array(bytes(values), **spec) == a
-        assert Array(np.array(values, dtype=np.uint8), **spec) == a
+        assert Array(bytes(values), **spec).equals(a)
+        assert Array(np.array(values, dtype=np.uint8), **spec).equals(a)
         for i in range(n):
             assert a[i] == values[i] == a[i - n]
             a[i] = limit - 1
@@ -70,11 +70,11 @@ def test_gather_compare_count_find(spec):
             expected = bytes(vals[offset:]).find(bytes(needle))
             assert v.find(needle) == expected
             assert v.find(Array(needle, **spec)) == expected
-        assert v == Array(vals[offset:], bits=8)
-        assert v.copy() == v
+        assert v.equals(Array(vals[offset:], bits=8))
+        assert v.copy().equals(v)
     assert Array([0], **spec) < Array([1], **spec)
-    assert Array([0], **spec) < Array([0, 0], **spec)
-    assert Array([], **spec) != Array([0], **spec)
+    assert (Array([0], **spec) <= Array([0, 0], **spec)).all()
+    assert not Array([], **spec).equals(Array([0], **spec))
 
 
 def test_invalid_inputs(spec):
@@ -111,7 +111,7 @@ def test_nested(spec):
     assert m[0].tolist() == [0, 0]
     m[1][0] = 0
     assert m.count(1) == 0
-    assert m.copy() == m
+    assert m.copy().equals(m)
     assert Matrix.from_flat([0, 1, 1, 0], (2, 2), **spec).tolist() == rows[:2]
     assert Matrix([[], []], **spec).shape == (2, 0)
     assert Matrix.from_flat([], (0, 10), **spec).shape == (0, 10)
@@ -161,11 +161,11 @@ def test_randomized_views_search_and_cross_layout(spec):
         start, stop = sorted([rng.randrange(len(values) + 1) for _ in range(2)])
         v, ref = a[start:stop], values[start:stop]
         assert v.copy().tolist() == ref
-        assert v == Array(ref, bits=spec["bits"], layout="word-aligned" if spec["layout"] == "packed" else "packed")
+        assert v.equals(Array(ref, bits=spec["bits"], layout="word-aligned" if spec["layout"] == "packed" else "packed"))
         if ref:
             different = list(ref)
             different[-1] ^= 1
-            assert v != Array(different, **spec)
+            assert not v.equals(Array(different, **spec))
         for size in [0, 1, 2, 7, 8, 9, 12, 13, 32, 64, 65]:
             needle = [rng.randrange(limit) for _ in range(size)]
             assert v.find(needle) == bytes(ref).find(bytes(needle))

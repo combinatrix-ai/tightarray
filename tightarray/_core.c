@@ -548,7 +548,12 @@ static PyObject *get_bits(Array *a, void *c) { return PyLong_FromLong(a->bits); 
 static PyObject *get_layout(Array *a, void *c) { return PyUnicode_FromString(a->aligned?"word-aligned":"packed"); }
 static PyObject *get_nbytes(Array *a, void *c) { return PyLong_FromSize_t(a->owner?0:(a->words?a->words:1)*8); }
 static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:Py_None; Py_INCREF(base); return base; }
+#include "_numpy.h"
 static PyMethodDef methods[]={
+    {"equals",(PyCFunction)array_equals,METH_O,"Whole-array value equality without unpacking."},
+    {"__array__",(PyCFunction)(void (*)(void))array_numpy,METH_VARARGS|METH_KEYWORDS,"Unpack to a NumPy array."},
+    {"__array_ufunc__",(PyCFunction)(void (*)(void))array_ufunc,METH_VARARGS|METH_KEYWORDS,NULL},
+    {"__array_function__",(PyCFunction)(void (*)(void))array_function,METH_VARARGS|METH_KEYWORDS,NULL},
     {"tobytes",(PyCFunction)array_bytes,METH_NOARGS,"Return unpacked unsigned bytes."},
     {"tolist",(PyCFunction)array_list,METH_NOARGS,"Return a list of integers."},
     {"copy",(PyCFunction)array_copy,METH_NOARGS,"Return an independent array."},
@@ -559,6 +564,8 @@ static PyMethodDef methods[]={
     {NULL,NULL,0,NULL}
 };
 static PyGetSetDef getters[]={
+    {"shape",(getter)array_shape,NULL,NULL,NULL},{"ndim",(getter)array_ndim,NULL,NULL,NULL},
+    {"size",(getter)array_size,NULL,NULL,NULL},{"dtype",(getter)array_dtype,NULL,NULL,NULL},
     {"bits",(getter)get_bits,NULL,NULL,NULL}, {"layout",(getter)get_layout,NULL,NULL,NULL},
     {"nbytes",(getter)get_nbytes,NULL,"Owned buffer bytes (zero for views).",NULL},
     {"base",(getter)get_base,NULL,"Root owner of a view, or None.",NULL}, {NULL,NULL,NULL,NULL,NULL}
@@ -570,7 +577,7 @@ static PyTypeObject ArrayType={
     .tp_name="tightarray.Array",.tp_basicsize=sizeof(Array),.tp_dealloc=(destructor)array_dealloc,
     .tp_flags=Py_TPFLAGS_DEFAULT,.tp_doc="Fixed-size mutable unsigned small-integer array.",
     .tp_new=array_new,.tp_as_sequence=&sequence,.tp_as_mapping=&mapping,
-    .tp_methods=methods,.tp_getset=getters,.tp_richcompare=array_compare,.tp_hash=PyObject_HashNotImplemented
+    .tp_methods=methods,.tp_getset=getters,.tp_richcompare=numpy_compare,.tp_as_number=&array_number,.tp_hash=PyObject_HashNotImplemented
 };
 #include "_rows.h"
 static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1};

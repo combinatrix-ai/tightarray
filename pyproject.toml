@@ -9,6 +9,7 @@ description = "Compact small-integer arrays for CPython"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
+numpy = ["numpy>=2"]
 test = ["pytest>=8", "numpy>=2"]
 bench = ["numpy>=2"]
 

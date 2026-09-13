@@ -130,7 +130,14 @@ static PyObject *rows_nbytes(Rows *r,void *c) {
     if(!ready(r)) return NULL;
     return PyLong_FromSize_t((r->data->owner?0:(r->data->words?r->data->words:1)*8)+(r->offsets?(r->rows+1)*sizeof(size_t):0));
 }
+static PyObject *rows_equals(Rows *r,PyObject *other) {
+    if(!PyObject_TypeCheck(other,&RowsType)) Py_RETURN_FALSE;
+    return rows_compare((PyObject *)r,other,Py_EQ);
+}
+static PyObject *rows_bytes(Rows *r,PyObject *unused) { return ready(r)?array_bytes(r->data,NULL):NULL; }
 static PyMethodDef rows_methods[]={
+    {"equals",(PyCFunction)rows_equals,METH_O,"Whole-container value equality."},
+    {"tobytes",(PyCFunction)rows_bytes,METH_NOARGS,"Flattened unpacked bytes."},
     {"copy",(PyCFunction)rows_copy,METH_NOARGS,"Independent copy."},{"tolist",(PyCFunction)rows_list,METH_NOARGS,"Nested lists."},
     {"count",(PyCFunction)rows_count,METH_O,"Count across rows."},{"__sizeof__",(PyCFunction)rows_sizeof,METH_NOARGS,"Total retained native memory."},{NULL,NULL,0,NULL}
 };
