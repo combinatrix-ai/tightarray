@@ -1,3 +1,4 @@
+from typing import Any
 from typing_extensions import assert_type
 import numpy as np
 from tightarray import Array, Matrix, RaggedArray
@@ -23,15 +24,15 @@ assert_type(r[1:], RaggedArray)
 assert_type(r.tolist(), list[list[int]])
 assert_type(r.shape, tuple[int, None])
 x = xp.reshape(xp.asarray(a), (1, 3))
-assert_type(x[0, 0], xp.Array)
-assert_type(x[:, ::2], xp.Array)
-assert_type(x + 1, xp.Array)
-assert_type(x > 1, xp.Array)
-assert_type(xp.sum(x, axis=0), xp.Array)
-assert_type(xp.sum(x, axis=(0, 1), dtype=xp.uint64), xp.Array)
-assert_type(xp.zeros((2, 3), dtype=xp.uint8), xp.Array)
-assert_type(xp.nonzero(x), tuple[xp.Array, ...])
-assert_type(xp.unique_all(x).counts, xp.Array)
+assert_type(x[0, 0], xp.Array[np.uint8])
+assert_type(x[:, ::2], xp.Array[np.uint8])
+assert_type(x + 1, xp.Array[Any])
+assert_type(x > 1, xp.Array[np.bool_])
+assert_type(xp.sum(x, axis=0), xp.Array[Any])
+assert_type(xp.sum(x, axis=(0, 1), dtype=xp.uint64), xp.Array[np.uint64])
+assert_type(xp.zeros((2, 3), dtype=xp.uint8), xp.Array[np.uint8])
+assert_type(xp.nonzero(x), tuple[xp.Array[Any], ...])
+assert_type(xp.unique_all(x).counts, xp.Array[Any])
 assert_type(xp.broadcast_shapes((2, 1), (3,)), tuple[int, ...])
 assert_type(xp.can_cast(xp.uint8, xp.uint16), bool)
 assert_type(x.storage_bits, int)
@@ -47,15 +48,15 @@ a[0] = 'bad'  # type: ignore[assignment]
 a[0:1] = 1  # type: ignore[index]
 m[0, 0] = 1.5  # type: ignore[assignment]
 xp.set_strict('yes')  # type: ignore[arg-type]
-xp.sum(x, axis='rows')  # type: ignore[arg-type]
+xp.sum(x, axis='rows')  # type: ignore[call-overload]
 xp.reshape(x, ('bad',))  # type: ignore[arg-type]
-xp.zeros('bad')  # type: ignore[arg-type]
+xp.zeros('bad')  # type: ignore[call-overload]
 wrong: int = x[0]  # type: ignore[assignment]
 x.storage_bits = 5  # type: ignore[misc]
 
-assert_type(xp.linalg.eigh(x).eigenvalues, xp.Array)
-assert_type(xp.linalg.svd(x).S, xp.Array)
-assert_type(xp.fft.fft(x), xp.Array)
-assert_type(xp.fft.fftfreq(8), xp.Array)
+assert_type(xp.linalg.eigh(x).eigenvalues, xp.Array[Any])
+assert_type(xp.linalg.svd(x).S, xp.Array[Any])
+assert_type(xp.fft.fft(x), xp.Array[Any])
+assert_type(xp.fft.fftfreq(8), xp.Array[Any])
 assert_type(xp.__array_namespace_info__().devices(), tuple[str, ...])
 xp.fft.fft(x, axis='bad')  # type: ignore[arg-type]

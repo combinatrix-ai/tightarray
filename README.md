@@ -88,7 +88,9 @@ other dtypes. See [conformance results and limitations](docs/array-api.md).
 ## Static typing
 
 Public type stubs cover native containers and the Array API namespace, including
-standard linalg/FFT operations. Install `.[typecheck]` and run
+standard linalg/FFT operations. `array_api.Array[DType]` tracks logical dtype
+through explicit construction, views, comparisons, and casts; packed storage
+width remains runtime metadata. Install `.[typecheck]` and run
 `python scripts/check-types.py` to validate the wheel and consumer examples.
 See [typing scope and examples](docs/typing.md).
 

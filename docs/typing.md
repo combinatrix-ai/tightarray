@@ -17,8 +17,8 @@ row: Array = m[0]
 cell: int = m[0, 0]
 
 x = xp.asarray(a)
-scalar: xp.Array = x[0]  # A zero-dimensional array, not a Python int.
-total: xp.Array = xp.sum(x)
+scalar: xp.Array[xp.uint8] = x[0]  # A zero-dimensional array, not a Python int.
+total: xp.Array[xp.uint64] = xp.sum(x, dtype=xp.uint64)
 bits: int = x.storage_bits
 with xp.strict():
     x[0] = 1
@@ -32,15 +32,49 @@ Native NumPy arithmetic returns ndarrays. Native layout and bit-width arguments
 use literals; a dynamic integer bit width may need validation and a cast in
 strictly checked caller code.
 
-Logical dtype and storage width remain separate. Arrays are not generic over
-dtype, shape, or storage width in this version. NumPy outputs therefore retain
-an unspecified dtype in their annotation, while native `.dtype` is uint8.
-Value ranges, broadcasting compatibility, dimension validity, and overflow are
-still checked at runtime. A static `Array[Literal[3]]` would be misleading for
-shared storage that can widen through another view. Broad conversion boundaries
-such as `asarray(obj)` accept `object`; they do not statically validate every
-possible input object. Private implementation APIs and extra NumPy-specific
-extension functions are outside this public typing contract.
+## Logical dtype parameters
+
+`xp.Array[DType]` is invariant and tracks the logical NumPy scalar type. The
+parameter does not describe the packed bit width. It can be used in evaluated
+annotations and with `typing.get_type_hints`; no specialized array subclass or
+new data allocation is created by the annotation.
+
+```python
+x = xp.asarray([0, 1, 7], dtype=xp.uint8)  # Array[uint8], 3-bit storage
+view = xp.reshape(x, (1, 3)).T           # Array[uint8]
+mask = x > 1                            # Array[bool]
+floats = xp.astype(x, xp.float32)        # Array[float32]
+x[0] = 31                               # warning; still Array[uint8], now 5-bit
+```
+
+Explicit `dtype=` scalar classes and typed `np.dtype` objects drive inference
+for construction, casts, and sum/prod/cumulative reductions. Existing typed
+Array API/NumPy arrays preserve dtype through `asarray` with no cast; native
+Array inputs imply uint8. Basic indexing, iteration, reshape, permutations and
+other dtype-preserving views keep the parameter. Comparisons and predicates
+return bool arrays. Like-constructors preserve input dtype unless overridden.
+
+Use `xp.uint8`, `xp.float32`, etc. for typed dtype arguments. General dtype
+spellings such as strings retain `Array[Any]` when the checker cannot determine
+the dtype; `np.dtype` inference may itself resolve literal strings. Python
+built-in dtype classes and structured dtype specifications remain accepted by
+some runtime conversions but are outside the precise typed constructor/cast
+signatures in this phase. Keeping these boundaries explicit prevents a broad
+Any-returning overload from hiding known dtype mismatches.
+
+Plain `xp.Array` defaults to `xp.Array[Any]`. Arithmetic promotion, implicit
+reduction dtypes, most linalg/FFT dtypes, and untyped input conversion currently
+retain this unknown parameter. The array container itself remains typed. Explicit
+dtype parameters are invariant: `Array[uint8]` cannot be passed where
+`Array[uint16]` or `Array[np.generic]` is required. Use `Array[Any]` for a consumer
+that deliberately accepts arbitrary dtypes, and `astype` for conversion.
+
+Shape and storage width remain runtime metadata. Value ranges, broadcasting
+compatibility, dimension validity, and overflow are still checked at runtime.
+Annotations do not enforce runtime dtype or alter casting/promotion behavior.
+Broad conversion boundaries such as `asarray(obj)` accept `object`; they do not
+statically validate every possible input object. Private APIs and extra
+NumPy-specific extension functions are outside this public typing contract.
 
 Run `python scripts/check-types.py`. It builds a wheel, checks the type files are
 included, extracts it outside the checkout, and runs strict mypy on both the

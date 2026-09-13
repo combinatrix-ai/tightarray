@@ -9,6 +9,7 @@ import builtins as _builtins
 import functools as _functools
 import math as _math
 import operator as _operator
+from types import GenericAlias as _GenericAlias
 import numpy as _np
 from .._core import Array as _NativeArray, _Storage, _APIView
 
@@ -36,6 +37,9 @@ class Array(_APIView):
     """Standard array object; uint8/bool views share a native packed allocation."""
     __slots__ = ()
     __hash__ = None
+
+    def __class_getitem__(cls, dtype):
+        return _GenericAlias(cls, dtype)
 
     @classmethod
     def _from_numpy(cls, value):

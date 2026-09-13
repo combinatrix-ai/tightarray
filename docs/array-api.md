@@ -122,5 +122,6 @@ dtype conversion and arithmetic rules do not change. Fitting assignments never
 invoke the policy callback. The native fixed-width Array remains range checked.
 
 Public stubs and a `py.typed` marker are shipped and checked with mypy.
-See [static typing](typing.md). Logical dtype and mutable storage width remain
+`Array[DType]` tracks logical dtype through construction, views, comparisons and
+casts. See [static typing](typing.md). Logical dtype and mutable storage width remain
 separate; `storage_bits` is runtime metadata, not a static bit-width parameter.

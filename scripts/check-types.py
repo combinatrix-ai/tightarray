@@ -23,4 +23,4 @@ with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
                     str(tmp / 'wheel/tightarray/array_api/__init__.pyi')],
                    cwd=tmp, env=env, check=True)
     subprocess.run([sys.executable, '-m', 'mypy', '--strict',
-                    str(root / 'tests/typing/usage.py')], cwd=tmp, env=env, check=True)
+                    *[str(p) for p in sorted((root / 'tests/typing').glob('*.py'))]], cwd=tmp, env=env, check=True)
