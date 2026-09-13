@@ -552,7 +552,10 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_reduce.h"
 #include "_numpy.h"
 #include "_wire.h"
+#include "_sequence.h"
 static PyMethodDef methods[]={
+    {"_rolling_codes",(PyCFunction)array_rolling_codes,METH_VARARGS,NULL},
+    {"_hamming_rows",(PyCFunction)array_hamming_rows,METH_VARARGS,NULL},
     {"_from_word_bytes",(PyCFunction)array_from_word_bytes,METH_VARARGS|METH_CLASS,NULL},
     {"_to_word_bytes",(PyCFunction)array_to_word_bytes,METH_O,NULL},
     {"sum",(PyCFunction)array_sum,METH_NOARGS,"Sum values with a bounded-memory native reduction."},
