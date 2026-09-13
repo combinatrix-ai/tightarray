@@ -1,0 +1,5 @@
+# The 2025.12 __dlpack__ contract requires BufferError when copy=False cannot be
+# fulfilled. Upstream test_dunder_dlpack only permits it for cross-device copies.
+# Packed bool/uint8 needs expansion even on CPU. Never silently copy to pass it.
+# https://data-apis.org/array-api/2025.12/API_specification/generated/array_api.array.__dlpack__.html
+array_api_tests/test_dlpack.py::test_dunder_dlpack

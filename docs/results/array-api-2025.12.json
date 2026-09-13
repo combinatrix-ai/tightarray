@@ -1,0 +1,61 @@
+{
+  "standard": "2025.12",
+  "suite_revision": "ef5b39f1190d54dca0d9a12646033d2d123afdd5",
+  "spec_revision": "5f847a3858875c682ae901aa22b0413bf24be9da",
+  "platform": "ARM64 macOS",
+  "python": "3.12.8",
+  "numpy": "2.5.3",
+  "hypothesis": "6.168.0",
+  "max_examples": 100,
+  "derandomize": true,
+  "summary": {
+    "passed": 1380,
+    "xfailed": 1,
+    "skipped": 5,
+    "total": 1386,
+    "collected": 1386
+  },
+  "exceptions": [
+    {
+      "nodeid": "array_api_tests/test_dlpack.py::test_dunder_dlpack",
+      "outcome": "xfailed"
+    },
+    {
+      "nodeid": "array_api_tests/test_operators_and_elementwise_functions.py::test_remainder[remainder(x1, x2)]",
+      "outcome": "skipped"
+    },
+    {
+      "nodeid": "array_api_tests/test_operators_and_elementwise_functions.py::test_remainder[__mod__(x1, x2)]",
+      "outcome": "skipped"
+    },
+    {
+      "nodeid": "array_api_tests/test_operators_and_elementwise_functions.py::test_remainder[__mod__(x, s)]",
+      "outcome": "skipped"
+    },
+    {
+      "nodeid": "array_api_tests/test_operators_and_elementwise_functions.py::test_remainder[__imod__(x1, x2)]",
+      "outcome": "skipped"
+    },
+    {
+      "nodeid": "array_api_tests/test_operators_and_elementwise_functions.py::test_remainder[__imod__(x, s)]",
+      "outcome": "skipped"
+    }
+  ],
+  "namespace_sha256": "2212ace6cb967d8d8e6c301584ba84d64b5078bb3f6ac1adcc47fb8d65839220",
+  "second_environment": {
+    "platform": "Apple M1 Pro macOS",
+    "python": "3.14.7",
+    "numpy": "2.5.3",
+    "summary": {
+      "passed": 1376,
+      "xfailed": 1,
+      "skipped": 5,
+      "total": 1382,
+      "collected": 1382
+    },
+    "unit_tests_passed": 252,
+    "asan_ubsan_tests_passed": 252
+  },
+  "unit_tests_passed": 252,
+  "special_cases_note": "Some upstream special cases use Hypothesis example() and are not made deterministic by derandomize."
+}

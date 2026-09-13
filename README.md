@@ -80,6 +80,10 @@ NumPy dispatch. `np.asarray` unpacks to a writable uint8 ndarray; `np.copy` and
 selected `np.take` calls retain packed storage. General arithmetic returns NumPy
 results. See [the supported subset and explicit boundaries](docs/numpy.md).
 
+For the standard Python Array API, install `.[array-api]` and use
+`tightarray.array_api`. It provides packed uint8/bool ND arrays and NumPy-backed
+other dtypes. See [conformance results and limitations](docs/array-api.md).
+
 ## Representation
 
 | Structure | Retained representation |
@@ -87,7 +91,7 @@ results. See [the supported subset and explicit boundaries](docs/numpy.md).
 | Array | Native buffer, element count, bit width, layout |
 | Matrix | One Array plus native row and column counts |
 | RaggedArray | One Array plus a native offsets buffer |
-| Future ND | Shape/strides extension, not implemented |
+| Array API ND | Shared packed root plus shape/strides; NumPy for other dtypes |
 
 - **Packed**: dense fixed-width bit stream; elements can cross 64-bit boundaries.
 - **Word-aligned**: whole elements within each 64-bit word, with unused tail bits.
@@ -128,7 +132,7 @@ Implemented: core arrays, matrices, ragged rows, shared views, mutation, copy,
 gather, conversion, comparison, count, and subsequence search. Boundary tests,
 randomized reference checks, and ASan/UBSan checks accompany optimized kernels.
 
-Deferred: arbitrary N-dimensional strides, resizing, serialization/mmap,
+Deferred: native C N-dimensional kernels, resizing, serialization/mmap,
 Zero-copy NumPy dtype integration, parallel mutation, and wider-platform tuning.
 The name is provisional; package-name availability has not been checked.
 Licensing and public publication remain pending decisions.
