@@ -18,6 +18,15 @@ static int storage_set_data(APIStorage *s,PyObject *value,void *unused) {
 static int storage_widen(APIStorage *s,unsigned bits) {
     if(!s->data) { PyErr_SetString(PyExc_RuntimeError,"uninitialized storage"); return -1; }
     if(bits<=s->data->bits) return 0;
+    /* Cold path only: warn/reject before allocating or changing shared storage. */
+    PyObject *policy=PyImport_ImportModule("tightarray.array_api._policy");
+    if(!policy) return -1;
+    PyObject *ok=PyObject_CallMethod(policy,"_check_widen","IIn",s->data->bits,bits,s->data->length);
+    Py_DECREF(policy);
+    if(!ok) return -1;
+    Py_DECREF(ok);
+    /* A custom warning handler may have widened this storage itself. */
+    if(bits<=s->data->bits) return 0;
     Array *a=allocate(s->data->length,bits,s->data->aligned); if(!a) return -1;
     if(bits==8) unpack_range(s->data,0,a->length,(uint8_t *)a->data);
     else {

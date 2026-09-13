@@ -98,3 +98,29 @@ axis tuples. Negative strides, empty outputs, unaligned result buffers, and exac
 allocation tails have regression coverage. Other accumulation dtypes retain the
 NumPy fallback. See [reduction measurements](axis-performance.md) and
 [tile accumulator measurements](tile-performance.md).
+
+## Widening policy
+
+Assignment that expands packed storage emits `StorageWideningWarning` before
+allocation or mutation. The warning identifies the old/new widths and shared
+root length. All views retain the shared storage. Standard Python warning
+filters control display frequency; turning this warning into an error leaves
+the values and storage unchanged.
+
+```python
+xp.set_strict(True)  # reject implicit widening in the current execution context
+# x[0] = 31 raises xp.StorageWideningError if its storage is narrower than 5 bits
+xp.set_strict(False)
+with xp.strict():
+    x[0] = 1  # succeeds if the value fits
+```
+
+`strict(False)` temporarily permits widening; nested contexts restore their
+previous policy even after exceptions. ContextVar isolation applies to threads
+and asynchronous contexts. Strict mode only governs storage widening; logical
+dtype conversion and arithmetic rules do not change. Fitting assignments never
+invoke the policy callback. The native fixed-width Array remains range checked.
+
+Static typing is not yet a supported package contract: no public stubs or
+`py.typed` marker are shipped. Logical dtype and mutable storage width remain
+separate; `storage_bits` is runtime metadata, not a static bit-width parameter.

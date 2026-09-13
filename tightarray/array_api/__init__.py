@@ -12,6 +12,8 @@ import operator as _operator
 import numpy as _np
 from .._core import Array as _NativeArray, _Storage, _APIView
 
+from ._policy import StorageWideningWarning, StorageWideningError, set_strict, strict
+
 __array_api_version__ = '2025.12'
 __version__ = '0.1.0.dev0'
 
