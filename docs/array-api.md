@@ -51,7 +51,9 @@ PYTHON=python sh scripts/check-array-api.sh -q
 The runner clones the unmodified official
 [array-api-tests](https://github.com/data-apis/array-api-tests/tree/2026.09.08),
 pinned to `ef5b39f1190d54dca0d9a12646033d2d123afdd5`, and verifies the spec submodule
-`5f847a3858875c682ae901aa22b0413bf24be9da`. A dirty checkout is rejected.
+`5f847a3858875c682ae901aa22b0413bf24be9da`. A dirty checkout is rejected. A local pytest plugin removes only the five
+upstream `skip(reason="flaky")` markers for remainder checks; their test bodies
+remain unchanged and failures fail CI.
 `ARRAY_API_SUITE_DIR` may select an existing checkout. Dependencies are pinned;
 Hypothesis property tests use derandomization with up to 100 examples per test.
 Some upstream special-case tests call `example()` directly and remain randomized.
@@ -72,3 +74,8 @@ not a claim that every case in that test passed.
 Finite generated tests are evidence, not certification or a proof of complete
 compatibility. The compact [validation report](results/array-api-2025.12.json)
 records versions and exceptions. Full reports remain CI artifacts.
+
+The five remainder checks were additionally exercised with four seeds and
+1,000 successful generated cases per test per seed (20,000 total), with no
+failures. They are now enabled in every CI conformance run; the results above
+record the earlier baseline before this change.

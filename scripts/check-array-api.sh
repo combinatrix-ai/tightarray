@@ -13,6 +13,6 @@ test -z "$(git -C "$suite" status --porcelain)"
 test "$(git -C "$suite/array-api" rev-parse HEAD)" = 5f847a3858875c682ae901aa22b0413bf24be9da
 export ARRAY_API_TESTS_MODULE=tightarray.array_api
 export ARRAY_API_TESTS_VERSION=2025.12
-export PYTHONPATH="$repo${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$repo:$repo/scripts${PYTHONPATH:+:$PYTHONPATH}"
 cd "$suite"
-exec "$PYTHON" -m pytest array_api_tests --hypothesis-derandomize --max-examples=100 --xfails-file="$repo/tests/array-api-xfails.txt" "$@"
+exec "$PYTHON" -m pytest -p array_api_ci array_api_tests --hypothesis-derandomize --max-examples=100 --xfails-file="$repo/tests/array-api-xfails.txt" "$@"

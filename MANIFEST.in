@@ -4,3 +4,4 @@ include benchmarks/*.py
 include scripts/*.sh
 recursive-include docs *.md *.json *.csv
 include tests/array-api-*.txt
+include scripts/array_api_ci.py
