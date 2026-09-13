@@ -1,0 +1,22 @@
+# Python and native builds
+__pycache__/
+*.py[cod]
+*.so
+*.dylib
+*.o
+*.a
+*.egg-info/
+.venv/
+build/
+dist/
+.pytest_cache/
+.DS_Store
+
+# Credentials and local data
+.env
+.env.*
+*.pem
+*.key
+data/
+artifacts/
+benchmarks/results/
