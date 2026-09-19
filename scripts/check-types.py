@@ -14,7 +14,7 @@ with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
                     '--no-build-isolation', '-w', str(tmp), str(root)], check=True)
     with zipfile.ZipFile(next(tmp.glob('*.whl'))) as wheel:
         required = {'tightarray/py.typed', 'tightarray/__init__.pyi',
-                    'tightarray/array_api/__init__.pyi'}
+                    'tightarray/array_api/__init__.pyi', 'tightarray/numba.pyi'}
         assert required <= set(wheel.namelist()), 'wheel omitted type information'
         wheel.extractall(tmp / 'wheel')
     env = dict(os.environ, MYPYPATH=str(tmp / 'wheel'))
@@ -28,10 +28,12 @@ with tempfile.TemporaryDirectory(prefix='tightarray-types-') as directory:
     # Check stubs themselves, not only their imported use sites.
     subprocess.run([sys.executable, '-m', 'mypy', '--strict',
                     str(tmp / 'wheel/tightarray/__init__.pyi'),
-                    str(tmp / 'wheel/tightarray/array_api/__init__.pyi')],
+                    str(tmp / 'wheel/tightarray/array_api/__init__.pyi'),
+                    str(tmp / 'wheel/tightarray/numba.pyi')],
                    cwd=tmp, env=env, check=True)
     subprocess.run([sys.executable, '-m', 'mypy', '--strict',
                     *[str(p) for p in sorted((root / 'tests/typing').glob('*.py'))]], cwd=tmp, env=env, check=True)
 
     subprocess.run([sys.executable, '-m', 'mypy', '--strict', '--disallow-any-expr',
-                    str(root / 'tests/typing/no_any.py')], cwd=tmp, env=env, check=True)
+                    str(root / 'tests/typing/no_any.py'),
+                    str(root / 'tests/typing/numba_access.py')], cwd=tmp, env=env, check=True)

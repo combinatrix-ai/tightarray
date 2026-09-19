@@ -553,7 +553,9 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_numpy.h"
 #include "_wire.h"
 #include "_sequence.h"
+#include "_numba.h"
 static PyMethodDef methods[]={
+    {"_word_view",(PyCFunction)array_word_view,METH_NOARGS,NULL},
     {"_rolling_codes",(PyCFunction)array_rolling_codes,METH_VARARGS,NULL},
     {"_hamming_rows",(PyCFunction)array_hamming_rows,METH_VARARGS,NULL},
     {"_from_word_bytes",(PyCFunction)array_from_word_bytes,METH_VARARGS|METH_CLASS,NULL},
@@ -597,7 +599,7 @@ static PyTypeObject ArrayType={
 #include "_api_view.h"
 static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1};
 PyMODINIT_FUNC PyInit__core(void) {
-    if(PyType_Ready(&ArrayType)<0) return NULL;
+    if(PyType_Ready(&ArrayType)<0 || PyType_Ready(&WordBufferType)<0) return NULL;
     PyObject *m=PyModule_Create(&module); if(!m) return NULL;
     Py_INCREF(&ArrayType);
     if(PyModule_AddObject(m,"Array",(PyObject *)&ArrayType)<0) { Py_DECREF(&ArrayType); Py_DECREF(m); return NULL; }
