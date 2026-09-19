@@ -50,4 +50,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -e '.[test,numba]' 'cellpylib @ git+https://github.com/lantunes/cellpylib.git@743e936d48f8520f6f4ac652570ac7bb46414189'
-      - run: python -m pytest -q tests/test_numba.py tests/test_lattice.py tests/test_cellpylib_backend.py
+      - run: python -m pytest -q tests/test_numba.py tests/test_lattice.py tests/test_cellpylib_backend.py tests/test_cellpylib_multistate.py

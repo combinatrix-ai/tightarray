@@ -71,3 +71,5 @@ The major gain is specializing the rule and removing Python per-cell work.
 Next experiments should target word-parallel binary updates and larger grids.
 A compact/lazy history API could save memory but would change CellPyLib's
 ndarray return contract; it must be reported as a separate interface experiment.
+
+Follow-up: [multi-state and large-grid sweep](cellpylib-multistate.md).
