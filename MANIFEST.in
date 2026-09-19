@@ -15,3 +15,5 @@ include scripts/check-types.py
 include scripts/generate-namespace-stub.py
 
 recursive-include benchmarks/bio *.py *.md *.json *.txt
+
+recursive-include examples *.py

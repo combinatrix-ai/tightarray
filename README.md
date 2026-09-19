@@ -147,6 +147,9 @@ Speedups are method- and workload-specific; this is not a claim that packing mak
 every operation faster. Python scalar loops, construction from object-heavy
 inputs, long-needle search, and nonaligned copies remain optimization targets.
 
+Optional [Numba packed access and lattice simulation](docs/numba.md) provides
+zero-copy descriptors, checked fixed-width writes, and a three-backend benchmark.
+
 ## Status
 
 Implemented: core arrays, matrices, ragged rows, shared views, mutation, copy,
