@@ -91,8 +91,11 @@ the winning representation; codec candidates are still evaluated exhaustively.
 A cache hit reads a packed `Array`, translating local palette indices where needed.
 Periodic entries retain only their packed pattern and use cyclic indexing; bulk
 reads expand directly into the requested output. Trimmed entries retain only their interior and answer exterior reads with the
-default value. A changed write materializes either structural entry before
-modification, so changing one element cannot change other repetitions or defaults.
+default value. A changed scalar write to a cached span can update its interior
+in place when the current width and palette suffice. Other changed structural
+writes materialize an ordinary packed entry, so changing one element cannot
+change other repetitions or defaults. Uncached entries still use write-through;
+editing a temporary decoded span alone would not persist the change.
 Ordinary entries are mutable. Width/palette changes choose a new compact hot
 representation before replacing the old one. The LRU budget includes each cached
 packed buffer (only the pattern or interior for structural entries) and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes

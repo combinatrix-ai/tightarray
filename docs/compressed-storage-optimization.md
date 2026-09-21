@@ -339,3 +339,37 @@ Final verification: CPython 3.12 passed 994 tests; CPython 3.14 passed 773 with
 planner tests passed ASan/UBSan. The independent candidate-size oracle includes
 all 256 potential defaults, and failure tests preserve cached spans on writeback
 errors. The experimental class is still not a general replacement for Blosc2.
+
+
+## Cached interior scalar updates
+
+Trimmed entries now update their stored interior without expanding omitted edges
+when the value fits the existing palette/width and the same entry is admitted to
+the cache. Periodic entries remain protected from pattern mutation. Exterior
+changes, new palette values, width growth, zero-cache and oversized temporary
+entries retain the existing materialize/write-through path. Failed dirty flushes
+leave the cached update authoritative.
+
+The [targeted update study](compressed-span-updates.md) compares the prior policy
+`5defad8` with this change: a 4096-value chunk with a random 512-value interior,
+64 actual value changes plus flush, five randomized repeats. With a 512-byte
+cache, no-codec interior updates fall from 0.8175 to 0.0488 ms (16.8x); ZSTD
+falls from 2.9235 to 0.0932 ms (31.4x). Dense ZSTD takes 1.5865 ms in that case.
+The 320-byte packed interior stays cached; previously expanding it forced
+write-through after every update. Cold payload is unchanged. The new path retains
+its hot entry, so its post-operation owned graph can be larger than the old
+write-through path's empty cache; this is not an unconditional memory reduction.
+
+Mixed inside/exterior updates improve about 1.75x at that budget. Zero-cache and
+exterior-only writes do not gain this fast path. With a large cache, both working
+sets fit and the targeted inside-update times do not improve. Random and periodic
+controls are approximately unchanged in their aggregate; small individual
+regressions remain in the samples. Broad nine-case ZSTD update batches improve
+about 5–10% on the half-zero/island patterns, substantially less than the targeted
+cache-thrashing case. See the linked tables for controls and caveats.
+
+Verification: 84 focused storage tests passed on CPython 3.12; CPython 3.14 passed
+56 with 28 optional-codec skips. Strict implementation typing and lint passed.
+Tests cover in-place identity, both palette modes, cache-zero/oversized persistence,
+and failed flush retaining the modified entry. Both benchmark runs verify every
+update after flush, cache clearing, and reload.
