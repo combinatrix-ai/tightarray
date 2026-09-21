@@ -38,4 +38,15 @@ def test_selection_matches_exhaustive_storage(palette):
             if palette and (len(colors) - 1).bit_length() < direct.bits:
                 run_size += len(colors)
             sizes.append(run_size)
+            for period in range(1, min(256, len(raw) // 2) + 1):
+                if raw[period:] == raw[:-period]:
+                    pattern = raw[:period]
+                    bits = direct.bits
+                    extra = 0
+                    if palette and (len(colors) - 1).bit_length() < bits:
+                        bits = (len(colors) - 1).bit_length()
+                        extra = len(colors)
+                        pattern = bytes(colors.index(value) for value in pattern)
+                    sizes.append(Array(pattern, bits=bits).nbytes + extra + 1)
+                    break
             assert result.storage_info().stored_bytes == min(sizes)

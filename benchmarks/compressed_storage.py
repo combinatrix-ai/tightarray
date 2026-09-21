@@ -305,6 +305,7 @@ def source_hashes():
             "tightarray/_compressed.h",
             "tightarray/_compressed_hot.h",
             "tightarray/_compressed_rle.h",
+            "tightarray/_compressed_period.h",
             "tightarray/_core.c",
             "setup.py",
             "benchmarks/compressed_storage.py",

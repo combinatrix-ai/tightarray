@@ -51,12 +51,20 @@ class _Filters(Protocol):
 
 class _Native(Protocol):
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
+    def _byte_period(self, raw: bytes, /) -> int: ...
     def _rle_encode(
         self, raw: bytes, limit: int, palette: bytes = b""
     ) -> bytes | None: ...
     def _rle_decode(self, payload: bytes, length: int) -> bytes: ...
 
-    def _Hot(self, data: Array, palette: bytes = b"", dirty: bool = False) -> _Hot: ...
+    def _Hot(
+        self,
+        data: Array,
+        palette: bytes = b"",
+        dirty: bool = False,
+        *,
+        length: int = ...,
+    ) -> _Hot: ...
 
 
 _native = cast(_Native, importlib.import_module("tightarray._core"))
@@ -100,6 +108,7 @@ class StorageInfo:
     palette_chunks: int
     compressed_chunks: int
     rle_chunks: int
+    periodic_chunks: int
     cache_hits: int
     cache_misses: int
     evictions: int
@@ -136,6 +145,9 @@ class _Hot(Protocol):
     def palette(self) -> bytes: ...
 
     dirty: bool
+
+    @property
+    def repeated(self) -> bool: ...
 
     @property
     def nbytes(self) -> int: ...
@@ -177,7 +189,7 @@ def _restore(payload: bytes, length: int, bits: _Bits) -> Array:
 class CompressedArray:
     """Fixed-length logical uint8 array with adaptive per-chunk compression.
 
-    Each cold chunk chooses uniform, bit packing, local palette packing, or runs.
+    Cold chunks choose uniform, bit/palette packing, runs, or short periodic patterns.
     Optional Blosc2 LZ4/ZSTD also tries compressed packed and uint8 bytes. Only a
     smaller candidate is retained. Physical widths adapt silently; values outside
     uint8 always fail. Slices/read return independent bytes, never mutable views.
@@ -306,6 +318,30 @@ class CompressedArray:
         best_size = min(direct_size, len(raw))
         if run_palette:
             best_size = min(best_size, palette_size)
+        period_record = None
+        period_bits = palette_bits if run_palette else direct_bits
+        # Even the shortest packed pattern needs one word and a period byte.
+        if best_size > 9 + len(run_palette):
+            period = _native._byte_period(raw)
+            if period:
+                period_size = (
+                    ((period * period_bits + 63) // 64) * 8 + 1 + len(run_palette)
+                )
+                if period_size < best_size:
+                    pattern = raw[:period]
+                    if run_palette:
+                        translation = bytearray(256)
+                        for index, color in enumerate(run_palette):
+                            translation[color] = index
+                        pattern = pattern.translate(bytes(translation))
+                    payload = _raw(Array(pattern, bits=period_bits))
+                    period_record = (
+                        bytes((128 | period_bits, len(run_palette)))
+                        + run_palette
+                        + bytes((period - 1,))
+                        + payload
+                    )
+                    best_size = period_size
         # Stop scanning as soon as runs cannot beat the best uncompressed form.
         # Retain the decode palette so cache misses never need to rediscover it.
         run_payload = _native._rle_encode(
@@ -317,9 +353,10 @@ class CompressedArray:
             run_record = (
                 bytes((64 | run_bits, len(run_palette))) + run_palette + run_payload
             )
+        structured = run_record if run_record is not None else period_record
         if self._blosc is None:
-            if run_record is not None:
-                return run_record
+            if structured is not None:
+                return structured
             # Packed lengths are known before allocation. Preserve the exhaustive
             # candidate ordering on ties without constructing discarded arrays.
             mode: _Mode = "packed" if direct_size <= len(raw) else "bytes"
@@ -373,8 +410,8 @@ class CompressedArray:
                         )
                     )
         winner = min(candidates, key=lambda candidate: candidate.nbytes)
-        if run_record is not None and len(run_record) - 2 < winner.nbytes:
-            return run_record
+        if structured is not None and len(structured) - 2 < winner.nbytes:
+            return structured
         return winner.seal()
 
     def _chunk_length(self, index: int) -> int:
@@ -386,6 +423,10 @@ class CompressedArray:
         flags, count = chunk[0], chunk[1]
         bits = cast(_Bits, flags & 15)
         palette = chunk[2 : 2 + count]
+        if flags & 128:
+            period = chunk[2 + count] + 1
+            pattern = Array._from_packed_bytes(chunk, period, bits, 3 + count)
+            return _make_entry(pattern, palette, length=length)
         if flags & 64:
             raw = _native._rle_decode(chunk[2 + count :], length)
             return _make_entry(Array(raw, bits=bits), palette)
@@ -520,7 +561,11 @@ class CompressedArray:
             return
         hot = self._get_hot(index)
         encoded = hot.palette.find(bytes([scalar])) if hot.palette else scalar
-        if 0 <= encoded < 1 << hot.data.bits and self._cache.get(index) is hot:
+        if (
+            not hot.repeated
+            and 0 <= encoded < 1 << hot.data.bits
+            and self._cache.get(index) is hot
+        ):
             hot.data[offset] = encoded
             hot.dirty = True
             return
@@ -628,6 +673,11 @@ class CompressedArray:
             ),
             sum(
                 bool(chunk[0] & 64)
+                for chunk in self._chunks
+                if isinstance(chunk, bytes)
+            ),
+            sum(
+                bool(chunk[0] & 128)
                 for chunk in self._chunks
                 if isinstance(chunk, bytes)
             ),

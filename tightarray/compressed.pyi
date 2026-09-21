@@ -16,6 +16,7 @@ class StorageInfo:
     palette_chunks: int
     compressed_chunks: int
     rle_chunks: int
+    periodic_chunks: int
     cache_hits: int
     cache_misses: int
     evictions: int
