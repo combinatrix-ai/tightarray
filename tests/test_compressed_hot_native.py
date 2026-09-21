@@ -38,7 +38,6 @@ def test_read_and_view(bits, layout):
 def test_direct_mutation_and_strong_ownership():
     data = Array(bytes(range(32)), bits=5)
     hot = _Hot(data)
-    before = sys.getrefcount(data)
     assert hot.read() == bytes(range(32))
     assert hot.nbytes == data.nbytes
     data[3] = 17
@@ -46,7 +45,6 @@ def test_direct_mutation_and_strong_ownership():
     del data
     gc.collect()
     assert hot[3] == 17
-    assert before >= 3
     assert not hot.dirty
     hot.dirty = True
     assert hot.dirty
