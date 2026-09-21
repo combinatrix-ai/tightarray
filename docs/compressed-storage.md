@@ -8,8 +8,10 @@ working set does not. Existing `Array`, Matrix, and Array API behavior is unchan
 
 This implementation manages chunks in Python and uses the existing C packing
 kernels. It is not a universal replacement for NumPy, nor a new entropy codec.
-The first measurements favor read-mostly workloads. Construction, many updates,
-and tiny working sets remain faster with the dense baseline.
+The initial measurements favored read-mostly workloads. Subsequent native input
+and metadata optimizations also improve construction and updates; tiny working
+sets and some codec-heavy operations remain slower. See the
+[optimization measurements](compressed-storage-optimization.md).
 
 ## Use
 
@@ -59,6 +61,11 @@ Cold chunks choose the smallest retained payload plus palette among:
    compressed uint8 using BITSHUFFLE. Candidates smaller than 64 bytes skip the
    codec. Incompressible candidates stay uncompressed; equal-size ties favor the
    earlier uncompressed candidate.
+
+Nonuniform cold chunks retain one bytes object: two private descriptor bytes,
+then palette and payload. The descriptor is included in `owned_bytes` but excluded
+from `stored_bytes`. Uncompressed candidate sizes are calculated before allocating
+the winning representation; codec candidates are still evaluated exhaustively.
 
 A cache hit reads or writes a mutable packed `Array`, translating local palette
 indices where needed. Width/palette changes choose a new compact hot representation
