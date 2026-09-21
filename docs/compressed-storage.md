@@ -108,8 +108,14 @@ Other changed structural
 writes materialize an ordinary packed entry, so changing one element cannot
 change other repetitions or defaults. Uncached entries still use write-through;
 editing a temporary decoded span alone would not persist the change.
-Ordinary entries are mutable. Width/palette changes choose a new compact hot
-representation before replacing the old one. The LRU budget includes each cached
+Ordinary cached entries also apply partial bulk writes directly when their
+current width and palette represent every input value. Like scalar updates, this
+retains the hot width and palette even when the last large value or a label is
+removed; the cache can therefore remain larger than immediate repacking would
+require. Flush recomputes cold storage from logical values, while clearing and
+reloading releases the old hot representation. Full-chunk replacements still
+repack. Width/palette growth chooses a new compact hot representation before
+replacing the old one. The LRU budget includes each cached
 packed buffer (only the pattern or interior for structural entries) and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes
 are immediately encoded and reads use only a temporary decoded chunk.
 

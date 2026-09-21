@@ -68,6 +68,8 @@ jobs:
             tests/test_compressed_codec_bound.py \
             tests/test_compressed_hot_native.py \
             tests/test_compressed_hot_reads.py \
+            tests/test_compressed_hot_write_native.py \
+            tests/test_compressed_hot_bulk.py \
             tests/test_compressed_native.py \
             tests/test_compressed_period_native.py \
             tests/test_compressed_periods.py \
