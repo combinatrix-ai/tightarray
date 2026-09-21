@@ -555,6 +555,7 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_sequence.h"
 #include "_numba.h"
 #include "_compressed.h"
+#include "_compressed_hot.h"
 static PyMethodDef methods[]={
     {"_from_packed_bytes",(PyCFunction)array_from_packed_bytes,METH_VARARGS|METH_CLASS,NULL},
     {"_word_view",(PyCFunction)array_word_view,METH_NOARGS,NULL},
@@ -605,8 +606,10 @@ static PyMethodDef module_methods[]={
 };
 static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1,.m_methods=module_methods};
 PyMODINIT_FUNC PyInit__core(void) {
-    if(PyType_Ready(&ArrayType)<0 || PyType_Ready(&WordBufferType)<0) return NULL;
+    if(PyType_Ready(&ArrayType)<0 || PyType_Ready(&WordBufferType)<0 || PyType_Ready(&CompressedHotType)<0) return NULL;
     PyObject *m=PyModule_Create(&module); if(!m) return NULL;
+    Py_INCREF(&CompressedHotType);
+    if(PyModule_AddObject(m,"_Hot",(PyObject *)&CompressedHotType)<0) { Py_DECREF(&CompressedHotType); Py_DECREF(m); return NULL; }
     Py_INCREF(&ArrayType);
     if(PyModule_AddObject(m,"Array",(PyObject *)&ArrayType)<0) { Py_DECREF(&ArrayType); Py_DECREF(m); return NULL; }
     if(PyType_Ready(&RowsType)<0) { Py_DECREF(m); return NULL; }
