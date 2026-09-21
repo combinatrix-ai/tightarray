@@ -53,7 +53,9 @@ class _Filters(Protocol):
 class _Native(Protocol):
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
     def _byte_period(self, raw: bytes, /) -> int: ...
-    def _byte_edge_spans(self, raw: bytes, /) -> tuple[tuple[int, int, int], ...]: ...
+    def _trim_plan(
+        self, raw: bytes, colors: bytes, palette: bool, limit: int, /
+    ) -> _TrimPlan | None: ...
     def _SpanHot(
         self,
         data: Array,
@@ -318,41 +320,6 @@ class CompressedArray:
             raise TypeError("Blosc2 did not return decompressed bytes")
         return result
 
-    def _trim_plan(self, raw: bytes, colors: bytes, limit: int) -> _TrimPlan | None:
-        if len(raw) > 65535 or limit <= 16:
-            return None
-        result = None
-        for default, first, last in _native._byte_edge_spans(raw):
-            if first == 0 and last == len(raw):
-                continue
-            length = last - first
-            maximum = colors[-2] if default == colors[-1] else colors[-1]
-            lower = ((length * _bits(maximum) + 63) // 64) * 8
-            if self._palette:
-                lower = min(
-                    lower,
-                    len(colors)
-                    - 1
-                    + ((length * _bits(len(colors) - 2) + 63) // 64) * 8,
-                )
-            if 8 + lower >= limit:
-                continue
-            span_colors = _native._byte_palette(raw[first:last])
-            bits = _bits(span_colors[-1])
-            palette = b""
-            size = ((length * bits + 63) // 64) * 8
-            if self._palette and len(span_colors) < 256:
-                palette_bits = _bits(len(span_colors) - 1)
-                palette_size = (
-                    len(span_colors) + ((length * palette_bits + 63) // 64) * 8
-                )
-                if palette_size < size:
-                    bits, palette, size = palette_bits, span_colors, palette_size
-            if 8 + size < limit:
-                limit = 8 + size
-                result = default, first, last, bits, palette, limit
-        return result
-
     def _encode_trim(self, raw: bytes, plan: _TrimPlan) -> bytes:
         default, first, last, bits, palette, _ = plan
         span = raw[first:last]
@@ -420,7 +387,7 @@ class CompressedArray:
         # Runs can make an interior scan pointless, especially for sparse spikes.
         if structured is not None:
             best_size = len(structured) - 2
-        trim_plan = self._trim_plan(raw, colors, best_size + 2)
+        trim_plan = _native._trim_plan(raw, colors, bool(self._palette), best_size + 2)
         if trim_plan is not None:
             structured = None  # The span is strictly smaller, including headers.
         if self._blosc is None:
