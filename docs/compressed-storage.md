@@ -96,8 +96,12 @@ preserves the winning record; see [measurements](compressed-header-pruning.md).
 A cache hit reads a packed `Array`, translating local palette indices where needed.
 Periodic entries retain only their packed pattern and use cyclic indexing; bulk
 reads expand directly into the requested output. Trimmed entries retain only their interior and answer exterior reads with the
-default value. A changed scalar write to a cached span can update its interior
-in place when the current width and palette suffice. Other changed structural
+default value. Scalar and partial bulk writes wholly inside a cached span update
+its packed interior in place when the current width and palette suffice. Bulk
+writes validate all input first, then validate every encoded value before native
+stores; failed fallback allocation leaves that chunk unchanged. These updates
+retain the existing hot width and palette until the entry is replaced or reloaded.
+Other changed structural
 writes materialize an ordinary packed entry, so changing one element cannot
 change other repetitions or defaults. Uncached entries still use write-through;
 editing a temporary decoded span alone would not persist the change.

@@ -85,5 +85,5 @@ pattern results are not application E2E results.
 
 ```sh
 python -m benchmarks.compressed_period_palette --output /tmp/period-palette.json
-pytest -q tests/test_compressed_period_palette.py
+python -m pytest -q tests/test_compressed_period_palette.py
 ```
