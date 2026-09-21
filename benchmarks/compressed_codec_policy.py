@@ -13,13 +13,43 @@ import argparse
 import json
 import statistics
 import time
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 import numpy as np
 
 from benchmarks.compressed_storage import CASES, dataset
 from tightarray import Array
-from tightarray.compressed import CompressedArray, _bits, _Chunk, _raw, _restore
+from tightarray.compressed import CompressedArray, _bits, _raw, _restore
+
+# Historical candidate model, deliberately local to this policy experiment.
+_Mode = Literal["packed", "bytes"]
+_Bits = Literal[1, 2, 3, 4, 5, 6, 7, 8]
+
+
+@dataclass(frozen=True, slots=True)
+class _Chunk:
+    length: int
+    mode: _Mode
+    bits: _Bits
+    palette: bytes = b""
+    payload: bytes = b""
+    compressed: bool = False
+
+    @property
+    def nbytes(self) -> int:
+        return len(self.palette) + len(self.payload)
+
+    def seal(self) -> bytes:
+        # Two private descriptor bytes, then palette and payload. Uniform chunks
+        # remain scalar ints. Avoid retaining a Python record per nonuniform chunk.
+        flags = (
+            self.bits
+            | (16 if self.compressed else 0)
+            | (32 if self.mode == "bytes" else 0)
+        )
+        return bytes((flags, len(self.palette))) + self.palette + self.payload
 
 
 def candidates(raw):

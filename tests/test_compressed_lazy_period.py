@@ -10,7 +10,7 @@ from benchmarks.compressed_period_after_rle import eager_source
 
 def test_lazy_period_preserves_cold_records_without_codecs():
     source = eager_source(Path(live.__file__).read_text())
-    with modules(policies_for(source)) as policies:
+    with modules(policies_for(source, winner_size="winner_size")) as policies:
         inputs = list(cases().values())
         inputs += [raw[:-1] for raw in inputs if len(raw) > 512]
         for raw in inputs:

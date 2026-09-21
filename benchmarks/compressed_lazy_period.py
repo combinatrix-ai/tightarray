@@ -15,7 +15,7 @@ from tightarray import _core
 BASELINE = "faf98fd"
 
 
-def lazy_source(source):
+def lazy_source(source, winner_size="winner.nbytes"):
     start = source.index("                    pattern = raw[:period]")
     end = source.index("                    best_size = period_size", start)
     eager = source[start:end]
@@ -50,11 +50,11 @@ def lazy_source(source):
     source = source.replace(
         marker, "            if period_pending:\n" + at(16) + marker
     )
-    marker = "        if trim_plan is not None and trim_plan[-1] < winner.nbytes + 2:"
+    marker = f"        if trim_plan is not None and trim_plan[-1] < {winner_size} + 2:"
     assert source.count(marker) == 1
     source = source.replace(
         marker,
-        "        if period_pending and period_size < winner.nbytes:\n"
+        f"        if period_pending and period_size < {winner_size}:\n"
         + at(12)
         + marker,
     )
@@ -70,12 +70,12 @@ def skip_trim_source(source):
     )
 
 
-def policies_for(source):
+def policies_for(source, winner_size="winner.nbytes"):
     return {
         "eager": source,
-        "lazy": lazy_source(source),
+        "lazy": lazy_source(source, winner_size),
         "skip-trim": skip_trim_source(source),
-        "combined": skip_trim_source(lazy_source(source)),
+        "combined": skip_trim_source(lazy_source(source, winner_size)),
     }
 
 

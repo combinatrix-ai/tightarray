@@ -58,3 +58,11 @@ python -m benchmarks.compressed_streaming_candidates --repeats 11 --calls 100 --
 ```
 
 The baseline Python is pinned; reproduction still requires the recorded native sources/binary. Production adoption should run normal typing, broad regression and failure-path checks separately.
+
+## Production adoption
+
+The measured selection logic is now used by `CompressedArray._encode`: ordinary candidates are compared with scalar fields, uncompressed ties win before codec attempts, and only the final winner is serialized. The separate structured/trim pruning bound is retained. Production adds explicit integer annotations for flags and a narrowing assertion on the already-proven palette branch. The ratios above describe the measured prototype, not an additional timing of this integration.
+
+The unused production `_Chunk` model was removed; the old codec-policy experiment keeps its own historical model. The lazy-period experiment's source transformer now accepts the winner expression explicitly so its historical and current-source oracles keep testing the intended period policy.
+
+Adoption validation: CPython 3.12 full suite 1409 passed; CPython 3.14 full suite 1064 passed / 95 skipped (optional dependencies unavailable); official wheel typing checks, strict mypy for `compressed.py`, and focused Ruff checks passed. The new five-case live oracle checks pinned old versus actual production records, changed-write flush/reload, all widths, palette enabled/disabled, boundary lengths, controlled compressed ties and structured ties. CI fetches the exact pinned reference commit before running the live oracle. No C or native-binary change was needed for this adoption.

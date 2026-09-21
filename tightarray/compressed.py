@@ -132,30 +132,6 @@ class StorageInfo:
     evictions: int
 
 
-@dataclass(frozen=True, slots=True)
-class _Chunk:
-    length: int
-    mode: _Mode
-    bits: _Bits
-    palette: bytes = b""
-    payload: bytes = b""
-    compressed: bool = False
-
-    @property
-    def nbytes(self) -> int:
-        return len(self.palette) + len(self.payload)
-
-    def seal(self) -> bytes:
-        # Two private descriptor bytes, then palette and payload. Uniform chunks
-        # remain scalar ints. Avoid retaining a Python record per nonuniform chunk.
-        flags = (
-            self.bits
-            | (16 if self.compressed else 0)
-            | (32 if self.mode == "bytes" else 0)
-        )
-        return bytes((flags, len(self.palette))) + self.palette + self.payload
-
-
 class _Hot(Protocol):
     @property
     def data(self) -> Array: ...
@@ -445,53 +421,66 @@ class CompressedArray:
                 and palette_size < best_size
             ):
                 payload = _native._pack_palette(raw, palette_bits, colors)
-                return _Chunk(len(raw), "packed", palette_bits, colors, payload).seal()
+                return bytes((palette_bits, len(colors))) + colors + payload
             payload = _direct_payload(raw, direct_bits) if mode == "packed" else raw
-            return _Chunk(len(raw), mode, direct_bits, payload=payload).seal()
-        candidates = [
-            _Chunk(
-                len(raw),
-                "packed",
-                direct_bits,
-                payload=_direct_payload(raw, direct_bits),
-            ),
-            _Chunk(len(raw), "bytes", direct_bits, payload=raw),
-        ]
-        if self._palette and len(colors) < 256:
-            palette_bits = _bits(len(colors) - 1)
-            # A palette can save bits only when its index width is narrower.
-            if palette_bits < direct_bits:
-                payload = _native._pack_palette(raw, palette_bits, colors)
-                candidates.append(
-                    _Chunk(len(raw), "packed", palette_bits, colors, payload)
+            return bytes((direct_bits | (32 if mode == "bytes" else 0), 0)) + payload
+        direct_payload = _direct_payload(raw, direct_bits)
+        indexed_payload = None
+        if self._palette and len(colors) < 256 and palette_bits < direct_bits:
+            indexed_payload = _native._pack_palette(raw, palette_bits, colors)
+
+        # All uncompressed candidates precede every compressed candidate on ties.
+        winner_payload, winner_palette = direct_payload, b""
+        winner_flags: int = direct_bits
+        winner_size = len(direct_payload)
+        if len(raw) < winner_size:
+            winner_flags, winner_payload, winner_size = direct_bits | 32, raw, len(raw)
+        if (
+            indexed_payload is not None
+            and len(indexed_payload) + len(colors) < winner_size
+        ):
+            winner_flags, winner_palette = palette_bits, colors
+            winner_payload, winner_size = (
+                indexed_payload,
+                len(indexed_payload) + len(colors),
+            )
+
+        # best_size remains the separate structured/trim-aware codec pruning bound.
+        flags: int
+        for index in range(3 if indexed_payload is not None else 2):
+            if index == 0:
+                candidate_payload, candidate_palette, flags = (
+                    direct_payload,
+                    b"",
+                    direct_bits,
                 )
-        if self._blosc is not None:
-            for candidate in tuple(candidates):
-                if len(candidate.payload) < 64 or best_size < (
-                    self._blosc.MIN_HEADER_LENGTH + len(candidate.palette)
-                ):
-                    continue
-                payload = self._compress(
-                    candidate.payload, shuffle=candidate.mode == "bytes"
+            elif index == 1:
+                candidate_payload, candidate_palette, flags = raw, b"", direct_bits | 32
+            else:
+                assert indexed_payload is not None
+                candidate_payload, candidate_palette, flags = (
+                    indexed_payload,
+                    colors,
+                    palette_bits,
                 )
-                if len(payload) < len(candidate.payload):
-                    best_size = min(best_size, len(payload) + len(candidate.palette))
-                    candidates.append(
-                        _Chunk(
-                            candidate.length,
-                            candidate.mode,
-                            candidate.bits,
-                            candidate.palette,
-                            payload,
-                            True,
-                        )
-                    )
-        winner = min(candidates, key=lambda candidate: candidate.nbytes)
-        if structured is not None and len(structured) - 2 < winner.nbytes:
+            if len(candidate_payload) < 64 or best_size < (
+                self._blosc.MIN_HEADER_LENGTH + len(candidate_palette)
+            ):
+                continue
+            payload = self._compress(candidate_payload, shuffle=index == 1)
+            if len(payload) < len(candidate_payload):
+                size = len(payload) + len(candidate_palette)
+                best_size = min(best_size, size)
+                if size < winner_size:
+                    winner_flags, winner_palette = flags | 16, candidate_palette
+                    winner_payload, winner_size = payload, size
+        if structured is not None and len(structured) - 2 < winner_size:
             return structured
-        if trim_plan is not None and trim_plan[-1] < winner.nbytes + 2:
+        if trim_plan is not None and trim_plan[-1] < winner_size + 2:
             return self._encode_trim(raw, trim_plan)
-        return winner.seal()
+        return (
+            bytes((winner_flags, len(winner_palette))) + winner_palette + winner_payload
+        )
 
     def _chunk_length(self, index: int) -> int:
         return min(self._chunk_size, self._length - index * self._chunk_size)
