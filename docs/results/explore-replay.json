@@ -1,0 +1,417 @@
+{
+  "metadata": {
+    "python": "3.12.8",
+    "machine": "arm64",
+    "numpy": "2.5.3",
+    "blosc2": "4.13.1",
+    "rounds": 24,
+    "repeats": 5,
+    "seed_data": 123,
+    "seed_indices": 456,
+    "scope": "Synthetic storage and batch decode, not SB3 training E2E",
+    "memory": "Payload only; excludes Python objects, source input, allocator and output batch",
+    "compression": "Per observation, clevel=5, BITSHUFFLE, typesize=1, nthreads=1"
+  },
+  "records": [
+    {
+      "states": 8,
+      "distribution": "uniform",
+      "backend": "numpy",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 8388608,
+      "payload_ratio": 1.0,
+      "build_ms": 1.2644159942283295,
+      "batch_ms_median": 0.024755208263134893,
+      "batch_ms_samples": [
+        0.028449666388041805,
+        0.024755208263134893,
+        0.02377604171973265,
+        0.028340250234274816,
+        0.023762125238135923
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "uniform",
+      "backend": "packed",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 3145728,
+      "payload_ratio": 0.375,
+      "build_ms": 2.2107909971964546,
+      "batch_ms_median": 0.09886458337859949,
+      "batch_ms_samples": [
+        0.10944791665679077,
+        0.10039583321486134,
+        0.09731425022134015,
+        0.09739583310874877,
+        0.09886458337859949
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "uniform",
+      "backend": "blosc-lz4",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 3295219,
+      "payload_ratio": 0.39282071590423584,
+      "build_ms": 21.793542000523303,
+      "batch_ms_median": 0.2607985834401916,
+      "batch_ms_samples": [
+        0.2682152917259373,
+        0.2598662916473889,
+        0.25534720831880503,
+        0.29650174989607575,
+        0.2607985834401916
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "uniform",
+      "backend": "blosc-zstd",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 3270643,
+      "payload_ratio": 0.38989102840423584,
+      "build_ms": 38.29937500267988,
+      "batch_ms_median": 0.3024027916277798,
+      "batch_ms_samples": [
+        0.31011633321516757,
+        0.3030017084408125,
+        0.29062500016152626,
+        0.2883263750845799,
+        0.3024027916277798
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "blocks8",
+      "backend": "numpy",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 8388608,
+      "payload_ratio": 1.0,
+      "build_ms": 0.3032079985132441,
+      "batch_ms_median": 0.020005208170914557,
+      "batch_ms_samples": [
+        0.021052083260049887,
+        0.020005208170914557,
+        0.01930729164693427,
+        0.01932466663371694,
+        0.02020487499976298
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "blocks8",
+      "backend": "packed",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 3145728,
+      "payload_ratio": 0.375,
+      "build_ms": 2.110250003170222,
+      "batch_ms_median": 0.09734720849034299,
+      "batch_ms_samples": [
+        0.09936808358664469,
+        0.09660066674162711,
+        0.09675175018249622,
+        0.1051076251314953,
+        0.09734720849034299
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "blocks8",
+      "backend": "blosc-lz4",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 710086,
+      "payload_ratio": 0.08464884757995605,
+      "build_ms": 21.920457998930942,
+      "batch_ms_median": 0.29301562517503044,
+      "batch_ms_samples": [
+        0.27770833306324977,
+        0.2936649164742751,
+        0.29301562517503044,
+        0.2787725834423327,
+        0.29837500005669426
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 8,
+      "distribution": "blocks8",
+      "backend": "blosc-zstd",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 339909,
+      "payload_ratio": 0.040520310401916504,
+      "build_ms": 104.16787499707425,
+      "batch_ms_median": 0.3529913334811378,
+      "batch_ms_samples": [
+        0.33891666680574417,
+        0.3361910000118466,
+        0.3529913334811378,
+        0.36748262512749835,
+        0.3767586664859361
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "uniform",
+      "backend": "numpy",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 8388608,
+      "payload_ratio": 1.0,
+      "build_ms": 0.3719590022228658,
+      "batch_ms_median": 0.022185749912750907,
+      "batch_ms_samples": [
+        0.022638875028254308,
+        0.022256916660505038,
+        0.022168374925968237,
+        0.022036458479609184,
+        0.022185749912750907
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "uniform",
+      "backend": "packed",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 5242880,
+      "payload_ratio": 0.625,
+      "build_ms": 2.2769169954699464,
+      "batch_ms_median": 0.10153125003853347,
+      "batch_ms_samples": [
+        0.12087499999324791,
+        0.10153125003853347,
+        0.10144791667698883,
+        0.09990624979157776,
+        0.12752604167568884
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "uniform",
+      "backend": "blosc-lz4",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 5398515,
+      "payload_ratio": 0.6435531377792358,
+      "build_ms": 21.78516699495958,
+      "batch_ms_median": 0.25905208349286113,
+      "batch_ms_samples": [
+        0.26309199984098086,
+        0.25483854157452396,
+        0.2575833335261753,
+        0.25905208349286113,
+        0.2934409997881933
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "uniform",
+      "backend": "blosc-zstd",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 5367795,
+      "payload_ratio": 0.6398910284042358,
+      "build_ms": 43.06262499449076,
+      "batch_ms_median": 0.30049304162578966,
+      "batch_ms_samples": [
+        0.3120659581933675,
+        0.3091406248737864,
+        0.2683767497728695,
+        0.28553991675532114,
+        0.30049304162578966
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "blocks8",
+      "backend": "numpy",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 8388608,
+      "payload_ratio": 1.0,
+      "build_ms": 0.28612499590963125,
+      "batch_ms_median": 0.02107116688421229,
+      "batch_ms_samples": [
+        0.02115974984917557,
+        0.02107116688421229,
+        0.021652791474480182,
+        0.01970141662847406,
+        0.01993749992834637
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "blocks8",
+      "backend": "packed",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 5242880,
+      "payload_ratio": 0.625,
+      "build_ms": 2.442208002321422,
+      "batch_ms_median": 0.10101041668046189,
+      "batch_ms_samples": [
+        0.10101041668046189,
+        0.09912674977385905,
+        0.10126387496711686,
+        0.12067012479140733,
+        0.10097395837268171
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "blocks8",
+      "backend": "blosc-lz4",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 1084797,
+      "payload_ratio": 0.12931787967681885,
+      "build_ms": 23.47745799488621,
+      "batch_ms_median": 0.30147916671315517,
+      "batch_ms_samples": [
+        0.2917048750532558,
+        0.2875468750668612,
+        0.30147916671315517,
+        0.3121284583661084,
+        0.3017673334397841
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    },
+    {
+      "states": 32,
+      "distribution": "blocks8",
+      "backend": "blosc-zstd",
+      "observations": 2048,
+      "shape": [
+        64,
+        64
+      ],
+      "batch": 64,
+      "dense_bytes": 8388608,
+      "payload_bytes": 450980,
+      "payload_ratio": 0.05376100540161133,
+      "build_ms": 190.46241699834354,
+      "batch_ms_median": 0.35144270835492836,
+      "batch_ms_samples": [
+        0.3434479167481186,
+        0.3627500000220607,
+        0.3746388750490344,
+        0.35144270835492836,
+        0.3456041664928004
+      ],
+      "exact": true,
+      "batch_output_bytes": 262144
+    }
+  ]
+}
