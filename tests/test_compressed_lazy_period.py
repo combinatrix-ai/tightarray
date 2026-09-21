@@ -5,10 +5,11 @@ from pathlib import Path
 import tightarray.compressed as live
 from benchmarks.compressed_input_dispatch import modules
 from benchmarks.compressed_lazy_period import cases, policies_for
+from benchmarks.compressed_period_after_rle import eager_source
 
 
 def test_lazy_period_preserves_cold_records_without_codecs():
-    source = Path(live.__file__).read_text()
+    source = eager_source(Path(live.__file__).read_text())
     with modules(policies_for(source)) as policies:
         inputs = list(cases().values())
         inputs += [raw[:-1] for raw in inputs if len(raw) > 512]
