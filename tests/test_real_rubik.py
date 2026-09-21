@@ -1,7 +1,34 @@
 """Optional real solver integration smoke tests (no generated tables)."""
 
+from importlib.util import find_spec
+from pathlib import Path
+
 import pytest
 
+# Inspect the top-level package without executing its fallback import, which
+# imports coordcube and generates any missing tables as a side effect.
+_spec = find_spec("kociemba")
+if _spec is None or _spec.origin is None:
+    pytest.skip("Optional kociemba package unavailable", allow_module_level=True)
+_cache = Path(_spec.origin).parent / "pykociemba" / "prunetables"
+_required = (
+    "FRtoBR_Move",
+    "MergeURtoULandUBtoDF",
+    "Slice_Flip_Prun",
+    "Slice_Twist_Prun",
+    "Slice_URFtoDLF_Parity_Prun",
+    "Slice_URtoDF_Parity_Prun",
+    "UBtoDF_Move",
+    "URFtoDLF_Move",
+    "URtoDF_Move",
+    "URtoUL_Move",
+    "flipMove",
+    "twistMove",
+)
+if not all((_cache / f"{name}.pkl").is_file() for name in _required):
+    pytest.skip(
+        "All bundled caches required; never generate tables", allow_module_level=True
+    )
 pytest.importorskip("kociemba")
 pytest.importorskip("numpy")
 from benchmarks.real_rubik import adapt, cases, installed, unpack, verify
@@ -44,12 +71,6 @@ def test_real_native_solution_and_restore():
 
 
 def test_python_real_solve_parity():
-    from pathlib import Path
-    import kociemba
-
-    cache = Path(kociemba.__file__).parent / "pykociemba" / "prunetables"
-    if len(list(cache.glob("*.pkl"))) != 12:
-        pytest.skip("Bundled caches required; never generate tables in tests")
     from kociemba.pykociemba import coordcube, search
     from benchmarks.real_rubik import NAMES, direct
 
