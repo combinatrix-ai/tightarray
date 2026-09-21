@@ -2,6 +2,8 @@ import sys
 
 import pytest
 
+pytest.importorskip("blosc2")
+
 from benchmarks.compressed_constructor_memo_selective import (
     MISSING,
     ReservedMemo,

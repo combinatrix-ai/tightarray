@@ -1,5 +1,7 @@
 import pytest
 
+pytest.importorskip("blosc2")
+
 from benchmarks.compressed_constructor_memo import MISSING, Memo, memo_class, pinned
 
 
