@@ -405,14 +405,10 @@ class CompressedArray:
                         + payload
                     )
                     best_size = period_size
-        trim_plan = self._trim_plan(raw, colors, best_size + 2)
-        if trim_plan is not None:
-            best_size = trim_plan[-1] - 2
-            period_record = None
         # Stop scanning as soon as runs cannot beat the best uncompressed form.
         # Retain the decode palette so cache misses never need to rediscover it.
         run_payload = _native._rle_encode(
-            raw, best_size - len(run_palette) + int(trim_plan is not None), run_palette
+            raw, best_size - len(run_palette), run_palette
         )
         run_record = None
         if run_payload is not None:
@@ -421,6 +417,12 @@ class CompressedArray:
                 bytes((64 | run_bits, len(run_palette))) + run_palette + run_payload
             )
         structured = run_record if run_record is not None else period_record
+        # Runs can make an interior scan pointless, especially for sparse spikes.
+        if structured is not None:
+            best_size = len(structured) - 2
+        trim_plan = self._trim_plan(raw, colors, best_size + 2)
+        if trim_plan is not None:
+            structured = None  # The span is strictly smaller, including headers.
         if self._blosc is None:
             if structured is not None:
                 return structured
@@ -481,11 +483,7 @@ class CompressedArray:
         winner = min(candidates, key=lambda candidate: candidate.nbytes)
         if structured is not None and len(structured) - 2 < winner.nbytes:
             return structured
-        if (
-            trim_plan is not None
-            and run_record is None
-            and trim_plan[-1] < winner.nbytes + 2
-        ):
+        if trim_plan is not None and trim_plan[-1] < winner.nbytes + 2:
             return self._encode_trim(raw, trim_plan)
         return winner.seal()
 
