@@ -1,7 +1,7 @@
 # Trimmed storage integration plan
 
-This is an implementation plan, not an adopted format or measured performance
-claim. The Python prototype first constructs the existing winning encoding and
+This records the integration design; native planning and span entries are now
+implemented. Performance evidence is linked below, with remaining regressions. The Python prototype first constructs the existing winning encoding and
 then a trimmed encoding. Native recognition reduces scanning cost but leaves
 those discarded allocations and duplicate span alphabet discovery in place.
 
@@ -33,8 +33,10 @@ high endpoint value reduces bit width throughout the remaining interior.
 For surviving candidates, scan the interior alphabet once, determine exact
 packed/palette size, and retain only a lazy plan with bounds, default, width and
 palette. Compare total record lengths consistently, including descriptor bytes.
-Use the best total length to tighten RLE's early rejection threshold, accounting
-for its two-byte descriptor. For codec none, construct only the final winner;
+The first integration tightened the RLE threshold using the best trimmed length.
+Measured wasted scans on run-friendly inputs motivated evaluating runs first and
+using their record length to bound the subsequent native span planner instead.
+The two orderings produce identical selected records in the comparison suite. For codec none, construct only the final winner;
 do not call `_make_hot(span)` after independently discovering its alphabet.
 
 Codec-backed encoding still evaluates every existing full direct/palette/raw
@@ -55,3 +57,11 @@ width changes, distinct endpoints, partial chunks, zero/tiny cache budgets,
 read slicing and writeback failures. Measure complete construction, local/global
 reads and updates plus flush against both current storage and dense Blosc2.
 Native recognition alone has not justified production adoption.
+
+
+## Measurement stages
+
+- [Integrated Python planning and native span cache](compressed-trimmed-integrated.md)
+- [The native-planner study](compressed-trimmed-planning.md) separates candidate
+  ordering from moving the arithmetic into C. Neither the representation nor its tests establish a general
+  speed advantage: updates that materialize a structural span remain a target.

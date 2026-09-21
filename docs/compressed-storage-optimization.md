@@ -300,3 +300,42 @@ not an overall application speedup or a new comparison against Blosc2.
 The six changed-value controls range from about 6% faster to 4% slower; they do
 not establish an improvement for actual mutations. Focused storage tests passed
 on CPython 3.12 and 3.14. No native code or public types changed.
+
+
+## Native trimmed spans
+
+Production now also considers a default byte plus a packed interior, retaining
+the omitted edges implicitly in a native span cache entry. The final planner
+runs after period/RLE selection, uses the existing global alphabet for a safe
+lower bound, and performs candidate arithmetic in C. It scans an interior only
+when its best possible size could win, and constructs only the selected encoding
+on the no-codec path. Every prior full-chunk codec candidate remains evaluated.
+Chunks over 65535 values skip the uint16-bounded trimmed descriptor.
+
+The [integrated comparison](compressed-trimmed-integrated.md) records the first
+Python-planned integration; the [planner ablation](compressed-trimmed-planning.md)
+separates ordering and native arithmetic against pinned implementations. Exact
+cold records match across the early/late/native trim variants before and after
+updates. All initial and flushed cold payloads are no larger than the pre-trim
+baseline in the nine-case experiment. This is not a universal throughput result.
+
+The half-random/half-zero case retains roughly 342 KB versus 668 KB for the
+pre-trim no-codec representation; the central island retains roughly 178 KB
+versus 522 KB. In the final comparison the island's global batch takes 0.436 ms
+with trimmed ZSTD, versus 1.120 ms pre-trim and 1.464 ms with dense ZSTD. Local
+hot reads stay around 0.08–0.09 ms, with dense typically around 0.07–0.08 ms.
+These are retained Python/native object graphs and scalar storage microbenchmarks,
+not RSS, application E2E, or a claim about all Blosc2 APIs.
+
+Native planning recovers much of the failed-probe overhead, but central-island
+none construction is still 2.529 ms versus 1.549 ms pre-trim. Half-random none
+updates plus flush are 0.815 ms versus 0.552 ms. Changed writes still materialize
+structural entries; eliminating unnecessary expansion is a remaining opportunity.
+Timing variation between equal read representations is noise, not an effect of
+encoder planning. See the linked full tables for losing cases.
+
+Final verification: CPython 3.12 passed 994 tests; CPython 3.14 passed 773 with
+52 optional-dependency skips; built-wheel typing checks passed. Native span and
+planner tests passed ASan/UBSan. The independent candidate-size oracle includes
+all 256 potential defaults, and failure tests preserve cached spans on writeback
+errors. The experimental class is still not a general replacement for Blosc2.
