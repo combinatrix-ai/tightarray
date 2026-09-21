@@ -52,3 +52,9 @@ python -m benchmarks.compressed_packed_bulk --root /path/to/prepared-builds --ro
 ```
 
 Reproduce with CPython3.12 and the recorded binaries/source builds. Production tests, sanitizer and portable builds are handled separately by the parent. This study changes only its benchmark and report artifacts.
+
+## Adopted implementation and validation
+
+The baseline source is `fabe8ec0955ca697f4979378c6da4fc5f5925cff`; commit `c92a9ad` adopts the threshold16 kernel. It validates the entire input before mutation, handles the head/tail with scalar stores, and packs byte-aligned bodies with existing NEON kernels. Palette translation uses a bounded 512-byte scratch buffer. Direct 8-bit writes retain their existing memcpy path; word-aligned layouts with per-word gaps retain scalar stores. The shared kernel also serves span-cache writes. No codec-selection or compression behavior was changed; timing claims here cover `codec="none"` only.
+
+After rebuilding production extensions, the full suites passed: CPython 3.12 **1461 passed**; CPython 3.14 **1116 passed, 95 skipped** (optional dependencies unavailable). Official wheel typing checks and focused Ruff checks passed. Isolated ASan/UBSan and `TIGHTARRAY_NO_NEON` builds each passed **149 tests**, with imported extension paths and sanitizer symbols verified. The new public regression tests cover cached identity, changed partial writes, chunk crossing, cache-budget fallbacks, flush and reload; native tests cover all widths/layouts, nested views, exact physical edge preservation and late-invalid atomicity. Both new test files are included in the storage CI job.
