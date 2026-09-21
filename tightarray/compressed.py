@@ -366,6 +366,7 @@ class CompressedArray:
         if run_palette:
             best_size = min(best_size, palette_size)
         period_record = None
+        period_selected = False
         # One direct packed word and the period byte are the smallest record.
         if best_size > 9:
             period = _native._byte_period(raw)
@@ -382,19 +383,7 @@ class CompressedArray:
                         period_palette = colors
                         period_size = indexed_size
                 if period_size < best_size:
-                    pattern = raw[:period]
-                    if period_palette:
-                        translation = bytearray(256)
-                        for index, color in enumerate(period_palette):
-                            translation[color] = index
-                        pattern = pattern.translate(bytes(translation))
-                    payload = _raw(Array(pattern, bits=period_bits))
-                    period_record = (
-                        bytes((128 | period_bits, len(period_palette)))
-                        + period_palette
-                        + bytes((period - 1,))
-                        + payload
-                    )
+                    period_selected = True
                     best_size = period_size
         # Stop scanning as soon as runs cannot beat the best uncompressed form.
         # Retain the decode palette so cache misses never need to rediscover it.
@@ -407,11 +396,32 @@ class CompressedArray:
             run_record = (
                 bytes((64 | run_bits, len(run_palette))) + run_palette + run_payload
             )
+        elif period_selected:
+            # Build the periodic payload only after runs fail to beat its size.
+            pattern = raw[:period]
+            if period_palette:
+                translation = bytearray(256)
+                for index, color in enumerate(period_palette):
+                    translation[color] = index
+                pattern = pattern.translate(bytes(translation))
+            payload = _raw(Array(pattern, bits=period_bits))
+            period_record = (
+                bytes((128 | period_bits, len(period_palette)))
+                + period_palette
+                + bytes((period - 1,))
+                + payload
+            )
         structured = run_record if run_record is not None else period_record
         # Runs can make an interior scan pointless, especially for sparse spikes.
         if structured is not None:
             best_size = len(structured) - 2
-        trim_plan = _native._trim_plan(raw, colors, bool(self._palette), best_size + 2)
+        # Two period repeats force any nondefault span to include a full period:
+        # same alphabet, at least as many packed bytes, and a larger trim header.
+        trim_plan = (
+            None
+            if period_selected
+            else _native._trim_plan(raw, colors, bool(self._palette), best_size + 2)
+        )
         if trim_plan is not None:
             structured = None  # The span is strictly smaller, including headers.
             best_size = trim_plan[-1] - 2
