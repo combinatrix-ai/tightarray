@@ -459,11 +459,22 @@ class CompressedArray:
             if step == 1:
                 return self.read(start, max(start, stop))
             return bytes(self[index] for index in range(start, stop, step))
-        index, offset = self._index(key)
-        chunk = self._chunks[index]
-        if isinstance(chunk, int) and index not in self._cache:
-            return chunk
-        hot = self._get_hot(index)
+        position = operator.index(key)
+        if position < 0:
+            position += self._length
+        if not 0 <= position < self._length:
+            raise IndexError("CompressedArray index out of range")
+        index, offset = divmod(position, self._chunk_size)
+        # The hot scalar path avoids two Python calls and cold metadata access.
+        hot = self._cache.get(index)
+        if hot is None:
+            chunk = self._chunks[index]
+            if isinstance(chunk, int):
+                return chunk
+            hot = self._get_hot(index)
+        else:
+            self._hits += 1
+            self._cache.move_to_end(index)
         value = hot.data[offset]
         return hot.palette[value] if hot.palette else value
 

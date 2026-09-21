@@ -83,3 +83,16 @@ unseen data. It has not replaced the exhaustive default.
 - Reduce codec setup/candidate costs without silently degrading storage quality.
 - Measure broader distributions, actual applications and peak/RSS capacity;
   synthetic retained-object wins alone do not establish general superiority.
+
+## Scalar cache dispatch
+
+The next change inlines scalar index validation and cache-hit handling in
+`__getitem__`. It avoids `_index`/`_get_hot` Python calls on hits and accesses cold
+metadata only on misses. Bounds/index-protocol behavior, LRU order and dirty cache
+authority are preserved. Full benchmark results are in
+[the hot-read run](compressed-storage-hot-results.json), with source hashes.
+For the six primary cases, nonuniform local reads measure 0.085–0.096 ms instead
+of the prior 0.112–0.117 ms range. Dense ZSTD measures 0.068–0.074 ms in the new
+run, so the hot path still does not win. Uniform local reads are 0.063 ms.
+This is an independent run; the uniform global timing is noisy (0.152 ms median)
+and no broad uniform-path speedup is claimed.
