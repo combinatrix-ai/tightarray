@@ -55,3 +55,25 @@ def test_trim_selected_and_partial_chunks_zero_cache():
         assert np.array_equal(
             np.frombuffer(array.tobytes(), dtype=np.uint8)[-31:], [0] * 30 + [7]
         )
+
+
+def test_optional_recognizer_preserves_exact_encoded_chunks():
+    calls = []
+
+    def recognize(raw):
+        calls.append(len(raw))
+        default = max(range(256), key=raw.count)
+        marker = bytes([default])
+        return default, len(raw) - len(raw.lstrip(marker)), len(raw.rstrip(marker))
+
+    with pinned_baseline() as (base, _):
+        python_trim = trimmed_class(base)
+        custom_trim = trimmed_class(base, recognize)
+        for _, values in cases(4096):
+            raw = values.tobytes()
+            for codec in ("none", "zstd"):
+                a = python_trim(raw, codec=codec)
+                b = custom_trim(raw, codec=codec)
+                assert a._chunks == b._chunks
+                assert a.tobytes() == b.tobytes() == raw
+    assert calls

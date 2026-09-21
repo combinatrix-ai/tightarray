@@ -93,18 +93,21 @@ def retained_graph_bytes(root):
     return visit(root)
 
 
-def trimmed_class(base):
+def trimmed_class(base, recognizer=None):
     class Trimmed(base):
         def _encode(self, raw):
             original = super()._encode(raw)
             if isinstance(original, int) or len(raw) > 65535:
                 return original
-            default = int(
-                np.bincount(np.frombuffer(raw, dtype=np.uint8), minlength=256).argmax()
-            )
-            marker = bytes([default])
-            first = len(raw) - len(raw.lstrip(marker))
-            last = len(raw.rstrip(marker))
+            if recognizer is None:
+                default = int(
+                    np.bincount(np.frombuffer(raw, dtype=np.uint8), minlength=256).argmax()
+                )
+                marker = bytes([default])
+                first = len(raw) - len(raw.lstrip(marker))
+                last = len(raw.rstrip(marker))
+            else:
+                default, first, last = recognizer(raw)
             if first == 0 and last == len(raw):
                 return original
             # Even a one-bit span cannot beat this existing candidate.
