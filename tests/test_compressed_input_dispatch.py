@@ -14,6 +14,8 @@ from benchmarks.compressed_values_bytes import INSERTION, MARKER
 def policies():
     helper = Path(live.__file__).read_text()
     original = helper.replace(INSERTION + MARKER, MARKER)
+    typed_block = "        kind = type(values)\n        if kind is bytes:\n            raw = cast(bytes, values)\n        elif kind is list or kind is tuple:\n            raw = bytes(values)\n        else:\n            raw = _values(values)"
+    original = original.replace(typed_block, "        raw = _values(values)")
     helper = original.replace(MARKER, INSERTION + MARKER)
     with modules(sources(original, helper)) as result:
         yield result

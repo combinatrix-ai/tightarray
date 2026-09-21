@@ -45,7 +45,7 @@ Moving the bytes check alone does not solve list overhead: list writes still ran
 
 The exact list/tuple direct `bytes(values)` shortcut improves list writes 15–29% and tuple writes 23–30% versus the original. It outperforms `bytes(iter(values))` for every tested list/tuple width. This avoids the original failed buffer probe and takes the built-in container conversion path. It remains valid only behind exact-type checks: subclasses may override iteration or supply other semantics.
 
-The tradeoff remains explicit. Direct-container dispatch costs bytearray roughly 2.2–4.7%, memoryview up to 3.1% at small widths (the 4,096-byte row improves 2.5%), and short generators up to 3.2%. It therefore favors bytes/list/tuple, not every accepted input representation. It also restores the original helper for other callers, losing the previously adopted constructor/helper bytes optimization; adopting only the write policy must account for that difference rather than silently reverting constructor behavior.
+The tradeoff remains explicit. Direct-container dispatch costs bytearray roughly 2.2–4.7%, memoryview up to 3.1% at small widths (the 4,096-byte row improves 2.5%), and short generators up to 3.2%. It therefore favors bytes/list/tuple, not every accepted input representation. `_values` is used only by `write`; moving this branch does not change constructor ingestion. The earlier version of this paragraph incorrectly inferred a constructor effect.
 
 ## Repeat consistency
 
@@ -69,3 +69,5 @@ Both halves preserve the list/tuple benefit at every tested width. The earlier s
 All 60 cells × five policies × eleven repeats passed equality and source guards. [Raw samples and provenance](compressed-input-dispatch-results.json) include helper controls, which intentionally measure `_values` itself: write-site variants share the unchanged original helper, so their helper results provide repeatability controls rather than measuring write-site dispatch.
 
 Run `python -m benchmarks.compressed_input_dispatch --output docs/compressed-input-dispatch-results.json`. No production source was edited during this experiment.
+
+After the original measurement, the harness gained a typed direct-container candidate differing only by `cast(bytes, values)` in the exact-bytes branch, plus `--cast-only` to omit helper microbenchmarks. Tests normalize the adopted typed write block before constructing the variants. The historical JSON and its recorded harness hash remain untouched; this maintenance changes the current script hash.

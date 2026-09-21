@@ -31,14 +31,17 @@ def sources(original, helper):
         line,
         "        kind = type(values)\n        if kind is bytes:\n            raw = values\n        elif kind is list or kind is tuple:\n            raw = bytes(iter(values))\n        else:\n            raw = _values(values)",
     )
+    direct = containers.replace("raw = bytes(iter(values))", "raw = bytes(values)")
+    typed = direct.replace(
+        "            raw = values\n", "            raw = cast(bytes, values)\n"
+    )
     return {
         "baseline": original,
         "helper-bytes": helper,
         "write-bytes": write,
         "write-containers": containers,
-        "write-direct-containers": containers.replace(
-            "raw = bytes(iter(values))", "raw = bytes(values)"
-        ),
+        "write-direct-containers": direct,
+        "write-typed-containers": typed,
     }
 
 
@@ -88,7 +91,7 @@ def source_guards():
     return result
 
 
-def run(repeats=11, operations=5000):
+def run(repeats=11, operations=5000, cast_only=False):
     before = source_guards()
     root = Path(__file__).resolve().parents[1]
     original, helper = (
@@ -99,37 +102,49 @@ def run(repeats=11, operations=5000):
     )
     rng = random.Random(3922)
     rows = []
-    with modules(sources(original, helper)) as policies:
+    source_map = sources(original, helper)
+    if cast_only:
+        source_map = {
+            key: source_map[key]
+            for key in (
+                "baseline",
+                "helper-bytes",
+                "write-direct-containers",
+                "write-typed-containers",
+            )
+        }
+    with modules(source_map) as policies:
         for size in (1, 16, 64, 256, 4096):
             generator = random.Random(14)
             raw = bytes(generator.randrange(32) for _ in range(size))
             for kind in KINDS:
-                samples = {key: [] for key in policies}
-                value = input_value(kind, raw)
-                for _ in range(repeats):
-                    order = list(policies)
-                    rng.shuffle(order)
-                    for key in order:
-                        fn = policies[key]._values
-                        start = time.perf_counter_ns()
-                        if kind == "generator":
-                            for _ in range(operations):
-                                output = fn(value for value in raw)
-                        else:
-                            for _ in range(operations):
-                                output = fn(value)
-                        samples[key].append(
-                            (time.perf_counter_ns() - start) / operations
-                        )
-                        assert output == raw
-                rows.append(
-                    {
-                        "operation": "helper",
-                        "kind": kind,
-                        "size": size,
-                        "ns_per_operation": samples,
-                    }
-                )
+                if not cast_only:
+                    samples = {key: [] for key in policies}
+                    value = input_value(kind, raw)
+                    for _ in range(repeats):
+                        order = list(policies)
+                        rng.shuffle(order)
+                        for key in order:
+                            fn = policies[key]._values
+                            start = time.perf_counter_ns()
+                            if kind == "generator":
+                                for _ in range(operations):
+                                    output = fn(value for value in raw)
+                            else:
+                                for _ in range(operations):
+                                    output = fn(value)
+                            samples[key].append(
+                                (time.perf_counter_ns() - start) / operations
+                            )
+                            assert output == raw
+                    rows.append(
+                        {
+                            "operation": "helper",
+                            "kind": kind,
+                            "size": size,
+                            "ns_per_operation": samples,
+                        }
+                    )
                 # 8192-byte ordinary chunk: all tested writes are partial.
                 initial = bytes(generator.randrange(32) for _ in range(8192))
                 first = bytes((value + 1) % 32 for value in initial[:size])
@@ -181,6 +196,7 @@ def run(repeats=11, operations=5000):
         "helper_sha256": hashlib.sha256(helper.encode()).hexdigest(),
         "source_sha256": before,
         "repeats": repeats,
+        "cast_only": cast_only,
         "operations": operations,
         "writes_per_flush": 128,
         "rows": rows,
@@ -193,7 +209,12 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--repeats", type=int, default=11)
     parser.add_argument("--operations", type=int, default=5000)
+    parser.add_argument(
+        "--cast-only",
+        action="store_true",
+        help="Compare original, helper, direct and typed write dispatch without helper microbenchmarks",
+    )
     args = parser.parse_args()
     args.output.write_text(
-        json.dumps(run(args.repeats, args.operations), indent=2) + "\n"
+        json.dumps(run(args.repeats, args.operations, args.cast_only), indent=2) + "\n"
     )
