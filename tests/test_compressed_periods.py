@@ -49,3 +49,32 @@ def test_failed_period_materialization_keeps_original_cached_pattern(monkeypatch
     assert array.tobytes() == raw
     assert array[31] == 0
     assert array.storage_info().cache_bytes <= 64
+
+
+@pytest.mark.parametrize("budget", [0, 64, 65536])
+@pytest.mark.parametrize("codec", ["none", "lz4", "zstd"])
+def test_same_value_periodic_write_does_not_materialize(monkeypatch, budget, codec):
+    if codec != "none":
+        pytest.importorskip("blosc2")
+    raw = bytes(range(200, 231)) * 32
+    array = CompressedArray(raw, chunk_size=len(raw), cache_bytes=budget, codec=codec)
+    assert array.storage_info().periodic_chunks == 1
+    assert array[0] == 200
+    before = array.storage_info()
+
+    def fail(_raw):
+        raise AssertionError("unchanged periodic data must not materialize")
+
+    monkeypatch.setattr(array, "_make_hot", fail)
+    monkeypatch.setattr(array, "_encode", fail)
+    for index in (0, 31, -1):
+        array[index] = raw[index]
+    array.flush()
+    assert array.tobytes() == raw
+    after = array.storage_info()
+    assert after.cache_bytes == before.cache_bytes
+    assert after.stored_bytes == before.stored_bytes
+    with pytest.raises(ValueError):
+        array[0] = 256
+    with pytest.raises(IndexError):
+        array[len(raw)] = 200

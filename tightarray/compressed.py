@@ -560,6 +560,9 @@ class CompressedArray:
         if isinstance(chunk, int) and index not in self._cache and chunk == scalar:
             return
         hot = self._get_hot(index)
+        # A repeated entry must materialize only when a value actually changes.
+        if hot.repeated and hot[offset] == scalar:
+            return
         encoded = hot.palette.find(bytes([scalar])) if hot.palette else scalar
         if (
             not hot.repeated
