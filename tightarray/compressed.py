@@ -169,7 +169,13 @@ class _Hot(Protocol):
     def __getitem__(self, key: SupportsIndex, /) -> int: ...
 
 
+class _SpanEntry(_Hot, Protocol):
+    @property
+    def start(self) -> int: ...
+
+
 _make_entry = _native._Hot
+_span_entry_type = cast(type[_SpanEntry], _native._SpanHot)
 
 
 def _bits(maximum: int) -> _Bits:
@@ -619,6 +625,16 @@ class CompressedArray:
             hot.data[offset] = encoded
             hot.dirty = True
             return
+        if (
+            isinstance(hot, _span_entry_type)
+            and 0 <= encoded < 1 << hot.data.bits
+            and self._cache.get(index) is hot
+        ):
+            relative = offset - hot.start
+            if 0 <= relative < len(hot.data):
+                hot.data[relative] = encoded
+                hot.dirty = True
+                return
         # Width/palette changes use a new entry, preserving old data on failure.
         raw = bytearray(hot.read())
         raw[offset] = scalar

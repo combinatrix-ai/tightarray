@@ -58,3 +58,50 @@ def test_large_chunks_skip_uint16_trim_descriptor():
     array = CompressedArray(raw, chunk_size=65536)
     assert array.storage_info().trimmed_chunks == 0
     assert array.tobytes() == raw
+
+
+@pytest.mark.parametrize("palette", [False, True])
+def test_inside_span_write_retains_entry_and_failed_flush(monkeypatch, palette):
+    rng = random.Random(811)
+    colors = [200, 201, 202, 203]
+    interior = bytes(rng.choice(colors) for _ in range(512))
+    expected = bytearray(bytes(1024) + interior + bytes(2560))
+    array = CompressedArray(expected, cache_bytes=512, palette=palette)
+    assert array.storage_info().trimmed_chunks == 1
+    assert array[1024] == expected[1024]
+    before = array.storage_info().cache_bytes
+    entry = array._cache[0]
+
+    def fail(_raw):
+        raise RuntimeError("flush failed")
+
+    original_encode = array._encode
+    monkeypatch.setattr(array, "_encode", fail)
+    for index in (1024, 1100, 1535):
+        value = colors[(colors.index(expected[index]) + 1) % 4]
+        array[index] = value
+        expected[index] = value
+        assert array._cache[0] is entry
+        assert array.storage_info().cache_bytes == before
+    with pytest.raises(RuntimeError, match="flush failed"):
+        array.clear_cache()
+    assert array._cache[0] is entry
+    assert entry.dirty
+    assert array.tobytes() == expected
+    monkeypatch.setattr(array, "_encode", original_encode)
+    array.clear_cache()
+    assert array.tobytes() == expected
+
+
+@pytest.mark.parametrize("budget", [0, 32])
+def test_uncached_span_inside_write_reaches_cold_storage(budget):
+    rng = random.Random(812)
+    raw = bytes(512) + bytes(rng.randrange(32) for _ in range(1024)) + bytes(2560)
+    array = CompressedArray(raw, cache_bytes=budget)
+    assert array.storage_info().trimmed_chunks == 1
+    expected = bytearray(raw)
+    expected[700] = (expected[700] + 1) % 32
+    array[700] = expected[700]
+    assert array.storage_info().cache_bytes == 0
+    array.clear_cache()
+    assert array.tobytes() == expected
