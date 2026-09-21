@@ -136,6 +136,11 @@ static int compressed_hot_write_values(Array *data,PyObject *palette_object,
     Py_ssize_t count=PyBytes_GET_SIZE(values);
     const uint8_t *src=(const uint8_t *)PyBytes_AS_STRING(values);
     Py_ssize_t palette_size=PyBytes_GET_SIZE(palette_object);
+    if(!palette_size && data->bits==8) {
+        /* Both layouts are contiguous bytes at width 8, including views. */
+        memcpy((uint8_t *)data->data+data->start+(size_t)relative,src,(size_t)count);
+        return 1;
+    }
     unsigned bound=1u<<data->bits;
     uint16_t inverse[256];
     if(palette_size) {
