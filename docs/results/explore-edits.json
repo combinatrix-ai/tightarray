@@ -1,0 +1,288 @@
+{
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "numpy": "2.5.3",
+  "blosc2": "4.13.1",
+  "jit_excluded": true,
+  "results": [
+    {
+      "states": 8,
+      "pattern": "uniform",
+      "backend": "numpy",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0016867079975781962,
+      "online_edits_s": [
+        9.516700083622709e-05,
+        6.0457998188212514e-05,
+        5.9499994677025825e-05
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 8,
+      "pattern": "uniform",
+      "backend": "numpy-numba",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0005554169983952306,
+      "online_edits_s": [
+        9.625000529922545e-06,
+        7.499984349124134e-07,
+        6.249974831007421e-07
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 8,
+      "pattern": "uniform",
+      "backend": "packed",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0024834159994497895,
+      "online_edits_s": [
+        7.029200060060248e-05,
+        4.062499647261575e-05,
+        3.783300053328276e-05
+      ],
+      "storage_bytes": 6291456
+    },
+    {
+      "states": 8,
+      "pattern": "uniform",
+      "backend": "lz4",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.01847312499739928,
+      "online_edits_s": [
+        0.03267733300162945,
+        0.032329417001164984,
+        0.03276908399857348
+      ],
+      "storage_bytes": 6432760
+    },
+    {
+      "states": 8,
+      "pattern": "uniform",
+      "backend": "zstd",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.04339649999747053,
+      "online_edits_s": [
+        0.057706583000253886,
+        0.05825945800461341,
+        0.05802154200500809
+      ],
+      "storage_bytes": 6367224
+    },
+    {
+      "states": 8,
+      "pattern": "blocks256",
+      "backend": "numpy",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.00035258400021120906,
+      "online_edits_s": [
+        6.891700468258932e-05,
+        5.833400064148009e-05,
+        5.837500066263601e-05
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 8,
+      "pattern": "blocks256",
+      "backend": "numpy-numba",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.00037770799826830626,
+      "online_edits_s": [
+        1.412499841535464e-05,
+        1.0000003385357559e-06,
+        5.00003807246685e-07
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 8,
+      "pattern": "blocks256",
+      "backend": "packed",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.002258042004541494,
+      "online_edits_s": [
+        6.108300294727087e-05,
+        3.858299896819517e-05,
+        3.8207996112760156e-05
+      ],
+      "storage_bytes": 6291456
+    },
+    {
+      "states": 8,
+      "pattern": "blocks256",
+      "backend": "lz4",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.01861250000365544,
+      "online_edits_s": [
+        0.03446379100205377,
+        0.033536417002324015,
+        0.03298712499963585
+      ],
+      "storage_bytes": 508170
+    },
+    {
+      "states": 8,
+      "pattern": "blocks256",
+      "backend": "zstd",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.05047216700040735,
+      "online_edits_s": [
+        0.06971879200136755,
+        0.06912729200121248,
+        0.06884170799457934
+      ],
+      "storage_bytes": 230794
+    },
+    {
+      "states": 32,
+      "pattern": "uniform",
+      "backend": "numpy",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0005344169985619374,
+      "online_edits_s": [
+        6.916700658621266e-05,
+        5.883400444872677e-05,
+        6.983400089666247e-05
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 32,
+      "pattern": "uniform",
+      "backend": "numpy-numba",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.00041566700383555144,
+      "online_edits_s": [
+        9.333998605143279e-06,
+        7.079943316057324e-07,
+        5.839974619448185e-07
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 32,
+      "pattern": "uniform",
+      "backend": "packed",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0019310419957037084,
+      "online_edits_s": [
+        5.966699973214418e-05,
+        3.8042002415750176e-05,
+        3.795800148509443e-05
+      ],
+      "storage_bytes": 10485760
+    },
+    {
+      "states": 32,
+      "pattern": "uniform",
+      "backend": "lz4",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.019560792003176175,
+      "online_edits_s": [
+        0.032033915995270945,
+        0.031233542002155446,
+        0.031239042000379413
+      ],
+      "storage_bytes": 10631160
+    },
+    {
+      "states": 32,
+      "pattern": "uniform",
+      "backend": "zstd",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.04429333299776772,
+      "online_edits_s": [
+        0.05834395799320191,
+        0.0578349160059588,
+        0.0582155829979456
+      ],
+      "storage_bytes": 10563576
+    },
+    {
+      "states": 32,
+      "pattern": "blocks256",
+      "backend": "numpy",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0003583330035326071,
+      "online_edits_s": [
+        6.949999806238338e-05,
+        5.8625002566259354e-05,
+        5.854199844179675e-05
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 32,
+      "pattern": "blocks256",
+      "backend": "numpy-numba",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0003742500048247166,
+      "online_edits_s": [
+        7.667003956157714e-06,
+        7.089984137564898e-07,
+        8.329952834174037e-07
+      ],
+      "storage_bytes": 16777216
+    },
+    {
+      "states": 32,
+      "pattern": "blocks256",
+      "backend": "packed",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0020373750012367964,
+      "online_edits_s": [
+        6.233299791347235e-05,
+        4.141699901083484e-05,
+        3.816599928541109e-05
+      ],
+      "storage_bytes": 10485760
+    },
+    {
+      "states": 32,
+      "pattern": "blocks256",
+      "backend": "lz4",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.019082541999523528,
+      "online_edits_s": [
+        0.034278166996955406,
+        0.03370849999919301,
+        0.033277458998782095
+      ],
+      "storage_bytes": 756318
+    },
+    {
+      "states": 32,
+      "pattern": "blocks256",
+      "backend": "zstd",
+      "size": 16777216,
+      "edits": 256,
+      "build_s": 0.0694350419944385,
+      "online_edits_s": [
+        0.08861045800585998,
+        0.0905849999981001,
+        0.0908272919987212
+      ],
+      "storage_bytes": 309175
+    }
+  ]
+}
