@@ -1,0 +1,372 @@
+{
+  "baseline_commit": "1c1fb1c",
+  "baseline_python_sha256": "34f980dad4d98a64c7e8a9cfa1931ece42562c6f5203b34c8ea39ae808932c6b",
+  "source_sha256": {
+    "tightarray/compressed.py": "f3bf3c0807bad64f68ac22ba762b322a36eabd97e9bc54e03e98ee86eb2c7160",
+    "tightarray/_compressed.h": "01b674de14cbe1590ee469b2404d479722fb2e9fb32023bb6a40e98f83d2ebb8",
+    "tightarray/_compressed_hot.h": "ae36d25740d6a69b0560120f9412993dcf8940423548225c2b02abdc138fe9a4",
+    "tightarray/_compressed_rle.h": "d49a248e5fc3e790ef9a6e516975e5dbf1e5650b070000aeefd0a37e2bec71ec",
+    "tightarray/_compressed_period.h": "30f9739c31baadd53c3b1e3797c1cd8968b83a96408106c506b3964f5b6e54b8",
+    "tightarray/_core.c": "aa24b8306bf76d577fa7f4a51ea13385c97185a01a932b1a730aa18a4a16d39e",
+    "setup.py": "42194fc9f3476c0e1eccb7f98263c6dc7935e632e1b5fd27f5ed25ed34b9bcb0",
+    "benchmarks/compressed_storage.py": "da3352063bf93bc809934dec6cf1147c07cc0be0112956efb6cb180d61feb476",
+    "benchmarks/compressed_period_policy.py": "be4ead0f9fd986ae90b7d66d15c63755bbb666857afee700fed7014505335398",
+    "benchmarks/compressed_rle_policy.py": "bae3b3f9130ac0111d5e2fc04fa4a7c387fa9a90ea1cf140c67e79ba1c901ac5",
+    "benchmarks/compressed_codec_policy.py": "4fe24e88cc757a451c6a468645bc40719916f255cea7866d67558d09d1e63d26",
+    "loaded_native_extension": "6548d169719b433594a7ae14bfd4d476697cf9c17c89d2b7a4f20a3ea239114c"
+  },
+  "script_sha256": "a2d55f7da36092fe7af0c8b572a6a5ee16bb62d4d329f8f20b742566ef2a0034",
+  "seed": 493,
+  "writes_per_trial": 64,
+  "repeats": 7,
+  "records": [
+    {
+      "codec": "none",
+      "cache_bytes": 0,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          0.818708,
+          0.8785,
+          0.809125,
+          0.792208,
+          0.781041,
+          0.783041,
+          0.780917
+        ],
+        "current": [
+          0.068708,
+          0.061167,
+          0.060708,
+          0.060125,
+          0.059375,
+          0.05975,
+          0.059208
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.792208,
+        "current": 0.060125
+      }
+    },
+    {
+      "codec": "none",
+      "cache_bytes": 0,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          1.203917,
+          1.273625,
+          1.403,
+          1.196208,
+          1.262209,
+          1.192083,
+          1.34375
+        ],
+        "current": [
+          1.202334,
+          1.252458,
+          1.191875,
+          1.189875,
+          1.186958,
+          1.188083,
+          1.307583
+        ]
+      },
+      "median_ms": {
+        "baseline": 1.262209,
+        "current": 1.191875
+      }
+    },
+    {
+      "codec": "none",
+      "cache_bytes": 64,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          0.815916,
+          0.8125,
+          0.8005,
+          0.796459,
+          0.796666,
+          0.796792,
+          0.797083
+        ],
+        "current": [
+          0.076583,
+          0.022125,
+          0.021208,
+          0.021042,
+          0.021083,
+          0.020875,
+          0.020875
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.797083,
+        "current": 0.021083
+      }
+    },
+    {
+      "codec": "none",
+      "cache_bytes": 64,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          1.186291,
+          1.321542,
+          1.184,
+          1.183541,
+          1.299083,
+          1.237083,
+          1.181208
+        ],
+        "current": [
+          1.314167,
+          1.185459,
+          1.183709,
+          1.182667,
+          1.182125,
+          1.224625,
+          1.184833
+        ]
+      },
+      "median_ms": {
+        "baseline": 1.186291,
+        "current": 1.184833
+      }
+    },
+    {
+      "codec": "none",
+      "cache_bytes": 65536,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          0.051125,
+          0.049166,
+          0.048042,
+          0.048083,
+          0.048042,
+          0.0495,
+          0.047166
+        ],
+        "current": [
+          0.021625,
+          0.022,
+          0.020916,
+          0.020917,
+          0.020625,
+          0.021208,
+          0.021
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.048083,
+        "current": 0.021
+      }
+    },
+    {
+      "codec": "none",
+      "cache_bytes": 65536,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          0.060042,
+          0.059333,
+          0.060167,
+          0.05925,
+          0.058833,
+          0.058666,
+          0.0585
+        ],
+        "current": [
+          0.062708,
+          0.060125,
+          0.060083,
+          0.059541,
+          0.059375,
+          0.059292,
+          0.059917
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.05925,
+        "current": 0.059917
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 0,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          3.412167,
+          3.34625,
+          3.369,
+          3.7,
+          3.325583,
+          3.514708,
+          3.480667
+        ],
+        "current": [
+          0.060666,
+          0.060042,
+          0.05975,
+          0.06025,
+          0.060417,
+          0.059833,
+          0.062917
+        ]
+      },
+      "median_ms": {
+        "baseline": 3.412167,
+        "current": 0.06025
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 0,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          3.755916,
+          3.736,
+          3.7915,
+          3.558875,
+          3.64725,
+          3.854292,
+          3.845334
+        ],
+        "current": [
+          4.18725,
+          3.914333,
+          3.584,
+          4.072375,
+          3.804291,
+          3.915292,
+          3.879334
+        ]
+      },
+      "median_ms": {
+        "baseline": 3.755916,
+        "current": 3.914333
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 64,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          3.678625,
+          3.394833,
+          3.601125,
+          3.615458,
+          3.363584,
+          3.370625,
+          4.134333
+        ],
+        "current": [
+          0.022833,
+          0.021792,
+          0.022542,
+          0.022,
+          0.022292,
+          0.022458,
+          0.026
+        ]
+      },
+      "median_ms": {
+        "baseline": 3.601125,
+        "current": 0.022458
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 64,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          3.880375,
+          3.815333,
+          4.045875,
+          3.886458,
+          3.783417,
+          3.5745,
+          3.662458
+        ],
+        "current": [
+          3.910042,
+          4.129083,
+          3.714375,
+          3.752292,
+          3.611625,
+          3.60825,
+          4.019625
+        ]
+      },
+      "median_ms": {
+        "baseline": 3.815333,
+        "current": 3.752292
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 65536,
+      "changed": false,
+      "samples_ms": {
+        "baseline": [
+          0.094792,
+          0.090292,
+          0.090042,
+          0.089625,
+          0.089208,
+          0.08925,
+          0.08825
+        ],
+        "current": [
+          0.023083,
+          0.022,
+          0.021541,
+          0.021541,
+          0.021833,
+          0.02175,
+          0.0215
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.089625,
+        "current": 0.02175
+      }
+    },
+    {
+      "codec": "zstd",
+      "cache_bytes": 65536,
+      "changed": true,
+      "samples_ms": {
+        "baseline": [
+          0.098458,
+          0.097542,
+          0.097791,
+          0.097708,
+          0.110916,
+          0.101042,
+          0.100125
+        ],
+        "current": [
+          0.100916,
+          0.098625,
+          0.098333,
+          0.098292,
+          0.122292,
+          0.101459,
+          0.105917
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.098458,
+        "current": 0.100916
+      }
+    }
+  ]
+}

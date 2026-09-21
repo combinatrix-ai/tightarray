@@ -277,3 +277,26 @@ pre-period Python baseline to `aafc50b` and integrated policy to `eff5443`, usin
 current native helpers. Historical `runs-*` record names refer to the periodic
 variant in these artifacts. A class docstring changed after the cyclic run; the
 historical hashes are retained, not replaced with hashes from a later rerun.
+
+
+## Unchanged writes to periodic entries
+
+A scalar write of the value already present in a repeated hot entry now returns
+after index/value validation and lookup. It preserves the packed pattern rather
+than materializing an entire chunk, and does not trigger needless dirty writeback.
+Changed writes still materialize before mutation. Nine parameterized tests cover
+none/LZ4/ZSTD and zero/small/large cache budgets, with materialization and encoding
+replaced by failing sentinels to prove those operations are avoided.
+
+[Paired results](compressed-period-noop-results.json) and the
+[reproducer](../benchmarks/compressed_period_noop.py) compare against Python policy
+`1c1fb1c` using the same native extension: seven randomized repeats, 64 scalar
+writes plus flush, one 4092-element chunk cycling through 31 high labels.
+Unchanged writes improve 2.3–160x across the six codec/cache combinations. For
+example ZSTD with a 64-byte cache falls from 3.60 ms to 0.0225 ms, avoiding
+repeated full-chunk encoding. This is a deliberately targeted no-op workload,
+not an overall application speedup or a new comparison against Blosc2.
+
+The six changed-value controls range from about 6% faster to 4% slower; they do
+not establish an improvement for actual mutations. Focused storage tests passed
+on CPython 3.12 and 3.14. No native code or public types changed.
