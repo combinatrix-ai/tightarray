@@ -1,0 +1,5974 @@
+{
+  "baseline_commit": "d90c7dd",
+  "baseline_python_sha256": "705f23b11b1b581084e957f278c6859e4a7ba8f11fa844cbf1d13075a075f444",
+  "source_sha256": {
+    "tightarray/compressed.py": "6feed099124893fed3f977cb97a985302831ca15be9e97bc87f72d91662d6350",
+    "tightarray/_compressed.h": "01b674de14cbe1590ee469b2404d479722fb2e9fb32023bb6a40e98f83d2ebb8",
+    "tightarray/_compressed_hot.h": "ae36d25740d6a69b0560120f9412993dcf8940423548225c2b02abdc138fe9a4",
+    "tightarray/_compressed_rle.h": "d49a248e5fc3e790ef9a6e516975e5dbf1e5650b070000aeefd0a37e2bec71ec",
+    "tightarray/_compressed_period.h": "30f9739c31baadd53c3b1e3797c1cd8968b83a96408106c506b3964f5b6e54b8",
+    "tightarray/_core.c": "3514e4be319eb83ad385cf6ba0ad6b77c5346530e0eec737f9b4777a1f4ee560",
+    "setup.py": "66e4804fdec08b787bcf6fdabed22776a08780e7775596726b3f7d26160fdfd1",
+    "benchmarks/compressed_storage.py": "da3352063bf93bc809934dec6cf1147c07cc0be0112956efb6cb180d61feb476",
+    "benchmark": "b2d7578f96ee42718a6a5b3c95e52eaef30ea86307eca528fd53e79268a520f2",
+    "loaded_extension": "92ed3c3158674054294a1f721cefc3e5ee2999b9a547eb0d81c051af42e4e226",
+    "selective_benchmark": "4a15b0abaae25d4552ba65d630af2a8397adc3d12579b338017c9c49833f422c"
+  },
+  "size": 1048576,
+  "repeats": 5,
+  "seed": 917,
+  "rows": [
+    {
+      "case": "identical",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 2.391499998338986,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667169,
+            "memo": null
+          },
+          {
+            "build_ms": 2.0719590029329993,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667137,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9407080035307445,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667089,
+            "memo": null
+          },
+          {
+            "build_ms": 1.828667001973372,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 13.972916996863205,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 2.4658750044181943,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8265420037787408,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8960000050137751,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9208750052493997,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8781249998719431,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 2.3981249978533015,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9165830051642843,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8470000029774383,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8319580010720529,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 2.7207089951843955,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 0.9068750005098991,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8751249988563359,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.0496250033611432,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8008340009837411,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8474999995087273,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 1.8225000021629967,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667153,
+            "memo": null
+          },
+          {
+            "build_ms": 1.828791995649226,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667121,
+            "memo": null
+          },
+          {
+            "build_ms": 2.3606670001754537,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667105,
+            "memo": null
+          },
+          {
+            "build_ms": 2.6366669990238734,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": null
+          },
+          {
+            "build_ms": 3.2034169998951256,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 1.884874996903818,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667161,
+            "memo": null
+          },
+          {
+            "build_ms": 2.6716249994933605,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667113,
+            "memo": null
+          },
+          {
+            "build_ms": 2.138167001248803,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667081,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8691659934120253,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667073,
+            "memo": null
+          },
+          {
+            "build_ms": 4.190084000583738,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 1.8780419995891862,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667145,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8518750002840534,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667129,
+            "memo": null
+          },
+          {
+            "build_ms": 1.785290995030664,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667097,
+            "memo": null
+          },
+          {
+            "build_ms": 1.861582997662481,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667065,
+            "memo": null
+          },
+          {
+            "build_ms": 4.449207997822668,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "identical",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 16.223208003793843,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 10.971208997943904,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.035582996555604,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.343957994540688,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.075916998379398,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 0.8730410045245662,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5412,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8546669996576384,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5404,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9839999984251335,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5396,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8749170010560192,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5388,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9524170018266886,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5380,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 1.5727499994682148,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5412,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8325829985551536,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5404,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9772500052349642,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5396,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8897500010789372,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5388,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8420840022154152,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5380,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 1.0610410026856698,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5412,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8851669990690425,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5404,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8536669993191026,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5396,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.952333997702226,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5388,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9189589982270263,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5380,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7240,
+              "entries": 1,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 0.9419589987373911,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8183749960153364,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8600000001024455,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9638330011512153,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8661250030854717,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 0.8947909955168143,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8406250053667463,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.9220830033882521,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.789625002653338,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8209160005208105,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 0.8937080056057312,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5452,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.7793749973643571,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5444,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8334169979207218,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5436,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.8412079987465404,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5428,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.7965420008986257,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 5420,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 255,
+              "misses": 1,
+              "admissions": 1,
+              "peak_retained_bytes": 7276,
+              "peak_reserved_bytes": 8004,
+              "entries": 1,
+              "mapping_bytes": 224,
+              "closed": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "period31",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 1.0819579983945005,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9857909972197376,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9690419974504039,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 1.027792000968475,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9593750000931323,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 1.4192090020515025,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11357,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3479170011123642,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11349,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.528665998193901,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11341,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3753749954048544,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11333,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3450409969664179,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11325,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 1.0377500002505258,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4637,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.1259590028203093,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4629,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.1324580045766197,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4621,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.0410419999971054,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4613,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.0895829982473515,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4605,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 1.0150000016437843,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4637,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.0346659983042628,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4629,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.1700000031851232,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4621,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.018292001390364,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4613,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.0965000037685968,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4605,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 1.0677079990273342,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9836669996730052,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9762909976416267,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 1.0275419990648516,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.939208002819214,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 0.984209000307601,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9513330005574971,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 1.0826249999809079,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9386249948875047,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9729580051498488,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 0.9533749980619177,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 1.0357499995734543,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9732499966048636,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9411249993718229,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9546669971314259,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "period31",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 7.625291000294965,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 7.7412500031641684,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 7.5781670020660385,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 7.67745800112607,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          },
+          {
+            "build_ms": 7.082000003720168,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 18089,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 5.9633749988279305,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11317,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.33516699942993,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11317,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.263665996608324,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11317,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.375125001592096,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11317,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.327457998646423,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11317,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 113,
+              "misses": 143,
+              "admissions": 15,
+              "peak_retained_bytes": 63759,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 2.1284999966155738,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.8198749967268668,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.962708993232809,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.8401660054223612,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 2.2331250002025627,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 1.8784159983624704,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.8157090016757138,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.8913329986389726,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.926666998770088,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.83154199476121,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4597,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131319,
+              "entries": 31,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 5.628124999930151,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11817,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 106,
+              "misses": 150,
+              "admissions": 14,
+              "peak_retained_bytes": 59606,
+              "peak_reserved_bytes": 63254,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.250750000413973,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11809,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 106,
+              "misses": 150,
+              "admissions": 14,
+              "peak_retained_bytes": 59606,
+              "peak_reserved_bytes": 63254,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 4.86441700195428,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11801,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 106,
+              "misses": 150,
+              "admissions": 14,
+              "peak_retained_bytes": 59606,
+              "peak_reserved_bytes": 63254,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 5.060124996816739,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11793,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 106,
+              "misses": 150,
+              "admissions": 14,
+              "peak_retained_bytes": 59606,
+              "peak_reserved_bytes": 63254,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 4.953125004249159,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 11785,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 106,
+              "misses": 150,
+              "admissions": 14,
+              "peak_retained_bytes": 59606,
+              "peak_reserved_bytes": 63254,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 1.7745839941198938,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4677,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.7524590002722107,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4669,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.6933750011958182,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4661,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 2.1146669969311915,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4653,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.815666000766214,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4645,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 1.9990420041722246,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4677,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.842374993429985,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4669,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.9247499949415214,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4661,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.785249995009508,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4653,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.90154199663084,
+            "cold_stored_bytes": 6400,
+            "cold_owned_bytes": 4645,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 225,
+              "misses": 31,
+              "admissions": 31,
+              "peak_retained_bytes": 131355,
+              "peak_reserved_bytes": 138819,
+              "entries": 31,
+              "mapping_bytes": 1168,
+              "closed": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "period67",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 0.9538329977658577,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9862080041784793,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 1.2638749976758845,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9730419988045469,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9757910011103377,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 1.626207995286677,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.6666660012560897,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.6186249995371327,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.7441250020056032,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.7073750059353188,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 1.2979169987374917,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3761669979430735,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3167920042178594,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.3416250003501773,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.4030829988769256,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 1.2957500002812594,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.2939579974045046,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.3060829951427877,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.285165999433957,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.4709159950143658,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 0.9557910016155802,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 1.011166998068802,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9754169950610958,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.975208000454586,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9692910025478341,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 0.9503340043011121,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9925410049618222,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.975290997303091,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9687919955467805,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 1.0018329994636588,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 1.0095420002471656,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9898330026771873,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 1.072374994691927,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 0.9660420037107542,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 1.0090409996337257,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "period67",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 8.381291998375673,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 8.09845799813047,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 8.989709000161383,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 8.109834001515992,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          },
+          {
+            "build_ms": 9.59425000473857,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 24233,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 7.574999995995313,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.549542002379894,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 8.232833002693951,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.8589580007246695,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 8.039666005061008,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20461,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 45,
+              "misses": 211,
+              "admissions": 15,
+              "peak_retained_bytes": 64119,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 3.5651669968501665,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.6727920014527626,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 4.065749999426771,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.5672090016305447,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.9895000008982606,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9373,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 177,
+              "misses": 79,
+              "admissions": 61,
+              "peak_retained_bytes": 259549,
+              "entries": 61,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 3.1676250000600703,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.5543330013751984,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.338957998494152,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.4741250055958517,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.365999997186009,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8365,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284827,
+              "entries": 67,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 7.349916995735839,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20753,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 42,
+              "misses": 214,
+              "admissions": 14,
+              "peak_retained_bytes": 59942,
+              "peak_reserved_bytes": 63590,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.387375000689644,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20745,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 42,
+              "misses": 214,
+              "admissions": 14,
+              "peak_retained_bytes": 59942,
+              "peak_reserved_bytes": 63590,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.594333001179621,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20737,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 42,
+              "misses": 214,
+              "admissions": 14,
+              "peak_retained_bytes": 59942,
+              "peak_reserved_bytes": 63590,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.508791997679509,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20729,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 42,
+              "misses": 214,
+              "admissions": 14,
+              "peak_retained_bytes": 59942,
+              "peak_reserved_bytes": 63590,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 7.804416003637016,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 20721,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 42,
+              "misses": 214,
+              "admissions": 14,
+              "peak_retained_bytes": 59942,
+              "peak_reserved_bytes": 63590,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 3.4441250027157366,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9917,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 171,
+              "misses": 85,
+              "admissions": 58,
+              "peak_retained_bytes": 246946,
+              "peak_reserved_bytes": 260226,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.740834006748628,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9909,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 171,
+              "misses": 85,
+              "admissions": 58,
+              "peak_retained_bytes": 246946,
+              "peak_reserved_bytes": 260226,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 4.313750003348105,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9901,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 171,
+              "misses": 85,
+              "admissions": 58,
+              "peak_retained_bytes": 246946,
+              "peak_reserved_bytes": 260226,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.492957999696955,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9893,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 171,
+              "misses": 85,
+              "admissions": 58,
+              "peak_retained_bytes": 246946,
+              "peak_reserved_bytes": 260226,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.4550419950392097,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 9885,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 171,
+              "misses": 85,
+              "admissions": 58,
+              "peak_retained_bytes": 246946,
+              "peak_reserved_bytes": 260226,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 3.048625003430061,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8405,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284863,
+              "peak_reserved_bytes": 300447,
+              "entries": 67,
+              "mapping_bytes": 2264,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.1954160003806464,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8397,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284863,
+              "peak_reserved_bytes": 300447,
+              "entries": 67,
+              "mapping_bytes": 2264,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.3091669974965043,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8389,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284863,
+              "peak_reserved_bytes": 300447,
+              "entries": 67,
+              "mapping_bytes": 2264,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.1532919965684414,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8381,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284863,
+              "peak_reserved_bytes": 300447,
+              "entries": 67,
+              "mapping_bytes": 2264,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 3.245874999265652,
+            "cold_stored_bytes": 12544,
+            "cold_owned_bytes": 8373,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 189,
+              "misses": 67,
+              "admissions": 67,
+              "peak_retained_bytes": 284863,
+              "peak_reserved_bytes": 300447,
+              "entries": 67,
+              "mapping_bytes": 2264,
+              "closed": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "unique32",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 1.8605000004754402,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.829125001677312,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8460829960531555,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9098339980700985,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8648330005817115,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 4.182500000752043,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.640292004798539,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.7438329998403788,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.525500000047032,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.8182079986436293,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 2.8329999986453913,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.960208999866154,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.848374999302905,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.8247910013305955,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.7589999954216182,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 3.613875000155531,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.4203329996671528,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.332958003738895,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.2939589946181513,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.562500001862645,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 1.8078330031130463,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 2.057249999779742,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 2.121500001521781,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8406660019536503,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.799582998501137,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 1.9044580039917491,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8046249970211647,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.860666998254601,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.7616249970160425,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8123749978258274,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 1.8864579978981055,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8081670059473254,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8302500029676594,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8239170021843165,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9917079989681952,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "unique32",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 11.448459001258016,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.308249995636288,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.13779199658893,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.287625005934387,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          },
+          {
+            "build_ms": 11.99987500149291,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667049,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 12.178249999124091,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.067625000781845,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.155874996096827,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.485375002142973,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.090125001326669,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61160,
+              "entries": 9,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 12.691374999121763,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.211166002089158,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.254208002763335,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.715457996819168,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.128124999639113,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 38,
+              "peak_retained_bytes": 256972,
+              "entries": 38,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 13.170792000892106,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.723500003630761,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.853583000833169,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.49599999957718,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.130459003150463,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 155,
+              "peak_retained_bytes": 1047200,
+              "entries": 155,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 12.125499997637235,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61196,
+              "peak_reserved_bytes": 63844,
+              "entries": 9,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.087957999028731,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61196,
+              "peak_reserved_bytes": 63844,
+              "entries": 9,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.362166999082547,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61196,
+              "peak_reserved_bytes": 63844,
+              "entries": 9,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.212499997986015,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61196,
+              "peak_reserved_bytes": 63844,
+              "entries": 9,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 11.954959001741372,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 9,
+              "peak_retained_bytes": 61196,
+              "peak_reserved_bytes": 63844,
+              "entries": 9,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 12.21537499804981,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 37,
+              "peak_retained_bytes": 250284,
+              "peak_reserved_bytes": 259284,
+              "entries": 37,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.107750000723172,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 37,
+              "peak_retained_bytes": 250284,
+              "peak_reserved_bytes": 259284,
+              "entries": 37,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 11.80204199772561,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 37,
+              "peak_retained_bytes": 250284,
+              "peak_reserved_bytes": 259284,
+              "entries": 37,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.47979100298835,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 37,
+              "peak_retained_bytes": 250284,
+              "peak_reserved_bytes": 259284,
+              "entries": 37,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.708667003607843,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 37,
+              "peak_retained_bytes": 250284,
+              "peak_reserved_bytes": 259284,
+              "entries": 37,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 11.838541999168228,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 150,
+              "peak_retained_bytes": 1013616,
+              "peak_reserved_bytes": 1048024,
+              "entries": 150,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.622082998859696,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 150,
+              "peak_retained_bytes": 1013616,
+              "peak_reserved_bytes": 1048024,
+              "entries": 150,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.368750001769513,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 150,
+              "peak_retained_bytes": 1013616,
+              "peak_reserved_bytes": 1048024,
+              "entries": 150,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.709750000794884,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 150,
+              "peak_retained_bytes": 1013616,
+              "peak_reserved_bytes": 1048024,
+              "entries": 150,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.426624998624902,
+            "cold_stored_bytes": 655360,
+            "cold_owned_bytes": 667057,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 150,
+              "peak_retained_bytes": 1013616,
+              "peak_reserved_bytes": 1048024,
+              "entries": 150,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "incompressible",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 2.2411250029108487,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.926959004777018,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9497920002322644,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 2.2547500047949143,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 2.245625000796281,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 2.7559170048334636,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.9760830002487637,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.8412920000846498,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.7699160054908134,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.8585420004674233,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 2.7827920057461597,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.779125003144145,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.7240420022280887,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.8370829968480393,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.096833999734372,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 3.4582090011099353,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.397791995666921,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.6582089960575104,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.177167003741488,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.2290000017383136,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 1.9085829990217462,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 2.0264999984647147,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 2.119583004969172,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9505410018609837,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9517909968271852,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 1.9840830063913018,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9578329956857488,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9984999962616712,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.879999996162951,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9229579993407242,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 2.1286669943947345,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.8895829998655245,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.899542003229726,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 1.9845830029225908,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 2.0822919977945276,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "incompressible",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 12.668333001784049,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 12.14820899622282,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 13.213250000262633,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 12.695082994468976,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          },
+          {
+            "build_ms": 12.259666997124441,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060265,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 13.34474999748636,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.730582999414764,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.706083998840768,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.553249998949468,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.330333000340033,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58464,
+              "entries": 7,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 13.276541001687292,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.07195800129557,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.243499997770414,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.680124997335952,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.359959004446864,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 31,
+              "peak_retained_bytes": 257520,
+              "entries": 31,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 13.916957999754231,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.412042000913061,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.92770799814025,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.599208006984554,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.72933300101431,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 126,
+              "peak_retained_bytes": 1045740,
+              "entries": 126,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 13.493375001417007,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58500,
+              "peak_reserved_bytes": 60636,
+              "entries": 7,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.633208000101149,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58500,
+              "peak_reserved_bytes": 60636,
+              "entries": 7,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.977416998182889,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58500,
+              "peak_reserved_bytes": 60636,
+              "entries": 7,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.800416996469721,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58500,
+              "peak_reserved_bytes": 60636,
+              "entries": 7,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.462082999467384,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 7,
+              "peak_retained_bytes": 58500,
+              "peak_reserved_bytes": 60636,
+              "entries": 7,
+              "mapping_bytes": 352,
+              "closed": true
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 13.62854200124275,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 30,
+              "peak_retained_bytes": 249296,
+              "peak_reserved_bytes": 256504,
+              "entries": 30,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.491500001691747,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 30,
+              "peak_retained_bytes": 249296,
+              "peak_reserved_bytes": 256504,
+              "entries": 30,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.931792000017595,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 30,
+              "peak_retained_bytes": 249296,
+              "peak_reserved_bytes": 256504,
+              "entries": 30,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.571875002526212,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 30,
+              "peak_retained_bytes": 249296,
+              "peak_reserved_bytes": 256504,
+              "entries": 30,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.94745799532393,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 30,
+              "peak_retained_bytes": 249296,
+              "peak_reserved_bytes": 256504,
+              "entries": 30,
+              "mapping_bytes": 1168,
+              "closed": true
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 14.360249995661434,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 123,
+              "peak_retained_bytes": 1020996,
+              "peak_reserved_bytes": 1048492,
+              "entries": 123,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.932958005170804,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 123,
+              "peak_retained_bytes": 1020996,
+              "peak_reserved_bytes": 1048492,
+              "entries": 123,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.46654199733166,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 123,
+              "peak_retained_bytes": 1020996,
+              "peak_reserved_bytes": 1048492,
+              "entries": 123,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.624749997688923,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 123,
+              "peak_retained_bytes": 1020996,
+              "peak_reserved_bytes": 1048492,
+              "entries": 123,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.757749999058433,
+            "cold_stored_bytes": 1048576,
+            "cold_owned_bytes": 1060273,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 123,
+              "peak_retained_bytes": 1020996,
+              "peak_reserved_bytes": 1048492,
+              "entries": 123,
+              "mapping_bytes": 4688,
+              "closed": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "rare",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 1.4412909949896857,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.5024169988464564,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.542917001643218,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4168330017128028,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4782500002183951,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 2.3113749994081445,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.306166999915149,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.2686250013066456,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.2374590043909848,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.22441599908052,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 2.404165999905672,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.3912500037113205,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.5557919943821616,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.4488749986630864,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 2.371832997596357,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 3.4019580052699894,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.3851249972940423,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.528916997311171,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.3162500039907172,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 3.5029170030611567,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 1.447292001103051,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.5214590021059848,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.5540409949608147,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4618749992223457,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4596670007449575,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 1.4347499964060262,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.526334002846852,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.403750000463333,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.5182500064838678,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4572500003851019,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 1.4003329997649416,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.6311250001308508,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4027080032974482,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.423833004082553,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 1.4184579995344393,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "rare",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 13.327166998351458,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 13.343500002520159,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 12.942457993631251,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 13.813584002491552,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          },
+          {
+            "build_ms": 12.891541999124456,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18536,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 14.280082999903243,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.368750002176967,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.518791998852976,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.545000001613516,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.77254099881975,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 256,
+              "admissions": 15,
+              "peak_retained_bytes": 63770,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 14.136542005871888,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.126292000582907,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.93925000593299,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 15.013667005405296,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.554041998053435,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 61,
+              "peak_retained_bytes": 258196,
+              "entries": 61,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 15.916042000753805,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 15.748333004012238,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 15.098000003490597,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 15.324749998399056,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 15.825041999050882,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 6,
+              "misses": 250,
+              "admissions": 247,
+              "peak_retained_bytes": 1045109,
+              "entries": 247,
+              "closed": true
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 13.384499994572252,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 14,
+              "peak_retained_bytes": 59615,
+              "peak_reserved_bytes": 63263,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.806832997943275,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 14,
+              "peak_retained_bytes": 59615,
+              "peak_reserved_bytes": 63263,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.215584003773984,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 14,
+              "peak_retained_bytes": 59615,
+              "peak_reserved_bytes": 63263,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.302208001026884,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 14,
+              "peak_retained_bytes": 59615,
+              "peak_reserved_bytes": 63263,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 12.977209000382572,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 14,
+              "peak_retained_bytes": 59615,
+              "peak_reserved_bytes": 63263,
+              "entries": 14,
+              "mapping_bytes": 632,
+              "closed": true
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 14.6237920052954,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 58,
+              "peak_retained_bytes": 245664,
+              "peak_reserved_bytes": 258944,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.523042005544994,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 58,
+              "peak_retained_bytes": 245664,
+              "peak_reserved_bytes": 258944,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 13.865834000171162,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 58,
+              "peak_retained_bytes": 245664,
+              "peak_reserved_bytes": 258944,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.061166002647951,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 58,
+              "peak_retained_bytes": 245664,
+              "peak_reserved_bytes": 258944,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.06820800184505,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 58,
+              "peak_retained_bytes": 245664,
+              "peak_reserved_bytes": 258944,
+              "entries": 58,
+              "mapping_bytes": 2264,
+              "closed": true
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 14.39070900232764,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 235,
+              "peak_retained_bytes": 994867,
+              "peak_reserved_bytes": 1046419,
+              "entries": 235,
+              "mapping_bytes": 9304,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.532124994730111,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 235,
+              "peak_retained_bytes": 994867,
+              "peak_reserved_bytes": 1046419,
+              "entries": 235,
+              "mapping_bytes": 9304,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.809458996751346,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 235,
+              "peak_retained_bytes": 994867,
+              "peak_reserved_bytes": 1046419,
+              "entries": 235,
+              "mapping_bytes": 9304,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.769707995583303,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 235,
+              "peak_retained_bytes": 994867,
+              "peak_reserved_bytes": 1046419,
+              "entries": 235,
+              "mapping_bytes": 9304,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 14.570082996215206,
+            "cold_stored_bytes": 7092,
+            "cold_owned_bytes": 18544,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 249,
+              "admissions": 235,
+              "peak_retained_bytes": 994867,
+              "peak_reserved_bytes": 1046419,
+              "entries": 235,
+              "mapping_bytes": 9304,
+              "closed": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case": "uniform",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 0.3283339974586852,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.2893329947255552,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.29983399872435257,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.30949999927543104,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.28929199470439926,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 1.1236670034122653,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0841670009540394,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0605000061332248,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.165874993603211,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0459580007591285,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 1.3110420040902682,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2385840018396266,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2749590023304336,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2676250044023618,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2473329989006743,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 2.152208995539695,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.7473749976488762,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.782499995897524,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.6669589967932552,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.610041996173095,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 0.30862499988870695,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.3209999995306134,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.297874998068437,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.30812499608146027,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.2912920026574284,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 0.3031670057680458,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.29958400409668684,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.3442919987719506,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.29350000113481656,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.29470900335581973,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 0.3073330008191988,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.29379199986578897,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.31033300183480605,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.2945419983007014,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.3220409998903051,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          }
+        ]
+      }
+    },
+    {
+      "case": "uniform",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "build_ms": 0.2929159963969141,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.2904580032918602,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.3019159994437359,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.30487500043818727,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          },
+          {
+            "build_ms": 0.2893330020015128,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7209,
+            "memo": null
+          }
+        ],
+        "old-65536": [
+          {
+            "build_ms": 1.2420419952832162,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0606249998090789,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0510829961276613,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.141000000643544,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.0620829998515546,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 17,
+              "misses": 239,
+              "admissions": 15,
+              "peak_retained_bytes": 63279,
+              "entries": 15,
+              "closed": true
+            }
+          }
+        ],
+        "old-262144": [
+          {
+            "build_ms": 1.467000001866836,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2648330011870712,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.2589999969350174,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.371874997857958,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          },
+          {
+            "build_ms": 1.4016249988344498,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 51,
+              "misses": 205,
+              "admissions": 62,
+              "peak_retained_bytes": 260290,
+              "entries": 62,
+              "closed": true
+            }
+          }
+        ],
+        "old-1048576": [
+          {
+            "build_ms": 1.7612919982639141,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.675040999543853,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 2.011000004131347,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.6368329961551353,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 1.6499579942319542,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 96,
+              "misses": 160,
+              "admissions": 160,
+              "peak_retained_bytes": 670100,
+              "entries": 160,
+              "closed": false
+            }
+          }
+        ],
+        "selective-65536": [
+          {
+            "build_ms": 0.32433399610454217,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.32249999640043825,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.33908399927895516,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.34945900551974773,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.3192079966538586,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 65536,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          }
+        ],
+        "selective-262144": [
+          {
+            "build_ms": 0.4350829985924065,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.32987500162562355,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.35004100209334865,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.44425000669434667,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.3307919978396967,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 262144,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          }
+        ],
+        "selective-1048576": [
+          {
+            "build_ms": 0.33962500310735777,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.3236249976907857,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.3724999987753108,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.33983300090767443,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          },
+          {
+            "build_ms": 0.3330830004415475,
+            "cold_stored_bytes": 0,
+            "cold_owned_bytes": 7217,
+            "memo": {
+              "budget_bytes": 1048576,
+              "hits": 0,
+              "misses": 0,
+              "admissions": 0,
+              "peak_retained_bytes": 392,
+              "peak_reserved_bytes": 1024,
+              "entries": 0,
+              "mapping_bytes": 64,
+              "closed": false
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "memory": "Selective cache reserves 1024 metadata bytes plus 256 per mapping entry plus exact key/record sizes; actual retained estimate checked on admission. Rollback/shrink scratch excluded. Old cache stages every admission. Cold owned is retained graph estimate, not RSS.",
+  "scope": "Whole construction, not app E2E; memo removed before timed constructor returns. Cold records immutable and sharing validated through edits."
+}
