@@ -291,7 +291,30 @@ class CompressedArray:
         colors = _native._byte_palette(raw)
         if len(colors) == 1:
             return raw[0]
-        direct = Array(raw, bits=_bits(colors[-1]), layout="packed")
+        direct_bits = _bits(colors[-1])
+        if self._blosc is None:
+            # Packed lengths are known before allocation. Preserve the exhaustive
+            # candidate ordering on ties without constructing discarded arrays.
+            direct_size = ((len(raw) * direct_bits + 63) // 64) * 8
+            mode: _Mode = "packed" if direct_size <= len(raw) else "bytes"
+            best_size = min(direct_size, len(raw))
+            palette_bits = _bits(len(colors) - 1)
+            palette_size = ((len(raw) * palette_bits + 63) // 64) * 8 + len(colors)
+            if (
+                self._palette
+                and palette_bits < direct_bits
+                and palette_size < best_size
+            ):
+                translation = bytearray(256)
+                for index, color in enumerate(colors):
+                    translation[color] = index
+                indices = Array(raw.translate(bytes(translation)), bits=palette_bits)
+                return _Chunk(
+                    len(raw), "packed", palette_bits, colors, _raw(indices)
+                ).seal()
+            payload = _raw(Array(raw, bits=direct_bits)) if mode == "packed" else raw
+            return _Chunk(len(raw), mode, direct_bits, payload=payload).seal()
+        direct = Array(raw, bits=direct_bits, layout="packed")
         candidates = [
             _Chunk(len(raw), "packed", cast(_Bits, direct.bits), payload=_raw(direct)),
             _Chunk(len(raw), "bytes", cast(_Bits, direct.bits), payload=raw),
