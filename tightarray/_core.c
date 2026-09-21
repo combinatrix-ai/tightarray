@@ -606,6 +606,7 @@ static PyTypeObject ArrayType={
 #include "_api_storage.h"
 #include "_api_view.h"
 static PyMethodDef module_methods[]={
+    {"_pack_palette",(PyCFunction)compressed_pack_palette,METH_VARARGS,NULL},
     {"_pack_bytes",(PyCFunction)compressed_pack_bytes,METH_VARARGS,NULL},
     {"_trim_plan",(PyCFunction)compressed_trim_plan,METH_VARARGS,NULL},
     {"_byte_edge_spans",(PyCFunction)compressed_byte_edge_spans,METH_O,NULL},

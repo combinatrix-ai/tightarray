@@ -70,3 +70,57 @@ static PyObject *compressed_pack_bytes(PyObject *module,PyObject *args) {
     }
     return out;
 }
+
+/* Palette translation uses bounded scratch while retaining vector packing.
+ * A block multiple of 64 elements ends on a word boundary at every width. */
+static PyObject *compressed_pack_palette(PyObject *module,PyObject *args) {
+    PyObject *raw,*width,*palette;
+    if(!PyArg_ParseTuple(args,"OOO:_pack_palette",&raw,&width,&palette)) return NULL;
+    if(!PyBytes_CheckExact(raw) || !PyBytes_CheckExact(palette)) {
+        PyErr_SetString(PyExc_TypeError,"raw and palette must be exact bytes"); return NULL;
+    }
+    Py_ssize_t bits=PyNumber_AsSsize_t(width,PyExc_OverflowError);
+    if(bits==-1 && PyErr_Occurred()) return NULL;
+    if(bits<1 || bits>8) { PyErr_SetString(PyExc_ValueError,"bits must be between 1 and 8"); return NULL; }
+    Py_ssize_t count=PyBytes_GET_SIZE(palette),length=PyBytes_GET_SIZE(raw);
+    if(count<1 || count>256 || count>((Py_ssize_t)1<<bits)) {
+        PyErr_SetString(PyExc_ValueError,"palette size must fit the bit width"); return NULL;
+    }
+    const uint8_t *colors=(const uint8_t *)PyBytes_AS_STRING(palette);
+    uint16_t inverse[256];
+    for(unsigned i=0;i<256;i++) inverse[i]=256;
+    for(Py_ssize_t i=0;i<count;i++) {
+        if(i && colors[i]<=colors[i-1]) { PyErr_SetString(PyExc_ValueError,"palette must be sorted unique bytes"); return NULL; }
+        inverse[colors[i]]=(uint16_t)i;
+    }
+    if((size_t)length>(SIZE_MAX-63)/(size_t)bits) { PyErr_SetString(PyExc_OverflowError,"packed bit length overflow"); return NULL; }
+    size_t bytes=(((size_t)length*(size_t)bits+63)/64)*8;
+    if(bytes>(size_t)PY_SSIZE_T_MAX) { PyErr_SetString(PyExc_OverflowError,"packed byte length overflow"); return NULL; }
+    PyObject *out=PyBytes_FromStringAndSize(NULL,(Py_ssize_t)bytes);
+    if(!out) return NULL;
+    uint8_t mapped[512];
+    const uint8_t *src=(const uint8_t *)PyBytes_AS_STRING(raw);
+    uint8_t *dst=(uint8_t *)PyBytes_AS_STRING(out);
+    for(Py_ssize_t offset=0;offset<length;) {
+        Py_ssize_t block=length-offset;
+        if(block>512) block=512;
+        for(Py_ssize_t j=0;j<block;j++) {
+            uint16_t code=inverse[src[offset+j]];
+            if(code==256) {
+                Py_DECREF(out); PyErr_SetString(PyExc_ValueError,"value missing from palette"); return NULL;
+            }
+            mapped[j]=(uint8_t)code;
+        }
+        size_t output_offset=(size_t)offset*(size_t)bits/8;
+        size_t block_bytes=(((size_t)block*(size_t)bits+63)/64)*8;
+        if(bits==8) {
+            memcpy(dst+output_offset,mapped,(size_t)block);
+            if(block_bytes>(size_t)block) memset(dst+output_offset+block,0,block_bytes-(size_t)block);
+        } else {
+            /* Codes are already proven below 2**bits; packer cannot fail. */
+            compressed_byte_packers[bits-1](mapped,block,dst+output_offset,block_bytes);
+        }
+        offset+=block;
+    }
+    return out;
+}
