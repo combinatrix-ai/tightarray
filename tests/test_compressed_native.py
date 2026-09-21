@@ -100,3 +100,53 @@ def test_no_numpy_dependency():
         ],
         check=True,
     )
+
+
+@pytest.mark.parametrize("bits", range(1, 9))
+def test_prefixed_restore(bits):
+    for length in (0, 1, 8, 21, 64, 65):
+        values = bytes((i * 43 + 9) % (1 << bits) for i in range(length))
+        raw = Array(values, bits=bits)._word_view()[0].tobytes()
+        for prefix in (b"", b"\xff", b"header\x00\x80"):
+            sealed = prefix + raw
+            restored = Array._from_packed_bytes(sealed, length, bits, len(prefix))
+            assert restored.tobytes() == values
+            assert restored.base is None
+            if length:
+                restored[0] = (restored[0] + 1) % (1 << bits)
+                assert sealed == prefix + raw
+
+
+def test_offset_tail_normalization():
+    restored = Array._from_packed_bytes(b"abc" + b"\xff" * 8, 3, 5, 3)
+    assert restored.tobytes() == b"\x1f" * 3
+    assert restored._word_view()[0].tobytes() == b"\xff\x7f" + bytes(6)
+
+
+@pytest.mark.parametrize("offset", [-1, 9, sys.maxsize])
+def test_offset_outside_input(offset):
+    with pytest.raises(ValueError):
+        Array._from_packed_bytes(bytes(8), 0, 1, offset)
+
+
+@pytest.mark.parametrize("offset", [1.0, "1", None])
+def test_offset_not_index(offset):
+    with pytest.raises(TypeError):
+        Array._from_packed_bytes(bytes(8), 1, 1, offset)
+
+
+def test_offset_index_and_exact_remaining_length():
+    class Offset:
+        def __index__(self):
+            return 1
+
+    assert Array._from_packed_bytes(b"x" + bytes(8), 1, 1, Offset()).tobytes() == bytes(
+        1
+    )
+    assert Array._from_packed_bytes(b"x", 0, 1, Offset()).tobytes() == b""
+    with pytest.raises(ValueError):
+        Array._from_packed_bytes(b"x" + bytes(9), 1, 1, Offset())
+    with pytest.raises(ValueError):
+        Array._from_packed_bytes(b"x" + bytes(7), 1, 1, Offset())
+    with pytest.raises(OverflowError):
+        Array._from_packed_bytes(b"", 0, 1, sys.maxsize + 1)
