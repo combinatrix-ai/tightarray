@@ -193,8 +193,6 @@ def _value(value: SupportsIndex) -> int:
 
 
 def _values(values: Iterable[SupportsIndex]) -> bytes:
-    if type(values) is bytes:
-        return values
     # bytes(int) means allocation, and bytes(buffer) can bypass element checks.
     view = _byte_view(values)
     return view.tobytes() if view is not None else bytes(iter(values))
@@ -691,7 +689,13 @@ class CompressedArray:
     def write(self, start: SupportsIndex, values: Iterable[SupportsIndex]) -> None:
         """Validate all values/bounds before mutation; codec failures may be partial."""
         first = operator.index(start)
-        raw = _values(values)
+        kind = type(values)
+        if kind is bytes:
+            raw = cast(bytes, values)
+        elif kind is list or kind is tuple:
+            raw = bytes(values)
+        else:
+            raw = _values(values)
         self._range(first, first + len(raw))
         consumed = 0
         while consumed < len(raw):
