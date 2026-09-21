@@ -85,6 +85,7 @@ _native = cast(_Native, importlib.import_module("tightarray._core"))
 
 
 class _Blosc(Protocol):
+    MIN_HEADER_LENGTH: int
     Codec: _Codecs
     Filter: _Filters
 
@@ -397,7 +398,14 @@ class CompressedArray:
         trim_plan = _native._trim_plan(raw, colors, bool(self._palette), best_size + 2)
         if trim_plan is not None:
             structured = None  # The span is strictly smaller, including headers.
-        if self._blosc is None:
+            best_size = trim_plan[-1] - 2
+        # A codec record cannot be shorter than its public minimum header.
+        # Keep equality on the exhaustive path to preserve ordinary-codec ties.
+        if (
+            self._blosc is None
+            or (trim_plan[-1] - 2 if trim_plan is not None else best_size)
+            < self._blosc.MIN_HEADER_LENGTH
+        ):
             if structured is not None:
                 return structured
             if trim_plan is not None:
@@ -438,12 +446,15 @@ class CompressedArray:
                 )
         if self._blosc is not None:
             for candidate in tuple(candidates):
-                if len(candidate.payload) < 64:
+                if len(candidate.payload) < 64 or best_size < (
+                    self._blosc.MIN_HEADER_LENGTH + len(candidate.palette)
+                ):
                     continue
                 payload = self._compress(
                     candidate.payload, shuffle=candidate.mode == "bytes"
                 )
                 if len(payload) < len(candidate.payload):
+                    best_size = min(best_size, len(payload) + len(candidate.palette))
                     candidates.append(
                         _Chunk(
                             candidate.length,
