@@ -73,6 +73,8 @@ jobs:
             tests/test_compressed_byte_copy_native.py \
             tests/test_compressed_hot_bulk.py \
             tests/test_compressed_native.py \
+            tests/test_compressed_native_payload.py \
+            tests/test_compressed_pack_native.py \
             tests/test_compressed_period_native.py \
             tests/test_compressed_periods.py \
             tests/test_compressed_rle_native.py \

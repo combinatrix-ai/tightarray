@@ -52,6 +52,7 @@ class _Filters(Protocol):
 
 
 class _Native(Protocol):
+    def _pack_bytes(self, raw: bytes, bits: _Bits, /) -> bytes: ...
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
     def _byte_period(self, raw: bytes, /) -> int: ...
     def _trim_plan(
@@ -208,7 +209,7 @@ def _direct_payload(raw: bytes, bits: _Bits) -> bytes:
     if bits == 8:
         # Packed storage rounds to whole words, with zero-filled tail lanes.
         return raw if len(raw) % 8 == 0 else raw + bytes((-len(raw)) % 8)
-    return _raw(Array(raw, bits=bits))
+    return _native._pack_bytes(raw, bits)
 
 
 def _restore(payload: bytes, length: int, bits: _Bits) -> Array:
