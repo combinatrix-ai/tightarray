@@ -85,6 +85,7 @@ jobs:
             tests/test_compressed_span_write_native.py \
             tests/test_compressed_trim_native.py \
             tests/test_compressed_trim_plan_native.py \
+            tests/test_compressed_trim_alphabet_native.py \
             tests/test_compressed_trimmed.py \
             tests/test_explore_replay.py \
             tests/test_explore_labels.py \
