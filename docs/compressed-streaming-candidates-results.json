@@ -1,0 +1,3461 @@
+{
+  "baseline": "d3596fd9899797f9e1dede772fbc1fb03300d9bd",
+  "pinned_python_sha256": "4ce872fabc06a66cbe80ee5ff7d6c8b870766bef3408b7d6c2732d3f260352ed",
+  "source_sha256": {
+    "tightarray/compressed.py": "4ce872fabc06a66cbe80ee5ff7d6c8b870766bef3408b7d6c2732d3f260352ed",
+    "tightarray/_compressed.h": "01b674de14cbe1590ee469b2404d479722fb2e9fb32023bb6a40e98f83d2ebb8",
+    "tightarray/_compressed_hot.h": "56826a8dcf0b0a437119bcc21608164ed1d8c3c20f7a3706a7ede5f62b702508",
+    "tightarray/_compressed_rle.h": "d49a248e5fc3e790ef9a6e516975e5dbf1e5650b070000aeefd0a37e2bec71ec",
+    "tightarray/_compressed_period.h": "30f9739c31baadd53c3b1e3797c1cd8968b83a96408106c506b3964f5b6e54b8",
+    "tightarray/_core.c": "1a52a99f6481d3a035f51eb05200b8e1aa720bc3b2b2591aefe6cee666b9f761",
+    "setup.py": "c7e7e9b4f31a420e2910bf748ae325105a55cb7aff0bc835bd8afba8d87971bc",
+    "benchmarks/compressed_storage.py": "da3352063bf93bc809934dec6cf1147c07cc0be0112956efb6cb180d61feb476",
+    "benchmarks/compressed_trimmed_policy.py": "a69ab6fc384b1db34f5acd0bf4a14b1564bb06fa51df0e4dcedaa740103e349b",
+    "native_binary": "797220fdf78c4a47588a043b50da02403243f84b4c9047fd9066bb38f3c7893f",
+    "benchmarks/compressed_streaming_candidates.py": "61e153d76938315ed78d89722b2191f5cc5e6cb7dee2e1811db8ad6dd0d7d931",
+    "tightarray/_compressed_pack.h": "c87e90f3f79522ec02cc6c1156a606e4c7a1e93235c2955c6a8ec1a6d81eff83",
+    "tightarray/_compressed_trim.h": "9c5effef5b7a640222a5ee0debffe6c4ca4555c7ce35f70b7dd64822f7da7214",
+    "tightarray/_compressed_span_hot.h": "102fef0d5c1f4c991a6831af5f27125c562ec9ea06702e7cf328ad6aca3fb38c"
+  },
+  "python": "3.12.8",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "blosc2": "4.13.1",
+  "repeats": 11,
+  "encode_calls_per_sample": 100,
+  "size": 65536,
+  "chunk_size": 4096,
+  "cache_bytes": 65536,
+  "changed_values_per_trial": 512,
+  "records": [
+    {
+      "case": "direct-3",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 5532.92,
+            "build_ns": 110042,
+            "update_flush_ns": 125041
+          },
+          {
+            "encode_ns": 5387.92,
+            "build_ns": 103458,
+            "update_flush_ns": 118666
+          },
+          {
+            "encode_ns": 5390.0,
+            "build_ns": 100416,
+            "update_flush_ns": 118458
+          },
+          {
+            "encode_ns": 5515.83,
+            "build_ns": 102625,
+            "update_flush_ns": 116000
+          },
+          {
+            "encode_ns": 5430.83,
+            "build_ns": 98750,
+            "update_flush_ns": 113167
+          },
+          {
+            "encode_ns": 5423.75,
+            "build_ns": 98291,
+            "update_flush_ns": 113625
+          },
+          {
+            "encode_ns": 5407.92,
+            "build_ns": 98125,
+            "update_flush_ns": 113334
+          },
+          {
+            "encode_ns": 5971.25,
+            "build_ns": 173541,
+            "update_flush_ns": 160000
+          },
+          {
+            "encode_ns": 5572.5,
+            "build_ns": 144500,
+            "update_flush_ns": 117750
+          },
+          {
+            "encode_ns": 5420.83,
+            "build_ns": 100750,
+            "update_flush_ns": 113083
+          },
+          {
+            "encode_ns": 5382.92,
+            "build_ns": 99500,
+            "update_flush_ns": 114292
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 5107.5,
+            "build_ns": 106541,
+            "update_flush_ns": 134125
+          },
+          {
+            "encode_ns": 5452.92,
+            "build_ns": 118666,
+            "update_flush_ns": 135542
+          },
+          {
+            "encode_ns": 5143.33,
+            "build_ns": 94584,
+            "update_flush_ns": 113500
+          },
+          {
+            "encode_ns": 4856.67,
+            "build_ns": 90958,
+            "update_flush_ns": 106917
+          },
+          {
+            "encode_ns": 4835.0,
+            "build_ns": 89584,
+            "update_flush_ns": 116250
+          },
+          {
+            "encode_ns": 4793.75,
+            "build_ns": 89375,
+            "update_flush_ns": 105458
+          },
+          {
+            "encode_ns": 4795.0,
+            "build_ns": 88208,
+            "update_flush_ns": 106041
+          },
+          {
+            "encode_ns": 4762.5,
+            "build_ns": 88375,
+            "update_flush_ns": 105416
+          },
+          {
+            "encode_ns": 4855.0,
+            "build_ns": 90458,
+            "update_flush_ns": 112291
+          },
+          {
+            "encode_ns": 4877.08,
+            "build_ns": 89125,
+            "update_flush_ns": 109250
+          },
+          {
+            "encode_ns": 4815.42,
+            "build_ns": 90708,
+            "update_flush_ns": 103792
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.8951371283705923,
+        "build_ns": 0.8978461538461538,
+        "update_flush_ns": 0.9418103448275862
+      }
+    },
+    {
+      "case": "direct-3",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 22086.66,
+            "build_ns": 355458,
+            "update_flush_ns": 307541
+          },
+          {
+            "encode_ns": 21075.83,
+            "build_ns": 355917,
+            "update_flush_ns": 306916
+          },
+          {
+            "encode_ns": 22421.67,
+            "build_ns": 388209,
+            "update_flush_ns": 343625
+          },
+          {
+            "encode_ns": 21696.66,
+            "build_ns": 498208,
+            "update_flush_ns": 310875
+          },
+          {
+            "encode_ns": 22201.25,
+            "build_ns": 394083,
+            "update_flush_ns": 335500
+          },
+          {
+            "encode_ns": 21028.33,
+            "build_ns": 350375,
+            "update_flush_ns": 304125
+          },
+          {
+            "encode_ns": 21235.0,
+            "build_ns": 360208,
+            "update_flush_ns": 311041
+          },
+          {
+            "encode_ns": 21738.75,
+            "build_ns": 425791,
+            "update_flush_ns": 303292
+          },
+          {
+            "encode_ns": 20867.5,
+            "build_ns": 357959,
+            "update_flush_ns": 311834
+          },
+          {
+            "encode_ns": 21626.25,
+            "build_ns": 348542,
+            "update_flush_ns": 300375
+          },
+          {
+            "encode_ns": 20587.92,
+            "build_ns": 341958,
+            "update_flush_ns": 298833
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 19522.09,
+            "build_ns": 324333,
+            "update_flush_ns": 284042
+          },
+          {
+            "encode_ns": 18091.67,
+            "build_ns": 311167,
+            "update_flush_ns": 274625
+          },
+          {
+            "encode_ns": 18289.16,
+            "build_ns": 320833,
+            "update_flush_ns": 285417
+          },
+          {
+            "encode_ns": 18310.42,
+            "build_ns": 341291,
+            "update_flush_ns": 276000
+          },
+          {
+            "encode_ns": 18735.42,
+            "build_ns": 309167,
+            "update_flush_ns": 272542
+          },
+          {
+            "encode_ns": 18308.33,
+            "build_ns": 301750,
+            "update_flush_ns": 267709
+          },
+          {
+            "encode_ns": 19727.91,
+            "build_ns": 303500,
+            "update_flush_ns": 272541
+          },
+          {
+            "encode_ns": 18151.67,
+            "build_ns": 301875,
+            "update_flush_ns": 269500
+          },
+          {
+            "encode_ns": 18118.34,
+            "build_ns": 305000,
+            "update_flush_ns": 267167
+          },
+          {
+            "encode_ns": 17993.34,
+            "build_ns": 302208,
+            "update_flush_ns": 268500
+          },
+          {
+            "encode_ns": 18085.83,
+            "build_ns": 302042,
+            "update_flush_ns": 264958
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 90112,
+      "median_ratio": {
+        "encode_ns": 0.8456926189237616,
+        "build_ns": 0.8520528887386545,
+        "update_flush_ns": 0.8861940359171623
+      }
+    },
+    {
+      "case": "direct-3",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 37822.92,
+            "build_ns": 677959,
+            "update_flush_ns": 558917
+          },
+          {
+            "encode_ns": 35769.16,
+            "build_ns": 636625,
+            "update_flush_ns": 511500
+          },
+          {
+            "encode_ns": 35690.41,
+            "build_ns": 611750,
+            "update_flush_ns": 504166
+          },
+          {
+            "encode_ns": 36617.5,
+            "build_ns": 670042,
+            "update_flush_ns": 573000
+          },
+          {
+            "encode_ns": 35206.25,
+            "build_ns": 699125,
+            "update_flush_ns": 505750
+          },
+          {
+            "encode_ns": 37739.59,
+            "build_ns": 708791,
+            "update_flush_ns": 497875
+          },
+          {
+            "encode_ns": 38245.0,
+            "build_ns": 735167,
+            "update_flush_ns": 580625
+          },
+          {
+            "encode_ns": 35702.92,
+            "build_ns": 608708,
+            "update_flush_ns": 497292
+          },
+          {
+            "encode_ns": 38310.0,
+            "build_ns": 611917,
+            "update_flush_ns": 502750
+          },
+          {
+            "encode_ns": 35388.34,
+            "build_ns": 601541,
+            "update_flush_ns": 494625
+          },
+          {
+            "encode_ns": 37067.09,
+            "build_ns": 675583,
+            "update_flush_ns": 542833
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 33293.75,
+            "build_ns": 597500,
+            "update_flush_ns": 500666
+          },
+          {
+            "encode_ns": 34237.09,
+            "build_ns": 627459,
+            "update_flush_ns": 529542
+          },
+          {
+            "encode_ns": 33835.83,
+            "build_ns": 617709,
+            "update_flush_ns": 462583
+          },
+          {
+            "encode_ns": 32474.17,
+            "build_ns": 558583,
+            "update_flush_ns": 465708
+          },
+          {
+            "encode_ns": 32528.75,
+            "build_ns": 560625,
+            "update_flush_ns": 464667
+          },
+          {
+            "encode_ns": 32752.5,
+            "build_ns": 565750,
+            "update_flush_ns": 464250
+          },
+          {
+            "encode_ns": 33029.59,
+            "build_ns": 565084,
+            "update_flush_ns": 468375
+          },
+          {
+            "encode_ns": 34248.75,
+            "build_ns": 575042,
+            "update_flush_ns": 489417
+          },
+          {
+            "encode_ns": 32702.92,
+            "build_ns": 563459,
+            "update_flush_ns": 466291
+          },
+          {
+            "encode_ns": 32915.0,
+            "build_ns": 564791,
+            "update_flush_ns": 467208
+          },
+          {
+            "encode_ns": 32329.16,
+            "build_ns": 556125,
+            "update_flush_ns": 461917
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 90112,
+      "median_ratio": {
+        "encode_ns": 0.8988871441250768,
+        "build_ns": 0.843356088125819,
+        "update_flush_ns": 0.9219792387543253
+      }
+    },
+    {
+      "case": "direct-5",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 6045.42,
+            "build_ns": 110833,
+            "update_flush_ns": 121500
+          },
+          {
+            "encode_ns": 6381.67,
+            "build_ns": 112875,
+            "update_flush_ns": 128500
+          },
+          {
+            "encode_ns": 6049.58,
+            "build_ns": 104250,
+            "update_flush_ns": 115458
+          },
+          {
+            "encode_ns": 6036.25,
+            "build_ns": 102292,
+            "update_flush_ns": 190375
+          },
+          {
+            "encode_ns": 6267.5,
+            "build_ns": 116458,
+            "update_flush_ns": 127416
+          },
+          {
+            "encode_ns": 6115.83,
+            "build_ns": 104917,
+            "update_flush_ns": 120625
+          },
+          {
+            "encode_ns": 6151.67,
+            "build_ns": 108917,
+            "update_flush_ns": 118916
+          },
+          {
+            "encode_ns": 6083.75,
+            "build_ns": 103750,
+            "update_flush_ns": 118792
+          },
+          {
+            "encode_ns": 6598.75,
+            "build_ns": 139375,
+            "update_flush_ns": 143375
+          },
+          {
+            "encode_ns": 6517.5,
+            "build_ns": 112709,
+            "update_flush_ns": 156208
+          },
+          {
+            "encode_ns": 6219.58,
+            "build_ns": 104459,
+            "update_flush_ns": 116875
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 5836.67,
+            "build_ns": 105167,
+            "update_flush_ns": 120000
+          },
+          {
+            "encode_ns": 5653.33,
+            "build_ns": 97041,
+            "update_flush_ns": 112584
+          },
+          {
+            "encode_ns": 5417.08,
+            "build_ns": 93084,
+            "update_flush_ns": 110958
+          },
+          {
+            "encode_ns": 5546.25,
+            "build_ns": 108708,
+            "update_flush_ns": 126500
+          },
+          {
+            "encode_ns": 5704.17,
+            "build_ns": 99833,
+            "update_flush_ns": 116458
+          },
+          {
+            "encode_ns": 5851.25,
+            "build_ns": 106375,
+            "update_flush_ns": 121375
+          },
+          {
+            "encode_ns": 5447.92,
+            "build_ns": 93834,
+            "update_flush_ns": 124208
+          },
+          {
+            "encode_ns": 5434.58,
+            "build_ns": 92750,
+            "update_flush_ns": 110209
+          },
+          {
+            "encode_ns": 5425.83,
+            "build_ns": 91833,
+            "update_flush_ns": 109833
+          },
+          {
+            "encode_ns": 5583.75,
+            "build_ns": 100542,
+            "update_flush_ns": 123917
+          },
+          {
+            "encode_ns": 6300.83,
+            "build_ns": 98417,
+            "update_flush_ns": 113666
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9076803534649941,
+        "build_ns": 0.9035963164611585,
+        "update_flush_ns": 0.9585020576131688
+      }
+    },
+    {
+      "case": "direct-5",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 22399.58,
+            "build_ns": 356917,
+            "update_flush_ns": 317292
+          },
+          {
+            "encode_ns": 23145.83,
+            "build_ns": 365042,
+            "update_flush_ns": 314500
+          },
+          {
+            "encode_ns": 21671.25,
+            "build_ns": 355875,
+            "update_flush_ns": 308125
+          },
+          {
+            "encode_ns": 22663.75,
+            "build_ns": 368291,
+            "update_flush_ns": 320708
+          },
+          {
+            "encode_ns": 22342.5,
+            "build_ns": 391875,
+            "update_flush_ns": 373292
+          },
+          {
+            "encode_ns": 23185.84,
+            "build_ns": 546125,
+            "update_flush_ns": 351291
+          },
+          {
+            "encode_ns": 25286.67,
+            "build_ns": 391750,
+            "update_flush_ns": 337042
+          },
+          {
+            "encode_ns": 22580.83,
+            "build_ns": 374000,
+            "update_flush_ns": 323333
+          },
+          {
+            "encode_ns": 22388.33,
+            "build_ns": 363583,
+            "update_flush_ns": 312625
+          },
+          {
+            "encode_ns": 22227.5,
+            "build_ns": 371000,
+            "update_flush_ns": 325125
+          },
+          {
+            "encode_ns": 24315.84,
+            "build_ns": 381459,
+            "update_flush_ns": 325542
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 19037.09,
+            "build_ns": 418500,
+            "update_flush_ns": 307125
+          },
+          {
+            "encode_ns": 19089.59,
+            "build_ns": 315458,
+            "update_flush_ns": 275833
+          },
+          {
+            "encode_ns": 20370.41,
+            "build_ns": 337292,
+            "update_flush_ns": 304750
+          },
+          {
+            "encode_ns": 19280.41,
+            "build_ns": 322292,
+            "update_flush_ns": 283916
+          },
+          {
+            "encode_ns": 19207.5,
+            "build_ns": 398666,
+            "update_flush_ns": 316916
+          },
+          {
+            "encode_ns": 20856.67,
+            "build_ns": 341125,
+            "update_flush_ns": 298416
+          },
+          {
+            "encode_ns": 20732.08,
+            "build_ns": 342042,
+            "update_flush_ns": 300292
+          },
+          {
+            "encode_ns": 19755.83,
+            "build_ns": 395000,
+            "update_flush_ns": 314166
+          },
+          {
+            "encode_ns": 21166.66,
+            "build_ns": 332583,
+            "update_flush_ns": 296250
+          },
+          {
+            "encode_ns": 21591.25,
+            "build_ns": 343625,
+            "update_flush_ns": 301709
+          },
+          {
+            "encode_ns": 20032.09,
+            "build_ns": 340292,
+            "update_flush_ns": 300666
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.8871281525081229,
+        "build_ns": 0.9194743935309974,
+        "update_flush_ns": 0.9298958040162928
+      }
+    },
+    {
+      "case": "direct-5",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 41925.0,
+            "build_ns": 687875,
+            "update_flush_ns": 673792
+          },
+          {
+            "encode_ns": 43907.5,
+            "build_ns": 720750,
+            "update_flush_ns": 567833
+          },
+          {
+            "encode_ns": 42794.17,
+            "build_ns": 699708,
+            "update_flush_ns": 573667
+          },
+          {
+            "encode_ns": 40471.25,
+            "build_ns": 674584,
+            "update_flush_ns": 550000
+          },
+          {
+            "encode_ns": 41959.58,
+            "build_ns": 743250,
+            "update_flush_ns": 614750
+          },
+          {
+            "encode_ns": 42065.83,
+            "build_ns": 695375,
+            "update_flush_ns": 555750
+          },
+          {
+            "encode_ns": 40863.34,
+            "build_ns": 767875,
+            "update_flush_ns": 664667
+          },
+          {
+            "encode_ns": 40472.92,
+            "build_ns": 680292,
+            "update_flush_ns": 549458
+          },
+          {
+            "encode_ns": 43697.09,
+            "build_ns": 700666,
+            "update_flush_ns": 570792
+          },
+          {
+            "encode_ns": 42045.0,
+            "build_ns": 756458,
+            "update_flush_ns": 578458
+          },
+          {
+            "encode_ns": 46200.0,
+            "build_ns": 752541,
+            "update_flush_ns": 594042
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 41796.67,
+            "build_ns": 684333,
+            "update_flush_ns": 591917
+          },
+          {
+            "encode_ns": 39308.75,
+            "build_ns": 744542,
+            "update_flush_ns": 532208
+          },
+          {
+            "encode_ns": 37954.58,
+            "build_ns": 635333,
+            "update_flush_ns": 515000
+          },
+          {
+            "encode_ns": 39554.17,
+            "build_ns": 655791,
+            "update_flush_ns": 535834
+          },
+          {
+            "encode_ns": 40612.5,
+            "build_ns": 687750,
+            "update_flush_ns": 543917
+          },
+          {
+            "encode_ns": 41790.83,
+            "build_ns": 700125,
+            "update_flush_ns": 547875
+          },
+          {
+            "encode_ns": 40283.34,
+            "build_ns": 640542,
+            "update_flush_ns": 523167
+          },
+          {
+            "encode_ns": 38756.25,
+            "build_ns": 693000,
+            "update_flush_ns": 530166
+          },
+          {
+            "encode_ns": 41275.84,
+            "build_ns": 682125,
+            "update_flush_ns": 537958
+          },
+          {
+            "encode_ns": 40208.75,
+            "build_ns": 669667,
+            "update_flush_ns": 561000
+          },
+          {
+            "encode_ns": 40768.33,
+            "build_ns": 668625,
+            "update_flush_ns": 539458
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.9581006064930431,
+        "build_ns": 0.9735380338135431,
+        "update_flush_ns": 0.937753086721042
+      }
+    },
+    {
+      "case": "direct-8",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 6851.66,
+            "build_ns": 147375,
+            "update_flush_ns": 128375
+          },
+          {
+            "encode_ns": 6876.67,
+            "build_ns": 117166,
+            "update_flush_ns": 120875
+          },
+          {
+            "encode_ns": 6851.67,
+            "build_ns": 116500,
+            "update_flush_ns": 125625
+          },
+          {
+            "encode_ns": 7728.75,
+            "build_ns": 122583,
+            "update_flush_ns": 134000
+          },
+          {
+            "encode_ns": 6787.5,
+            "build_ns": 117917,
+            "update_flush_ns": 132333
+          },
+          {
+            "encode_ns": 6707.5,
+            "build_ns": 112000,
+            "update_flush_ns": 116792
+          },
+          {
+            "encode_ns": 6894.17,
+            "build_ns": 117292,
+            "update_flush_ns": 156667
+          },
+          {
+            "encode_ns": 6640.83,
+            "build_ns": 111000,
+            "update_flush_ns": 117000
+          },
+          {
+            "encode_ns": 6604.17,
+            "build_ns": 123166,
+            "update_flush_ns": 116542
+          },
+          {
+            "encode_ns": 7102.91,
+            "build_ns": 132875,
+            "update_flush_ns": 132833
+          },
+          {
+            "encode_ns": 6997.5,
+            "build_ns": 113333,
+            "update_flush_ns": 121750
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 6220.42,
+            "build_ns": 117125,
+            "update_flush_ns": 131459
+          },
+          {
+            "encode_ns": 6088.34,
+            "build_ns": 101625,
+            "update_flush_ns": 110625
+          },
+          {
+            "encode_ns": 6241.25,
+            "build_ns": 108083,
+            "update_flush_ns": 125000
+          },
+          {
+            "encode_ns": 6579.59,
+            "build_ns": 107500,
+            "update_flush_ns": 126958
+          },
+          {
+            "encode_ns": 6450.0,
+            "build_ns": 114667,
+            "update_flush_ns": 142000
+          },
+          {
+            "encode_ns": 6209.58,
+            "build_ns": 107416,
+            "update_flush_ns": 116958
+          },
+          {
+            "encode_ns": 6065.83,
+            "build_ns": 102459,
+            "update_flush_ns": 108666
+          },
+          {
+            "encode_ns": 6175.42,
+            "build_ns": 106000,
+            "update_flush_ns": 117250
+          },
+          {
+            "encode_ns": 5934.16,
+            "build_ns": 99459,
+            "update_flush_ns": 109416
+          },
+          {
+            "encode_ns": 6037.5,
+            "build_ns": 103667,
+            "update_flush_ns": 120500
+          },
+          {
+            "encode_ns": 6021.25,
+            "build_ns": 101583,
+            "update_flush_ns": 111875
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9013014345407762,
+        "build_ns": 0.9037274494424172,
+        "update_flush_ns": 0.9333333333333333
+      }
+    },
+    {
+      "case": "direct-8",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 22395.83,
+            "build_ns": 355666,
+            "update_flush_ns": 298583
+          },
+          {
+            "encode_ns": 23161.67,
+            "build_ns": 353083,
+            "update_flush_ns": 297709
+          },
+          {
+            "encode_ns": 21357.08,
+            "build_ns": 346458,
+            "update_flush_ns": 296750
+          },
+          {
+            "encode_ns": 21487.5,
+            "build_ns": 349792,
+            "update_flush_ns": 295500
+          },
+          {
+            "encode_ns": 21835.0,
+            "build_ns": 354167,
+            "update_flush_ns": 298541
+          },
+          {
+            "encode_ns": 21484.59,
+            "build_ns": 350666,
+            "update_flush_ns": 296208
+          },
+          {
+            "encode_ns": 23052.08,
+            "build_ns": 376959,
+            "update_flush_ns": 327833
+          },
+          {
+            "encode_ns": 22088.75,
+            "build_ns": 355125,
+            "update_flush_ns": 305833
+          },
+          {
+            "encode_ns": 22607.92,
+            "build_ns": 382250,
+            "update_flush_ns": 331416
+          },
+          {
+            "encode_ns": 22250.42,
+            "build_ns": 381541,
+            "update_flush_ns": 345959
+          },
+          {
+            "encode_ns": 21511.25,
+            "build_ns": 345625,
+            "update_flush_ns": 295459
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 19503.75,
+            "build_ns": 317792,
+            "update_flush_ns": 275250
+          },
+          {
+            "encode_ns": 19688.75,
+            "build_ns": 329667,
+            "update_flush_ns": 275750
+          },
+          {
+            "encode_ns": 20323.75,
+            "build_ns": 414250,
+            "update_flush_ns": 307667
+          },
+          {
+            "encode_ns": 20613.75,
+            "build_ns": 342583,
+            "update_flush_ns": 301125
+          },
+          {
+            "encode_ns": 21277.92,
+            "build_ns": 323875,
+            "update_flush_ns": 275083
+          },
+          {
+            "encode_ns": 19558.75,
+            "build_ns": 320625,
+            "update_flush_ns": 275958
+          },
+          {
+            "encode_ns": 19841.67,
+            "build_ns": 325083,
+            "update_flush_ns": 294541
+          },
+          {
+            "encode_ns": 19653.33,
+            "build_ns": 319500,
+            "update_flush_ns": 274250
+          },
+          {
+            "encode_ns": 20050.42,
+            "build_ns": 323292,
+            "update_flush_ns": 283292
+          },
+          {
+            "encode_ns": 19495.0,
+            "build_ns": 316667,
+            "update_flush_ns": 270708
+          },
+          {
+            "encode_ns": 19484.59,
+            "build_ns": 322292,
+            "update_flush_ns": 277000
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 131072,
+      "median_ratio": {
+        "encode_ns": 0.8913474053534038,
+        "build_ns": 0.9128236114601304,
+        "update_flush_ns": 0.9243554486653425
+      }
+    },
+    {
+      "case": "direct-8",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 45112.91,
+            "build_ns": 758875,
+            "update_flush_ns": 592500
+          },
+          {
+            "encode_ns": 44273.75,
+            "build_ns": 759125,
+            "update_flush_ns": 597459
+          },
+          {
+            "encode_ns": 44694.17,
+            "build_ns": 744125,
+            "update_flush_ns": 704250
+          },
+          {
+            "encode_ns": 45316.67,
+            "build_ns": 751000,
+            "update_flush_ns": 588333
+          },
+          {
+            "encode_ns": 45649.58,
+            "build_ns": 781125,
+            "update_flush_ns": 631708
+          },
+          {
+            "encode_ns": 48075.0,
+            "build_ns": 743750,
+            "update_flush_ns": 595417
+          },
+          {
+            "encode_ns": 45111.25,
+            "build_ns": 823875,
+            "update_flush_ns": 657958
+          },
+          {
+            "encode_ns": 43523.34,
+            "build_ns": 734750,
+            "update_flush_ns": 584417
+          },
+          {
+            "encode_ns": 45505.42,
+            "build_ns": 745292,
+            "update_flush_ns": 589667
+          },
+          {
+            "encode_ns": 44870.83,
+            "build_ns": 792459,
+            "update_flush_ns": 686541
+          },
+          {
+            "encode_ns": 45147.5,
+            "build_ns": 756083,
+            "update_flush_ns": 604417
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 41280.84,
+            "build_ns": 707917,
+            "update_flush_ns": 565000
+          },
+          {
+            "encode_ns": 41688.75,
+            "build_ns": 844291,
+            "update_flush_ns": 601459
+          },
+          {
+            "encode_ns": 42011.66,
+            "build_ns": 734583,
+            "update_flush_ns": 628666
+          },
+          {
+            "encode_ns": 43651.67,
+            "build_ns": 755625,
+            "update_flush_ns": 575208
+          },
+          {
+            "encode_ns": 41251.67,
+            "build_ns": 700959,
+            "update_flush_ns": 560416
+          },
+          {
+            "encode_ns": 43979.59,
+            "build_ns": 786917,
+            "update_flush_ns": 586625
+          },
+          {
+            "encode_ns": 42124.17,
+            "build_ns": 718792,
+            "update_flush_ns": 576583
+          },
+          {
+            "encode_ns": 43189.17,
+            "build_ns": 716750,
+            "update_flush_ns": 566042
+          },
+          {
+            "encode_ns": 41345.83,
+            "build_ns": 730458,
+            "update_flush_ns": 707583
+          },
+          {
+            "encode_ns": 44149.58,
+            "build_ns": 752667,
+            "update_flush_ns": 597792
+          },
+          {
+            "encode_ns": 42428.75,
+            "build_ns": 737625,
+            "update_flush_ns": 571917
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 131072,
+      "median_ratio": {
+        "encode_ns": 0.933749784706861,
+        "build_ns": 0.9715639685061032,
+        "update_flush_ns": 0.9650586902197473
+      }
+    },
+    {
+      "case": "palette-3",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 6985.83,
+            "build_ns": 133875,
+            "update_flush_ns": 155333
+          },
+          {
+            "encode_ns": 6902.5,
+            "build_ns": 128791,
+            "update_flush_ns": 149833
+          },
+          {
+            "encode_ns": 6989.58,
+            "build_ns": 135000,
+            "update_flush_ns": 154291
+          },
+          {
+            "encode_ns": 7057.08,
+            "build_ns": 128750,
+            "update_flush_ns": 151083
+          },
+          {
+            "encode_ns": 6950.41,
+            "build_ns": 125333,
+            "update_flush_ns": 147416
+          },
+          {
+            "encode_ns": 6967.91,
+            "build_ns": 126041,
+            "update_flush_ns": 150250
+          },
+          {
+            "encode_ns": 6930.42,
+            "build_ns": 124583,
+            "update_flush_ns": 148583
+          },
+          {
+            "encode_ns": 6996.67,
+            "build_ns": 125167,
+            "update_flush_ns": 146416
+          },
+          {
+            "encode_ns": 6951.67,
+            "build_ns": 123959,
+            "update_flush_ns": 148041
+          },
+          {
+            "encode_ns": 6948.34,
+            "build_ns": 124375,
+            "update_flush_ns": 147916
+          },
+          {
+            "encode_ns": 7159.17,
+            "build_ns": 137542,
+            "update_flush_ns": 154833
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 6559.17,
+            "build_ns": 128208,
+            "update_flush_ns": 154333
+          },
+          {
+            "encode_ns": 6947.09,
+            "build_ns": 152667,
+            "update_flush_ns": 218375
+          },
+          {
+            "encode_ns": 7262.91,
+            "build_ns": 129292,
+            "update_flush_ns": 159041
+          },
+          {
+            "encode_ns": 6364.58,
+            "build_ns": 118167,
+            "update_flush_ns": 142583
+          },
+          {
+            "encode_ns": 6342.09,
+            "build_ns": 116167,
+            "update_flush_ns": 143209
+          },
+          {
+            "encode_ns": 6342.09,
+            "build_ns": 115417,
+            "update_flush_ns": 140208
+          },
+          {
+            "encode_ns": 6428.34,
+            "build_ns": 117667,
+            "update_flush_ns": 140583
+          },
+          {
+            "encode_ns": 6398.33,
+            "build_ns": 114417,
+            "update_flush_ns": 141209
+          },
+          {
+            "encode_ns": 6362.09,
+            "build_ns": 114208,
+            "update_flush_ns": 140791
+          },
+          {
+            "encode_ns": 6434.17,
+            "build_ns": 149084,
+            "update_flush_ns": 157500
+          },
+          {
+            "encode_ns": 6367.5,
+            "build_ns": 120708,
+            "update_flush_ns": 145125
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9182566939010406,
+        "build_ns": 0.9375282646123086,
+        "update_flush_ns": 0.9557907804021811
+      }
+    },
+    {
+      "case": "palette-3",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 34034.17,
+            "build_ns": 576250,
+            "update_flush_ns": 497959
+          },
+          {
+            "encode_ns": 32117.5,
+            "build_ns": 568708,
+            "update_flush_ns": 481500
+          },
+          {
+            "encode_ns": 33048.75,
+            "build_ns": 535291,
+            "update_flush_ns": 457959
+          },
+          {
+            "encode_ns": 33360.0,
+            "build_ns": 611750,
+            "update_flush_ns": 524167
+          },
+          {
+            "encode_ns": 32859.17,
+            "build_ns": 546834,
+            "update_flush_ns": 461583
+          },
+          {
+            "encode_ns": 34054.16,
+            "build_ns": 527041,
+            "update_flush_ns": 455375
+          },
+          {
+            "encode_ns": 32585.0,
+            "build_ns": 595709,
+            "update_flush_ns": 504167
+          },
+          {
+            "encode_ns": 31502.09,
+            "build_ns": 526750,
+            "update_flush_ns": 452416
+          },
+          {
+            "encode_ns": 32947.91,
+            "build_ns": 614583,
+            "update_flush_ns": 456416
+          },
+          {
+            "encode_ns": 33106.25,
+            "build_ns": 522459,
+            "update_flush_ns": 448791
+          },
+          {
+            "encode_ns": 31161.66,
+            "build_ns": 720917,
+            "update_flush_ns": 520917
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 27848.34,
+            "build_ns": 476792,
+            "update_flush_ns": 413125
+          },
+          {
+            "encode_ns": 27762.91,
+            "build_ns": 551000,
+            "update_flush_ns": 420042
+          },
+          {
+            "encode_ns": 29105.84,
+            "build_ns": 472167,
+            "update_flush_ns": 412875
+          },
+          {
+            "encode_ns": 27823.34,
+            "build_ns": 499458,
+            "update_flush_ns": 428000
+          },
+          {
+            "encode_ns": 27181.25,
+            "build_ns": 586417,
+            "update_flush_ns": 499375
+          },
+          {
+            "encode_ns": 27154.58,
+            "build_ns": 461666,
+            "update_flush_ns": 401334
+          },
+          {
+            "encode_ns": 27118.33,
+            "build_ns": 458042,
+            "update_flush_ns": 403667
+          },
+          {
+            "encode_ns": 28246.67,
+            "build_ns": 461417,
+            "update_flush_ns": 403334
+          },
+          {
+            "encode_ns": 27288.34,
+            "build_ns": 457500,
+            "update_flush_ns": 404625
+          },
+          {
+            "encode_ns": 27424.17,
+            "build_ns": 456292,
+            "update_flush_ns": 405667
+          },
+          {
+            "encode_ns": 29202.5,
+            "build_ns": 515625,
+            "update_flush_ns": 428917
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 155648,
+      "median_ratio": {
+        "encode_ns": 0.8426303823216706,
+        "build_ns": 0.8302450466671825,
+        "update_flush_ns": 0.8944761830483359
+      }
+    },
+    {
+      "case": "palette-3",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 111692.08,
+            "build_ns": 1982666,
+            "update_flush_ns": 1721291
+          },
+          {
+            "encode_ns": 117129.16,
+            "build_ns": 1989875,
+            "update_flush_ns": 1563959
+          },
+          {
+            "encode_ns": 118100.42,
+            "build_ns": 1965541,
+            "update_flush_ns": 1687208
+          },
+          {
+            "encode_ns": 119835.0,
+            "build_ns": 2146750,
+            "update_flush_ns": 1754375
+          },
+          {
+            "encode_ns": 113407.08,
+            "build_ns": 1971459,
+            "update_flush_ns": 1536917
+          },
+          {
+            "encode_ns": 116250.42,
+            "build_ns": 1945292,
+            "update_flush_ns": 1527250
+          },
+          {
+            "encode_ns": 114676.25,
+            "build_ns": 2028000,
+            "update_flush_ns": 1602416
+          },
+          {
+            "encode_ns": 115965.42,
+            "build_ns": 1981417,
+            "update_flush_ns": 1677250
+          },
+          {
+            "encode_ns": 112397.92,
+            "build_ns": 1945459,
+            "update_flush_ns": 1539417
+          },
+          {
+            "encode_ns": 114303.75,
+            "build_ns": 1946250,
+            "update_flush_ns": 1526333
+          },
+          {
+            "encode_ns": 114622.92,
+            "build_ns": 2211875,
+            "update_flush_ns": 1552834
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 111376.25,
+            "build_ns": 1896500,
+            "update_flush_ns": 1514667
+          },
+          {
+            "encode_ns": 107251.67,
+            "build_ns": 1861125,
+            "update_flush_ns": 1576208
+          },
+          {
+            "encode_ns": 107242.5,
+            "build_ns": 1906625,
+            "update_flush_ns": 1477958
+          },
+          {
+            "encode_ns": 108302.5,
+            "build_ns": 1883667,
+            "update_flush_ns": 1660708
+          },
+          {
+            "encode_ns": 107564.16,
+            "build_ns": 1874000,
+            "update_flush_ns": 1653875
+          },
+          {
+            "encode_ns": 109405.0,
+            "build_ns": 1892541,
+            "update_flush_ns": 1590458
+          },
+          {
+            "encode_ns": 105413.33,
+            "build_ns": 1862000,
+            "update_flush_ns": 1467041
+          },
+          {
+            "encode_ns": 109365.84,
+            "build_ns": 2058750,
+            "update_flush_ns": 1494958
+          },
+          {
+            "encode_ns": 110543.33,
+            "build_ns": 2035542,
+            "update_flush_ns": 1617625
+          },
+          {
+            "encode_ns": 109005.42,
+            "build_ns": 1891375,
+            "update_flush_ns": 1476750
+          },
+          {
+            "encode_ns": 110344.58,
+            "build_ns": 1977875,
+            "update_flush_ns": 1537334
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 155648,
+      "median_ratio": {
+        "encode_ns": 0.950549220086984,
+        "build_ns": 0.9551452319224071,
+        "update_flush_ns": 0.9829758964269524
+      }
+    },
+    {
+      "case": "palette-5",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 7811.25,
+            "build_ns": 138875,
+            "update_flush_ns": 163750
+          },
+          {
+            "encode_ns": 7803.33,
+            "build_ns": 136167,
+            "update_flush_ns": 160000
+          },
+          {
+            "encode_ns": 7754.16,
+            "build_ns": 133166,
+            "update_flush_ns": 158625
+          },
+          {
+            "encode_ns": 7744.17,
+            "build_ns": 131042,
+            "update_flush_ns": 155333
+          },
+          {
+            "encode_ns": 8444.58,
+            "build_ns": 144333,
+            "update_flush_ns": 163875
+          },
+          {
+            "encode_ns": 7893.33,
+            "build_ns": 133375,
+            "update_flush_ns": 157042
+          },
+          {
+            "encode_ns": 7811.67,
+            "build_ns": 131750,
+            "update_flush_ns": 154042
+          },
+          {
+            "encode_ns": 7829.58,
+            "build_ns": 130750,
+            "update_flush_ns": 155209
+          },
+          {
+            "encode_ns": 8147.09,
+            "build_ns": 137708,
+            "update_flush_ns": 166792
+          },
+          {
+            "encode_ns": 7944.16,
+            "build_ns": 158459,
+            "update_flush_ns": 168042
+          },
+          {
+            "encode_ns": 8387.92,
+            "build_ns": 143500,
+            "update_flush_ns": 168333
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 8203.33,
+            "build_ns": 132333,
+            "update_flush_ns": 153750
+          },
+          {
+            "encode_ns": 7204.58,
+            "build_ns": 126708,
+            "update_flush_ns": 151583
+          },
+          {
+            "encode_ns": 7163.33,
+            "build_ns": 121375,
+            "update_flush_ns": 149542
+          },
+          {
+            "encode_ns": 7185.0,
+            "build_ns": 121500,
+            "update_flush_ns": 150041
+          },
+          {
+            "encode_ns": 7172.91,
+            "build_ns": 121292,
+            "update_flush_ns": 147375
+          },
+          {
+            "encode_ns": 7196.67,
+            "build_ns": 124667,
+            "update_flush_ns": 148875
+          },
+          {
+            "encode_ns": 7209.58,
+            "build_ns": 124000,
+            "update_flush_ns": 151083
+          },
+          {
+            "encode_ns": 7245.83,
+            "build_ns": 122125,
+            "update_flush_ns": 148166
+          },
+          {
+            "encode_ns": 7252.09,
+            "build_ns": 170167,
+            "update_flush_ns": 181458
+          },
+          {
+            "encode_ns": 7395.41,
+            "build_ns": 132541,
+            "update_flush_ns": 153583
+          },
+          {
+            "encode_ns": 7299.58,
+            "build_ns": 124500,
+            "update_flush_ns": 151166
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9208131215212054,
+        "build_ns": 0.9143184472008636,
+        "update_flush_ns": 0.94426875
+      }
+    },
+    {
+      "case": "palette-5",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 31531.25,
+            "build_ns": 501167,
+            "update_flush_ns": 541416
+          },
+          {
+            "encode_ns": 31804.17,
+            "build_ns": 487709,
+            "update_flush_ns": 425208
+          },
+          {
+            "encode_ns": 30092.5,
+            "build_ns": 486583,
+            "update_flush_ns": 425833
+          },
+          {
+            "encode_ns": 29600.83,
+            "build_ns": 484416,
+            "update_flush_ns": 423083
+          },
+          {
+            "encode_ns": 30409.58,
+            "build_ns": 495083,
+            "update_flush_ns": 430000
+          },
+          {
+            "encode_ns": 31573.33,
+            "build_ns": 538458,
+            "update_flush_ns": 465292
+          },
+          {
+            "encode_ns": 30754.58,
+            "build_ns": 502625,
+            "update_flush_ns": 431667
+          },
+          {
+            "encode_ns": 30080.0,
+            "build_ns": 494375,
+            "update_flush_ns": 425917
+          },
+          {
+            "encode_ns": 32239.17,
+            "build_ns": 496417,
+            "update_flush_ns": 438375
+          },
+          {
+            "encode_ns": 32034.17,
+            "build_ns": 580000,
+            "update_flush_ns": 523583
+          },
+          {
+            "encode_ns": 30725.0,
+            "build_ns": 492334,
+            "update_flush_ns": 439333
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 27574.58,
+            "build_ns": 442750,
+            "update_flush_ns": 414042
+          },
+          {
+            "encode_ns": 27574.17,
+            "build_ns": 447791,
+            "update_flush_ns": 403459
+          },
+          {
+            "encode_ns": 26430.0,
+            "build_ns": 431125,
+            "update_flush_ns": 381625
+          },
+          {
+            "encode_ns": 29222.5,
+            "build_ns": 434708,
+            "update_flush_ns": 389833
+          },
+          {
+            "encode_ns": 26408.33,
+            "build_ns": 434625,
+            "update_flush_ns": 386709
+          },
+          {
+            "encode_ns": 26363.34,
+            "build_ns": 445750,
+            "update_flush_ns": 410292
+          },
+          {
+            "encode_ns": 27854.58,
+            "build_ns": 491750,
+            "update_flush_ns": 433958
+          },
+          {
+            "encode_ns": 27272.5,
+            "build_ns": 482417,
+            "update_flush_ns": 420084
+          },
+          {
+            "encode_ns": 26592.5,
+            "build_ns": 432916,
+            "update_flush_ns": 382500
+          },
+          {
+            "encode_ns": 27102.08,
+            "build_ns": 449125,
+            "update_flush_ns": 401917
+          },
+          {
+            "encode_ns": 29490.84,
+            "build_ns": 480500,
+            "update_flush_ns": 441791
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 172032,
+      "median_ratio": {
+        "encode_ns": 0.8867784895778125,
+        "build_ns": 0.900354082042809,
+        "update_flush_ns": 0.9346533323140291
+      }
+    },
+    {
+      "case": "palette-5",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 71337.08,
+            "build_ns": 1311542,
+            "update_flush_ns": 979458
+          },
+          {
+            "encode_ns": 67435.0,
+            "build_ns": 1196000,
+            "update_flush_ns": 975917
+          },
+          {
+            "encode_ns": 66028.75,
+            "build_ns": 1210583,
+            "update_flush_ns": 1142083
+          },
+          {
+            "encode_ns": 68028.33,
+            "build_ns": 1201833,
+            "update_flush_ns": 968459
+          },
+          {
+            "encode_ns": 69553.33,
+            "build_ns": 1234666,
+            "update_flush_ns": 987500
+          },
+          {
+            "encode_ns": 67823.75,
+            "build_ns": 1352750,
+            "update_flush_ns": 1055083
+          },
+          {
+            "encode_ns": 70666.25,
+            "build_ns": 1323209,
+            "update_flush_ns": 1102584
+          },
+          {
+            "encode_ns": 66097.5,
+            "build_ns": 1476833,
+            "update_flush_ns": 1056666
+          },
+          {
+            "encode_ns": 71858.75,
+            "build_ns": 1241542,
+            "update_flush_ns": 985125
+          },
+          {
+            "encode_ns": 68755.84,
+            "build_ns": 1215833,
+            "update_flush_ns": 982583
+          },
+          {
+            "encode_ns": 71430.83,
+            "build_ns": 1246541,
+            "update_flush_ns": 1070334
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 64715.83,
+            "build_ns": 1198292,
+            "update_flush_ns": 1034750
+          },
+          {
+            "encode_ns": 61600.83,
+            "build_ns": 1334292,
+            "update_flush_ns": 998625
+          },
+          {
+            "encode_ns": 62710.0,
+            "build_ns": 1151958,
+            "update_flush_ns": 993625
+          },
+          {
+            "encode_ns": 67626.25,
+            "build_ns": 1172709,
+            "update_flush_ns": 929917
+          },
+          {
+            "encode_ns": 63567.5,
+            "build_ns": 1162416,
+            "update_flush_ns": 921917
+          },
+          {
+            "encode_ns": 66395.42,
+            "build_ns": 1193583,
+            "update_flush_ns": 1003833
+          },
+          {
+            "encode_ns": 63865.41,
+            "build_ns": 1301792,
+            "update_flush_ns": 945083
+          },
+          {
+            "encode_ns": 66000.83,
+            "build_ns": 1187209,
+            "update_flush_ns": 939083
+          },
+          {
+            "encode_ns": 64838.75,
+            "build_ns": 1210625,
+            "update_flush_ns": 951500
+          },
+          {
+            "encode_ns": 64471.67,
+            "build_ns": 1147750,
+            "update_flush_ns": 929084
+          },
+          {
+            "encode_ns": 64769.58,
+            "build_ns": 1180209,
+            "update_flush_ns": 957375
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 172032,
+      "median_ratio": {
+        "encode_ns": 0.941241209473988,
+        "build_ns": 0.9562374853206738,
+        "update_flush_ns": 0.9635443037974684
+      }
+    },
+    {
+      "case": "local-two",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 6451.25,
+            "build_ns": 152708,
+            "update_flush_ns": 332667
+          },
+          {
+            "encode_ns": 6510.42,
+            "build_ns": 164750,
+            "update_flush_ns": 284625
+          },
+          {
+            "encode_ns": 6362.5,
+            "build_ns": 147792,
+            "update_flush_ns": 262167
+          },
+          {
+            "encode_ns": 6465.0,
+            "build_ns": 166333,
+            "update_flush_ns": 269375
+          },
+          {
+            "encode_ns": 6426.67,
+            "build_ns": 141750,
+            "update_flush_ns": 256542
+          },
+          {
+            "encode_ns": 7065.42,
+            "build_ns": 167625,
+            "update_flush_ns": 281292
+          },
+          {
+            "encode_ns": 7169.17,
+            "build_ns": 174584,
+            "update_flush_ns": 300459
+          },
+          {
+            "encode_ns": 6445.0,
+            "build_ns": 142500,
+            "update_flush_ns": 257459
+          },
+          {
+            "encode_ns": 6395.0,
+            "build_ns": 139416,
+            "update_flush_ns": 254292
+          },
+          {
+            "encode_ns": 7751.25,
+            "build_ns": 172334,
+            "update_flush_ns": 292333
+          },
+          {
+            "encode_ns": 6452.08,
+            "build_ns": 145875,
+            "update_flush_ns": 259125
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 5970.0,
+            "build_ns": 155667,
+            "update_flush_ns": 287084
+          },
+          {
+            "encode_ns": 5890.42,
+            "build_ns": 144709,
+            "update_flush_ns": 355125
+          },
+          {
+            "encode_ns": 7310.0,
+            "build_ns": 160042,
+            "update_flush_ns": 281584
+          },
+          {
+            "encode_ns": 5901.67,
+            "build_ns": 136750,
+            "update_flush_ns": 252667
+          },
+          {
+            "encode_ns": 5824.58,
+            "build_ns": 133084,
+            "update_flush_ns": 247792
+          },
+          {
+            "encode_ns": 6189.17,
+            "build_ns": 158250,
+            "update_flush_ns": 294666
+          },
+          {
+            "encode_ns": 6186.67,
+            "build_ns": 144208,
+            "update_flush_ns": 279791
+          },
+          {
+            "encode_ns": 5825.0,
+            "build_ns": 135167,
+            "update_flush_ns": 249167
+          },
+          {
+            "encode_ns": 5814.16,
+            "build_ns": 131125,
+            "update_flush_ns": 245458
+          },
+          {
+            "encode_ns": 5825.41,
+            "build_ns": 143583,
+            "update_flush_ns": 260333
+          },
+          {
+            "encode_ns": 5752.08,
+            "build_ns": 131625,
+            "update_flush_ns": 248250
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9129490024922196,
+        "build_ns": 0.9402454357335569,
+        "update_flush_ns": 0.9664334106728538
+      }
+    },
+    {
+      "case": "local-two",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 36861.67,
+            "build_ns": 625166,
+            "update_flush_ns": 625875
+          },
+          {
+            "encode_ns": 35825.42,
+            "build_ns": 651541,
+            "update_flush_ns": 641083
+          },
+          {
+            "encode_ns": 38611.25,
+            "build_ns": 744334,
+            "update_flush_ns": 731084
+          },
+          {
+            "encode_ns": 36048.33,
+            "build_ns": 624000,
+            "update_flush_ns": 631375
+          },
+          {
+            "encode_ns": 37600.83,
+            "build_ns": 618750,
+            "update_flush_ns": 619708
+          },
+          {
+            "encode_ns": 35189.16,
+            "build_ns": 608084,
+            "update_flush_ns": 613584
+          },
+          {
+            "encode_ns": 36974.16,
+            "build_ns": 619375,
+            "update_flush_ns": 623708
+          },
+          {
+            "encode_ns": 38215.0,
+            "build_ns": 642917,
+            "update_flush_ns": 643458
+          },
+          {
+            "encode_ns": 37849.58,
+            "build_ns": 687584,
+            "update_flush_ns": 730166
+          },
+          {
+            "encode_ns": 35374.16,
+            "build_ns": 609208,
+            "update_flush_ns": 613042
+          },
+          {
+            "encode_ns": 37099.17,
+            "build_ns": 695916,
+            "update_flush_ns": 708833
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 32163.33,
+            "build_ns": 565000,
+            "update_flush_ns": 583958
+          },
+          {
+            "encode_ns": 33593.33,
+            "build_ns": 601125,
+            "update_flush_ns": 653250
+          },
+          {
+            "encode_ns": 32600.0,
+            "build_ns": 557291,
+            "update_flush_ns": 579916
+          },
+          {
+            "encode_ns": 35630.42,
+            "build_ns": 579625,
+            "update_flush_ns": 582667
+          },
+          {
+            "encode_ns": 31286.25,
+            "build_ns": 543292,
+            "update_flush_ns": 567792
+          },
+          {
+            "encode_ns": 33103.34,
+            "build_ns": 610958,
+            "update_flush_ns": 635750
+          },
+          {
+            "encode_ns": 32500.42,
+            "build_ns": 609084,
+            "update_flush_ns": 631042
+          },
+          {
+            "encode_ns": 33278.75,
+            "build_ns": 551792,
+            "update_flush_ns": 573625
+          },
+          {
+            "encode_ns": 31359.16,
+            "build_ns": 549125,
+            "update_flush_ns": 566625
+          },
+          {
+            "encode_ns": 31819.58,
+            "build_ns": 549834,
+            "update_flush_ns": 567458
+          },
+          {
+            "encode_ns": 31122.08,
+            "build_ns": 542958,
+            "update_flush_ns": 561667
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 139264,
+      "median_ratio": {
+        "encode_ns": 0.8790036068432655,
+        "build_ns": 0.8914288365010253,
+        "update_flush_ns": 0.9184969313007325
+      }
+    },
+    {
+      "case": "local-two",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 407576.25,
+            "build_ns": 6796958,
+            "update_flush_ns": 5601042
+          },
+          {
+            "encode_ns": 404373.33,
+            "build_ns": 7042875,
+            "update_flush_ns": 5259208
+          },
+          {
+            "encode_ns": 398577.09,
+            "build_ns": 7104292,
+            "update_flush_ns": 5712500
+          },
+          {
+            "encode_ns": 404941.67,
+            "build_ns": 6893250,
+            "update_flush_ns": 5576042
+          },
+          {
+            "encode_ns": 410237.5,
+            "build_ns": 6855625,
+            "update_flush_ns": 5357375
+          },
+          {
+            "encode_ns": 417950.83,
+            "build_ns": 6930583,
+            "update_flush_ns": 5446875
+          },
+          {
+            "encode_ns": 415800.83,
+            "build_ns": 7098166,
+            "update_flush_ns": 5908166
+          },
+          {
+            "encode_ns": 401116.67,
+            "build_ns": 6989042,
+            "update_flush_ns": 5343833
+          },
+          {
+            "encode_ns": 400817.08,
+            "build_ns": 6920333,
+            "update_flush_ns": 5237209
+          },
+          {
+            "encode_ns": 397737.5,
+            "build_ns": 6675500,
+            "update_flush_ns": 5338459
+          },
+          {
+            "encode_ns": 407352.09,
+            "build_ns": 6879750,
+            "update_flush_ns": 5466334
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 411522.92,
+            "build_ns": 6928042,
+            "update_flush_ns": 5232125
+          },
+          {
+            "encode_ns": 396932.91,
+            "build_ns": 6686125,
+            "update_flush_ns": 5516333
+          },
+          {
+            "encode_ns": 399664.17,
+            "build_ns": 6745166,
+            "update_flush_ns": 5181958
+          },
+          {
+            "encode_ns": 400646.25,
+            "build_ns": 6658458,
+            "update_flush_ns": 5228625
+          },
+          {
+            "encode_ns": 397455.84,
+            "build_ns": 6692500,
+            "update_flush_ns": 5255375
+          },
+          {
+            "encode_ns": 400723.33,
+            "build_ns": 6908375,
+            "update_flush_ns": 5620125
+          },
+          {
+            "encode_ns": 402320.83,
+            "build_ns": 6744250,
+            "update_flush_ns": 5259916
+          },
+          {
+            "encode_ns": 401751.66,
+            "build_ns": 6550958,
+            "update_flush_ns": 5429459
+          },
+          {
+            "encode_ns": 403017.5,
+            "build_ns": 6822667,
+            "update_flush_ns": 5233458
+          },
+          {
+            "encode_ns": 399978.34,
+            "build_ns": 6515000,
+            "update_flush_ns": 5385000
+          },
+          {
+            "encode_ns": 389330.83,
+            "build_ns": 6687125,
+            "update_flush_ns": 5521750
+          }
+        ]
+      },
+      "construction_compress_calls": 48,
+      "construction_candidate_bytes": 139264,
+      "median_ratio": {
+        "encode_ns": 0.9893924969490051,
+        "build_ns": 0.9670777403341718,
+        "update_flush_ns": 0.9656759150889271
+      }
+    },
+    {
+      "case": "runs32",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 4608.33,
+            "build_ns": 87209,
+            "update_flush_ns": 125625
+          },
+          {
+            "encode_ns": 4532.09,
+            "build_ns": 77666,
+            "update_flush_ns": 118250
+          },
+          {
+            "encode_ns": 4516.66,
+            "build_ns": 77250,
+            "update_flush_ns": 115958
+          },
+          {
+            "encode_ns": 4550.83,
+            "build_ns": 77083,
+            "update_flush_ns": 115250
+          },
+          {
+            "encode_ns": 4577.09,
+            "build_ns": 78083,
+            "update_flush_ns": 118500
+          },
+          {
+            "encode_ns": 5483.75,
+            "build_ns": 83792,
+            "update_flush_ns": 131292
+          },
+          {
+            "encode_ns": 4530.0,
+            "build_ns": 77875,
+            "update_flush_ns": 118583
+          },
+          {
+            "encode_ns": 4533.75,
+            "build_ns": 76916,
+            "update_flush_ns": 119750
+          },
+          {
+            "encode_ns": 4537.92,
+            "build_ns": 78667,
+            "update_flush_ns": 118208
+          },
+          {
+            "encode_ns": 4543.34,
+            "build_ns": 78083,
+            "update_flush_ns": 115833
+          },
+          {
+            "encode_ns": 4546.66,
+            "build_ns": 76667,
+            "update_flush_ns": 116500
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 4987.92,
+            "build_ns": 84083,
+            "update_flush_ns": 132041
+          },
+          {
+            "encode_ns": 4673.34,
+            "build_ns": 78709,
+            "update_flush_ns": 116458
+          },
+          {
+            "encode_ns": 4537.92,
+            "build_ns": 76958,
+            "update_flush_ns": 117500
+          },
+          {
+            "encode_ns": 4543.34,
+            "build_ns": 77167,
+            "update_flush_ns": 117000
+          },
+          {
+            "encode_ns": 4513.75,
+            "build_ns": 76625,
+            "update_flush_ns": 115125
+          },
+          {
+            "encode_ns": 5062.5,
+            "build_ns": 97375,
+            "update_flush_ns": 170584
+          },
+          {
+            "encode_ns": 4724.16,
+            "build_ns": 80542,
+            "update_flush_ns": 120750
+          },
+          {
+            "encode_ns": 4535.0,
+            "build_ns": 77667,
+            "update_flush_ns": 120000
+          },
+          {
+            "encode_ns": 4542.5,
+            "build_ns": 77458,
+            "update_flush_ns": 118625
+          },
+          {
+            "encode_ns": 4538.34,
+            "build_ns": 78875,
+            "update_flush_ns": 117250
+          },
+          {
+            "encode_ns": 4544.58,
+            "build_ns": 77958,
+            "update_flush_ns": 119000
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 1.0,
+        "build_ns": 1.0010658105939005,
+        "update_flush_ns": 1.0031712473572938
+      }
+    },
+    {
+      "case": "runs32",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 28562.08,
+            "build_ns": 474584,
+            "update_flush_ns": 420125
+          },
+          {
+            "encode_ns": 27859.58,
+            "build_ns": 482375,
+            "update_flush_ns": 435250
+          },
+          {
+            "encode_ns": 26910.0,
+            "build_ns": 457292,
+            "update_flush_ns": 402667
+          },
+          {
+            "encode_ns": 27245.42,
+            "build_ns": 466166,
+            "update_flush_ns": 416708
+          },
+          {
+            "encode_ns": 26768.75,
+            "build_ns": 448417,
+            "update_flush_ns": 397000
+          },
+          {
+            "encode_ns": 26335.0,
+            "build_ns": 441542,
+            "update_flush_ns": 393083
+          },
+          {
+            "encode_ns": 26538.34,
+            "build_ns": 443416,
+            "update_flush_ns": 391208
+          },
+          {
+            "encode_ns": 26510.83,
+            "build_ns": 440292,
+            "update_flush_ns": 392375
+          },
+          {
+            "encode_ns": 26753.75,
+            "build_ns": 443792,
+            "update_flush_ns": 532625
+          },
+          {
+            "encode_ns": 27293.33,
+            "build_ns": 448042,
+            "update_flush_ns": 396083
+          },
+          {
+            "encode_ns": 27590.41,
+            "build_ns": 454709,
+            "update_flush_ns": 404459
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 23138.34,
+            "build_ns": 397750,
+            "update_flush_ns": 360083
+          },
+          {
+            "encode_ns": 23565.84,
+            "build_ns": 471333,
+            "update_flush_ns": 386833
+          },
+          {
+            "encode_ns": 24056.25,
+            "build_ns": 443750,
+            "update_flush_ns": 395791
+          },
+          {
+            "encode_ns": 23602.08,
+            "build_ns": 396833,
+            "update_flush_ns": 358417
+          },
+          {
+            "encode_ns": 24841.25,
+            "build_ns": 391042,
+            "update_flush_ns": 355833
+          },
+          {
+            "encode_ns": 25828.75,
+            "build_ns": 393834,
+            "update_flush_ns": 354375
+          },
+          {
+            "encode_ns": 23119.59,
+            "build_ns": 388541,
+            "update_flush_ns": 354167
+          },
+          {
+            "encode_ns": 23762.09,
+            "build_ns": 389083,
+            "update_flush_ns": 351250
+          },
+          {
+            "encode_ns": 24089.16,
+            "build_ns": 441375,
+            "update_flush_ns": 396833
+          },
+          {
+            "encode_ns": 23975.83,
+            "build_ns": 489125,
+            "update_flush_ns": 417417
+          },
+          {
+            "encode_ns": 23392.5,
+            "build_ns": 386208,
+            "update_flush_ns": 351458
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.8830208101077667,
+        "build_ns": 0.8849642185733368,
+        "update_flush_ns": 0.890107706864481
+      }
+    },
+    {
+      "case": "runs32",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 243331.25,
+            "build_ns": 4385125,
+            "update_flush_ns": 3772417
+          },
+          {
+            "encode_ns": 229085.83,
+            "build_ns": 4892875,
+            "update_flush_ns": 3483417
+          },
+          {
+            "encode_ns": 233885.84,
+            "build_ns": 4538958,
+            "update_flush_ns": 3512958
+          },
+          {
+            "encode_ns": 234597.5,
+            "build_ns": 4401292,
+            "update_flush_ns": 3490208
+          },
+          {
+            "encode_ns": 236422.5,
+            "build_ns": 4367417,
+            "update_flush_ns": 3874042
+          },
+          {
+            "encode_ns": 242661.25,
+            "build_ns": 4685250,
+            "update_flush_ns": 3634042
+          },
+          {
+            "encode_ns": 230923.33,
+            "build_ns": 4599709,
+            "update_flush_ns": 3470083
+          },
+          {
+            "encode_ns": 231994.17,
+            "build_ns": 4510208,
+            "update_flush_ns": 3483208
+          },
+          {
+            "encode_ns": 232273.34,
+            "build_ns": 4377834,
+            "update_flush_ns": 3647042
+          },
+          {
+            "encode_ns": 231572.92,
+            "build_ns": 4477250,
+            "update_flush_ns": 3662084
+          },
+          {
+            "encode_ns": 233120.41,
+            "build_ns": 4525333,
+            "update_flush_ns": 3559333
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 232433.33,
+            "build_ns": 4303792,
+            "update_flush_ns": 3575542
+          },
+          {
+            "encode_ns": 232591.25,
+            "build_ns": 4488208,
+            "update_flush_ns": 3755459
+          },
+          {
+            "encode_ns": 232883.34,
+            "build_ns": 4673125,
+            "update_flush_ns": 3464459
+          },
+          {
+            "encode_ns": 227176.67,
+            "build_ns": 4373375,
+            "update_flush_ns": 3623750
+          },
+          {
+            "encode_ns": 224951.67,
+            "build_ns": 4404416,
+            "update_flush_ns": 3611833
+          },
+          {
+            "encode_ns": 238252.5,
+            "build_ns": 4663875,
+            "update_flush_ns": 3589667
+          },
+          {
+            "encode_ns": 234610.42,
+            "build_ns": 4338958,
+            "update_flush_ns": 3438792
+          },
+          {
+            "encode_ns": 232519.16,
+            "build_ns": 4532750,
+            "update_flush_ns": 3431417
+          },
+          {
+            "encode_ns": 231666.25,
+            "build_ns": 4326250,
+            "update_flush_ns": 3580417
+          },
+          {
+            "encode_ns": 223464.58,
+            "build_ns": 4308334,
+            "update_flush_ns": 3632042
+          },
+          {
+            "encode_ns": 223418.33,
+            "build_ns": 4389709,
+            "update_flush_ns": 3419375
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.9970526819166112,
+        "build_ns": 0.9732830503604268,
+        "update_flush_ns": 1.0059235817497267
+      }
+    },
+    {
+      "case": "periodic",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 3250.42,
+            "build_ns": 57375,
+            "update_flush_ns": 160084
+          },
+          {
+            "encode_ns": 3177.5,
+            "build_ns": 56667,
+            "update_flush_ns": 156125
+          },
+          {
+            "encode_ns": 3198.75,
+            "build_ns": 55542,
+            "update_flush_ns": 154166
+          },
+          {
+            "encode_ns": 3683.33,
+            "build_ns": 73791,
+            "update_flush_ns": 213416
+          },
+          {
+            "encode_ns": 3252.92,
+            "build_ns": 59083,
+            "update_flush_ns": 169208
+          },
+          {
+            "encode_ns": 3268.75,
+            "build_ns": 61250,
+            "update_flush_ns": 163958
+          },
+          {
+            "encode_ns": 3655.42,
+            "build_ns": 91167,
+            "update_flush_ns": 168042
+          },
+          {
+            "encode_ns": 3183.75,
+            "build_ns": 56584,
+            "update_flush_ns": 153375
+          },
+          {
+            "encode_ns": 3401.25,
+            "build_ns": 56167,
+            "update_flush_ns": 151709
+          },
+          {
+            "encode_ns": 3217.5,
+            "build_ns": 56292,
+            "update_flush_ns": 155333
+          },
+          {
+            "encode_ns": 3177.91,
+            "build_ns": 55333,
+            "update_flush_ns": 155334
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 3338.75,
+            "build_ns": 60375,
+            "update_flush_ns": 167375
+          },
+          {
+            "encode_ns": 3256.25,
+            "build_ns": 57792,
+            "update_flush_ns": 148875
+          },
+          {
+            "encode_ns": 3179.58,
+            "build_ns": 55917,
+            "update_flush_ns": 151583
+          },
+          {
+            "encode_ns": 3237.5,
+            "build_ns": 55667,
+            "update_flush_ns": 149875
+          },
+          {
+            "encode_ns": 3223.75,
+            "build_ns": 57792,
+            "update_flush_ns": 154625
+          },
+          {
+            "encode_ns": 3662.92,
+            "build_ns": 62125,
+            "update_flush_ns": 168666
+          },
+          {
+            "encode_ns": 3590.83,
+            "build_ns": 61625,
+            "update_flush_ns": 161500
+          },
+          {
+            "encode_ns": 3260.0,
+            "build_ns": 57417,
+            "update_flush_ns": 147750
+          },
+          {
+            "encode_ns": 3288.33,
+            "build_ns": 56083,
+            "update_flush_ns": 152708
+          },
+          {
+            "encode_ns": 3255.83,
+            "build_ns": 55750,
+            "update_flush_ns": 145709
+          },
+          {
+            "encode_ns": 3201.67,
+            "build_ns": 56334,
+            "update_flush_ns": 145625
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 1.0017936143636823,
+        "build_ns": 1.0132352162634337,
+        "update_flush_ns": 0.9709079263410728
+      }
+    },
+    {
+      "case": "periodic",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 20524.59,
+            "build_ns": 350083,
+            "update_flush_ns": 367000
+          },
+          {
+            "encode_ns": 21270.0,
+            "build_ns": 376667,
+            "update_flush_ns": 528916
+          },
+          {
+            "encode_ns": 20293.33,
+            "build_ns": 333875,
+            "update_flush_ns": 357125
+          },
+          {
+            "encode_ns": 22534.58,
+            "build_ns": 374334,
+            "update_flush_ns": 393042
+          },
+          {
+            "encode_ns": 20330.84,
+            "build_ns": 333916,
+            "update_flush_ns": 366791
+          },
+          {
+            "encode_ns": 21350.83,
+            "build_ns": 368334,
+            "update_flush_ns": 400375
+          },
+          {
+            "encode_ns": 20259.17,
+            "build_ns": 328875,
+            "update_flush_ns": 352250
+          },
+          {
+            "encode_ns": 20786.66,
+            "build_ns": 338459,
+            "update_flush_ns": 368875
+          },
+          {
+            "encode_ns": 20385.84,
+            "build_ns": 338208,
+            "update_flush_ns": 346417
+          },
+          {
+            "encode_ns": 22491.67,
+            "build_ns": 431709,
+            "update_flush_ns": 381333
+          },
+          {
+            "encode_ns": 21151.67,
+            "build_ns": 439958,
+            "update_flush_ns": 359583
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 17935.41,
+            "build_ns": 288000,
+            "update_flush_ns": 319792
+          },
+          {
+            "encode_ns": 16867.08,
+            "build_ns": 277125,
+            "update_flush_ns": 305417
+          },
+          {
+            "encode_ns": 16880.0,
+            "build_ns": 277375,
+            "update_flush_ns": 310458
+          },
+          {
+            "encode_ns": 17040.83,
+            "build_ns": 276500,
+            "update_flush_ns": 309791
+          },
+          {
+            "encode_ns": 19119.58,
+            "build_ns": 285292,
+            "update_flush_ns": 324083
+          },
+          {
+            "encode_ns": 17192.5,
+            "build_ns": 289458,
+            "update_flush_ns": 330500
+          },
+          {
+            "encode_ns": 16910.0,
+            "build_ns": 281916,
+            "update_flush_ns": 326500
+          },
+          {
+            "encode_ns": 18256.25,
+            "build_ns": 319833,
+            "update_flush_ns": 357875
+          },
+          {
+            "encode_ns": 17025.42,
+            "build_ns": 274416,
+            "update_flush_ns": 306458
+          },
+          {
+            "encode_ns": 17096.25,
+            "build_ns": 283417,
+            "update_flush_ns": 346208
+          },
+          {
+            "encode_ns": 16867.91,
+            "build_ns": 278291,
+            "update_flush_ns": 306500
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.8197964463747424,
+        "build_ns": 0.8052833185273207,
+        "update_flush_ns": 0.8713678474114441
+      }
+    },
+    {
+      "case": "periodic",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 23936.25,
+            "build_ns": 389083,
+            "update_flush_ns": 492542
+          },
+          {
+            "encode_ns": 25087.08,
+            "build_ns": 398083,
+            "update_flush_ns": 476292
+          },
+          {
+            "encode_ns": 25608.34,
+            "build_ns": 424792,
+            "update_flush_ns": 551333
+          },
+          {
+            "encode_ns": 25229.17,
+            "build_ns": 403875,
+            "update_flush_ns": 485750
+          },
+          {
+            "encode_ns": 24240.84,
+            "build_ns": 403583,
+            "update_flush_ns": 479916
+          },
+          {
+            "encode_ns": 23695.0,
+            "build_ns": 388750,
+            "update_flush_ns": 458166
+          },
+          {
+            "encode_ns": 23758.34,
+            "build_ns": 386958,
+            "update_flush_ns": 455917
+          },
+          {
+            "encode_ns": 26856.25,
+            "build_ns": 410250,
+            "update_flush_ns": 520666
+          },
+          {
+            "encode_ns": 23813.33,
+            "build_ns": 445708,
+            "update_flush_ns": 484167
+          },
+          {
+            "encode_ns": 23809.58,
+            "build_ns": 386917,
+            "update_flush_ns": 462584
+          },
+          {
+            "encode_ns": 25482.5,
+            "build_ns": 407959,
+            "update_flush_ns": 510750
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 20497.92,
+            "build_ns": 337542,
+            "update_flush_ns": 654333
+          },
+          {
+            "encode_ns": 22366.67,
+            "build_ns": 424375,
+            "update_flush_ns": 493167
+          },
+          {
+            "encode_ns": 22830.84,
+            "build_ns": 344375,
+            "update_flush_ns": 460292
+          },
+          {
+            "encode_ns": 20528.33,
+            "build_ns": 337458,
+            "update_flush_ns": 423500
+          },
+          {
+            "encode_ns": 22469.58,
+            "build_ns": 336583,
+            "update_flush_ns": 425500
+          },
+          {
+            "encode_ns": 23017.08,
+            "build_ns": 493084,
+            "update_flush_ns": 424875
+          },
+          {
+            "encode_ns": 20919.59,
+            "build_ns": 336084,
+            "update_flush_ns": 416458
+          },
+          {
+            "encode_ns": 20559.58,
+            "build_ns": 336375,
+            "update_flush_ns": 429791
+          },
+          {
+            "encode_ns": 22276.25,
+            "build_ns": 342375,
+            "update_flush_ns": 421291
+          },
+          {
+            "encode_ns": 21557.92,
+            "build_ns": 358292,
+            "update_flush_ns": 443500
+          },
+          {
+            "encode_ns": 21957.5,
+            "build_ns": 385667,
+            "update_flush_ns": 508292
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.905806069426637,
+        "build_ns": 0.8483385078162361,
+        "update_flush_ns": 0.8876916435857876
+      }
+    },
+    {
+      "case": "span",
+      "codec": "none",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 6759.17,
+            "build_ns": 116791,
+            "update_flush_ns": 160583
+          },
+          {
+            "encode_ns": 7547.5,
+            "build_ns": 140125,
+            "update_flush_ns": 212041
+          },
+          {
+            "encode_ns": 7642.91,
+            "build_ns": 124542,
+            "update_flush_ns": 171125
+          },
+          {
+            "encode_ns": 6800.0,
+            "build_ns": 113875,
+            "update_flush_ns": 160292
+          },
+          {
+            "encode_ns": 6720.0,
+            "build_ns": 113417,
+            "update_flush_ns": 155875
+          },
+          {
+            "encode_ns": 7118.75,
+            "build_ns": 120958,
+            "update_flush_ns": 177792
+          },
+          {
+            "encode_ns": 6889.58,
+            "build_ns": 120042,
+            "update_flush_ns": 165500
+          },
+          {
+            "encode_ns": 6743.34,
+            "build_ns": 114208,
+            "update_flush_ns": 156708
+          },
+          {
+            "encode_ns": 6732.08,
+            "build_ns": 113916,
+            "update_flush_ns": 158375
+          },
+          {
+            "encode_ns": 6744.58,
+            "build_ns": 113875,
+            "update_flush_ns": 159042
+          },
+          {
+            "encode_ns": 6767.08,
+            "build_ns": 115208,
+            "update_flush_ns": 156625
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 6983.34,
+            "build_ns": 119083,
+            "update_flush_ns": 173458
+          },
+          {
+            "encode_ns": 7084.58,
+            "build_ns": 118458,
+            "update_flush_ns": 170041
+          },
+          {
+            "encode_ns": 6796.25,
+            "build_ns": 117625,
+            "update_flush_ns": 161625
+          },
+          {
+            "encode_ns": 6790.0,
+            "build_ns": 115167,
+            "update_flush_ns": 159084
+          },
+          {
+            "encode_ns": 6751.25,
+            "build_ns": 114459,
+            "update_flush_ns": 159167
+          },
+          {
+            "encode_ns": 6733.33,
+            "build_ns": 114917,
+            "update_flush_ns": 243250
+          },
+          {
+            "encode_ns": 6838.75,
+            "build_ns": 121959,
+            "update_flush_ns": 167083
+          },
+          {
+            "encode_ns": 6746.67,
+            "build_ns": 115292,
+            "update_flush_ns": 158709
+          },
+          {
+            "encode_ns": 6739.58,
+            "build_ns": 114167,
+            "update_flush_ns": 157459
+          },
+          {
+            "encode_ns": 6727.92,
+            "build_ns": 114250,
+            "update_flush_ns": 292792
+          },
+          {
+            "encode_ns": 6755.84,
+            "build_ns": 116750,
+            "update_flush_ns": 158667
+          }
+        ]
+      },
+      "construction_compress_calls": 0,
+      "construction_candidate_bytes": 0,
+      "median_ratio": {
+        "encode_ns": 0.9983390177151741,
+        "build_ns": 1.0007291160336087,
+        "update_flush_ns": 1.008316073166471
+      }
+    },
+    {
+      "case": "span",
+      "codec": "lz4",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 24603.75,
+            "build_ns": 409584,
+            "update_flush_ns": 401291
+          },
+          {
+            "encode_ns": 26482.92,
+            "build_ns": 439625,
+            "update_flush_ns": 437333
+          },
+          {
+            "encode_ns": 25870.84,
+            "build_ns": 435708,
+            "update_flush_ns": 439875
+          },
+          {
+            "encode_ns": 25088.34,
+            "build_ns": 406833,
+            "update_flush_ns": 398292
+          },
+          {
+            "encode_ns": 26491.25,
+            "build_ns": 401333,
+            "update_flush_ns": 382834
+          },
+          {
+            "encode_ns": 24420.83,
+            "build_ns": 402125,
+            "update_flush_ns": 382708
+          },
+          {
+            "encode_ns": 24523.34,
+            "build_ns": 401291,
+            "update_flush_ns": 382292
+          },
+          {
+            "encode_ns": 26317.5,
+            "build_ns": 402458,
+            "update_flush_ns": 377833
+          },
+          {
+            "encode_ns": 26170.83,
+            "build_ns": 411709,
+            "update_flush_ns": 416334
+          },
+          {
+            "encode_ns": 25043.75,
+            "build_ns": 404875,
+            "update_flush_ns": 386000
+          },
+          {
+            "encode_ns": 26782.91,
+            "build_ns": 483417,
+            "update_flush_ns": 394291
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 21442.5,
+            "build_ns": 350583,
+            "update_flush_ns": 341833
+          },
+          {
+            "encode_ns": 21855.42,
+            "build_ns": 350791,
+            "update_flush_ns": 339875
+          },
+          {
+            "encode_ns": 21275.0,
+            "build_ns": 345792,
+            "update_flush_ns": 339833
+          },
+          {
+            "encode_ns": 21426.25,
+            "build_ns": 353334,
+            "update_flush_ns": 355084
+          },
+          {
+            "encode_ns": 21730.84,
+            "build_ns": 357250,
+            "update_flush_ns": 351750
+          },
+          {
+            "encode_ns": 22489.58,
+            "build_ns": 355917,
+            "update_flush_ns": 350666
+          },
+          {
+            "encode_ns": 21113.75,
+            "build_ns": 348458,
+            "update_flush_ns": 335375
+          },
+          {
+            "encode_ns": 21060.83,
+            "build_ns": 344917,
+            "update_flush_ns": 334458
+          },
+          {
+            "encode_ns": 21053.75,
+            "build_ns": 344875,
+            "update_flush_ns": 335625
+          },
+          {
+            "encode_ns": 21436.66,
+            "build_ns": 412708,
+            "update_flush_ns": 339292
+          },
+          {
+            "encode_ns": 21977.09,
+            "build_ns": 375041,
+            "update_flush_ns": 385333
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.8286031686640248,
+        "build_ns": 0.8622481460451832,
+        "update_flush_ns": 0.8619902559277285
+      }
+    },
+    {
+      "case": "span",
+      "codec": "zstd",
+      "samples": {
+        "baseline": [
+          {
+            "encode_ns": 40800.84,
+            "build_ns": 758666,
+            "update_flush_ns": 697791
+          },
+          {
+            "encode_ns": 39781.66,
+            "build_ns": 664250,
+            "update_flush_ns": 620125
+          },
+          {
+            "encode_ns": 41701.67,
+            "build_ns": 714250,
+            "update_flush_ns": 672416
+          },
+          {
+            "encode_ns": 40120.84,
+            "build_ns": 671084,
+            "update_flush_ns": 614458
+          },
+          {
+            "encode_ns": 39668.75,
+            "build_ns": 665208,
+            "update_flush_ns": 620334
+          },
+          {
+            "encode_ns": 41989.58,
+            "build_ns": 685250,
+            "update_flush_ns": 673333
+          },
+          {
+            "encode_ns": 42124.58,
+            "build_ns": 669292,
+            "update_flush_ns": 620500
+          },
+          {
+            "encode_ns": 40871.25,
+            "build_ns": 771791,
+            "update_flush_ns": 801000
+          },
+          {
+            "encode_ns": 41140.83,
+            "build_ns": 791834,
+            "update_flush_ns": 683041
+          },
+          {
+            "encode_ns": 39533.34,
+            "build_ns": 666708,
+            "update_flush_ns": 613125
+          },
+          {
+            "encode_ns": 39244.59,
+            "build_ns": 655250,
+            "update_flush_ns": 604958
+          }
+        ],
+        "streaming": [
+          {
+            "encode_ns": 36387.08,
+            "build_ns": 610750,
+            "update_flush_ns": 581208
+          },
+          {
+            "encode_ns": 37855.84,
+            "build_ns": 827292,
+            "update_flush_ns": 627500
+          },
+          {
+            "encode_ns": 37089.17,
+            "build_ns": 620125,
+            "update_flush_ns": 582875
+          },
+          {
+            "encode_ns": 37461.25,
+            "build_ns": 644916,
+            "update_flush_ns": 634875
+          },
+          {
+            "encode_ns": 38177.5,
+            "build_ns": 597500,
+            "update_flush_ns": 566541
+          },
+          {
+            "encode_ns": 35970.0,
+            "build_ns": 607625,
+            "update_flush_ns": 583875
+          },
+          {
+            "encode_ns": 36124.16,
+            "build_ns": 806375,
+            "update_flush_ns": 727166
+          },
+          {
+            "encode_ns": 35863.75,
+            "build_ns": 608291,
+            "update_flush_ns": 578167
+          },
+          {
+            "encode_ns": 37694.58,
+            "build_ns": 702000,
+            "update_flush_ns": 581875
+          },
+          {
+            "encode_ns": 38916.25,
+            "build_ns": 607084,
+            "update_flush_ns": 572958
+          },
+          {
+            "encode_ns": 38849.58,
+            "build_ns": 626500,
+            "update_flush_ns": 590792
+          }
+        ]
+      },
+      "construction_compress_calls": 32,
+      "construction_candidate_bytes": 106496,
+      "median_ratio": {
+        "encode_ns": 0.9181489890894404,
+        "build_ns": 0.9240646476447062,
+        "update_flush_ns": 0.9393634165995165
+      }
+    }
+  ],
+  "scope": "Pinned Python/current common native; same codec attempts, ordering and exact cold records. Balanced repeated trials in one process; encode is per4096-byte chunk, build/update+flush per65536-byte array. All codecs clevel5/typesize1/nthreads1. No production edits."
+}
