@@ -5,7 +5,7 @@ from array import array
 import pytest
 
 import tightarray.compressed as live
-from benchmarks.compressed_values_bytes import fast_values
+from benchmarks.compressed_values_bytes import INSERTION, MARKER, fast_values, inject
 
 
 @pytest.mark.parametrize("raw", [b"", b"\x00", bytes(range(256))])
@@ -46,3 +46,10 @@ def test_logical_buffer_and_iterable_paths():
     for source in (memoryview(b"abcdef")[::2], array("H", [1, 255]), [0, 255], (1, 2)):
         assert fast_values()(source) == live._values(source)
     assert fast_values()(iter([1, 255])) == b"\x01\xff"
+
+
+def test_injection_is_idempotent():
+    original = "def _values(values):\n" + MARKER + "\n    return bytes(values)\n"
+    once = inject(original)
+    assert once.count(INSERTION) == 1
+    assert inject(once) == once

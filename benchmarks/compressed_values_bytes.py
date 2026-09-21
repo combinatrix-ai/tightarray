@@ -25,15 +25,17 @@ INSERTION = "    if type(values) is bytes:\n        return values\n"
 
 def inject(source):
     assert source.count(MARKER) == 1
+    if INSERTION + MARKER in source:
+        return source
     return source.replace(MARKER, INSERTION + MARKER)
 
 
 def fast_values():
     namespace = live.__dict__.copy()
-    exec(
+    exec(  # noqa: S102
         compile(inject(inspect.getsource(live._values)), "values_candidate", "exec"),
         namespace,
-    )  # noqa: S102
+    )
     return namespace["_values"]
 
 
