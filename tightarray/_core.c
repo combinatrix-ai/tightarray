@@ -605,6 +605,7 @@ static PyTypeObject ArrayType={
 #include "_api_storage.h"
 #include "_api_view.h"
 static PyMethodDef module_methods[]={
+    {"_trim_plan",(PyCFunction)compressed_trim_plan,METH_VARARGS,NULL},
     {"_byte_edge_spans",(PyCFunction)compressed_byte_edge_spans,METH_O,NULL},
     {"_byte_trim",(PyCFunction)compressed_byte_trim,METH_O,NULL},
     {"_byte_period",(PyCFunction)compressed_byte_period,METH_O,NULL},
