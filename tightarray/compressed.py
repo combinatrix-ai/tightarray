@@ -169,13 +169,12 @@ class _Hot(Protocol):
     def nbytes(self) -> int: ...
     def read(self, start: int = 0, stop: int | None = None) -> bytes: ...
     def __getitem__(self, key: SupportsIndex, /) -> int: ...
+    def try_write(self, offset: int, values: bytes, /) -> bool: ...
 
 
 class _SpanEntry(_Hot, Protocol):
     @property
     def start(self) -> int: ...
-
-    def try_write(self, offset: int, values: bytes, /) -> bool: ...
 
 
 _make_entry = _native._Hot
@@ -702,11 +701,7 @@ class CompressedArray:
             else:
                 hot = self._get_hot(index)
                 piece = raw[consumed : consumed + count]
-                if (
-                    isinstance(hot, _span_entry_type)
-                    and self._cache.get(index) is hot
-                    and hot.try_write(offset, piece)
-                ):
+                if self._cache.get(index) is hot and hot.try_write(offset, piece):
                     first += count
                     consumed += count
                     continue

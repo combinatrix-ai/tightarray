@@ -120,21 +120,7 @@ static PyObject *span_hot_try_write(CompressedSpanHot *hot,PyObject *args) {
     if(offset<hot->start) Py_RETURN_FALSE;
     Py_ssize_t relative=offset-hot->start;
     if(relative>hot->data->length || count>hot->data->length-relative) Py_RETURN_FALSE;
-    const uint8_t *src=(const uint8_t *)PyBytes_AS_STRING(values);
-    Py_ssize_t palette_size=PyBytes_GET_SIZE(hot->palette);
-    unsigned bound=1u<<hot->data->bits;
-    uint16_t inverse[256];
-    if(palette_size) {
-        for(unsigned i=0;i<256;i++) inverse[i]=256;
-        const uint8_t *palette=(const uint8_t *)PyBytes_AS_STRING(hot->palette);
-        for(unsigned i=0;i<(unsigned)palette_size && i<bound;i++)
-            if(inverse[palette[i]]==256) inverse[palette[i]]=(uint16_t)i;
-        for(Py_ssize_t i=0;i<count;i++) if(inverse[src[i]]==256) Py_RETURN_FALSE;
-        for(Py_ssize_t i=0;i<count;i++) put(hot->data,(size_t)(relative+i),(uint8_t)inverse[src[i]]);
-    } else {
-        for(Py_ssize_t i=0;i<count;i++) if(src[i]>=bound) Py_RETURN_FALSE;
-        for(Py_ssize_t i=0;i<count;i++) put(hot->data,(size_t)(relative+i),src[i]);
-    }
+    if(!compressed_hot_write_values(hot->data,hot->palette,relative,values)) Py_RETURN_FALSE;
     hot->dirty=1;
     Py_RETURN_TRUE;
 }

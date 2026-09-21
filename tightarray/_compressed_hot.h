@@ -130,6 +130,43 @@ static PyObject *compressed_hot_read(CompressedHot *hot,PyObject *args,PyObject 
     }
     return out;
 }
+/* Caller validates the physical range; preflight all values before mutation. */
+static int compressed_hot_write_values(Array *data,PyObject *palette_object,
+                                       Py_ssize_t relative,PyObject *values) {
+    Py_ssize_t count=PyBytes_GET_SIZE(values);
+    const uint8_t *src=(const uint8_t *)PyBytes_AS_STRING(values);
+    Py_ssize_t palette_size=PyBytes_GET_SIZE(palette_object);
+    unsigned bound=1u<<data->bits;
+    uint16_t inverse[256];
+    if(palette_size) {
+        for(unsigned i=0;i<256;i++) inverse[i]=256;
+        const uint8_t *palette=(const uint8_t *)PyBytes_AS_STRING(palette_object);
+        for(unsigned i=0;i<(unsigned)palette_size && i<bound;i++)
+            if(inverse[palette[i]]==256) inverse[palette[i]]=(uint16_t)i;
+        for(Py_ssize_t i=0;i<count;i++) if(inverse[src[i]]==256) return 0;
+        for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),(uint8_t)inverse[src[i]]);
+    } else {
+        for(Py_ssize_t i=0;i<count;i++) if(src[i]>=bound) return 0;
+        for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),src[i]);
+    }
+    return 1;
+}
+static PyObject *compressed_hot_try_write(CompressedHot *hot,PyObject *args) {
+    PyObject *position,*values;
+    if(!PyArg_ParseTuple(args,"OO:try_write",&position,&values)) return NULL;
+    if(!PyBytes_CheckExact(values)) { PyErr_SetString(PyExc_TypeError,"values must be exact bytes"); return NULL; }
+    Py_ssize_t offset=PyNumber_AsSsize_t(position,PyExc_IndexError);
+    if(offset==-1 && PyErr_Occurred()) return NULL;
+    Py_ssize_t count=PyBytes_GET_SIZE(values);
+    if(offset<0 || offset>hot->length || count>hot->length-offset) {
+        PyErr_SetString(PyExc_IndexError,"write exceeds logical bounds"); return NULL;
+    }
+    if(!count) Py_RETURN_TRUE;
+    if(hot->length!=hot->data->length) Py_RETURN_FALSE;
+    if(!compressed_hot_write_values(hot->data,hot->palette,offset,values)) Py_RETURN_FALSE;
+    hot->dirty=1;
+    Py_RETURN_TRUE;
+}
 static PyGetSetDef compressed_hot_getters[]={
     {"data",(getter)compressed_hot_data,NULL,NULL,NULL},
     {"palette",(getter)compressed_hot_palette,NULL,NULL,NULL},
@@ -139,6 +176,7 @@ static PyGetSetDef compressed_hot_getters[]={
     {NULL,NULL,NULL,NULL,NULL}
 };
 static PyMethodDef compressed_hot_methods[]={
+    {"try_write",(PyCFunction)compressed_hot_try_write,METH_VARARGS,NULL},
     {"read",(PyCFunction)(void (*)(void))compressed_hot_read,METH_VARARGS|METH_KEYWORDS,NULL},
     {NULL,NULL,0,NULL}
 };
