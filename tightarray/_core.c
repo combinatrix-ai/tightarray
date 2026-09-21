@@ -555,6 +555,7 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_sequence.h"
 #include "_numba.h"
 #include "_compressed.h"
+#include "_compressed_pack.h"
 #include "_compressed_hot.h"
 #include "_compressed_rle.h"
 #include "_compressed_period.h"
@@ -605,6 +606,7 @@ static PyTypeObject ArrayType={
 #include "_api_storage.h"
 #include "_api_view.h"
 static PyMethodDef module_methods[]={
+    {"_pack_bytes",(PyCFunction)compressed_pack_bytes,METH_VARARGS,NULL},
     {"_trim_plan",(PyCFunction)compressed_trim_plan,METH_VARARGS,NULL},
     {"_byte_edge_spans",(PyCFunction)compressed_byte_edge_spans,METH_O,NULL},
     {"_byte_trim",(PyCFunction)compressed_byte_trim,METH_O,NULL},
