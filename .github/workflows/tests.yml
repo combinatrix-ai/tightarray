@@ -75,6 +75,8 @@ jobs:
             tests/test_compressed_native.py \
             tests/test_compressed_native_payload.py \
             tests/test_compressed_all_payloads.py \
+            tests/test_compressed_palette_pack.py \
+            tests/test_compressed_palette_pack_native.py \
             tests/test_compressed_pack_native.py \
             tests/test_compressed_period_native.py \
             tests/test_compressed_periods.py \

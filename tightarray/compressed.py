@@ -52,6 +52,7 @@ class _Filters(Protocol):
 
 
 class _Native(Protocol):
+    def _pack_palette(self, raw: bytes, bits: _Bits, palette: bytes, /) -> bytes: ...
     def _pack_bytes(self, raw: bytes, bits: _Bits, /) -> bytes: ...
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
     def _byte_period(self, raw: bytes, /) -> int: ...
@@ -340,17 +341,16 @@ class CompressedArray:
     def _encode_trim(self, raw: bytes, plan: _TrimPlan) -> bytes:
         default, first, last, bits, palette, _ = plan
         span = raw[first:last]
-        if palette:
-            translation = bytearray(256)
-            for index, color in enumerate(palette):
-                translation[color] = index
-            span = span.translate(bytes(translation))
         return (
             bytes((0, len(palette), default, bits))
             + first.to_bytes(2, "little")
             + (last - first).to_bytes(2, "little")
             + palette
-            + _direct_payload(span, bits)
+            + (
+                _native._pack_palette(span, bits, palette)
+                if palette
+                else _direct_payload(span, bits)
+            )
         )
 
     def _encode(self, raw: bytes) -> bytes | int:
@@ -399,12 +399,11 @@ class CompressedArray:
         elif period_selected:
             # Build the periodic payload only after runs fail to beat its size.
             pattern = raw[:period]
-            if period_palette:
-                translation = bytearray(256)
-                for index, color in enumerate(period_palette):
-                    translation[color] = index
-                pattern = pattern.translate(bytes(translation))
-            payload = _direct_payload(pattern, period_bits)
+            payload = (
+                _native._pack_palette(pattern, period_bits, period_palette)
+                if period_palette
+                else _direct_payload(pattern, period_bits)
+            )
             period_record = (
                 bytes((128 | period_bits, len(period_palette)))
                 + period_palette
@@ -445,12 +444,7 @@ class CompressedArray:
                 and palette_bits < direct_bits
                 and palette_size < best_size
             ):
-                translation = bytearray(256)
-                for index, color in enumerate(colors):
-                    translation[color] = index
-                payload = _direct_payload(
-                    raw.translate(bytes(translation)), palette_bits
-                )
+                payload = _native._pack_palette(raw, palette_bits, colors)
                 return _Chunk(len(raw), "packed", palette_bits, colors, payload).seal()
             payload = _direct_payload(raw, direct_bits) if mode == "packed" else raw
             return _Chunk(len(raw), mode, direct_bits, payload=payload).seal()
@@ -467,12 +461,7 @@ class CompressedArray:
             palette_bits = _bits(len(colors) - 1)
             # A palette can save bits only when its index width is narrower.
             if palette_bits < direct_bits:
-                translation = bytearray(256)
-                for index, color in enumerate(colors):
-                    translation[color] = index
-                payload = _direct_payload(
-                    raw.translate(bytes(translation)), palette_bits
-                )
+                payload = _native._pack_palette(raw, palette_bits, colors)
                 candidates.append(
                     _Chunk(len(raw), "packed", palette_bits, colors, payload)
                 )
