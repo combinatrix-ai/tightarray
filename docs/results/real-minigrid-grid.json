@@ -1,0 +1,360 @@
+{
+  "environment": {
+    "python": "3.12.8",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "minigrid": "3.1.0",
+    "numpy": "2.5.3",
+    "blosc2": "4.13.1"
+  },
+  "scope": "Actual Grid.encode/storage/Grid.decode roundtrip. Not a live backend, environment checkpoint, or replay buffer. Five warm repeats; payload and shallow sys.getsizeof exclude snapshot wrapper and are not RSS.",
+  "results": [
+    {
+      "env": "MiniGrid-Empty-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "numpy",
+      "payload_bytes_mean": 768.0,
+      "storage_object_shallow_bytes_mean": 912.0,
+      "e2e_s": [
+        0.0057082499988609925,
+        0.005534541000088211,
+        0.005866749997949228,
+        0.005813584000861738,
+        0.005692625003575813
+      ],
+      "median_e2e_s": 0.0057082499988609925,
+      "storage_roundtrip_s": [
+        2.0083003619220108e-05,
+        1.833400165196508e-05,
+        2.9249997169245034e-05,
+        1.8124999769497663e-05,
+        1.799999881768599e-05
+      ],
+      "median_storage_roundtrip_s": 1.833400165196508e-05,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-Empty-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "packed",
+      "payload_bytes_mean": 288.0,
+      "storage_object_shallow_bytes_mean": 568.0,
+      "e2e_s": [
+        0.005747167000663467,
+        0.005843332997756079,
+        0.0059449999971548095,
+        0.005887749997782521,
+        0.005919416995311622
+      ],
+      "median_e2e_s": 0.005887749997782521,
+      "storage_roundtrip_s": [
+        0.00017708300583763048,
+        0.00017708299856167287,
+        0.00018833400099538267,
+        0.0001804169951356016,
+        0.00017091700283344835
+      ],
+      "median_storage_roundtrip_s": 0.00017708300583763048,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-Empty-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-lz4",
+      "payload_bytes_mean": 142.0,
+      "storage_object_shallow_bytes_mean": 175.0,
+      "e2e_s": [
+        0.006090084003517404,
+        0.005847666005138308,
+        0.006157083000289276,
+        0.006080916995415464,
+        0.005997708001814317
+      ],
+      "median_e2e_s": 0.006080916995415464,
+      "storage_roundtrip_s": [
+        0.00026404199888929725,
+        0.00019516700558597222,
+        0.00020737500017276034,
+        0.00026329200045438483,
+        0.0001933329986059107
+      ],
+      "median_storage_roundtrip_s": 0.00020737500017276034,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-Empty-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-zstd",
+      "payload_bytes_mean": 109.0,
+      "storage_object_shallow_bytes_mean": 142.0,
+      "e2e_s": [
+        0.005959333997452632,
+        0.006107041001087055,
+        0.0058398330002091825,
+        0.006134208000730723,
+        0.006015167004079558
+      ],
+      "median_e2e_s": 0.006015167004079558,
+      "storage_roundtrip_s": [
+        0.00025620900123612955,
+        0.0002581669978098944,
+        0.0002514999941922724,
+        0.0002875420032069087,
+        0.00027041599969379604
+      ],
+      "median_storage_roundtrip_s": 0.0002581669978098944,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "numpy",
+      "payload_bytes_mean": 768.0,
+      "storage_object_shallow_bytes_mean": 912.0,
+      "e2e_s": [
+        0.0057949589972849935,
+        0.005913708002481144,
+        0.005672125000273809,
+        0.005683458999556024,
+        0.005765958005213179
+      ],
+      "median_e2e_s": 0.005765958005213179,
+      "storage_roundtrip_s": [
+        1.920799695653841e-05,
+        2.0125000446569175e-05,
+        1.887500548036769e-05,
+        1.925000105984509e-05,
+        2.1667001419700682e-05
+      ],
+      "median_storage_roundtrip_s": 1.925000105984509e-05,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "packed",
+      "payload_bytes_mean": 288.0,
+      "storage_object_shallow_bytes_mean": 568.0,
+      "e2e_s": [
+        0.0059149169974261895,
+        0.0064982500043697655,
+        0.006034333004208747,
+        0.005828874993312638,
+        0.00614237500121817
+      ],
+      "median_e2e_s": 0.006034333004208747,
+      "storage_roundtrip_s": [
+        0.00017466700228396803,
+        0.00017266700160689652,
+        0.00017270800162805244,
+        0.00017204199684783816,
+        0.00023474999761674553
+      ],
+      "median_storage_roundtrip_s": 0.00017270800162805244,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-lz4",
+      "payload_bytes_mean": 178.0,
+      "storage_object_shallow_bytes_mean": 211.0,
+      "e2e_s": [
+        0.006146624997199979,
+        0.005879249998542946,
+        0.00649837499804562,
+        0.006468957995821256,
+        0.006288374999712687
+      ],
+      "median_e2e_s": 0.006288374999712687,
+      "storage_roundtrip_s": [
+        0.00019883299682987854,
+        0.0003203750020475127,
+        0.0002083750005112961,
+        0.0002137500050594099,
+        0.00021112499962328002
+      ],
+      "median_storage_roundtrip_s": 0.00021112499962328002,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-16x16-v0",
+      "shape": [
+        16,
+        16,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-zstd",
+      "payload_bytes_mean": 135.0,
+      "storage_object_shallow_bytes_mean": 168.0,
+      "e2e_s": [
+        0.0067113749973941594,
+        0.006674832999124192,
+        0.006484042001829948,
+        0.0066102499986300245,
+        0.006217417001607828
+      ],
+      "median_e2e_s": 0.0066102499986300245,
+      "storage_roundtrip_s": [
+        0.0003026249978574924,
+        0.00033429199538659304,
+        0.0002959589983220212,
+        0.0003035420013475232,
+        0.00028833300166297704
+      ],
+      "median_storage_roundtrip_s": 0.0003026249978574924,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-MultiRoom-N6-v0",
+      "shape": [
+        25,
+        25,
+        3
+      ],
+      "frames": 20,
+      "backend": "numpy",
+      "payload_bytes_mean": 1875.0,
+      "storage_object_shallow_bytes_mean": 2019.0,
+      "e2e_s": [
+        0.014463208994129673,
+        0.014280582996434532,
+        0.01420749999670079,
+        0.014430625000386499,
+        0.014133249998849351
+      ],
+      "median_e2e_s": 0.014280582996434532,
+      "storage_roundtrip_s": [
+        2.7959002181887627e-05,
+        3.574999573174864e-05,
+        2.4291999579872936e-05,
+        2.4374996428377926e-05,
+        3.862500307150185e-05
+      ],
+      "median_storage_roundtrip_s": 2.7959002181887627e-05,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-MultiRoom-N6-v0",
+      "shape": [
+        25,
+        25,
+        3
+      ],
+      "frames": 20,
+      "backend": "packed",
+      "payload_bytes_mean": 720.0,
+      "storage_object_shallow_bytes_mean": 1000.0,
+      "e2e_s": [
+        0.014438292004342657,
+        0.014191499998560175,
+        0.01432533300248906,
+        0.014067374999285676,
+        0.014076291998208035
+      ],
+      "median_e2e_s": 0.014191499998560175,
+      "storage_roundtrip_s": [
+        0.00022650000028079376,
+        0.0002095419986289926,
+        0.00020970900368411094,
+        0.0002057919991784729,
+        0.0002189579972764477
+      ],
+      "median_storage_roundtrip_s": 0.00020970900368411094,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-MultiRoom-N6-v0",
+      "shape": [
+        25,
+        25,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-lz4",
+      "payload_bytes_mean": 589.0,
+      "storage_object_shallow_bytes_mean": 622.0,
+      "e2e_s": [
+        0.01407570800074609,
+        0.014339166998979636,
+        0.014313166997453663,
+        0.014248125000449363,
+        0.014403374996618368
+      ],
+      "median_e2e_s": 0.014313166997453663,
+      "storage_roundtrip_s": [
+        0.00024095799744827673,
+        0.00038745799975004047,
+        0.00024483400193275884,
+        0.00023570800112793222,
+        0.00024545800260966644
+      ],
+      "median_storage_roundtrip_s": 0.00024483400193275884,
+      "equal": true
+    },
+    {
+      "env": "MiniGrid-MultiRoom-N6-v0",
+      "shape": [
+        25,
+        25,
+        3
+      ],
+      "frames": 20,
+      "backend": "blosc-zstd",
+      "payload_bytes_mean": 330.0,
+      "storage_object_shallow_bytes_mean": 363.0,
+      "e2e_s": [
+        0.014936999999918044,
+        0.01498916699347319,
+        0.014870665996568277,
+        0.015207208001811523,
+        0.015022874998976476
+      ],
+      "median_e2e_s": 0.01498916699347319,
+      "storage_roundtrip_s": [
+        0.0005768330011051148,
+        0.000769958998716902,
+        0.0005715420047636144,
+        0.0005678749948856421,
+        0.000566792004974559
+      ],
+      "median_storage_roundtrip_s": 0.0005715420047636144,
+      "equal": true
+    }
+  ]
+}
