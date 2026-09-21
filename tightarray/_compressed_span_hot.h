@@ -104,6 +104,40 @@ static PyObject *span_hot_read(CompressedSpanHot *hot,PyObject *args,PyObject *k
     }
     return out;
 }
+/* Two passes: no packed value changes until every source value is known to
+ * fit. The caller must retain this entry in its write-back cache. */
+static PyObject *span_hot_try_write(CompressedSpanHot *hot,PyObject *args) {
+    PyObject *position,*values;
+    if(!PyArg_ParseTuple(args,"OO:try_write",&position,&values)) return NULL;
+    if(!PyBytes_CheckExact(values)) { PyErr_SetString(PyExc_TypeError,"values must be exact bytes"); return NULL; }
+    Py_ssize_t offset=PyNumber_AsSsize_t(position,PyExc_IndexError);
+    if(offset==-1 && PyErr_Occurred()) return NULL;
+    Py_ssize_t count=PyBytes_GET_SIZE(values);
+    if(offset<0 || offset>hot->length || count>hot->length-offset) {
+        PyErr_SetString(PyExc_IndexError,"write exceeds logical bounds"); return NULL;
+    }
+    if(!count) Py_RETURN_TRUE;
+    if(offset<hot->start) Py_RETURN_FALSE;
+    Py_ssize_t relative=offset-hot->start;
+    if(relative>hot->data->length || count>hot->data->length-relative) Py_RETURN_FALSE;
+    const uint8_t *src=(const uint8_t *)PyBytes_AS_STRING(values);
+    Py_ssize_t palette_size=PyBytes_GET_SIZE(hot->palette);
+    unsigned bound=1u<<hot->data->bits;
+    uint16_t inverse[256];
+    if(palette_size) {
+        for(unsigned i=0;i<256;i++) inverse[i]=256;
+        const uint8_t *palette=(const uint8_t *)PyBytes_AS_STRING(hot->palette);
+        for(unsigned i=0;i<(unsigned)palette_size && i<bound;i++)
+            if(inverse[palette[i]]==256) inverse[palette[i]]=(uint16_t)i;
+        for(Py_ssize_t i=0;i<count;i++) if(inverse[src[i]]==256) Py_RETURN_FALSE;
+        for(Py_ssize_t i=0;i<count;i++) put(hot->data,(size_t)(relative+i),(uint8_t)inverse[src[i]]);
+    } else {
+        for(Py_ssize_t i=0;i<count;i++) if(src[i]>=bound) Py_RETURN_FALSE;
+        for(Py_ssize_t i=0;i<count;i++) put(hot->data,(size_t)(relative+i),src[i]);
+    }
+    hot->dirty=1;
+    Py_RETURN_TRUE;
+}
 static PyGetSetDef span_hot_getters[]={
     {"data",(getter)span_hot_data,NULL,NULL,NULL},{"palette",(getter)span_hot_palette,NULL,NULL,NULL},
     {"default",(getter)span_hot_default,NULL,NULL,NULL},{"start",(getter)span_hot_start,NULL,NULL,NULL},
@@ -112,6 +146,7 @@ static PyGetSetDef span_hot_getters[]={
     {NULL,NULL,NULL,NULL,NULL}
 };
 static PyMethodDef span_hot_methods[]={
+    {"try_write",(PyCFunction)span_hot_try_write,METH_VARARGS,NULL},
     {"read",(PyCFunction)(void (*)(void))span_hot_read,METH_VARARGS|METH_KEYWORDS,NULL},
     {NULL,NULL,0,NULL}
 };

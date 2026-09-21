@@ -171,20 +171,11 @@ class _Hot(Protocol):
     def __getitem__(self, key: SupportsIndex, /) -> int: ...
 
 
-class _ArrayViewWriter(Protocol):
-    def _view_assign(
-        self,
-        shape: tuple[int, ...],
-        strides: tuple[int, ...],
-        offset: int,
-        values: bytes,
-        /,
-    ) -> None: ...
-
-
 class _SpanEntry(_Hot, Protocol):
     @property
     def start(self) -> int: ...
+
+    def try_write(self, offset: int, values: bytes, /) -> bool: ...
 
 
 _make_entry = _native._Hot
@@ -711,31 +702,14 @@ class CompressedArray:
             else:
                 hot = self._get_hot(index)
                 piece = raw[consumed : consumed + count]
-                if isinstance(hot, _span_entry_type) and self._cache.get(index) is hot:
-                    relative = offset - hot.start
-                    if 0 <= relative and count <= len(hot.data) - relative:
-                        palette = hot.palette
-                        if palette:
-                            inverse = bytearray(b"\xff") * 256
-                            for code, value in enumerate(palette):
-                                inverse[value] = code
-                            encoded = piece.translate(bytes(inverse))
-                            maximum = max(encoded)
-                            fits = maximum < len(palette)
-                        else:
-                            encoded = piece
-                            maximum = max(encoded)
-                            fits = True
-                        if fits and maximum < 1 << hot.data.bits:
-                            # The native view setter validates every code before
-                            # its first store. Dirty state changes only on success.
-                            cast(_ArrayViewWriter, hot.data)._view_assign(
-                                (count,), (1,), relative, encoded
-                            )
-                            hot.dirty = True
-                            first += count
-                            consumed += count
-                            continue
+                if (
+                    isinstance(hot, _span_entry_type)
+                    and self._cache.get(index) is hot
+                    and hot.try_write(offset, piece)
+                ):
+                    first += count
+                    consumed += count
+                    continue
                 data = bytearray(hot.read())
                 data[offset : offset + count] = piece
                 replacement = bytes(data)
