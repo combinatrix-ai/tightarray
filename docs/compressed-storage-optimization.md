@@ -267,3 +267,13 @@ period and cyclic-entry checks also passed the targeted ASan/UBSan runs.
 Skewed distributions and mixed random/uniform spans remain open targets; the
 [modal candidate analysis](compressed-modal-candidates.md) estimates candidate
 sizes without claiming measured throughput or owned-memory savings.
+
+Periodic experiment artifacts are preserved byte-for-byte from their original
+runs: [post-selection prototype](compressed-period-prototype-results.json),
+[integrated cold format with expanded hot chunks](compressed-period-expanded-results.json),
+and [integrated cyclic hot entries](compressed-period-cyclic-results.json).
+The [portable reproducer](../benchmarks/compressed_period_policy.py) pins the
+pre-period Python baseline to `aafc50b` and integrated policy to `eff5443`, using
+current native helpers. Historical `runs-*` record names refer to the periodic
+variant in these artifacts. A class docstring changed after the cyclic run; the
+historical hashes are retained, not replaced with hashes from a later rerun.
