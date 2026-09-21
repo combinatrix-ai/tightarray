@@ -1,5 +1,7 @@
 """Behavioral coverage for bounded-cache compressed uint8 arrays."""
 
+import random
+
 import pytest
 
 from tightarray.compressed import CompressedArray
@@ -76,11 +78,13 @@ def test_dirty_eviction_writes_back_and_cache_observability():
 def test_uniform_palette_expansion_and_return_to_uniform():
     array = CompressedArray.full(256, 250, chunk_size=256, cache_bytes=128)
     assert array.storage_info().uniform_chunks == 1
-    array.write(0, [250, 251] * 128)
+    rng = random.Random(42)
+    two_values = bytes(rng.choice((250, 251)) for _ in range(256))
+    array.write(0, two_values)
     array.flush()
     array.clear_cache()
     assert array.storage_info().palette_chunks == 1
-    assert array.tobytes() == bytes([250, 251] * 128)
+    assert array.tobytes() == two_values
     # Palette growth exceeds the original physical width and the hot budget.
     array.write(0, range(256))
     array.flush()

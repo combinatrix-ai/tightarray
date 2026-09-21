@@ -78,3 +78,31 @@ def test_same_value_periodic_write_does_not_materialize(monkeypatch, budget, cod
         array[0] = 256
     with pytest.raises(IndexError):
         array[len(raw)] = 200
+
+
+@pytest.mark.parametrize(
+    "pattern,repeats,payload,palette_size",
+    [
+        (bytes(range(224, 256)), 128, 33, 0),
+        (b"\xc8\xff", 2048, 9, 0),
+        (b"\xc8" * 30 + b"\xff", 128, 11, 2),
+        (b"\xc8\xff", 5, 9, 0),
+    ],
+)
+def test_period_palette_minimizes_physical_pattern(
+    pattern, repeats, payload, palette_size
+):
+    raw = pattern * repeats
+    array = CompressedArray(raw, chunk_size=len(raw), cache_bytes=65536)
+    info = array.storage_info()
+    assert info.periodic_chunks == 1
+    assert info.stored_bytes == payload
+    assert array._chunks[0][1] == palette_size
+    assert array.tobytes() == raw
+    assert array.storage_info().cache_bytes == payload - 1
+    array[len(pattern)] = 0
+    expected = bytearray(raw)
+    expected[len(pattern)] = 0
+    assert array.tobytes() == expected
+    array.clear_cache()
+    assert array.tobytes() == expected

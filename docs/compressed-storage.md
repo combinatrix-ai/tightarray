@@ -65,20 +65,22 @@ candidates (not every conceivable encoding):
 5. Runs encoded as ULEB128(run length minus one) plus a value/index byte. A
    decode palette is retained when it narrows hot storage; `palette=False` uses
    direct values. Only a strictly smaller payload plus palette wins. Run scanning
-   stops once it cannot beat the best uncompressed form. With LZ4/ZSTD, all prior
+   stops once it cannot beat the best uncompressed form. With LZ4/ZSTD, all potentially winning
    codec candidates are still evaluated, and uncompressed runs compete with the
    winner (runs are not additionally fed to the codec).
 6. A packed pattern of at most 256 values, plus one byte storing its length minus
    one. At least two repetitions are required; a partial final repetition is
    allowed. The shortest exact period is detected in C with bounded scratch.
-   Only a strictly smaller payload plus palette wins. Period records compete
+   Direct and palette-indexed patterns compete by their actual word-rounded
+   payload plus palette size; direct wins ties. Only a strictly smaller total
+   than the existing candidate wins. Period records compete
    with runs and codec candidates without additional entropy compression.
 7. A default value plus a packed interior span, omitting matching leading/trailing
    values. Up to two endpoint defaults compete; chunks larger than 65535 values
    skip this uint16-bounded format. An eight-byte private header records default,
    width, palette length, start and span length. Safe size bounds reject losing
    candidates before scanning their interior; codec none packs only the winner.
-   Codec-backed encoding still evaluates every existing full-chunk codec candidate.
+   Codec-backed encoding preserves every potentially winning full-chunk codec candidate.
 
 Nonuniform cold chunks retain one bytes object: a private descriptor followed by
 palette and payload. Most descriptors occupy two bytes; trimmed descriptors occupy
@@ -86,7 +88,10 @@ eight. The common two bytes are included in `owned_bytes` but excluded from
 `stored_bytes`. The trimmed format's additional six descriptor bytes remain
 in `stored_bytes`; it always equals cold record length minus the common two bytes
 for nonuniform chunks. Uncompressed candidate sizes are calculated before allocating
-the winning representation; codec candidates are still evaluated exhaustively.
+the winning representation. Codec trials are skipped only when their palette plus
+the public Blosc minimum header length already exceeds the best known payload
+size. Equal bounds still run, preserving codec tie priority. This exact pruning
+preserves the winning record; see [measurements](compressed-header-pruning.md).
 
 A cache hit reads a packed `Array`, translating local palette indices where needed.
 Periodic entries retain only their packed pattern and use cyclic indexing; bulk

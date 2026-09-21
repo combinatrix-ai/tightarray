@@ -357,25 +357,32 @@ class CompressedArray:
         if run_palette:
             best_size = min(best_size, palette_size)
         period_record = None
-        period_bits = palette_bits if run_palette else direct_bits
-        # Even the shortest packed pattern needs one word and a period byte.
-        if best_size > 9 + len(run_palette):
+        # One direct packed word and the period byte are the smallest record.
+        if best_size > 9:
             period = _native._byte_period(raw)
             if period:
-                period_size = (
-                    ((period * period_bits + 63) // 64) * 8 + 1 + len(run_palette)
-                )
+                period_bits = direct_bits
+                period_palette = b""
+                period_size = ((period * direct_bits + 63) // 64) * 8 + 1
+                if run_palette:
+                    indexed_size = (
+                        ((period * palette_bits + 63) // 64) * 8 + 1 + len(colors)
+                    )
+                    if indexed_size < period_size:
+                        period_bits = palette_bits
+                        period_palette = colors
+                        period_size = indexed_size
                 if period_size < best_size:
                     pattern = raw[:period]
-                    if run_palette:
+                    if period_palette:
                         translation = bytearray(256)
-                        for index, color in enumerate(run_palette):
+                        for index, color in enumerate(period_palette):
                             translation[color] = index
                         pattern = pattern.translate(bytes(translation))
                     payload = _raw(Array(pattern, bits=period_bits))
                     period_record = (
-                        bytes((128 | period_bits, len(run_palette)))
-                        + run_palette
+                        bytes((128 | period_bits, len(period_palette)))
+                        + period_palette
                         + bytes((period - 1,))
                         + payload
                     )
