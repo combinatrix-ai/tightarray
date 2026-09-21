@@ -2,7 +2,7 @@
 
 `tightarray.compressed.CompressedArray` is an experimental, fixed-length **uint8**
 container. It combines per-chunk representation choices with a byte-bounded cache
-of packed arrays and compact cyclic patterns. It is useful when local alphabets are much smaller than
+of packed arrays, compact cyclic patterns, and trimmed spans. It is useful when local alphabets are much smaller than
 the global value range, or when a packed working set fits the cache but a uint8
 working set does not. Existing `Array`, Matrix, and Array API behavior is unchanged.
 
@@ -34,7 +34,7 @@ b = CompressedArray([250, 251] * 8192, codec="zstd")  # Or codec="lz4".
 ```
 
 Defaults: `chunk_size=4096`, `cache_bytes=262144`, `codec="none"`, `palette=True`.
-The `none` codec still performs uniform/local-palette/bit-packing/run/periodic compression,
+The `none` codec still performs uniform/local-palette/bit-packing/run/periodic/trimmed compression,
 with no NumPy, Numba, or Blosc2 import. LZ4/ZSTD use optional Blosc2, compression
 level 5 and one thread. The optional Blosc2 4.x extra requires Python 3.11+;
 the no-codec path retains the package's Python 3.10+ requirement. See the upstream
@@ -73,19 +73,29 @@ candidates (not every conceivable encoding):
    allowed. The shortest exact period is detected in C with bounded scratch.
    Only a strictly smaller payload plus palette wins. Period records compete
    with runs and codec candidates without additional entropy compression.
+7. A default value plus a packed interior span, omitting matching leading/trailing
+   values. Up to two endpoint defaults compete; chunks larger than 65535 values
+   skip this uint16-bounded format. An eight-byte private header records default,
+   width, palette length, start and span length. Safe size bounds reject losing
+   candidates before scanning their interior; codec none packs only the winner.
+   Codec-backed encoding still evaluates every existing full-chunk codec candidate.
 
-Nonuniform cold chunks retain one bytes object: two private descriptor bytes,
-then palette and payload. The descriptor is included in `owned_bytes` but excluded
-from `stored_bytes`. Uncompressed candidate sizes are calculated before allocating
+Nonuniform cold chunks retain one bytes object: a private descriptor followed by
+palette and payload. Most descriptors occupy two bytes; trimmed descriptors occupy
+eight. The common two bytes are included in `owned_bytes` but excluded from
+`stored_bytes`. The trimmed format's additional six descriptor bytes remain
+in `stored_bytes`; it always equals cold record length minus the common two bytes
+for nonuniform chunks. Uncompressed candidate sizes are calculated before allocating
 the winning representation; codec candidates are still evaluated exhaustively.
 
 A cache hit reads a packed `Array`, translating local palette indices where needed.
 Periodic entries retain only their packed pattern and use cyclic indexing; bulk
-reads expand directly into the requested output. A write materializes a periodic
-entry before modification, so changing one element cannot change other repeats.
+reads expand directly into the requested output. Trimmed entries retain only their interior and answer exterior reads with the
+default value. A changed write materializes either structural entry before
+modification, so changing one element cannot change other repetitions or defaults.
 Ordinary entries are mutable. Width/palette changes choose a new compact hot
 representation before replacing the old one. The LRU budget includes each cached
-packed buffer (only the pattern for periodic entries) and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes
+packed buffer (only the pattern or interior for structural entries) and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes
 are immediately encoded and reads use only a temporary decoded chunk.
 
 Cold payload remains allocated while a chunk is cached, even while stale after a
@@ -107,7 +117,8 @@ prefix committed. It is not a transactional store or a thread-safe container.
   Python chunk/cache metadata and both cold and hot storage, deduplicated by object
   identity. Shared runtime/codec objects and allocator overhead are excluded.
 - `rle_chunks` counts run records; `periodic_chunks` counts short-pattern records;
-  `compressed_chunks` counts Blosc2-compressed records. Palette counts can overlap
+  `trimmed_chunks` counts default-plus-interior records; `compressed_chunks` counts
+  Blosc2-compressed records. Palette counts can overlap
   these formats. Cache hit/miss/eviction counters
   are separate. Direct uniform
   reads bypass cache admission and do not count as hits or misses.

@@ -23,6 +23,7 @@ __all__ = ["CompressedArray", "StorageInfo"]
 _Bits = Literal[1, 2, 3, 4, 5, 6, 7, 8]
 _CodecName = Literal["none", "lz4", "zstd"]
 _Mode = Literal["packed", "bytes"]
+_TrimPlan = tuple[int, int, int, _Bits, bytes, int]
 
 # Buffer support predates the typing.Buffer protocol (Python 3.12). The runtime
 # constructor validates it; incompatible formats retain elementwise validation.
@@ -52,6 +53,16 @@ class _Filters(Protocol):
 class _Native(Protocol):
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
     def _byte_period(self, raw: bytes, /) -> int: ...
+    def _byte_edge_spans(self, raw: bytes, /) -> tuple[tuple[int, int, int], ...]: ...
+    def _SpanHot(
+        self,
+        data: Array,
+        palette: bytes = b"",
+        *,
+        default: int,
+        start: int,
+        length: int,
+    ) -> _Hot: ...
     def _rle_encode(
         self, raw: bytes, limit: int, palette: bytes = b""
     ) -> bytes | None: ...
@@ -109,6 +120,7 @@ class StorageInfo:
     compressed_chunks: int
     rle_chunks: int
     periodic_chunks: int
+    trimmed_chunks: int
     cache_hits: int
     cache_misses: int
     evictions: int
@@ -306,6 +318,57 @@ class CompressedArray:
             raise TypeError("Blosc2 did not return decompressed bytes")
         return result
 
+    def _trim_plan(self, raw: bytes, colors: bytes, limit: int) -> _TrimPlan | None:
+        if len(raw) > 65535 or limit <= 16:
+            return None
+        result = None
+        for default, first, last in _native._byte_edge_spans(raw):
+            if first == 0 and last == len(raw):
+                continue
+            length = last - first
+            maximum = colors[-2] if default == colors[-1] else colors[-1]
+            lower = ((length * _bits(maximum) + 63) // 64) * 8
+            if self._palette:
+                lower = min(
+                    lower,
+                    len(colors)
+                    - 1
+                    + ((length * _bits(len(colors) - 2) + 63) // 64) * 8,
+                )
+            if 8 + lower >= limit:
+                continue
+            span_colors = _native._byte_palette(raw[first:last])
+            bits = _bits(span_colors[-1])
+            palette = b""
+            size = ((length * bits + 63) // 64) * 8
+            if self._palette and len(span_colors) < 256:
+                palette_bits = _bits(len(span_colors) - 1)
+                palette_size = (
+                    len(span_colors) + ((length * palette_bits + 63) // 64) * 8
+                )
+                if palette_size < size:
+                    bits, palette, size = palette_bits, span_colors, palette_size
+            if 8 + size < limit:
+                limit = 8 + size
+                result = default, first, last, bits, palette, limit
+        return result
+
+    def _encode_trim(self, raw: bytes, plan: _TrimPlan) -> bytes:
+        default, first, last, bits, palette, _ = plan
+        span = raw[first:last]
+        if palette:
+            translation = bytearray(256)
+            for index, color in enumerate(palette):
+                translation[color] = index
+            span = span.translate(bytes(translation))
+        return (
+            bytes((0, len(palette), default, bits))
+            + first.to_bytes(2, "little")
+            + (last - first).to_bytes(2, "little")
+            + palette
+            + _raw(Array(span, bits=bits))
+        )
+
     def _encode(self, raw: bytes) -> bytes | int:
         colors = _native._byte_palette(raw)
         if len(colors) == 1:
@@ -342,10 +405,14 @@ class CompressedArray:
                         + payload
                     )
                     best_size = period_size
+        trim_plan = self._trim_plan(raw, colors, best_size + 2)
+        if trim_plan is not None:
+            best_size = trim_plan[-1] - 2
+            period_record = None
         # Stop scanning as soon as runs cannot beat the best uncompressed form.
         # Retain the decode palette so cache misses never need to rediscover it.
         run_payload = _native._rle_encode(
-            raw, best_size - len(run_palette), run_palette
+            raw, best_size - len(run_palette) + int(trim_plan is not None), run_palette
         )
         run_record = None
         if run_payload is not None:
@@ -357,6 +424,8 @@ class CompressedArray:
         if self._blosc is None:
             if structured is not None:
                 return structured
+            if trim_plan is not None:
+                return self._encode_trim(raw, trim_plan)
             # Packed lengths are known before allocation. Preserve the exhaustive
             # candidate ordering on ties without constructing discarded arrays.
             mode: _Mode = "packed" if direct_size <= len(raw) else "bytes"
@@ -412,6 +481,12 @@ class CompressedArray:
         winner = min(candidates, key=lambda candidate: candidate.nbytes)
         if structured is not None and len(structured) - 2 < winner.nbytes:
             return structured
+        if (
+            trim_plan is not None
+            and run_record is None
+            and trim_plan[-1] < winner.nbytes + 2
+        ):
+            return self._encode_trim(raw, trim_plan)
         return winner.seal()
 
     def _chunk_length(self, index: int) -> int:
@@ -421,6 +496,13 @@ class CompressedArray:
         if isinstance(chunk, int):
             return _make_entry(Array(bytes(length), bits=1), bytes([chunk]))
         flags, count = chunk[0], chunk[1]
+        if flags == 0:
+            first = int.from_bytes(chunk[4:6], "little")
+            size = int.from_bytes(chunk[6:8], "little")
+            data = Array._from_packed_bytes(chunk, size, chunk[3], 8 + count)
+            return _native._SpanHot(
+                data, chunk[8 : 8 + count], default=chunk[2], start=first, length=length
+            )
         bits = cast(_Bits, flags & 15)
         palette = chunk[2 : 2 + count]
         if flags & 128:
@@ -684,6 +766,7 @@ class CompressedArray:
                 for chunk in self._chunks
                 if isinstance(chunk, bytes)
             ),
+            sum(chunk[0] == 0 for chunk in self._chunks if isinstance(chunk, bytes)),
             self._hits,
             self._misses,
             self._evictions,

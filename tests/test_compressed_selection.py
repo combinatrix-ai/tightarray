@@ -49,4 +49,28 @@ def test_selection_matches_exhaustive_storage(palette):
                         pattern = bytes(colors.index(value) for value in pattern)
                     sizes.append(Array(pattern, bits=bits).nbytes + extra + 1)
                     break
+            for default in range(256):
+                first = next(
+                    (i for i, value in enumerate(raw) if value != default), len(raw)
+                )
+                last = next(
+                    (i + 1 for i in range(len(raw) - 1, -1, -1) if raw[i] != default), 0
+                )
+                if first >= last or (first == 0 and last == len(raw)):
+                    continue
+                span = raw[first:last]
+                span_colors = sorted(set(span))
+                span_size = Array(span, bits=max(1, max(span).bit_length())).nbytes
+                if palette and len(span_colors) < 256:
+                    span_size = min(
+                        span_size,
+                        len(span_colors)
+                        + Array(
+                            [span_colors.index(value) for value in span],
+                            bits=max(1, (len(span_colors) - 1).bit_length()),
+                        ).nbytes,
+                    )
+                sizes.append(
+                    span_size + 6
+                )  # stored_bytes excludes common 2-byte header.
             assert result.storage_info().stored_bytes == min(sizes)
