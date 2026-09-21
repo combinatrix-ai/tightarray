@@ -76,3 +76,68 @@ def test_generated_trimmed_spans():
 def test_strict_bytes(raw):
     with pytest.raises(TypeError):
         _byte_trim(raw)
+
+
+def endpoint_oracle(raw):
+    if not raw:
+        return ()
+    candidates = []
+    for value in dict.fromkeys((raw[0], raw[-1])):
+        changed = [i for i, x in enumerate(raw) if x != value]
+        candidates.append(
+            (value, changed[0], changed[-1] + 1) if changed else (value, 0, 0)
+        )
+    return tuple(candidates)
+
+
+def test_edge_spans_exhaustive_short():
+    from itertools import product
+
+    from tightarray._core import _byte_edge_spans
+
+    for length in range(8):
+        for values in product((0, 127, 255), repeat=length):
+            raw = bytes(values)
+            assert _byte_edge_spans(raw) == endpoint_oracle(raw)
+
+
+def test_edge_spans_random_and_large_boundaries():
+    from tightarray._core import _byte_edge_spans
+
+    rng = random.Random(3322)
+    cases = [
+        b"",
+        b"x",
+        b"\xff" * 65537,
+        b"\0" * 65536 + b"x",
+        b"x" + b"\0" * 65536,
+        b"\0" * 65536 + b"x" + b"\0",
+        b"\0" + b"x" + b"\0" * 65536,
+        b"a" * 2048 + b"b" * 4096 + b"c" * 2048,
+    ]
+    for _ in range(300):
+        left, right = rng.randrange(256), rng.randrange(256)
+        middle = bytes(rng.randrange(256) for _ in range(rng.randrange(300)))
+        cases.append(
+            bytes([left]) * rng.randrange(300)
+            + middle
+            + bytes([right]) * rng.randrange(300)
+        )
+    for raw in cases:
+        candidates = _byte_edge_spans(raw)
+        assert candidates == endpoint_oracle(raw)
+        for value, first, last in candidates:
+            assert (
+                bytes([value]) * first
+                + raw[first:last]
+                + bytes([value]) * (len(raw) - last)
+                == raw
+            )
+
+
+@pytest.mark.parametrize("raw", [None, "abc", [1], bytearray(b"a"), memoryview(b"a")])
+def test_edge_spans_strict_bytes(raw):
+    from tightarray._core import _byte_edge_spans
+
+    with pytest.raises(TypeError):
+        _byte_edge_spans(raw)
