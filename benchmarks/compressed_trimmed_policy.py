@@ -81,7 +81,10 @@ def retained_graph_bytes(root):
             total += sum(visit(item) for item in value)
         elif isinstance(value, TrimmedHot):
             total += sum(visit(getattr(value, key)) for key in TrimmedHot.__slots__)
-        elif isinstance(value, live._native._Hot):
+        elif isinstance(value, live._native._Hot) or (
+            hasattr(live._native, "_SpanHot")
+            and isinstance(value, live._native._SpanHot)
+        ):
             total += visit(value.data) + visit(value.palette)
         elif hasattr(value, "__dict__") and not isinstance(value, type):
             # Codec enums and modules are shared runtime state, not array storage.
@@ -101,7 +104,9 @@ def trimmed_class(base, recognizer=None):
                 return original
             if recognizer is None:
                 default = int(
-                    np.bincount(np.frombuffer(raw, dtype=np.uint8), minlength=256).argmax()
+                    np.bincount(
+                        np.frombuffer(raw, dtype=np.uint8), minlength=256
+                    ).argmax()
                 )
                 marker = bytes([default])
                 first = len(raw) - len(raw.lstrip(marker))
@@ -157,10 +162,10 @@ def trimmed_class(base, recognizer=None):
 
 
 @contextmanager
-def pinned_baseline():
+def pinned_baseline(commit=BASELINE_COMMIT):
     root = Path(__file__).resolve().parents[1]
     source = subprocess.check_output(
-        ["git", "show", f"{BASELINE_COMMIT}:tightarray/compressed.py"], cwd=root
+        ["git", "show", f"{commit}:tightarray/compressed.py"], cwd=root
     )
     module = types.ModuleType("tightarray._trimmed_baseline")
     module.__package__ = "tightarray"
