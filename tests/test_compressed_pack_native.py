@@ -61,3 +61,13 @@ def test_types_index_bounds_and_independent_storage():
     restored = Array._from_packed_bytes(payload, 3, 2)
     restored[0] = 0
     assert payload == b"\x39" + bytes(7)
+
+
+@pytest.mark.parametrize("bits", range(1, 8))
+def test_invalid_value_at_every_vector_lane_and_tail(bits):
+    for length in (8, 16, 17, 33, 65):
+        for position in range(length):
+            raw = bytearray([((1 << bits) - 1)] * length)
+            raw[position] = 1 << bits
+            with pytest.raises(ValueError, match="outside bit width"):
+                _pack_bytes(bytes(raw), bits)
