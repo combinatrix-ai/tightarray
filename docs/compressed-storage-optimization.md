@@ -135,3 +135,28 @@ compressed scratch payload. Clearing pools and collecting does not lower RSS;
 allocator retention means this is not evidence of a live-object leak. A bounded
 shared scratch pool could amortize cost, but needs separate concurrency, lifetime,
 parameter-isolation and whole-operation/RSS evaluation before adoption.
+
+## Native hot entries
+
+The cache entry now holds its Array/palette references and dirty flag in C. Scalar
+reads decode and translate the palette in one native call. Bulk reads avoid
+allocating an Array slice wrapper and translate directly into the freshly allocated
+result bytes. The Python LRU, admission budget, codec selection and dirty-write
+failure ordering remain unchanged. Retained-size accounting explicitly visits
+entry data and palette; the native object size is shallow.
+
+[Full benchmark results](compressed-storage-native-hot-results.json) and a
+[nine-repeat paired comparison](compressed-native-hot-paired.json) are retained.
+The paired test randomizes Python/native order per repeat for all six `none`
+datasets, restoring the Python entry implementation from commit `1fb408a` while
+using the same native Array helpers. The portable reproducer is
+`python -m benchmarks.compressed_hot_paired --output /tmp/paired.json` (requires
+that baseline commit locally); the recorded run used its equivalent temporary
+script before packaging, not a freshly rerun benchmark after script formatting.
+
+Paired nonuniform local reads improve by roughly 2–8%, global reads by 7–16%, and
+local-two block reads from 0.118 to 0.104 ms. These are modest gains; global/mixed
+read paths benefit more than hot hits. Dense Blosc2 still wins some hot-hit and
+codec-heavy operations. Uniform read paths bypass native entries, so their small
+timing differences are noise. Native-entry behavior was checked under ASan/UBSan,
+including array views, both layouts, all widths, ownership and invalid palettes.

@@ -303,6 +303,7 @@ def source_hashes():
         for name in (
             "tightarray/compressed.py",
             "tightarray/_compressed.h",
+            "tightarray/_compressed_hot.h",
             "tightarray/_core.c",
             "setup.py",
             "benchmarks/compressed_storage.py",

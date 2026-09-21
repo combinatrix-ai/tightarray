@@ -12,7 +12,7 @@ import operator
 import sys
 from collections import OrderedDict
 from collections.abc import Callable, Iterable, Iterator
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from itertools import islice
 from typing import Literal, Protocol, SupportsIndex, cast, overload
 
@@ -51,6 +51,8 @@ class _Filters(Protocol):
 
 class _Native(Protocol):
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
+
+    def _Hot(self, data: Array, palette: bytes = b"", dirty: bool = False) -> _Hot: ...
 
 
 _native = cast(_Native, importlib.import_module("tightarray._core"))
@@ -122,21 +124,21 @@ class _Chunk:
         return bytes((flags, len(self.palette))) + self.palette + self.payload
 
 
-@dataclass(slots=True)
-class _Hot:
-    data: Array
-    palette: bytes = b""
-    dirty: bool = False
+class _Hot(Protocol):
+    @property
+    def data(self) -> Array: ...
+    @property
+    def palette(self) -> bytes: ...
+
+    dirty: bool
 
     @property
-    def nbytes(self) -> int:
-        return self.data.nbytes + len(self.palette)
+    def nbytes(self) -> int: ...
+    def read(self, start: int = 0, stop: int | None = None) -> bytes: ...
+    def __getitem__(self, key: SupportsIndex, /) -> int: ...
 
-    def read(self, start: int = 0, stop: int | None = None) -> bytes:
-        raw = self.data[start:stop].tobytes()
-        if self.palette:
-            return raw.translate(self.palette.ljust(256, b"\0"))
-        return raw
+
+_make_entry = _native._Hot
 
 
 def _bits(maximum: int) -> _Bits:
@@ -355,19 +357,21 @@ class CompressedArray:
 
     def _decode(self, chunk: bytes | int, length: int) -> _Hot:
         if isinstance(chunk, int):
-            return _Hot(Array(bytes(length), bits=1), bytes([chunk]))
+            return _make_entry(Array(bytes(length), bits=1), bytes([chunk]))
         flags, count = chunk[0], chunk[1]
         bits = cast(_Bits, flags & 15)
         palette = chunk[2 : 2 + count]
         if not flags & 48:  # Uncompressed packed storage: copy straight to words.
-            return _Hot(Array._from_packed_bytes(chunk, length, bits, 2 + count), palette)
+            return _make_entry(
+                Array._from_packed_bytes(chunk, length, bits, 2 + count), palette
+            )
         payload = chunk[2 + count :]
         raw = self._decompress(payload) if flags & 16 else payload
         if flags & 32:
             if len(raw) != length:
                 raise ValueError("invalid internal uint8 payload length")
-            return _Hot(Array(raw, bits=bits))
-        return _Hot(_restore(raw, length, bits), palette)
+            return _make_entry(Array(raw, bits=bits))
+        return _make_entry(_restore(raw, length, bits), palette)
 
     def _make_hot(self, raw: bytes) -> _Hot:
         """Choose a compact mutable representation independently of cold codecs."""
@@ -381,10 +385,10 @@ class CompressedArray:
                 translation = bytearray(256)
                 for index, color in enumerate(colors):
                     translation[color] = index
-                return _Hot(
+                return _make_entry(
                     Array(raw.translate(bytes(translation)), bits=palette_bits), colors
                 )
-        return _Hot(Array(raw, bits=direct_bits))
+        return _make_entry(Array(raw, bits=direct_bits))
 
     def _writeback(self, index: int, hot: _Hot) -> None:
         if hot.dirty:
@@ -478,8 +482,7 @@ class CompressedArray:
         else:
             self._hits += 1
             self._cache.move_to_end(index)
-        value = hot.data[offset]
-        return hot.palette[value] if hot.palette else value
+        return hot[offset]
 
     def __setitem__(self, key: SupportsIndex, value: SupportsIndex, /) -> None:
         index, offset = self._index(key)
@@ -565,16 +568,16 @@ class CompressedArray:
             if id(obj) in seen:
                 return 0
             seen.add(id(obj))
-            count = sys.getsizeof(obj)
-            if isinstance(obj, (_Chunk, _Hot)):
-                count += sum(size(getattr(obj, field.name)) for field in fields(obj))
-            return count
+            return sys.getsizeof(obj)
 
         owned = (
             size(self) + size(self.__dict__) + size(self._chunks) + size(self._cache)
         )
         owned += sum(size(chunk) for chunk in self._chunks)
-        owned += sum(size(index) + size(hot) for index, hot in self._cache.items())
+        owned += sum(
+            size(index) + size(hot) + size(hot.data) + size(hot.palette)
+            for index, hot in self._cache.items()
+        )
         # Codec module/class internals are shared runtime state, not owned storage.
         owned += sum(
             size(value)
