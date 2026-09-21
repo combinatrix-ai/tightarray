@@ -85,7 +85,16 @@ For the standard Python Array API, install `.[array-api]` and use
 `tightarray.array_api`. It provides packed uint8/bool ND arrays and NumPy-backed
 other dtypes. See [conformance results and limitations](docs/array-api.md).
 
+## Optional compressed storage
+
+For optional per-chunk uniform/palette compression, LZ4/ZSTD, and a bounded packed
+cache, see the experimental [`CompressedArray`](docs/compressed-storage.md).
+It keeps a fixed logical uint8 range while choosing physical widths per chunk.
+It is intended for read-mostly storage; the document compares retained metadata,
+cache budgets, and read/write costs against NumPy and a cached Blosc2 baseline.
+
 ## Static typing
+
 
 Public type stubs cover native containers and the Array API namespace, including
 standard linalg/FFT operations. `array_api.Array[DType]` tracks logical dtype

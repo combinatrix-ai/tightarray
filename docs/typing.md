@@ -83,6 +83,13 @@ and does not statically validate all possible conversion inputs.
 
 ## Verification
 
+`tightarray.compressed.CompressedArray` has a fixed logical uint8 range; scalar
+indexing returns `int`, slices and `read` return `bytes`, and `storage_info` returns
+the frozen `StorageInfo` dataclass. Physical widths and palettes are runtime
+storage choices, not type parameters. The compressed module ships its own stubs
+and a consumer fixture checked with `--disallow-any-expr`.
+
+
 The checker builds a wheel, verifies that its type files are included, extracts
 it outside the checkout, and runs strict mypy on stubs and consumer fixtures.
 Return types are asserted; invalid calls use error-specific ignores and
