@@ -98,8 +98,11 @@ Periodic entries retain only their packed pattern and use cyclic indexing; bulk
 reads expand directly into the requested output. Trimmed entries retain only their interior and answer exterior reads with the
 default value. Scalar and partial bulk writes wholly inside a cached span update
 its packed interior in place when the current width and palette suffice. Bulk
-writes validate all input first, then validate every encoded value before native
-stores; failed fallback allocation leaves that chunk unchanged. These updates
+writes validate all input first; a native span setter then checks bounds, palette
+membership and storage width for every value before its first store. Unsupported
+writes return to the materializing path without mutation. The setter uses fixed
+stack scratch for palette lookup, without a persistent table or encoded bytes
+allocation; failed fallback allocation leaves that chunk unchanged. These updates
 retain the existing hot width and palette until the entry is replaced or reloaded.
 Other changed structural
 writes materialize an ordinary packed entry, so changing one element cannot

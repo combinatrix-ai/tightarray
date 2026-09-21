@@ -76,6 +76,7 @@ jobs:
             tests/test_compressed_selection.py \
             tests/test_compressed_span_bulk.py \
             tests/test_compressed_span_hot_native.py \
+            tests/test_compressed_span_write_native.py \
             tests/test_compressed_trim_native.py \
             tests/test_compressed_trim_plan_native.py \
             tests/test_compressed_trimmed.py \
