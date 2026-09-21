@@ -558,6 +558,7 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_compressed_hot.h"
 #include "_compressed_rle.h"
 #include "_compressed_period.h"
+#include "_compressed_trim.h"
 static PyMethodDef methods[]={
     {"_from_packed_bytes",(PyCFunction)array_from_packed_bytes,METH_VARARGS|METH_CLASS,NULL},
     {"_word_view",(PyCFunction)array_word_view,METH_NOARGS,NULL},
@@ -603,6 +604,7 @@ static PyTypeObject ArrayType={
 #include "_api_storage.h"
 #include "_api_view.h"
 static PyMethodDef module_methods[]={
+    {"_byte_trim",(PyCFunction)compressed_byte_trim,METH_O,NULL},
     {"_byte_period",(PyCFunction)compressed_byte_period,METH_O,NULL},
     {"_rle_encode",(PyCFunction)compressed_rle_encode,METH_VARARGS,NULL},
     {"_rle_decode",(PyCFunction)compressed_rle_decode,METH_VARARGS,NULL},
