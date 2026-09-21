@@ -111,3 +111,5 @@ unpacking into small dense scratch buffers, reusing each unpacked neighbor for
 many updates before repacking. This is a hypothesis, not a measured win.
 Long-lived packed histories/checkpoints are another distinct capacity use
 case, requiring a separate output contract from CellPyLib's dense history.
+
+Follow-up: [row-streamed capacity study under a fixed RSS budget](capacity-grid.md).
