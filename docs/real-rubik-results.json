@@ -1,0 +1,481 @@
+{
+  "scope": "Actual warmed solver E2E; only pruning storage changed. C is default library backend, not modified.",
+  "source_pin": "e2690493b43921732960cd5eeee2b1ee91922a7b",
+  "upstream": "https://github.com/muodov/kociemba",
+  "python": "3.12.8 (main, Dec  6 2024, 19:42:06) [Clang 18.1.8 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "upstream_hashes": {
+    "__init__.py": "bdc7102d5a509e37ddb8a4b81e1ab969ab760d4a25662e78cfec93ee37d2e356",
+    "build_ckociemba.py": "560b3f788e6bf39e04cd89c74dc1c92671bf23058b4ad4341d845f6e4fb43154",
+    "ckociembawrapper.abi3.so": "3aafc0879533153f583512e4bfee65072cf08a717f7555e9c0f758ba180abbf3",
+    "command_line.py": "37a4dc8cc30b026612513df7b7bf687e30096cabb851ecc65d8e93af5de461e3",
+    "cprunetables/FRtoBR_Move": "e4d42bebabbb14c15355e33edda5495ab8daa9fe3ed0f25fe1acb71b4eecac7d",
+    "cprunetables/MergeURtoULandUBtoDF": "87ea12bf3ea180d131a711c82bdaf4bf8c0447485d086c3d77d912d1e94a7faa",
+    "cprunetables/Slice_Flip_Prun": "7a1f4968a453af6e0a181e406fe94d7b34cc0c373c8fc8975b2b1c3e87680d70",
+    "cprunetables/Slice_Twist_Prun": "9266b621191b41c1519f87ce2c3bee862b5408cbbfeceebc70be235ee403109c",
+    "cprunetables/Slice_URFtoDLF_Parity_Prun": "327ac99091ded390ec0967fd918b4bc49130d49dc61b37f139a98bc1765c5426",
+    "cprunetables/Slice_URtoDF_Parity_Prun": "d33e3a5ac56b9d0e985857d0ed8a16622bc6b312879b6d8277800aed105fdcbc",
+    "cprunetables/UBtoDF_Move": "3c582e70b659f86e3446e6a11252472b843424f05d3d841c3a1c13ead8860965",
+    "cprunetables/URFtoDLF_Move": "7006c5a5dbdf7936203de8abaedba97f4b985b614ee7e7ca667f87adfd0009df",
+    "cprunetables/URtoDF_Move": "d1e1f78c99cf81e743448f2c4cc27c3772bd819c2cd99a7c4235d79fb1a5b18f",
+    "cprunetables/URtoUL_Move": "3c582e70b659f86e3446e6a11252472b843424f05d3d841c3a1c13ead8860965",
+    "cprunetables/flipMove": "9039eab0160efe072d62be9e01ad28267d629321c780c0750d84cd34c382050c",
+    "cprunetables/twistMove": "939129a843f648c462822075a0c27a7144ef566c8e7d1472c64d14e467a735a3",
+    "pykociemba/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pykociemba/color.py": "baa4f980ec923f0837e6922fc4601687af839fa932ef7ffee72bd051f3cd289a",
+    "pykociemba/coordcube.py": "423e7d616e5658ab8ef6573fe528f56f2e7b9e778da3ef4f1f30c9817889ffa3",
+    "pykociemba/corner.py": "e706c558eedb8eac836c8d4b38e5ae3ef90dd642a2c7376e3626749016d741cb",
+    "pykociemba/cubiecube.py": "f3bc2463358b179ca47b1cf9a46a99e0a029726f382c3dfa7398b4d264723d45",
+    "pykociemba/edge.py": "2769895a98e5e5a41523b260a79a8e0a111ed3bf1583787967237356b2b2b5c2",
+    "pykociemba/facecube.py": "b4172c6c34b847c3f5a5675f3af5912e48b530d4fb4e629d0922aa1619336fb4",
+    "pykociemba/facelet.py": "2b9a144c434426a0bff4100af980b0926c98e63c374a5e382d20386a215d6fb2",
+    "pykociemba/prunetables/FRtoBR_Move.pkl": "2e5b82c63f5e343349ad56a21e257bc2e943694beb4ed5c5e0c9fe81d82e0775",
+    "pykociemba/prunetables/MergeURtoULandUBtoDF.pkl": "6f008d1a5fefa453e0253455a83eadfa51a0a7f6127b0d87ad7371ae78b07c3e",
+    "pykociemba/prunetables/Slice_Flip_Prun.pkl": "bc2c70c27c78f99a701096fc00522c5b963dfa5c9f3cd478b497b3d1036b1dfd",
+    "pykociemba/prunetables/Slice_Twist_Prun.pkl": "a52959997e5a4a45a6eb15b389f30b0cc378b51cc8203c80d07eda3a114a273a",
+    "pykociemba/prunetables/Slice_URFtoDLF_Parity_Prun.pkl": "117b606d01b71749bfde3f14fd4777cfc7454135e3417e9e732694ebe5882bdb",
+    "pykociemba/prunetables/Slice_URtoDF_Parity_Prun.pkl": "dd711013633a77f50bee176570b30e42fa971ab3fa7fcdfe84801eaab9a52f41",
+    "pykociemba/prunetables/UBtoDF_Move.pkl": "d882b754d7168f3711943d86eedee9d5319cabffdaf1095026774158873429f0",
+    "pykociemba/prunetables/URFtoDLF_Move.pkl": "c1d532d13efc7624854afcb84ca2b0cc6fc859c68e09b907cf124095bf5c82b7",
+    "pykociemba/prunetables/URtoDF_Move.pkl": "7af7a2c58fa4ae2c885926f4f63c6e3c6409325440d6dde31e698e59ab9d7864",
+    "pykociemba/prunetables/URtoUL_Move.pkl": "d882b754d7168f3711943d86eedee9d5319cabffdaf1095026774158873429f0",
+    "pykociemba/prunetables/flipMove.pkl": "965315d0ae97137021dd5fc4ae645d5b30cd7a5df7486b5e2833f63351538ffb",
+    "pykociemba/prunetables/twistMove.pkl": "23344353c3e459573e3bcb5e6c55216616ff0bbef8f2f4612938861229e157d1",
+    "pykociemba/search.py": "3556c78fda007d419522cab6f595d72643d56be6268da72495cb71f81e0f4459",
+    "pykociemba/tools.py": "ceebf606dd5b45c95bdea03fdc050100b260025d35d8bbe770dc39420424d0d3"
+  },
+  "script_sha256": "2a96d6be81cb7fa58970163b6cd406c1de6d1b338577c0ab4d2d11809a2917b4",
+  "python_table_import_seconds": 0.23771441700228024,
+  "adaptation_seconds": {
+    "python-original": [
+      3.8330035749822855e-06,
+      1.1669981176964939e-06,
+      4.580069798976183e-07
+    ],
+    "packed-bytearray": [
+      0.05075733300327556,
+      0.050580792005348485,
+      0.051075709001452196
+    ],
+    "dense-bytearray": [
+      0.03428941599850077,
+      0.0347897079991526,
+      0.03560783300054027
+    ],
+    "numpy-uint8": [
+      0.035102832996926736,
+      0.03521345899935113,
+      0.03530341599980602
+    ],
+    "tightarray4": [
+      0.03423145800479688,
+      0.034433959001034964,
+      0.03553200000169454
+    ]
+  },
+  "memory": {
+    "python-original": {
+      "retained_graph_bytes": 17194904,
+      "logical_values": 4031686
+    },
+    "packed-bytearray": {
+      "retained_graph_bytes": 2083704,
+      "logical_values": 4031686
+    },
+    "dense-bytearray": {
+      "retained_graph_bytes": 4031914,
+      "logical_values": 4031686
+    },
+    "numpy-uint8": {
+      "retained_graph_bytes": 4032134,
+      "logical_values": 4031686
+    },
+    "tightarray4": {
+      "retained_graph_bytes": 2016136,
+      "logical_values": 4031686
+    }
+  },
+  "memory_scope": "Four pruning tables only; retained graph excludes shared move tables and process RSS; all policies coexist during timing.",
+  "cases": [
+    {
+      "name": "8moves-seed21",
+      "scramble": "L' D2 F U L' B2 F' D2",
+      "facelets": "BDDBUUBUURBBRRDULURFFRFFLLLFFFBDURRBLDURLUFLDRFDLBBLDD"
+    },
+    {
+      "name": "8moves-seed42",
+      "scramble": "U2 F' U2 B D U R' F'",
+      "facelets": "UUDUUBBBBDDFDRFDDBURRRFLRBRFUFLDFLDUFFLRLUBBULLLLBFRRD"
+    },
+    {
+      "name": "12moves-seed21",
+      "scramble": "U2 D' B L2 B' D' F2 B L' B L2 B'",
+      "facelets": "LRRFUULDDRLBURUULLDBBBFFFBFDURFDDRLFBLBFLRFRLUDURBDUBD"
+    },
+    {
+      "name": "12moves-seed42",
+      "scramble": "U' D2 U' L B2 R B2 U' F2 L D2 U'",
+      "facelets": "BUBFUDUULUBURRRULRLLFUFUFFFDDRDDDDBFLRBLLFBRLRBDBBFDLR"
+    },
+    {
+      "name": "16moves-seed21",
+      "scramble": "R' D U' B F2 R2 U2 L2 D' F' U D2 U B F2 B2",
+      "facelets": "URDUUDDDULBLRRFFLBFFBFFDLLLUDDLDUDLURBRBLUBBFBUFRBRRFR"
+    },
+    {
+      "name": "16moves-seed42",
+      "scramble": "B2 R L D' L' U' F' R B D2 R U B F2 U' B2",
+      "facelets": "DFUBURDRRBBBURDUFDBDDDFLLBFUURUDLRFRLLLFLLBRFLRFBBDFUU"
+    }
+  ],
+  "solutions": {
+    "8moves-seed21": "U2 F2 B R U' B' D2 R U D R2 U' D' R2 F2 D2 B2 L2",
+    "8moves-seed42": "F R U' D' F' L2 B U2 F2 R2 B2 U2 F2 L2 F2 D2",
+    "12moves-seed21": "B L2 B' L B U B R2 B' R2 U' F2 B2 D L2 U2 D",
+    "12moves-seed42": "U D2 L B2 D' F2 R B2 L' D R2 D2 F2 R2 U2 L2 B2 D",
+    "16moves-seed21": "R' B' U D' R L2 U2 R2 B' D R2 U' B2 D' B2 U' R2 D R2",
+    "16moves-seed42": "U L2 F' U B2 D R' B' U' F' R F D' F2 D2 B2 D B2 R2 D L2 D'"
+  },
+  "samples_seconds": {
+    "python-original": {
+      "8moves-seed21": [
+        0.003958417000831105,
+        0.003268000000389293,
+        0.0037587089973385446,
+        0.003373333005583845,
+        0.0034374170063529164
+      ],
+      "8moves-seed42": [
+        0.0016898749963729642,
+        0.001671917001658585,
+        0.0016990840013022535,
+        0.001910457998747006,
+        0.001744791996316053
+      ],
+      "12moves-seed21": [
+        0.08171308400051203,
+        0.08193362499878276,
+        0.08433262500329874,
+        0.08499912499974016,
+        0.08144491699931677
+      ],
+      "12moves-seed42": [
+        0.017780166999727953,
+        0.01580262499919627,
+        0.017110250002588145,
+        0.01708620900171809,
+        0.01752933399984613
+      ],
+      "16moves-seed21": [
+        0.08306037500005914,
+        0.08171599999332102,
+        0.0866903340065619,
+        0.08606987499661045,
+        0.08687041599478107
+      ],
+      "16moves-seed42": [
+        1.1972190830056206,
+        1.1694047080018208,
+        1.2007439169974532,
+        1.2256087909991038,
+        1.2189835000026505
+      ]
+    },
+    "packed-bytearray": {
+      "8moves-seed21": [
+        0.003354374995979015,
+        0.003054542001336813,
+        0.0032830839991220273,
+        0.003395666994038038,
+        0.0033145829947898164
+      ],
+      "8moves-seed42": [
+        0.0016552079978282563,
+        0.0016097090046969242,
+        0.0016403339977841824,
+        0.0016501669961144216,
+        0.001662540998950135
+      ],
+      "12moves-seed21": [
+        0.0780120409981464,
+        0.07765412500157254,
+        0.08009412500541657,
+        0.0797351669971249,
+        0.07856654200440971
+      ],
+      "12moves-seed42": [
+        0.016461125000205357,
+        0.016506207997736055,
+        0.016745833003369626,
+        0.016302916999848094,
+        0.016853499997523613
+      ],
+      "16moves-seed21": [
+        0.08297137499903329,
+        0.08206383299693698,
+        0.08081908400345128,
+        0.08108670799992979,
+        0.08169291599915596
+      ],
+      "16moves-seed42": [
+        1.0951477499984321,
+        1.0836778750017402,
+        1.0900832499974058,
+        1.1295615839990205,
+        1.0908609159960179
+      ]
+    },
+    "dense-bytearray": {
+      "8moves-seed21": [
+        0.003344791999552399,
+        0.003034708002815023,
+        0.003295708003861364,
+        0.0030957919952925295,
+        0.002913124997576233
+      ],
+      "8moves-seed42": [
+        0.001567250001244247,
+        0.001564624995808117,
+        0.0016711660064174794,
+        0.0016812079993542284,
+        0.0017377499971189536
+      ],
+      "12moves-seed21": [
+        0.06867379100003745,
+        0.07211416700010886,
+        0.06910095900093438,
+        0.06894874999852618,
+        0.06781912499718601
+      ],
+      "12moves-seed42": [
+        0.014450958995439578,
+        0.01413608399889199,
+        0.014892666004016064,
+        0.014736625002115034,
+        0.014903833005519118
+      ],
+      "16moves-seed21": [
+        0.07348487499984913,
+        0.07823300000018207,
+        0.07387295900116442,
+        0.07410966599854873,
+        0.07406537500355626
+      ],
+      "16moves-seed42": [
+        0.9726338330001454,
+        0.9699927920009941,
+        0.9641752919997089,
+        0.9776860830024816,
+        0.9885364590008976
+      ]
+    },
+    "numpy-uint8": {
+      "8moves-seed21": [
+        0.00354466700082412,
+        0.0032875829929253086,
+        0.0033396250000805594,
+        0.003288125000835862,
+        0.0031545000019832514
+      ],
+      "8moves-seed42": [
+        0.0017444159966544248,
+        0.0016677919993526302,
+        0.0019972080044681206,
+        0.0016572500026086345,
+        0.0017167080004583113
+      ],
+      "12moves-seed21": [
+        0.08078054199722828,
+        0.07785333399806404,
+        0.07949775000452064,
+        0.07938991700211773,
+        0.0792643329987186
+      ],
+      "12moves-seed42": [
+        0.015691416992922314,
+        0.01570420800271677,
+        0.015423541997733992,
+        0.015314083000703249,
+        0.0173955419959384
+      ],
+      "16moves-seed21": [
+        0.08415995800169185,
+        0.08420958300121129,
+        0.08474245799880009,
+        0.08315337499516318,
+        0.0837460420007119
+      ],
+      "16moves-seed42": [
+        1.119853417003469,
+        1.0993638330037356,
+        1.1170007910041022,
+        1.129260833004082,
+        1.1204278750010417
+      ]
+    },
+    "tightarray4": {
+      "8moves-seed21": [
+        0.00309979200392263,
+        0.0032911669986788183,
+        0.003217124998627696,
+        0.003234874995541759,
+        0.0030758749999222346
+      ],
+      "8moves-seed42": [
+        0.0015495420011575334,
+        0.0016376670027966611,
+        0.001490417002059985,
+        0.0016828329971758649,
+        0.0015020409991848283
+      ],
+      "12moves-seed21": [
+        0.06965283300087322,
+        0.06895183400047245,
+        0.06715283299854491,
+        0.06751074999920093,
+        0.06661225000425475
+      ],
+      "12moves-seed42": [
+        0.014577292000467423,
+        0.014378833999217022,
+        0.01418783299595816,
+        0.014173374998790678,
+        0.013033292001637165
+      ],
+      "16moves-seed21": [
+        0.07515733299806016,
+        0.0719529580019298,
+        0.07176129199797288,
+        0.07354908299748786,
+        0.07258683300460689
+      ],
+      "16moves-seed42": [
+        0.9564336670009652,
+        0.935800333005318,
+        0.9935439999972004,
+        0.9601815409987466,
+        0.9488339589952375
+      ]
+    },
+    "native-C": {
+      "8moves-seed21": [
+        0.00029908400028944016,
+        0.00012649999553104863,
+        0.00012429199705366045,
+        0.00012412499927449971,
+        0.00012458400306059048
+      ],
+      "8moves-seed42": [
+        6.379200203809887e-05,
+        4.149999585933983e-05,
+        4.3000000005122274e-05,
+        4.1584004065953195e-05,
+        4.07920015277341e-05
+      ],
+      "12moves-seed21": [
+        0.0022097920009400696,
+        0.0019277920000604354,
+        0.0019937920005759224,
+        0.00194283299788367,
+        0.0018766659995890222
+      ],
+      "12moves-seed42": [
+        0.0002698339958442375,
+        0.0002315419988008216,
+        0.0002677910015336238,
+        0.00022487500245915726,
+        0.00023304199567064643
+      ],
+      "16moves-seed21": [
+        0.0012881250004284084,
+        0.0014069160024519078,
+        0.0010725829997682013,
+        0.001079541994840838,
+        0.00109833299939055
+      ],
+      "16moves-seed42": [
+        0.029333958998904563,
+        0.029147749999538064,
+        0.02944562500488246,
+        0.028683832999377046,
+        0.029490000000805594
+      ]
+    }
+  },
+  "median_seconds": {
+    "python-original": {
+      "8moves-seed21": 0.0034374170063529164,
+      "8moves-seed42": 0.0016990840013022535,
+      "12moves-seed21": 0.08193362499878276,
+      "12moves-seed42": 0.017110250002588145,
+      "16moves-seed21": 0.08606987499661045,
+      "16moves-seed42": 1.2007439169974532
+    },
+    "packed-bytearray": {
+      "8moves-seed21": 0.0033145829947898164,
+      "8moves-seed42": 0.0016501669961144216,
+      "12moves-seed21": 0.07856654200440971,
+      "12moves-seed42": 0.016506207997736055,
+      "16moves-seed21": 0.08169291599915596,
+      "16moves-seed42": 1.0908609159960179
+    },
+    "dense-bytearray": {
+      "8moves-seed21": 0.0030957919952925295,
+      "8moves-seed42": 0.0016711660064174794,
+      "12moves-seed21": 0.06894874999852618,
+      "12moves-seed42": 0.014736625002115034,
+      "16moves-seed21": 0.07406537500355626,
+      "16moves-seed42": 0.9726338330001454
+    },
+    "numpy-uint8": {
+      "8moves-seed21": 0.003288125000835862,
+      "8moves-seed42": 0.0017167080004583113,
+      "12moves-seed21": 0.07938991700211773,
+      "12moves-seed42": 0.015691416992922314,
+      "16moves-seed21": 0.08415995800169185,
+      "16moves-seed42": 1.119853417003469
+    },
+    "tightarray4": {
+      "8moves-seed21": 0.003217124998627696,
+      "8moves-seed42": 0.0015495420011575334,
+      "12moves-seed21": 0.06751074999920093,
+      "12moves-seed42": 0.01418783299595816,
+      "16moves-seed21": 0.07258683300460689,
+      "16moves-seed42": 0.9564336670009652
+    },
+    "native-C": {
+      "8moves-seed21": 0.00012458400306059048,
+      "8moves-seed42": 4.1584004065953195e-05,
+      "12moves-seed21": 0.00194283299788367,
+      "12moves-seed42": 0.00023304199567064643,
+      "16moves-seed21": 0.00109833299939055,
+      "16moves-seed42": 0.029333958998904563
+    }
+  },
+  "post_run_provenance": {
+    "scope": "Recorded after timing while parent confirms production sources frozen. No before/after guards were taken.",
+    "tightarray_file": "/tmp/ta-capacity/tightarray/__init__.py",
+    "core_file": "/tmp/ta-capacity/tightarray/_core.cpython-312-darwin.so",
+    "sha256": {
+      "/tmp/ta-capacity/tightarray/__init__.py": "8c9e7d1079358e3006bb68a6fb45433d1e07f8503d03f27801a0c1b5fc07db55",
+      "/tmp/ta-capacity/tightarray/_core.cpython-312-darwin.so": "0ea3749a47bec59b71027192d02e1522582b9d59cd6592a2d6790aa9d7ddce2c",
+      "/tmp/ta-capacity/tightarray/_api_storage.h": "36cae015734a456373f1cc30d5fb1b26d1362fd095cc8cf7325e73aec83c2571",
+      "/tmp/ta-capacity/tightarray/_api_view.h": "c291330fe2076c379c0645a4e6561b45f6e3dfaa5c50c77593cabcedb0f668aa",
+      "/tmp/ta-capacity/tightarray/_compressed.h": "01b674de14cbe1590ee469b2404d479722fb2e9fb32023bb6a40e98f83d2ebb8",
+      "/tmp/ta-capacity/tightarray/_compressed_hot.h": "6f81b1dc0ddb3326a7ac35289dad6d17f6fc4e0faa77d504773b082363ad0ea2",
+      "/tmp/ta-capacity/tightarray/_compressed_pack.h": "c87e90f3f79522ec02cc6c1156a606e4c7a1e93235c2955c6a8ec1a6d81eff83",
+      "/tmp/ta-capacity/tightarray/_compressed_period.h": "30f9739c31baadd53c3b1e3797c1cd8968b83a96408106c506b3964f5b6e54b8",
+      "/tmp/ta-capacity/tightarray/_compressed_rle.h": "d49a248e5fc3e790ef9a6e516975e5dbf1e5650b070000aeefd0a37e2bec71ec",
+      "/tmp/ta-capacity/tightarray/_compressed_span_hot.h": "102fef0d5c1f4c991a6831af5f27125c562ec9ea06702e7cf328ad6aca3fb38c",
+      "/tmp/ta-capacity/tightarray/_compressed_trim.h": "9c5effef5b7a640222a5ee0debffe6c4ca4555c7ce35f70b7dd64822f7da7214",
+      "/tmp/ta-capacity/tightarray/_numba.h": "29514e77279a5a88aae47b56c72402f9033bd62ee8343d1e9ef2aa5fc2b8fd90",
+      "/tmp/ta-capacity/tightarray/_numpy.h": "2899a66d12ef42f35fa8135c5ed4dfba22dc51af763ead28e95ceadc0c1c7479",
+      "/tmp/ta-capacity/tightarray/_reduce.h": "539942d3d0eedb181c9643ed9b65026ef77b18f09826234a87a8740c2a424981",
+      "/tmp/ta-capacity/tightarray/_rows.h": "9ab81b7f5cda1a7a75b11e1f45ee3c886d9cc4c7d819b16355f92dd69d8864f4",
+      "/tmp/ta-capacity/tightarray/_sequence.h": "ea53e243dff32a58b4529cb6e6ea30f35c0bab4d4646a437d69b2115849a3e89",
+      "/tmp/ta-capacity/tightarray/_view.h": "babe9e050d1bbb35b2cb0f175f8005e6d7e6b493f20a1f6ab197cc90890aa0d2",
+      "/tmp/ta-capacity/tightarray/_wire.h": "5e07b3231dc31a7c1bc3bd8eeac65e9f14f7b8ed1133b0ab718d258626ea90f5",
+      "/tmp/ta-capacity/tightarray/_core.c": "1a52a99f6481d3a035f51eb05200b8e1aa720bc3b2b2591aefe6cee666b9f761"
+    }
+  }
+}
