@@ -1,0 +1,542 @@
+{
+  "metadata": {
+    "python": "3.12.8",
+    "machine": "arm64",
+    "minigrid": "3.1.0",
+    "gymnasium": "1.3.0",
+    "numpy": "2.5.3",
+    "blosc2": "4.13.1",
+    "batch": 64,
+    "rounds": 24,
+    "repeats": 5,
+    "policy": "seeded uniform random actions; max_episode_steps=64",
+    "seed": 123,
+    "compression": "32 transitions/chunk or 1 for -single, clevel5, BITSHUFFLE, typesize1, nthreads1",
+    "scope": "actual environment observations; storage and sampled transitions, not training E2E",
+    "memory": "payload only, not process RSS"
+  },
+  "records": [
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "numpy",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 602112,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 645148,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 0.07783400360494852,
+      "batch_ms": 0.006062500081801166,
+      "batch_samples_ms": [
+        0.006348958474215276,
+        0.005991333334047037,
+        0.006020833401028843,
+        0.006109374832400742,
+        0.006062500081801166
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "packed4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 301056,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 344092,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 0.09116699948208407,
+      "batch_ms": 0.058576374916204564,
+      "batch_samples_ms": [
+        0.06330558335321257,
+        0.06454166668845573,
+        0.058576374916204564,
+        0.0568785001936097,
+        0.05701041663996875
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "blosc-lz4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 81890,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 124926,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 1.1599589997786097,
+      "batch_ms": 0.5691059168384527,
+      "batch_samples_ms": [
+        0.5689965416119472,
+        0.5471232498166501,
+        0.5703923331263164,
+        0.5691059168384527,
+        0.5876961668036529
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "blosc-zstd",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 35916,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 78952,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 7.43454199982807,
+      "batch_ms": 0.7411996251297145,
+      "batch_samples_ms": [
+        0.7411996251297145,
+        0.7085399583957042,
+        0.7121579998662734,
+        0.7486909583652354,
+        0.7949114584941223
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "blosc-lz4-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 304364,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 347400,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 15.631791997293476,
+      "batch_ms": 0.10063191651473365,
+      "batch_samples_ms": [
+        0.09974650007886036,
+        0.11707812488263396,
+        0.10426733327525047,
+        0.10063191651473365,
+        0.10002258325888154
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-Empty-8x8-v0",
+      "backend": "blosc-zstd-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 264671,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 307707,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 150.0282499982859,
+      "build_ms": 22.674457999528386,
+      "batch_ms": 0.16740975024731597,
+      "batch_samples_ms": [
+        0.16829166664441195,
+        0.1730052081256872,
+        0.1535677083666087,
+        0.16740975024731597,
+        0.15325520841239873
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "numpy",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 602112,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 645173,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 0.08624999463791028,
+      "batch_ms": 0.006927083328870746,
+      "batch_samples_ms": [
+        0.006927083328870746,
+        0.007076374762012468,
+        0.0067013749382264605,
+        0.008772583290313682,
+        0.00635762504922847
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "packed4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 301056,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 344117,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 0.087958003859967,
+      "batch_ms": 0.05950175000180025,
+      "batch_samples_ms": [
+        0.05950175000180025,
+        0.05858854183315998,
+        0.05692016657121712,
+        0.06785416674877827,
+        0.06293749993346864
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "blosc-lz4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 95573,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 138634,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 1.3075000024400651,
+      "batch_ms": 0.5592777497440693,
+      "batch_samples_ms": [
+        0.5565138747745854,
+        0.5571666667189371,
+        0.5592777497440693,
+        0.559602458451991,
+        0.5762274164832585
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "blosc-zstd",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 45023,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 88084,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 7.975207998242695,
+      "batch_ms": 0.7496371666396348,
+      "batch_samples_ms": [
+        0.7699895832047332,
+        0.7547395831958662,
+        0.7496371666396348,
+        0.7297239581021131,
+        0.7383506666277148
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "blosc-lz4-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 305583,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 348644,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 14.884374999382999,
+      "batch_ms": 0.10017012482421705,
+      "batch_samples_ms": [
+        0.12210241675347788,
+        0.09980208324122941,
+        0.10017012482421705,
+        0.09921875001358178,
+        0.11215970819951811
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-DoorKey-8x8-v0",
+      "backend": "blosc-zstd-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 265796,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 308857,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 163.84950000065146,
+      "build_ms": 22.638166999968234,
+      "batch_ms": 0.15929512483126018,
+      "batch_samples_ms": [
+        0.15929512483126018,
+        0.16673783314521037,
+        0.15307987511429624,
+        0.16415970821981318,
+        0.1550729166410747
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "numpy",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 602112,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 645134,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 0.10954200115520507,
+      "batch_ms": 0.006335083223045028,
+      "batch_samples_ms": [
+        0.006694458231019477,
+        0.006010416655044537,
+        0.006335083223045028,
+        0.006302083420450799,
+        0.006814208366752912
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "packed4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": null,
+      "image_bytes": 301056,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 344078,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 0.10795900016091764,
+      "batch_ms": 0.05966145848409118,
+      "batch_samples_ms": [
+        0.05684895828987161,
+        0.05771008333492015,
+        0.06960591660269226,
+        0.05966145848409118,
+        0.060272583141340874
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "blosc-lz4",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 79728,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 122750,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 1.1064169957535341,
+      "batch_ms": 0.5668802083770667,
+      "batch_samples_ms": [
+        0.5772239583166083,
+        0.5668802083770667,
+        0.5606788333049432,
+        0.5650208334676184,
+        0.5694965417812151
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "blosc-zstd",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 32,
+      "image_bytes": 36600,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 79622,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 7.941124997159932,
+      "batch_ms": 0.7152882083876951,
+      "batch_samples_ms": [
+        0.7448576667835974,
+        0.7010781249240002,
+        0.7152882083876951,
+        0.7193888750407496,
+        0.6731666665776478
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "blosc-lz4-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 292513,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 335535,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 15.237667001201771,
+      "batch_ms": 0.10288716657669283,
+      "batch_samples_ms": [
+        0.11681600002096577,
+        0.10288716657669283,
+        0.09901912502148964,
+        0.09864933326753089,
+        0.11549649995383031
+      ],
+      "exact": true
+    },
+    {
+      "env": "MiniGrid-FourRooms-v0",
+      "backend": "blosc-zstd-single",
+      "transitions": 2048,
+      "image_shape": [
+        7,
+        7,
+        3
+      ],
+      "chunk_transitions": 1,
+      "image_bytes": 253176,
+      "dense_image_bytes": 602112,
+      "total_payload_bytes": 296198,
+      "common_metadata_bytes": 43008,
+      "terminated": 0,
+      "truncated": 32,
+      "mission_count": 1,
+      "collection_ms": 194.37958300113678,
+      "build_ms": 22.315542002615985,
+      "batch_ms": 0.16594791668467224,
+      "batch_samples_ms": [
+        0.1732013752189232,
+        0.15370312515491,
+        0.16657116672528596,
+        0.16594791668467224,
+        0.14815975009696558
+      ],
+      "exact": true
+    }
+  ]
+}
