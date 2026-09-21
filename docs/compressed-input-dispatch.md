@@ -71,3 +71,48 @@ All 60 cells × five policies × eleven repeats passed equality and source guard
 Run `python -m benchmarks.compressed_input_dispatch --output docs/compressed-input-dispatch-results.json`. No production source was edited during this experiment.
 
 After the original measurement, the harness gained a typed direct-container candidate differing only by `cast(bytes, values)` in the exact-bytes branch, plus `--cast-only` to omit helper microbenchmarks. Tests normalize the adopted typed write block before constructing the variants. The historical JSON and its recorded harness hash remain untouched; this maintenance changes the current script hash.
+
+## Typed adopted policy versus earlier policies
+
+The second, write-only experiment includes the original `ef925f5`, helper-fastpath `6ea92e7`, untyped direct-container policy, and adopted typed policy in the same eleven-repeat randomized comparison. The typed policy differs from the untyped one only by `cast(bytes, values)` on exact bytes. It uses the current frozen native extension, including the byte-aligned assignment optimization. There is no cross-run ratio chaining.
+
+Median nanoseconds per write, with one flush after 128 alternating changes:
+
+| Input | Width | Original | Prior helper | Direct untyped | Direct typed |
+|---|---:|---:|---:|---:|---:|
+| bytes | 1 | 870.8 | 711.3 | 699.2 | 718.4 |
+| bytearray | 1 | 871.1 | 877.3 | 889.6 | 890.6 |
+| memoryview | 1 | 844.7 | 856.4 | 868.2 | 863.0 |
+| list | 1 | 1052.7 | 1067.7 | 751.0 | 744.5 |
+| tuple | 1 | 1056.3 | 1072.6 | 757.8 | 762.0 |
+| generator | 1 | 1186.5 | 1190.1 | 1204.8 | 1206.4 |
+| bytes | 16 | 897.8 | 745.4 | 750.6 | 759.8 |
+| bytearray | 16 | 881.8 | 895.2 | 907.2 | 909.8 |
+| memoryview | 16 | 861.6 | 877.0 | 887.7 | 887.4 |
+| list | 16 | 1131.8 | 1148.8 | 803.7 | 803.1 |
+| tuple | 16 | 1129.2 | 1149.4 | 804.4 | 808.6 |
+| generator | 16 | 1500.3 | 1518.9 | 1538.4 | 1533.9 |
+| bytes | 64 | 1011.7 | 863.9 | 846.4 | 873.0 |
+| bytearray | 64 | 1013.7 | 1027.7 | 1035.5 | 1038.4 |
+| memoryview | 64 | 1013.0 | 1019.9 | 1035.2 | 1029.6 |
+| list | 64 | 1442.1 | 1439.1 | 1069.7 | 1068.4 |
+| tuple | 64 | 1412.8 | 1417.3 | 1029.6 | 1032.6 |
+| generator | 64 | 2527.3 | 2542.3 | 2547.9 | 2554.7 |
+| bytes | 256 | 1490.6 | 1329.8 | 1291.0 | 1331.7 |
+| bytearray | 256 | 1439.5 | 1453.8 | 1454.8 | 1454.4 |
+| memoryview | 256 | 1434.2 | 1422.9 | 1446.6 | 1444.3 |
+| list | 256 | 2434.2 | 2440.8 | 1922.5 | 1926.8 |
+| tuple | 256 | 2493.2 | 2436.5 | 1830.4 | 1830.7 |
+| generator | 256 | 6627.0 | 6574.9 | 6620.4 | 6576.8 |
+| bytes | 4096 | 9460.3 | 9318.0 | 9307.3 | 9487.0 |
+| bytearray | 4096 | 9526.0 | 9406.9 | 9481.4 | 9562.5 |
+| memoryview | 4096 | 9375.3 | 9542.3 | 9613.9 | 9425.5 |
+| list | 4096 | 22836.6 | 22687.2 | 19644.5 | 19653.3 |
+| tuple | 4096 | 23115.2 | 22720.4 | 17329.4 | 17300.1 |
+| generator | 4096 | 88878.3 | 88603.2 | 88635.4 | 89499.3 |
+
+Compared directly with the prior helper-fastpath policy, typed dispatch improves lists 13.4–30.3% and tuples 23.9–29.7%. The same run shows bytes 0.15–1.92% slower, bytearray 0.05–1.65% slower, memoryview from 1.22% faster to 1.51% slower, and generators 0.03–1.37% slower. This is a deliberate list/tuple improvement with small measured costs elsewhere, not a universal speedup.
+
+The typed versus untyped bytes difference is 1.2–3.2%; at widths up to 256 it is about 9–41 ns per write. The 4,096-byte row differs by about 180 ns against a roughly 9.4 µs operation, so that absolute delta cannot all be assigned confidently to the one cast call. Against the original pre-fastpath baseline, adopted bytes dispatch still improves widths up to 256 by 10.7–17.5%, while the 4,096-byte row is 0.28% slower. All source guards and exact-output checks pass across 30 cases × four policies × eleven repeats.
+
+Reproduce with `python -m benchmarks.compressed_input_dispatch --cast-only --output docs/compressed-input-dispatch-typed-results.json`. [Typed-policy raw samples and provenance](compressed-input-dispatch-typed-results.json) are separate from the unchanged historical artifact. No further production changes are part of this experiment.
