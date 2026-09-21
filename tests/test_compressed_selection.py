@@ -1,6 +1,7 @@
 """Compare allocation-free selection against exhaustively materialized candidates."""
 
 import random
+from itertools import groupby
 
 import pytest
 
@@ -30,4 +31,11 @@ def test_selection_matches_exhaustive_storage(palette):
                     bits=(len(colors) - 1).bit_length(),
                 )
                 sizes.append(indices.nbytes + len(colors))
+            run_size = sum(
+                1 + max(1, ((len(list(group)) - 1).bit_length() + 6) // 7)
+                for _, group in groupby(raw)
+            )
+            if palette and (len(colors) - 1).bit_length() < direct.bits:
+                run_size += len(colors)
+            sizes.append(run_size)
             assert result.storage_info().stored_bytes == min(sizes)

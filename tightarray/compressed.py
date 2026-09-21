@@ -51,6 +51,10 @@ class _Filters(Protocol):
 
 class _Native(Protocol):
     def _byte_palette(self, raw: bytes, /) -> bytes: ...
+    def _rle_encode(
+        self, raw: bytes, limit: int, palette: bytes = b""
+    ) -> bytes | None: ...
+    def _rle_decode(self, payload: bytes, length: int) -> bytes: ...
 
     def _Hot(self, data: Array, palette: bytes = b"", dirty: bool = False) -> _Hot: ...
 
@@ -95,6 +99,7 @@ class StorageInfo:
     uniform_chunks: int
     palette_chunks: int
     compressed_chunks: int
+    rle_chunks: int
     cache_hits: int
     cache_misses: int
     evictions: int
@@ -172,7 +177,7 @@ def _restore(payload: bytes, length: int, bits: _Bits) -> Array:
 class CompressedArray:
     """Fixed-length logical uint8 array with adaptive per-chunk compression.
 
-    Each cold chunk chooses uniform, direct bit packing, or local palette packing.
+    Each cold chunk chooses uniform, bit packing, local palette packing, or runs.
     Optional Blosc2 LZ4/ZSTD also tries compressed packed and uint8 bytes. Only a
     smaller candidate is retained. Physical widths adapt silently; values outside
     uint8 always fail. Slices/read return independent bytes, never mutable views.
@@ -294,14 +299,31 @@ class CompressedArray:
         if len(colors) == 1:
             return raw[0]
         direct_bits = _bits(colors[-1])
+        direct_size = ((len(raw) * direct_bits + 63) // 64) * 8
+        palette_bits = _bits(len(colors) - 1)
+        palette_size = ((len(raw) * palette_bits + 63) // 64) * 8 + len(colors)
+        run_palette = colors if self._palette and palette_bits < direct_bits else b""
+        best_size = min(direct_size, len(raw))
+        if run_palette:
+            best_size = min(best_size, palette_size)
+        # Stop scanning as soon as runs cannot beat the best uncompressed form.
+        # Retain the decode palette so cache misses never need to rediscover it.
+        run_payload = _native._rle_encode(
+            raw, best_size - len(run_palette), run_palette
+        )
+        run_record = None
+        if run_payload is not None:
+            run_bits = palette_bits if run_palette else direct_bits
+            run_record = (
+                bytes((64 | run_bits, len(run_palette))) + run_palette + run_payload
+            )
         if self._blosc is None:
+            if run_record is not None:
+                return run_record
             # Packed lengths are known before allocation. Preserve the exhaustive
             # candidate ordering on ties without constructing discarded arrays.
-            direct_size = ((len(raw) * direct_bits + 63) // 64) * 8
             mode: _Mode = "packed" if direct_size <= len(raw) else "bytes"
             best_size = min(direct_size, len(raw))
-            palette_bits = _bits(len(colors) - 1)
-            palette_size = ((len(raw) * palette_bits + 63) // 64) * 8 + len(colors)
             if (
                 self._palette
                 and palette_bits < direct_bits
@@ -350,7 +372,10 @@ class CompressedArray:
                             True,
                         )
                     )
-        return min(candidates, key=lambda candidate: candidate.nbytes).seal()
+        winner = min(candidates, key=lambda candidate: candidate.nbytes)
+        if run_record is not None and len(run_record) - 2 < winner.nbytes:
+            return run_record
+        return winner.seal()
 
     def _chunk_length(self, index: int) -> int:
         return min(self._chunk_size, self._length - index * self._chunk_size)
@@ -361,6 +386,9 @@ class CompressedArray:
         flags, count = chunk[0], chunk[1]
         bits = cast(_Bits, flags & 15)
         palette = chunk[2 : 2 + count]
+        if flags & 64:
+            raw = _native._rle_decode(chunk[2 + count :], length)
+            return _make_entry(Array(raw, bits=bits), palette)
         if not flags & 48:  # Uncompressed packed storage: copy straight to words.
             return _make_entry(
                 Array._from_packed_bytes(chunk, length, bits, 2 + count), palette
@@ -595,6 +623,11 @@ class CompressedArray:
             sum(bool(chunk[1]) for chunk in self._chunks if isinstance(chunk, bytes)),
             sum(
                 bool(chunk[0] & 16)
+                for chunk in self._chunks
+                if isinstance(chunk, bytes)
+            ),
+            sum(
+                bool(chunk[0] & 64)
                 for chunk in self._chunks
                 if isinstance(chunk, bytes)
             ),
