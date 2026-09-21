@@ -2,7 +2,7 @@
 
 `tightarray.compressed.CompressedArray` is an experimental, fixed-length **uint8**
 container. It combines per-chunk representation choices with a byte-bounded cache
-of mutable packed arrays. It is useful when local alphabets are much smaller than
+of packed arrays and compact cyclic patterns. It is useful when local alphabets are much smaller than
 the global value range, or when a packed working set fits the cache but a uint8
 working set does not. Existing `Array`, Matrix, and Array API behavior is unchanged.
 
@@ -34,7 +34,7 @@ b = CompressedArray([250, 251] * 8192, codec="zstd")  # Or codec="lz4".
 ```
 
 Defaults: `chunk_size=4096`, `cache_bytes=262144`, `codec="none"`, `palette=True`.
-The `none` codec still performs uniform/local-palette/bit-packing/run compression,
+The `none` codec still performs uniform/local-palette/bit-packing/run/periodic compression,
 with no NumPy, Numba, or Blosc2 import. LZ4/ZSTD use optional Blosc2, compression
 level 5 and one thread. The optional Blosc2 4.x extra requires Python 3.11+;
 the no-codec path retains the package's Python 3.10+ requirement. See the upstream
@@ -68,16 +68,24 @@ candidates (not every conceivable encoding):
    stops once it cannot beat the best uncompressed form. With LZ4/ZSTD, all prior
    codec candidates are still evaluated, and uncompressed runs compete with the
    winner (runs are not additionally fed to the codec).
+6. A packed pattern of at most 256 values, plus one byte storing its length minus
+   one. At least two repetitions are required; a partial final repetition is
+   allowed. The shortest exact period is detected in C with bounded scratch.
+   Only a strictly smaller payload plus palette wins. Period records compete
+   with runs and codec candidates without additional entropy compression.
 
 Nonuniform cold chunks retain one bytes object: two private descriptor bytes,
 then palette and payload. The descriptor is included in `owned_bytes` but excluded
 from `stored_bytes`. Uncompressed candidate sizes are calculated before allocating
 the winning representation; codec candidates are still evaluated exhaustively.
 
-A cache hit reads or writes a mutable packed `Array`, translating local palette
-indices where needed. Width/palette changes choose a new compact hot representation
-before replacing the old one. The LRU budget includes each cached packed buffer
-and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes
+A cache hit reads a packed `Array`, translating local palette indices where needed.
+Periodic entries retain only their packed pattern and use cyclic indexing; bulk
+reads expand directly into the requested output. A write materializes a periodic
+entry before modification, so changing one element cannot change other repeats.
+Ordinary entries are mutable. Width/palette changes choose a new compact hot
+representation before replacing the old one. The LRU budget includes each cached
+packed buffer (only the pattern for periodic entries) and its palette. With `cache_bytes=0`, or a chunk larger than that budget, writes
 are immediately encoded and reads use only a temporary decoded chunk.
 
 Cold payload remains allocated while a chunk is cached, even while stale after a
@@ -98,8 +106,9 @@ prefix committed. It is not a transactional store or a thread-safe container.
 - `owned_bytes`: a `sys.getsizeof` estimate of the retained object graph including
   Python chunk/cache metadata and both cold and hot storage, deduplicated by object
   identity. Shared runtime/codec objects and allocator overhead are excluded.
-- `rle_chunks` counts run records; `compressed_chunks` counts Blosc2-compressed
-  records. Palette counts can overlap either. Cache hit/miss/eviction counters
+- `rle_chunks` counts run records; `periodic_chunks` counts short-pattern records;
+  `compressed_chunks` counts Blosc2-compressed records. Palette counts can overlap
+  these formats. Cache hit/miss/eviction counters
   are separate. Direct uniform
   reads bypass cache admission and do not count as hits or misses.
 

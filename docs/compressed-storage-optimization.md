@@ -225,3 +225,45 @@ high-cycle32 and to LZ4 on skew8. ZSTD cold owned size beats dense LZ4 on all 14
 cases and dense ZSTD on 12; cycle31 loses by 42 bytes and high-cycle32 by 413.
 These are storage/cache microbenchmarks, not application E2E. Short repeated
 patterns and skewed distributions remain concrete next targets.
+
+
+## Exact periodic cold and hot storage
+
+Short exact periods (at most 256 values, at least two repetitions, optional partial
+final repetition) now compete with packed/raw/run/codec candidates. Native bounded
+period detection rejects nonperiodic inputs; the winner retains one packed period
+and its optional decode palette. `periodic_chunks` exposes the selected count.
+
+The initial integrated version expanded each period into a full hot chunk. Keeping
+the period itself in the native hot entry removes that expansion and greatly
+increases the number of chunks admitted under the same payload budget. Scalar
+reads use cyclic indexing; bulk reads map one period then copy repeated output.
+Writes materialize ordinary packed storage before modifying it. Failure injection
+checks that a failed write-through encode preserves the original repeated data.
+
+The following medians come from the cyclic-hot 14-case experiment: 1 MiB logical
+inputs, 4096-element chunks, 64 KiB cache, five randomized repeats, one codec
+thread. Global read batches contain 256 scalar accesses starting with empty caches.
+These compare the none codec with dense Blosc2 ZSTD and its matched decoded LRU.
+
+| Case | none cold owned bytes | Dense ZSTD cold owned bytes | none build / global read ms | Dense ZSTD build / global read ms |
+| --- | ---: | ---: | ---: | ---: |
+| high-two-period31 | 14,505 | 48,652 | 1.100 / 0.230 | 3.526 / 1.185 |
+| threebit-period67 | 20,137 | 80,908 | 0.964 / 0.232 | 3.379 / 1.256 |
+| cycle31 | 18,089 | 66,687 | 0.958 / 0.230 | 4.323 / 1.799 |
+| high-cycle32 | 26,281 | 33,292 | 1.211 / 0.232 | 3.066 / 1.272 |
+
+These four cases illustrate the intended periodic workload, not all 14 cases.
+Their hot payload after global reads is 1,630–9,128 bytes, compared with 65,536
+for the dense baseline. Local hot-hit batches remain slower (roughly 0.08 ms
+versus 0.065–0.069 ms), and enabling ZSTD still incurs exhaustive candidate
+compression costs. Failed period probes also add construction work. Retained
+graph sizes are not RSS, and this remains a storage microbenchmark, not E2E.
+
+Validation after integration: CPython 3.12 passed 880 tests; CPython 3.14 passed
+694 with 30 optional-dependency skips. Built-wheel typing checks passed. Native
+period and cyclic-entry checks also passed the targeted ASan/UBSan runs.
+
+Skewed distributions and mixed random/uniform spans remain open targets; the
+[modal candidate analysis](compressed-modal-candidates.md) estimates candidate
+sizes without claiming measured throughput or owned-memory savings.
