@@ -554,7 +554,9 @@ static PyObject *get_base(Array *a, void *c) { PyObject *base=a->owner?a->owner:
 #include "_wire.h"
 #include "_sequence.h"
 #include "_numba.h"
+#include "_compressed.h"
 static PyMethodDef methods[]={
+    {"_from_packed_bytes",(PyCFunction)array_from_packed_bytes,METH_VARARGS|METH_CLASS,NULL},
     {"_word_view",(PyCFunction)array_word_view,METH_NOARGS,NULL},
     {"_rolling_codes",(PyCFunction)array_rolling_codes,METH_VARARGS,NULL},
     {"_hamming_rows",(PyCFunction)array_hamming_rows,METH_VARARGS,NULL},
@@ -597,7 +599,11 @@ static PyTypeObject ArrayType={
 #include "_rows.h"
 #include "_api_storage.h"
 #include "_api_view.h"
-static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1};
+static PyMethodDef module_methods[]={
+    {"_byte_palette",(PyCFunction)compressed_byte_palette,METH_O,NULL},
+    {NULL,NULL,0,NULL}
+};
+static PyModuleDef module={PyModuleDef_HEAD_INIT,.m_name="_core",.m_size=-1,.m_methods=module_methods};
 PyMODINIT_FUNC PyInit__core(void) {
     if(PyType_Ready(&ArrayType)<0 || PyType_Ready(&WordBufferType)<0) return NULL;
     PyObject *m=PyModule_Create(&module); if(!m) return NULL;
