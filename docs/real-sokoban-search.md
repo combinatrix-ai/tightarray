@@ -27,9 +27,19 @@ retry-until-positive-score behavior.
 
 The fixed board, shape and dtype are constant within each search. None of
 these keys is a portable cross-level key format. Sparse indices are limited
-to 65,535 cells. The original solver's visited-state equivalence is preserved;
-this experiment does not repair or change what its search regards as a state.
+to 65,535 cells. The canonical alternatives encode the same fixed-shape board
+values; the recorded searches matched visited counts and outputs on the measured
+interpreter. This is an experimental equivalence check, not a universal guarantee.
 The active solver boards remain NumPy arrays for all comparators.
+
+The original marshal baseline is intentionally unchanged. Its bytes need not be
+canonical for equal board contents: CPython can set a reference flag according to
+the object's reference count ([marshal writer implementation](https://github.com/python/cpython/blob/v3.14.0/Python/marshal.c#L353-L392)).
+Python 3.14 CI exposed this difference between a retained board and a temporary
+copy. Tests require marshal round-trips to preserve the board bytes, while the
+three canonical alternatives also require identical keys for copied boards.
+The actual-search comparison remains the integration check. Historical timings
+and their interpreter provenance are retained without changing the baseline.
 
 ## Result
 
@@ -81,6 +91,6 @@ pytest -q tests/test_real_sokoban_search.py
 
 The upstream integration test skips explicitly if this optional source has not
 been downloaded. The source hash is checked before execution. The standalone
-key-identity test still runs without the upstream checkout.
+key-content test still runs without the upstream checkout.
 
 [All measured results](results/real-sokoban-search.json)
