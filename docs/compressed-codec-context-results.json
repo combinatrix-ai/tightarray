@@ -1,0 +1,449 @@
+{
+  "environment": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.12.8",
+    "blosc2": "4.13.1"
+  },
+  "case_count": 14,
+  "dataset_size": 262144,
+  "chunk": 4096,
+  "seed": 9182,
+  "checks": [
+    {
+      "codec": "lz4",
+      "exact_bytes": true,
+      "variable_length_exact": false,
+      "variable_failure_count": 1061,
+      "variable_failures_sample": [
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 4021,
+          "reuse_bytes": 4089
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 3584,
+          "shuffle": false,
+          "base_bytes": 69,
+          "reuse_bytes": 86
+        },
+        {
+          "length": 1536,
+          "shuffle": false,
+          "base_bytes": 257,
+          "reuse_bytes": 476
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 215,
+          "reuse_bytes": 561
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 2497,
+          "reuse_bytes": 2604
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 1536,
+          "shuffle": false,
+          "base_bytes": 257,
+          "reuse_bytes": 695
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 764,
+          "reuse_bytes": 1021
+        }
+      ],
+      "partial": [
+        {
+          "length": 17,
+          "shuffle": false,
+          "exact": true
+        },
+        {
+          "length": 17,
+          "shuffle": true,
+          "exact": true
+        },
+        {
+          "length": 63,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 63,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 64,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 64,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 65,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 65,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 513,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 513,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 4095,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 4095,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 4096,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 127,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 127,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 8192,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 8192,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 33,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 33,
+          "shuffle": true,
+          "exact": false
+        }
+      ],
+      "pool_by_length": {
+        "contexts": 9,
+        "retained_compressed_bytes": 8655,
+        "retained_logical_bytes": 22528,
+        "python_shallow_bytes": 648,
+        "setup_s": 0.00038858399057062343
+      },
+      "pool_variable_length": {
+        "contexts": 2,
+        "retained_compressed_bytes": 130,
+        "retained_logical_bytes": 66,
+        "python_shallow_bytes": 144,
+        "setup_s": 6.883400055812672e-05
+      }
+    },
+    {
+      "codec": "zstd",
+      "exact_bytes": true,
+      "variable_length_exact": false,
+      "variable_failure_count": 1061,
+      "variable_failures_sample": [
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 1827,
+          "reuse_bytes": 1844
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 3584,
+          "shuffle": false,
+          "base_bytes": 64,
+          "reuse_bytes": 88
+        },
+        {
+          "length": 1536,
+          "shuffle": false,
+          "base_bytes": 261,
+          "reuse_bytes": 489
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 215,
+          "reuse_bytes": 580
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 798,
+          "reuse_bytes": 1087
+        },
+        {
+          "length": 2560,
+          "shuffle": false,
+          "base_bytes": 2592,
+          "reuse_bytes": 2592
+        },
+        {
+          "length": 1536,
+          "shuffle": false,
+          "base_bytes": 261,
+          "reuse_bytes": 716
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "base_bytes": 238,
+          "reuse_bytes": 549
+        }
+      ],
+      "partial": [
+        {
+          "length": 17,
+          "shuffle": false,
+          "exact": true
+        },
+        {
+          "length": 17,
+          "shuffle": true,
+          "exact": true
+        },
+        {
+          "length": 63,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 63,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 64,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 64,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 65,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 65,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 513,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 513,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 4095,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 4095,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 4096,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 4096,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 127,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 127,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 8192,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 8192,
+          "shuffle": true,
+          "exact": false
+        },
+        {
+          "length": 33,
+          "shuffle": false,
+          "exact": false
+        },
+        {
+          "length": 33,
+          "shuffle": true,
+          "exact": false
+        }
+      ],
+      "pool_by_length": {
+        "contexts": 9,
+        "retained_compressed_bytes": 7581,
+        "retained_logical_bytes": 22528,
+        "python_shallow_bytes": 648,
+        "setup_s": 0.0005461240070872009
+      },
+      "pool_variable_length": {
+        "contexts": 2,
+        "retained_compressed_bytes": 130,
+        "retained_logical_bytes": 66,
+        "python_shallow_bytes": 144,
+        "setup_s": 9.245800174539909e-05
+      }
+    }
+  ],
+  "rows": [
+    {
+      "codec": "lz4",
+      "tasks": 2045,
+      "compress2_s": 0.016771957998571452,
+      "reuse_s": 0.01206491699849721,
+      "speedup": 1.3901428414849886,
+      "compress2_samples": [
+        0.016771957998571452,
+        0.048527749997447245,
+        0.02170704199670581,
+        0.01650112500647083,
+        0.01607729100214783,
+        0.025924292000127025,
+        0.01620970800286159
+      ],
+      "reuse_samples": [
+        0.010467374995641876,
+        0.036976250004954636,
+        0.012231082997459453,
+        0.01206491699849721,
+        0.010995917000400368,
+        0.013940292003098875,
+        0.011752750004234258
+      ],
+      "reuse_info": {
+        "contexts": 9,
+        "retained_compressed_bytes": 8655,
+        "retained_logical_bytes": 22528,
+        "python_shallow_bytes": 648,
+        "setup_s": 0.00038858399057062343
+      }
+    },
+    {
+      "codec": "zstd",
+      "tasks": 2045,
+      "compress2_s": 0.10856008299742825,
+      "reuse_s": 0.09970420799800195,
+      "speedup": 1.0888214768187494,
+      "compress2_samples": [
+        0.10856008299742825,
+        0.11003991599864094,
+        0.10232983299647458,
+        0.10273141699872212,
+        0.12162612499378156,
+        0.11441654100053711,
+        0.10328270800528117
+      ],
+      "reuse_samples": [
+        0.10147966599470237,
+        0.09970420799800195,
+        0.09621125000558095,
+        0.09852291599963792,
+        0.10641854200366652,
+        0.11196962499525398,
+        0.09559170799911954
+      ],
+      "reuse_info": {
+        "contexts": 9,
+        "retained_compressed_bytes": 7581,
+        "retained_logical_bytes": 22528,
+        "python_shallow_bytes": 648,
+        "setup_s": 0.0005461240070872009
+      }
+    }
+  ],
+  "peak_rss_process": 76906496,
+  "note": "RSS is whole experiment high-watermark, NOT per-context memory. cbytes excludes opaque C context/workspace. All compared candidate bytes identical => exhaustive size choice unchanged. Setup measured separately, warm timings include update_data+get_chunk copies."
+}
