@@ -76,9 +76,18 @@ static PyObject *compressed_trim_plan(PyObject *module,PyObject *args) {
             if(palette_lower<lower) lower=palette_lower;
         }
         if(8+lower>=limit) continue;
-        uint8_t seen[256]={0},span_colors[256]; unsigned span_count=0;
-        for(Py_ssize_t i=first;i<last;i++) seen[src[i]]=1;
-        for(unsigned v=0;v<256;v++) if(seen[v]) span_colors[span_count++]=(uint8_t)v;
+        /* The omitted edges contain only value, so every other global color
+         * must remain inside. Reuse the trusted complete alphabet; only the
+         * presence of value needs checking, and memchr can stop at its first
+         * occurrence. This also preserves sorted palette/tie ordering. */
+        uint8_t span_colors[256]; unsigned span_count=0;
+        if(memchr(src+first,(int)value,(size_t)span)) {
+            span_count=(unsigned)count;
+            memcpy(span_colors,alphabet,(size_t)count);
+        } else {
+            for(Py_ssize_t i=0;i<count;i++)
+                if(alphabet[i]!=value) span_colors[span_count++]=alphabet[i];
+        }
         if(!span_count) continue;
         unsigned bits=compressed_trim_bits(span_colors[span_count-1]);
         Py_ssize_t size=((span*bits+63)/64)*8, palette_count=0;
