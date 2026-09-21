@@ -1,0 +1,196 @@
+{
+  "rows": [
+    {
+      "mode": "compress2",
+      "arrays": 0,
+      "rss_before": 53215232,
+      "rss_after": 53215232,
+      "rss_delta": 0,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 0,
+      "array_stored_bytes": 0,
+      "rss_after_clear": 53215232
+    },
+    {
+      "mode": "shared",
+      "arrays": 0,
+      "rss_before": 53100544,
+      "rss_after": 53100544,
+      "rss_delta": 0,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 0,
+      "array_stored_bytes": 0,
+      "rss_after_clear": 53100544
+    },
+    {
+      "mode": "compress2",
+      "arrays": 1,
+      "rss_before": 53526528,
+      "rss_after": 53805056,
+      "rss_delta": 278528,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 1263,
+      "array_stored_bytes": 512,
+      "rss_after_clear": 53805056
+    },
+    {
+      "mode": "shared",
+      "arrays": 1,
+      "rss_before": 53608448,
+      "rss_after": 53968896,
+      "rss_delta": 360448,
+      "pool": {
+        "contexts": 2,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 1127,
+        "counters": {
+          "created": 2
+        }
+      },
+      "array_owned_bytes": 1263,
+      "array_stored_bytes": 512,
+      "rss_after_clear": 53968896
+    },
+    {
+      "mode": "compress2",
+      "arrays": 16,
+      "rss_before": 53067776,
+      "rss_after": 53641216,
+      "rss_delta": 573440,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 46968,
+      "array_stored_bytes": 36864,
+      "rss_after_clear": 53641216
+    },
+    {
+      "mode": "shared",
+      "arrays": 16,
+      "rss_before": 53608448,
+      "rss_after": 55803904,
+      "rss_delta": 2195456,
+      "pool": {
+        "contexts": 18,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 45632,
+        "counters": {
+          "created": 18,
+          "reuse": 14
+        }
+      },
+      "array_owned_bytes": 46968,
+      "array_stored_bytes": 36864,
+      "rss_after_clear": 55803904
+    },
+    {
+      "mode": "compress2",
+      "arrays": 100,
+      "rss_before": 53035008,
+      "rss_after": 53837824,
+      "rss_delta": 802816,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 288652,
+      "array_stored_bytes": 226304,
+      "rss_after_clear": 53837824
+    },
+    {
+      "mode": "shared",
+      "arrays": 100,
+      "rss_before": 53379072,
+      "rss_after": 55558144,
+      "rss_delta": 2179072,
+      "pool": {
+        "contexts": 18,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 43627,
+        "counters": {
+          "created": 18,
+          "reuse": 182
+        }
+      },
+      "array_owned_bytes": 288652,
+      "array_stored_bytes": 226304,
+      "rss_after_clear": 55558144
+    },
+    {
+      "mode": "compress2",
+      "arrays": 500,
+      "rss_before": 53215232,
+      "rss_after": 55443456,
+      "rss_delta": 2228224,
+      "pool": {
+        "contexts": 0,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 0,
+        "counters": {}
+      },
+      "array_owned_bytes": 1459652,
+      "array_stored_bytes": 1147904,
+      "rss_after_clear": 55476224
+    },
+    {
+      "mode": "shared",
+      "arrays": 500,
+      "rss_before": 53673984,
+      "rss_after": 56721408,
+      "rss_delta": 3047424,
+      "pool": {
+        "contexts": 18,
+        "busy": 0,
+        "max_contexts": 18,
+        "max_payload": 4096,
+        "idle_retained_chunk_bytes": 43627,
+        "counters": {
+          "created": 18,
+          "reuse": 982
+        }
+      },
+      "array_owned_bytes": 1459652,
+      "array_stored_bytes": 1147904,
+      "rss_after_clear": 56754176
+    }
+  ],
+  "note": "Separate fresh processes. Current RSS includes allocator/native scratch/runtime effects; pool entries <=18 of payload <=4096. Array-owned bytes exclude shared native contexts."
+}

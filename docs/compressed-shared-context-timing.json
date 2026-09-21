@@ -1,0 +1,737 @@
+{
+  "rows": [
+    {
+      "codec": "lz4",
+      "case": "random8",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.024148459000571165,
+        "shared-cold": 0.01967687500291504,
+        "shared-warm": 0.019532459002221003
+      },
+      "samples": {
+        "compress2": [
+          0.02461587499419693,
+          0.024021375000302214,
+          0.024148459000571165
+        ],
+        "shared-cold": [
+          0.02218695799820125,
+          0.01967687500291504,
+          0.019342707993928343
+        ],
+        "shared-warm": [
+          0.019532459002221003,
+          0.01957675000448944,
+          0.019125708000501618
+        ]
+      },
+      "pool_info": {
+        "shared-cold": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 7856,
+          "counters": {
+            "created": 4,
+            "reuse": 2428
+          }
+        },
+        "shared-warm": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 7856,
+          "counters": {
+            "created": 4,
+            "reuse": 3036
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "lz4",
+      "case": "random32",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.023353667005721945,
+        "shared-cold": 0.01898129199980758,
+        "shared-warm": 0.01861879199714167
+      },
+      "samples": {
+        "compress2": [
+          0.023353667005721945,
+          0.023167332998127677,
+          0.02352979099669028
+        ],
+        "shared-cold": [
+          0.019327249996422324,
+          0.01898129199980758,
+          0.018945707997772843
+        ],
+        "shared-warm": [
+          0.02003037500253413,
+          0.01847937500133412,
+          0.01861879199714167
+        ]
+      },
+      "pool_info": {
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-cold": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 8332,
+          "counters": {
+            "created": 3,
+            "reuse": 2301
+          }
+        },
+        "shared-warm": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 8332,
+          "counters": {
+            "created": 3,
+            "reuse": 2877
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "lz4",
+      "case": "local-two",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.042012416997749824,
+        "shared-cold": 0.0350578330035205,
+        "shared-warm": 0.03560237499914365
+      },
+      "samples": {
+        "compress2": [
+          0.042012416997749824,
+          0.04273008400195977,
+          0.0418744999988121
+        ],
+        "shared-cold": [
+          0.0350578330035205,
+          0.035302958996908274,
+          0.03497699999570614
+        ],
+        "shared-warm": [
+          0.03675983299763175,
+          0.03560237499914365,
+          0.03471766699658474
+        ]
+      },
+      "pool_info": {
+        "shared-cold": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 5208,
+          "counters": {
+            "created": 4,
+            "reuse": 3452
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-warm": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 5208,
+          "counters": {
+            "created": 4,
+            "reuse": 4316
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "lz4",
+      "case": "uniform-chunks",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.006222417003300507,
+        "shared-cold": 0.005636542002321221,
+        "shared-warm": 0.005324290999851655
+      },
+      "samples": {
+        "compress2": [
+          0.007095332999597304,
+          0.006222417003300507,
+          0.006152709000161849
+        ],
+        "shared-cold": [
+          0.00569862499833107,
+          0.005636542002321221,
+          0.005553541996050626
+        ],
+        "shared-warm": [
+          0.0055056659984984435,
+          0.005324290999851655,
+          0.005077499998151325
+        ]
+      },
+      "pool_info": {
+        "shared-warm": {
+          "contexts": 6,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 422,
+          "counters": {
+            "created": 6,
+            "reuse": 474
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-cold": {
+          "contexts": 6,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 422,
+          "counters": {
+            "created": 6,
+            "reuse": 378
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "lz4",
+      "case": "runs32",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.031018666995805688,
+        "shared-cold": 0.026647958002286032,
+        "shared-warm": 0.02636908299609786
+      },
+      "samples": {
+        "compress2": [
+          0.031018666995805688,
+          0.031455750002351124,
+          0.030839708000712562
+        ],
+        "shared-cold": [
+          0.027055541999288835,
+          0.026647958002286032,
+          0.026442875001521315
+        ],
+        "shared-warm": [
+          0.026892250003584195,
+          0.02627750000101514,
+          0.02636908299609786
+        ]
+      },
+      "pool_info": {
+        "shared-warm": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 2449,
+          "counters": {
+            "created": 3,
+            "reuse": 2917
+          }
+        },
+        "shared-cold": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 2449,
+          "counters": {
+            "created": 3,
+            "reuse": 2333
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "lz4",
+      "case": "rare-spikes",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.03479908399458509,
+        "shared-cold": 0.027248833001067396,
+        "shared-warm": 0.02741750000132015
+      },
+      "samples": {
+        "compress2": [
+          0.03506950000155484,
+          0.03398958299658261,
+          0.03479908399458509
+        ],
+        "shared-cold": [
+          0.027245792000030633,
+          0.0281364999973448,
+          0.027248833001067396
+        ],
+        "shared-warm": [
+          0.02741750000132015,
+          0.028396333000273444,
+          0.027414292002504226
+        ]
+      },
+      "pool_info": {
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-warm": {
+          "contexts": 9,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 827,
+          "counters": {
+            "created": 9,
+            "reuse": 4206
+          }
+        },
+        "shared-cold": {
+          "contexts": 9,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 827,
+          "counters": {
+            "created": 9,
+            "reuse": 3363
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "random8",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.04767287499998929,
+        "shared-cold": 0.03941845900408225,
+        "shared-warm": 0.03906608399847755
+      },
+      "samples": {
+        "compress2": [
+          0.06387633400299819,
+          0.046292999999423046,
+          0.04767287499998929
+        ],
+        "shared-cold": [
+          0.03941845900408225,
+          0.03897616700123763,
+          0.03955300000234274
+        ],
+        "shared-warm": [
+          0.03845737499796087,
+          0.03906608399847755,
+          0.04013345799467061
+        ]
+      },
+      "pool_info": {
+        "shared-warm": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 6977,
+          "counters": {
+            "created": 4,
+            "reuse": 3036
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-cold": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 6977,
+          "counters": {
+            "created": 4,
+            "reuse": 2428
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "random32",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.0481882090025465,
+        "shared-cold": 0.040231458995549474,
+        "shared-warm": 0.04009741700429004
+      },
+      "samples": {
+        "compress2": [
+          0.0481882090025465,
+          0.04649754200363532,
+          0.04866237500391435
+        ],
+        "shared-cold": [
+          0.040480542003933806,
+          0.04008054199948674,
+          0.040231458995549474
+        ],
+        "shared-warm": [
+          0.03980595900065964,
+          0.041279832999862265,
+          0.04009741700429004
+        ]
+      },
+      "pool_info": {
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-warm": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 8236,
+          "counters": {
+            "created": 3,
+            "reuse": 2877
+          }
+        },
+        "shared-cold": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 8236,
+          "counters": {
+            "created": 3,
+            "reuse": 2301
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "local-two",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.48933220799517585,
+        "shared-cold": 0.4794715840034769,
+        "shared-warm": 0.4814336249983171
+      },
+      "samples": {
+        "compress2": [
+          0.4892559999934747,
+          0.48933220799517585,
+          0.5000776669985498
+        ],
+        "shared-cold": [
+          0.4794715840034769,
+          0.4782744160038419,
+          0.7932822080038022
+        ],
+        "shared-warm": [
+          0.4815022500042687,
+          0.4814336249983171,
+          0.48083649999898626
+        ]
+      },
+      "pool_info": {
+        "shared-cold": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 3043,
+          "counters": {
+            "created": 4,
+            "reuse": 3452
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-warm": {
+          "contexts": 4,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 3043,
+          "counters": {
+            "created": 4,
+            "reuse": 4316
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "uniform-chunks",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.006929832998139318,
+        "shared-cold": 0.006360749997838866,
+        "shared-warm": 0.005933165994065348
+      },
+      "samples": {
+        "compress2": [
+          0.006929832998139318,
+          0.006659957994997967,
+          0.007200958003522828
+        ],
+        "shared-cold": [
+          0.0065617919972282834,
+          0.006360749997838866,
+          0.006195000001753215
+        ],
+        "shared-warm": [
+          0.006074750002881046,
+          0.0056278749980265275,
+          0.005933165994065348
+        ]
+      },
+      "pool_info": {
+        "shared-warm": {
+          "contexts": 6,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 382,
+          "counters": {
+            "created": 6,
+            "reuse": 474
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-cold": {
+          "contexts": 6,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 382,
+          "counters": {
+            "created": 6,
+            "reuse": 378
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "runs32",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.3642272500001127,
+        "shared-cold": 0.3320894999997108,
+        "shared-warm": 0.3275476670023636
+      },
+      "samples": {
+        "compress2": [
+          0.37093929100228706,
+          0.3352826659975108,
+          0.3642272500001127
+        ],
+        "shared-cold": [
+          0.3403513750017737,
+          0.3320894999997108,
+          0.3293681249997462
+        ],
+        "shared-warm": [
+          0.3275476670023636,
+          0.32619687500118744,
+          0.33212416699825553
+        ]
+      },
+      "pool_info": {
+        "shared-cold": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 955,
+          "counters": {
+            "created": 3,
+            "reuse": 2333
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-warm": {
+          "contexts": 3,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 955,
+          "counters": {
+            "created": 3,
+            "reuse": 2917
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    },
+    {
+      "codec": "zstd",
+      "case": "rare-spikes",
+      "arrays": 4,
+      "size": 1048576,
+      "seconds": {
+        "compress2": 0.05514054199738894,
+        "shared-cold": 0.044827457997598685,
+        "shared-warm": 0.04487175000394927
+      },
+      "samples": {
+        "compress2": [
+          0.054853666995768435,
+          0.05514054199738894,
+          0.055509334000817034
+        ],
+        "shared-cold": [
+          0.04409345800377196,
+          0.04540112500399118,
+          0.044827457997598685
+        ],
+        "shared-warm": [
+          0.04487175000394927,
+          0.04359208299865713,
+          0.04505991699988954
+        ]
+      },
+      "pool_info": {
+        "shared-warm": {
+          "contexts": 9,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 684,
+          "counters": {
+            "created": 9,
+            "reuse": 4206
+          }
+        },
+        "compress2": {
+          "contexts": 0,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 0,
+          "counters": {}
+        },
+        "shared-cold": {
+          "contexts": 9,
+          "busy": 0,
+          "max_contexts": 18,
+          "max_payload": 4096,
+          "idle_retained_chunk_bytes": 684,
+          "counters": {
+            "created": 9,
+            "reuse": 3363
+          }
+        }
+      },
+      "exact_cold_chunks": true
+    }
+  ],
+  "note": "Full construction + 32 scalar writes + flush per array. Exact cold chunks checked outside timing; pool setup included in shared-cold, excluded in shared-warm. Pool native memory not included in array-owned storage."
+}
