@@ -1,0 +1,178 @@
+{
+  "baseline": "65c7a89",
+  "source_sha256": {
+    "tightarray/compressed.py": "4ff67f1819d48a5fdd3c1bb639577487281ac250100c74479618ed6afbb94eca",
+    "tightarray/_compressed.h": "01b674de14cbe1590ee469b2404d479722fb2e9fb32023bb6a40e98f83d2ebb8",
+    "tightarray/_compressed_hot.h": "ae36d25740d6a69b0560120f9412993dcf8940423548225c2b02abdc138fe9a4",
+    "tightarray/_compressed_rle.h": "d49a248e5fc3e790ef9a6e516975e5dbf1e5650b070000aeefd0a37e2bec71ec",
+    "tightarray/_compressed_period.h": "30f9739c31baadd53c3b1e3797c1cd8968b83a96408106c506b3964f5b6e54b8",
+    "tightarray/_core.c": "3514e4be319eb83ad385cf6ba0ad6b77c5346530e0eec737f9b4777a1f4ee560",
+    "setup.py": "66e4804fdec08b787bcf6fdabed22776a08780e7775596726b3f7d26160fdfd1",
+    "benchmarks/compressed_storage.py": "da3352063bf93bc809934dec6cf1147c07cc0be0112956efb6cb180d61feb476",
+    "benchmarks/compressed_period_policy.py": "be4ead0f9fd986ae90b7d66d15c63755bbb666857afee700fed7014505335398",
+    "benchmarks/compressed_rle_policy.py": "bae3b3f9130ac0111d5e2fc04fa4a7c387fa9a90ea1cf140c67e79ba1c901ac5",
+    "benchmarks/compressed_codec_policy.py": "4fe24e88cc757a451c6a468645bc40719916f255cea7866d67558d09d1e63d26",
+    "loaded_native_extension": "92ed3c3158674054294a1f721cefc3e5ee2999b9a547eb0d81c051af42e4e226"
+  },
+  "script_sha256": "a6f9584a6e98e225d29ff66f6fd92b8184eb0afae58410b88f9fd3eccf41a691",
+  "seed": 898,
+  "operations": 2000,
+  "repeats": 9,
+  "records": [
+    {
+      "slice": "empty",
+      "samples_ms": {
+        "baseline": [
+          0.693292,
+          0.672416,
+          0.679084,
+          0.685583,
+          0.684209,
+          0.681542,
+          0.688125,
+          0.712125,
+          0.68675
+        ],
+        "current": [
+          1.094208,
+          1.253875,
+          1.1,
+          1.079625,
+          1.086792,
+          1.07875,
+          1.094709,
+          1.166458,
+          1.091
+        ]
+      },
+      "median_ms": {
+        "baseline": 0.685583,
+        "current": 1.094208
+      }
+    },
+    {
+      "slice": "one",
+      "samples_ms": {
+        "baseline": [
+          1.642583,
+          1.646958,
+          1.811917,
+          1.633625,
+          1.631417,
+          1.642,
+          1.631292,
+          1.744084,
+          1.638292
+        ],
+        "current": [
+          2.059833,
+          2.130291,
+          2.088625,
+          2.060625,
+          2.157708,
+          2.056875,
+          2.046583,
+          2.145958,
+          2.071708
+        ]
+      },
+      "median_ms": {
+        "baseline": 1.642,
+        "current": 2.071708
+      }
+    },
+    {
+      "slice": "64",
+      "samples_ms": {
+        "baseline": [
+          1.659625,
+          1.684083,
+          1.676291,
+          1.642416,
+          1.677334,
+          1.629042,
+          1.73825,
+          1.7265,
+          1.712208
+        ],
+        "current": [
+          2.180416,
+          2.180792,
+          2.105,
+          2.200459,
+          2.153625,
+          2.186083,
+          2.140916,
+          2.067125,
+          2.062583
+        ]
+      },
+      "median_ms": {
+        "baseline": 1.677334,
+        "current": 2.153625
+      }
+    },
+    {
+      "slice": "4096",
+      "samples_ms": {
+        "baseline": [
+          4.190584,
+          4.176792,
+          4.1835,
+          4.359542,
+          4.247791,
+          4.189125,
+          4.484291,
+          4.318166,
+          4.218459
+        ],
+        "current": [
+          4.686791,
+          4.767583,
+          4.716375,
+          4.8235,
+          4.639292,
+          5.064833,
+          4.761667,
+          4.795041,
+          4.777625
+        ]
+      },
+      "median_ms": {
+        "baseline": 4.218459,
+        "current": 4.767583
+      }
+    },
+    {
+      "slice": "strided",
+      "samples_ms": {
+        "baseline": [
+          16.551667,
+          16.59475,
+          16.527417,
+          16.587041,
+          16.557625,
+          16.54975,
+          16.67875,
+          16.512375,
+          16.913208
+        ],
+        "current": [
+          15.506375,
+          15.148875,
+          15.275458,
+          15.301417,
+          15.403125,
+          15.231375,
+          15.456292,
+          15.450834,
+          15.235292
+        ]
+      },
+      "median_ms": {
+        "baseline": 16.557625,
+        "current": 15.301417
+      }
+    }
+  ]
+}

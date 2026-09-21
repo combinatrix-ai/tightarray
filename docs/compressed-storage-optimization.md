@@ -373,3 +373,16 @@ Verification: 84 focused storage tests passed on CPython 3.12; CPython 3.14 pass
 Tests cover in-place identity, both palette modes, cache-zero/oversized persistence,
 and failed flush retaining the modified entry. Both benchmark runs verify every
 update after flush, cache clearing, and reload.
+
+
+## Scalar dispatch without a slice penalty
+
+[Three paired dispatch experiments](compressed-scalar-dispatch.md) compared exact
+int specialization, index-first exception fallback and exact-slice-first dispatch.
+The first two improved one path while penalizing other key types or slices. The
+adopted exact-slice check plus a module-level `operator.index` alias improves hot
+scalar batches by roughly 4–11% across exact ints, NumPy ints, index-protocol objects
+and int subclasses, while contiguous slices stay within about 1% of baseline.
+This is a Python dispatch improvement with unchanged storage and cache behavior,
+not evidence of a general application win. The complete artifacts include the
+rejected variants rather than reporting only the favorable path.
