@@ -1,0 +1,157 @@
+{
+  "pygame": "2.5.8",
+  "source": "pygame-ce installed wheel examples/data; no quantization",
+  "scope": "representation sizes only, not RSS, decode timing or engine E2E",
+  "records": [
+    {
+      "asset": "alien1.gif",
+      "sha256": "f16bdea35ce92d56850ad6084e6fd2a18aa3cbc2fe4c3b9a64e70d6bc3acaacc",
+      "shape": [
+        71,
+        80,
+        4
+      ],
+      "colors": 223,
+      "bits": 8,
+      "rgba_bytes": 22720,
+      "uint8_palette_bytes": 6572,
+      "packed_palette_bytes": 6572,
+      "source_file_bytes": 3826
+    },
+    {
+      "asset": "alien2.gif",
+      "sha256": "d0c3e9558cef8c0102cb4a5ded8445282133cc860328426def4adb8e52db4d93",
+      "shape": [
+        71,
+        80,
+        4
+      ],
+      "colors": 222,
+      "bits": 8,
+      "rgba_bytes": 22720,
+      "uint8_palette_bytes": 6568,
+      "packed_palette_bytes": 6568,
+      "source_file_bytes": 3834
+    },
+    {
+      "asset": "alien3.gif",
+      "sha256": "6c50911993903da69d08a21cfad96aa148c776c8b923347413ed928e93c4be60",
+      "shape": [
+        71,
+        80,
+        4
+      ],
+      "colors": 220,
+      "bits": 8,
+      "rgba_bytes": 22720,
+      "uint8_palette_bytes": 6560,
+      "packed_palette_bytes": 6560,
+      "source_file_bytes": 3829
+    },
+    {
+      "asset": "player1.gif",
+      "sha256": "dd94d5586c6779d2aab5fdd1f97d6898f0b463c8d448f1a01c10337868675787",
+      "shape": [
+        61,
+        90,
+        4
+      ],
+      "colors": 176,
+      "bits": 8,
+      "rgba_bytes": 21960,
+      "uint8_palette_bytes": 6194,
+      "packed_palette_bytes": 6200,
+      "source_file_bytes": 3470
+    },
+    {
+      "asset": "bomb.gif",
+      "sha256": "4d9eb440fd52d9004de903cd4aa0704b957279b640f778aef193145f3120d900",
+      "shape": [
+        24,
+        16,
+        4
+      ],
+      "colors": 231,
+      "bits": 8,
+      "rgba_bytes": 1536,
+      "uint8_palette_bytes": 1308,
+      "packed_palette_bytes": 1308,
+      "source_file_bytes": 1170
+    },
+    {
+      "asset": "shot.gif",
+      "sha256": "6c5d9e63adbdcd0cef0eef3700aa6f79216126ae46e10a4e13df00d2dbdb3c52",
+      "shape": [
+        18,
+        9,
+        4
+      ],
+      "colors": 9,
+      "bits": 4,
+      "rgba_bytes": 648,
+      "uint8_palette_bytes": 198,
+      "packed_palette_bytes": 124,
+      "source_file_bytes": 129
+    },
+    {
+      "asset": "explosion1.gif",
+      "sha256": "59871dc1b66a99875a69a3d8162479be46b4027a781789e7365a524b1ff5c6e8",
+      "shape": [
+        90,
+        90,
+        4
+      ],
+      "colors": 234,
+      "bits": 8,
+      "rgba_bytes": 32400,
+      "uint8_palette_bytes": 9036,
+      "packed_palette_bytes": 9040,
+      "source_file_bytes": 6513
+    },
+    {
+      "asset": "background.gif",
+      "sha256": "fb7919c2df7d3055016c1a3e907bcf65756516b481df85d5350596c5f1dbf7bd",
+      "shape": [
+        480,
+        126,
+        4
+      ],
+      "colors": 233,
+      "bits": 8,
+      "rgba_bytes": 241920,
+      "uint8_palette_bytes": 61412,
+      "packed_palette_bytes": 61412,
+      "source_file_bytes": 9133
+    },
+    {
+      "asset": "brick.png",
+      "sha256": "2bf9ac84ad1a2fcd67cce8c0a2b4d7c8fa6cea7f66be87cb78e5855c5a558d80",
+      "shape": [
+        137,
+        469,
+        4
+      ],
+      "colors": 2,
+      "bits": 1,
+      "rgba_bytes": 257012,
+      "uint8_palette_bytes": 64261,
+      "packed_palette_bytes": 8040,
+      "source_file_bytes": 170
+    },
+    {
+      "asset": "city.png",
+      "sha256": "73436eda8ef1ed09af18c0e60c268f9e1bc9f2d3cdba0b8a2a923f67e35f438d",
+      "shape": [
+        24,
+        24,
+        4
+      ],
+      "colors": 2,
+      "bits": 1,
+      "rgba_bytes": 2304,
+      "uint8_palette_bytes": 584,
+      "packed_palette_bytes": 80,
+      "source_file_bytes": 143
+    }
+  ]
+}
