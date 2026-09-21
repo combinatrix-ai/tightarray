@@ -18,7 +18,7 @@ import tightarray.compressed as live
 from benchmarks.compressed_codec_policy import extras
 from benchmarks.compressed_trimmed_policy import guards, retained_graph_bytes
 
-BASELINES = {"base": "d90c7dd"}
+BASELINES = {"base": "d90c7dd", "native": "440f9a0"}
 
 
 @contextmanager
@@ -120,7 +120,6 @@ def run(size=2**20, repeats=5):
     try:
         harness.Store.info = graph_info
         with baselines() as (classes, hashes):
-            classes["native"] = original
             for name, data in all_cases(size):
                 operations = harness.traces(data, 4096)
                 methods = [
@@ -168,7 +167,7 @@ def run(size=2**20, repeats=5):
         "repeats": repeats,
         "seeds": {"dataset": 812, "adverse": 681, "order": 724, "traces": 914},
         "records": records,
-        "scope": "Pinned d90c7dd Python/current native vs live header pruning; none/LZ4/ZSTD. Exact cold records initially and after updates/flush; decoded contents/cache bounds checked. Compression call counters are a separate untimed pass. Retained graph is not RSS and excludes runtime/scratch. MIN_HEADER_LENGTH lower bound only; no compression-quality heuristic.",
+        "scope": "Pinned d90c7dd and440f9a0 Python with current native extension; none/LZ4/ZSTD. Exact cold records initially and after updates/flush; decoded contents/cache bounds checked. Compression call counters are a separate untimed pass. Retained graph is not RSS and excludes runtime/scratch. MIN_HEADER_LENGTH lower bound only; no compression-quality heuristic.",
     }
 
 

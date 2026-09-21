@@ -106,3 +106,10 @@ and strict comparison, not on these benchmark outcomes.
 python -m benchmarks.compressed_header_pruning --output /tmp/header-pruning.json
 pytest -q tests/test_compressed_header_pruning.py
 ```
+
+Historical reproduction now pins the optimized Python class to `440f9a0` as
+well as the predecessor. The original run used the equivalent live source at
+that commit; its JSON and hashes remain unchanged. This later harness-only
+refactor prevents unrelated future encoder changes from invalidating the exact
+record comparison. Both pinned classes still use the currently built native
+extension, whose hash is recorded on each new run.
