@@ -1,0 +1,203 @@
+{
+  "rows": [
+    {
+      "case": "random8",
+      "proposed_encoded_bytes": {
+        "trim": 395264,
+        "bitmap": 475128,
+        "rle_bitmap": 586561
+      },
+      "current_encoded_bytes": {
+        "runs-none": 393728,
+        "runs-zstd": 393728,
+        "dense-zstd": 408831
+      },
+      "best_proposed_perchunk_bytes": 395264
+    },
+    {
+      "case": "random32",
+      "proposed_encoded_bytes": {
+        "trim": 657408,
+        "bitmap": 765224,
+        "rle_bitmap": 710404
+      },
+      "current_encoded_bytes": {
+        "runs-none": 655872,
+        "runs-zstd": 655872,
+        "dense-zstd": 670975
+      },
+      "best_proposed_perchunk_bytes": 657408
+    },
+    {
+      "case": "local-two",
+      "proposed_encoded_bytes": {
+        "trim": 133632,
+        "bitmap": 198856,
+        "rle_bitmap": 592136
+      },
+      "current_encoded_bytes": {
+        "runs-none": 132096,
+        "runs-zstd": 132096,
+        "dense-zstd": 246132
+      },
+      "best_proposed_perchunk_bytes": 133632
+    },
+    {
+      "case": "uniform-chunks",
+      "proposed_encoded_bytes": {
+        "trim": 0,
+        "bitmap": 0,
+        "rle_bitmap": 0
+      },
+      "current_encoded_bytes": {
+        "runs-none": 0,
+        "runs-zstd": 0,
+        "dense-zstd": 17955
+      },
+      "best_proposed_perchunk_bytes": 0
+    },
+    {
+      "case": "runs32",
+      "proposed_encoded_bytes": {
+        "trim": 656760,
+        "bitmap": 744416,
+        "rle_bitmap": 620397
+      },
+      "current_encoded_bytes": {
+        "runs-none": 63994,
+        "runs-zstd": 63994,
+        "dense-zstd": 68725
+      },
+      "best_proposed_perchunk_bytes": 620397
+    },
+    {
+      "case": "rare-spikes",
+      "proposed_encoded_bytes": {
+        "trim": 200337,
+        "bitmap": 131520,
+        "rle_bitmap": 8235
+      },
+      "current_encoded_bytes": {
+        "runs-none": 7590,
+        "runs-zstd": 7590,
+        "dense-zstd": 26470
+      },
+      "best_proposed_perchunk_bytes": 8156
+    },
+    {
+      "case": "high-two-period31",
+      "proposed_encoded_bytes": {
+        "trim": 133632,
+        "bitmap": 192768,
+        "rle_bitmap": 603788
+      },
+      "current_encoded_bytes": {
+        "runs-none": 132096,
+        "runs-zstd": 20243,
+        "dense-zstd": 37376
+      },
+      "best_proposed_perchunk_bytes": 133632
+    },
+    {
+      "case": "threebit-period67",
+      "proposed_encoded_bytes": {
+        "trim": 395264,
+        "bitmap": 462848,
+        "rle_bitmap": 645728
+      },
+      "current_encoded_bytes": {
+        "runs-none": 393728,
+        "runs-zstd": 67328,
+        "dense-zstd": 69632
+      },
+      "best_proposed_perchunk_bytes": 395264
+    },
+    {
+      "case": "cycle31",
+      "proposed_encoded_bytes": {
+        "trim": 657408,
+        "bitmap": 768000,
+        "rle_bitmap": 705808
+      },
+      "current_encoded_bytes": {
+        "runs-none": 655872,
+        "runs-zstd": 55552,
+        "dense-zstd": 55411
+      },
+      "best_proposed_perchunk_bytes": 657408
+    },
+    {
+      "case": "high-cycle32",
+      "proposed_encoded_bytes": {
+        "trim": 665600,
+        "bitmap": 775936,
+        "rle_bitmap": 711168
+      },
+      "current_encoded_bytes": {
+        "runs-none": 664064,
+        "runs-zstd": 22528,
+        "dense-zstd": 22016
+      },
+      "best_proposed_perchunk_bytes": 665600
+    },
+    {
+      "case": "half-random-half-zero",
+      "proposed_encoded_bytes": {
+        "trim": 329728,
+        "bitmap": 451736,
+        "rle_bitmap": 353631
+      },
+      "current_encoded_bytes": {
+        "runs-none": 655872,
+        "runs-zstd": 343550,
+        "dense-zstd": 346881
+      },
+      "best_proposed_perchunk_bytes": 329728
+    },
+    {
+      "case": "changing-high-alphabet",
+      "proposed_encoded_bytes": {
+        "trim": 488266,
+        "bitmap": 576978,
+        "rle_bitmap": 682735
+      },
+      "current_encoded_bytes": {
+        "runs-none": 486730,
+        "runs-zstd": 483874,
+        "dense-zstd": 493736
+      },
+      "best_proposed_perchunk_bytes": 488266
+    },
+    {
+      "case": "skew8",
+      "proposed_encoded_bytes": {
+        "trim": 395192,
+        "bitmap": 212608,
+        "rle_bitmap": 418179
+      },
+      "current_encoded_bytes": {
+        "runs-none": 393728,
+        "runs-zstd": 240274,
+        "dense-zstd": 250385
+      },
+      "best_proposed_perchunk_bytes": 212608
+    },
+    {
+      "case": "periodic-sparse-high",
+      "proposed_encoded_bytes": {
+        "trim": 932332,
+        "bitmap": 161792,
+        "rle_bitmap": 88410
+      },
+      "current_encoded_bytes": {
+        "runs-none": 133664,
+        "runs-zstd": 60045,
+        "dense-zstd": 112109
+      },
+      "best_proposed_perchunk_bytes": 88410
+    }
+  ],
+  "chunk": 4096,
+  "size": 1048576,
+  "note": "Explicit size arithmetic. Existing runs baselines include +2 descriptor bytes/nonuniform chunk; dense codec headers already in storedbytes. Proposed headers8/8/11 bytes include default,bits,palettecount and uint16 metadata. Packed values round to8-byte words. Palette bytes included. No codecs applied to proposed formats; no native implementation or time benchmark. Uniform payload0 retained existing scalar representation."
+}
