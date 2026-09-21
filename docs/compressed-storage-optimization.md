@@ -96,3 +96,18 @@ of the prior 0.112–0.117 ms range. Dense ZSTD measures 0.068–0.074 ms in the
 run, so the hot path still does not win. Uniform local reads are 0.063 ms.
 This is an independent run; the uniform global timing is noisy (0.152 ms median)
 and no broad uniform-path speedup is claimed.
+
+## Restoring packed data without a temporary payload copy
+
+The private native restore helper now accepts a byte offset into an immutable
+source. Uncompressed packed cold chunks copy directly from the sealed record to
+owned words, avoiding a temporary payload bytes slice. Compressed and raw-byte
+representations retain their existing decode paths. Offset bounds, remaining
+length, integer overflow and tail normalization are validated in C.
+
+[The offset run](compressed-storage-offset-results.json) records the same full
+84-row suite. Main nonuniform none global reads fall from 0.324–0.587 ms in the
+hot-dispatch run to 0.303–0.516 ms, depending on dataset. Random8 with a zero-byte
+cache measures 0.273 vs 0.367 ms; at 16 KiB chunks it measures 0.460 vs 0.618 ms.
+Not every configuration improves (local-two 16 KiB is essentially unchanged).
+Uniform chunks do not use this path; their differences are run-to-run noise.

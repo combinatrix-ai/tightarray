@@ -358,7 +358,10 @@ class CompressedArray:
             return _Hot(Array(bytes(length), bits=1), bytes([chunk]))
         flags, count = chunk[0], chunk[1]
         bits = cast(_Bits, flags & 15)
-        palette, payload = chunk[2 : 2 + count], chunk[2 + count :]
+        palette = chunk[2 : 2 + count]
+        if not flags & 48:  # Uncompressed packed storage: copy straight to words.
+            return _Hot(Array._from_packed_bytes(chunk, length, bits, 2 + count), palette)
+        payload = chunk[2 + count :]
         raw = self._decompress(payload) if flags & 16 else payload
         if flags & 32:
             if len(raw) != length:
