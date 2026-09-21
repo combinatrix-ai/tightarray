@@ -204,6 +204,13 @@ def _raw(data: Array) -> bytes:
     return view.tobytes()
 
 
+def _direct_payload(raw: bytes, bits: _Bits) -> bytes:
+    if bits == 8:
+        # Packed storage rounds to whole words, with zero-filled tail lanes.
+        return raw if len(raw) % 8 == 0 else raw + bytes((-len(raw)) % 8)
+    return _raw(Array(raw, bits=bits))
+
+
 def _restore(payload: bytes, length: int, bits: _Bits) -> Array:
     # _from_word_bytes is a different, word-aligned big-endian wire format.
     return Array._from_packed_bytes(payload, length, bits)
@@ -434,17 +441,21 @@ class CompressedArray:
                 return _Chunk(
                     len(raw), "packed", palette_bits, colors, _raw(indices)
                 ).seal()
-            payload = _raw(Array(raw, bits=direct_bits)) if mode == "packed" else raw
+            payload = _direct_payload(raw, direct_bits) if mode == "packed" else raw
             return _Chunk(len(raw), mode, direct_bits, payload=payload).seal()
-        direct = Array(raw, bits=direct_bits, layout="packed")
         candidates = [
-            _Chunk(len(raw), "packed", cast(_Bits, direct.bits), payload=_raw(direct)),
-            _Chunk(len(raw), "bytes", cast(_Bits, direct.bits), payload=raw),
+            _Chunk(
+                len(raw),
+                "packed",
+                direct_bits,
+                payload=_direct_payload(raw, direct_bits),
+            ),
+            _Chunk(len(raw), "bytes", direct_bits, payload=raw),
         ]
         if self._palette and len(colors) < 256:
             palette_bits = _bits(len(colors) - 1)
             # A palette can save bits only when its index width is narrower.
-            if palette_bits < direct.bits:
+            if palette_bits < direct_bits:
                 translation = bytearray(256)
                 for index, color in enumerate(colors):
                     translation[color] = index

@@ -66,6 +66,7 @@ jobs:
             tests/test_compressed.py \
             tests/test_compressed_buffers.py \
             tests/test_compressed_codec_bound.py \
+            tests/test_compressed_direct8_reuse.py \
             tests/test_compressed_hot_native.py \
             tests/test_compressed_hot_reads.py \
             tests/test_compressed_hot_write_native.py \

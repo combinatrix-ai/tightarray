@@ -1,8 +1,13 @@
 # Direct8 candidate payload reuse
 
-This isolated prototype loads baseline `99377a7` and a modified copy of the same Python source against the same native binary. Production files are unchanged. The candidate replaces `Array(raw, bits=8)` plus `_raw` with the original immutable bytes when length is divisible by eight, or a single zero-padded bytes result otherwise. Packed/raw candidate order, bit width, palette selection, compression filters, pruning and ties are preserved. Narrow packed candidates still use Array packing.
+This isolated prototype loads baseline `99377a7` and a modified copy of the same Python source against the same native binary. Production was unchanged during measurement; the measured transformation was subsequently adopted with a typed helper. The candidate replaces `Array(raw, bits=8)` plus `_raw` with the original immutable bytes when length is divisible by eight, or a single zero-padded bytes result otherwise. Packed/raw candidate order, bit width, palette selection, compression filters, pruning and ties are preserved. Narrow packed candidates still use Array packing.
 
 Eight tests compare exact sealed outputs and every compression payload/filter call for both palette settings, all three codecs, lengths 1–80, random widths, and periodic/run/trim cases. Separate checks establish identity reuse and exact word padding. All passed, as did Ruff. After production adopted the typed helper, the tests load current source and reconstruct an Array-packing oracle by reversing helper calls; this keeps correctness coverage independent of Git history. Injection is idempotent. Optional codec tests skip when Blosc2 is unavailable.
+
+Integrated validation: CPython 3.12 full suite 1238 passed; CPython 3.14
+936 passed, 76 skipped (optional dependencies absent); official typing checks
+and strict mypy on `tightarray/compressed.py` passed. The exact-output tests
+are included in the storage-pilots CI job. No native source or binary changed.
 
 The corrected run uses 11 randomized paired repeats of 100 operations per case. Encode and one-chunk construction are measured separately. Update measurements alternate a precomputed changed 16-byte piece (each original byte XOR 1) and the original piece, flushing after every update; every iteration changes values. Final logical values and cold bytes are verified against the baseline encoder. This is a synthetic microbenchmark, not an application E2E result. Compression remains clevel5, typesize1, nthreads1, NOFILTER for packed and BITSHUFFLE for dense bytes.
 
