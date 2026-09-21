@@ -111,3 +111,27 @@ hot-dispatch run to 0.303–0.516 ms, depending on dataset. Random8 with a zero-
 cache measures 0.273 vs 0.367 ms; at 16 KiB chunks it measures 0.460 vs 0.618 ms.
 Not every configuration improves (local-two 16 KiB is essentially unchanged).
 Uniform chunks do not use this path; their differences are run-to-run noise.
+
+## Reusing Blosc2 codec contexts (not adopted)
+
+The [portable context experiment](../benchmarks/compressed_codec_context.py)
+compares 2,045 actual candidates across 14 distributions in seven paired,
+randomized repetitions. A reusable SChunk per codec/filter/payload-length preserves
+compressed bytes and decoded contents in this set. Candidate compression time
+falls from 16.77 to 12.06 ms for LZ4 (1.39x) and from 108.56 to 99.70 ms for ZSTD
+(1.09x). Context creation costs approximately 0.39/0.55 ms separately. See
+[raw timing results](compressed-codec-context-results.json).
+
+Reusing just one slot per filter across varying lengths changes output in
+1,061/2,045 candidates, sometimes changing compressed size. That shortcut is
+rejected. These are observed equivalence results for length-keyed pools, not an
+upstream guarantee for every future codec version.
+
+[Fresh-process RSS measurements](compressed-codec-context-memory.json) show why
+unconditional per-array pooling is not adopted: 100 nine-context pools increase
+RSS by approximately 51.33 MB for LZ4 and 128.37 MB for ZSTD (0.51/1.28 MB per pool).
+A 256 MiB safety guard stops larger runs. Native context memory dwarfs retained
+compressed scratch payload. Clearing pools and collecting does not lower RSS;
+allocator retention means this is not evidence of a live-object leak. A bounded
+shared scratch pool could amortize cost, but needs separate concurrency, lifetime,
+parameter-isolation and whole-operation/RSS evaluation before adoption.
