@@ -584,15 +584,12 @@ class CompressedArray:
     def __getitem__(self, key: slice, /) -> bytes: ...
 
     def __getitem__(self, key: SupportsIndex | slice, /) -> int | bytes:
-        try:
-            position = _index_value(key)
-        except TypeError:
-            if not isinstance(key, slice):
-                raise
+        if type(key) is slice:
             start, stop, step = key.indices(self._length)
             if step == 1:
                 return self.read(start, max(start, stop))
             return bytes(self[index] for index in range(start, stop, step))
+        position = _index_value(key)
         if position < 0:
             position += self._length
         if not 0 <= position < self._length:
