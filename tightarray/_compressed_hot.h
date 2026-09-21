@@ -130,6 +130,37 @@ static PyObject *compressed_hot_read(CompressedHot *hot,PyObject *args,PyObject 
     }
     return out;
 }
+#ifndef TIGHTARRAY_BULK_WRITE_THRESHOLD
+#define TIGHTARRAY_BULK_WRITE_THRESHOLD 16
+#endif
+/* All source values have been validated. Pack only complete byte spans;
+ * scalar edges preserve neighboring elements and word-padding layouts. */
+static void compressed_hot_write_blocks(Array *data,Py_ssize_t relative,
+                                         const uint8_t *src,Py_ssize_t count,
+                                         const uint16_t *inverse) {
+    Py_ssize_t i=0;
+    while(i<count && (((data->start+(size_t)relative+(size_t)i)&7)*data->bits&7)) {
+        put(data,(size_t)(relative+i),inverse?(uint8_t)inverse[src[i]]:src[i]); i++;
+    }
+    Py_ssize_t body=(count-i)/8*8;
+    uint8_t *dst=(uint8_t *)data->data+(data->start+(size_t)relative+(size_t)i)*data->bits/8;
+    if(inverse) {
+        uint8_t mapped[512];
+        Py_ssize_t consumed=0;
+        while(consumed<body) {
+            Py_ssize_t block=body-consumed;
+            if(block>512) block=512;
+            for(Py_ssize_t j=0;j<block;j++) mapped[j]=(uint8_t)inverse[src[i+consumed+j]];
+            compressed_byte_packers[data->bits-1](mapped,block,dst+(size_t)consumed*data->bits/8,
+                                                 (size_t)block*data->bits/8);
+            consumed+=block;
+        }
+    } else if(body) {
+        compressed_byte_packers[data->bits-1](src+i,body,dst,(size_t)body*data->bits/8);
+    }
+    i+=body;
+    for(;i<count;i++) put(data,(size_t)(relative+i),inverse?(uint8_t)inverse[src[i]]:src[i]);
+}
 /* Caller validates the physical range; preflight all values before mutation. */
 static int compressed_hot_write_values(Array *data,PyObject *palette_object,
                                        Py_ssize_t relative,PyObject *values) {
@@ -149,10 +180,14 @@ static int compressed_hot_write_values(Array *data,PyObject *palette_object,
         for(unsigned i=0;i<(unsigned)palette_size && i<bound;i++)
             if(inverse[palette[i]]==256) inverse[palette[i]]=(uint16_t)i;
         for(Py_ssize_t i=0;i<count;i++) if(inverse[src[i]]==256) return 0;
-        for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),(uint8_t)inverse[src[i]]);
+        if(data->bits<8 && count>=TIGHTARRAY_BULK_WRITE_THRESHOLD && (!data->aligned || 64%data->bits==0))
+            compressed_hot_write_blocks(data,relative,src,count,inverse);
+        else for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),(uint8_t)inverse[src[i]]);
     } else {
         for(Py_ssize_t i=0;i<count;i++) if(src[i]>=bound) return 0;
-        for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),src[i]);
+        if(count>=TIGHTARRAY_BULK_WRITE_THRESHOLD && (!data->aligned || 64%data->bits==0))
+            compressed_hot_write_blocks(data,relative,src,count,NULL);
+        else for(Py_ssize_t i=0;i<count;i++) put(data,(size_t)(relative+i),src[i]);
     }
     return 1;
 }
