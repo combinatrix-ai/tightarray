@@ -193,6 +193,8 @@ def _value(value: SupportsIndex) -> int:
 
 
 def _values(values: Iterable[SupportsIndex]) -> bytes:
+    if type(values) is bytes:
+        return values
     # bytes(int) means allocation, and bytes(buffer) can bypass element checks.
     view = _byte_view(values)
     return view.tobytes() if view is not None else bytes(iter(values))
