@@ -1,6 +1,6 @@
 # All cold payloads use native packing
 
-The isolated candidate, pinned to `2ba7a15`, replaces Array construction plus `_raw` at trimmed spans, periodic patterns, and both palette-candidate branches with `_direct_payload`. Existing translation buffers and all record metadata, candidate ordering, codec filters and decisions are retained. Hot/decode mutable Array construction is untouched. Production changes are outside this experiment.
+The isolated candidate, pinned to `2ba7a15`, replaces Array construction plus `_raw` at trimmed spans, periodic patterns, and both palette-candidate branches with `_direct_payload`. Existing translation buffers and all record metadata, candidate ordering, codec filters and decisions are retained. Hot/decode mutable Array construction is untouched. The measured transformation was subsequently adopted in production.
 
 Nine randomized paired repeats of 80 operations cover 4093-byte high-label palettes with2/8/32/128 symbols; periods31/127/256 with partial final repetitions; width3/5/8 trimmed spans of509 elements; and width3/5/8 direct controls. Encode, single-chunk construction, and alternating actual changed16-byte writes followed by flush are measured. Trim writes occur inside the physical span; other writes start at3. Each final logical result and sealed chunk matches the baseline. Codec settings remain level5/typesize1/nthreads1 and packed NOFILTER/dense BITSHUFFLE. This is a synthetic microbenchmark, not application E2E.
 
@@ -31,3 +31,5 @@ All117 timing rows passed equality and source/binary guards. After measurement, 
 python -m pytest -q tests/test_compressed_all_payloads.py
 python -m benchmarks.compressed_all_payloads --repeats 9 --operations 80 --output docs/compressed-all-payloads-results.json
 ```
+
+Integrated verification: CPython 3.12 full suite 1367 passed; CPython 3.14 1044 passed, 89 optional-dependency skips. Official typing checks, strict mypy on compressed.py, Ruff and diff whitespace checks passed. The live-source exact-output oracle is included in storage-pilots CI. No native code changed.

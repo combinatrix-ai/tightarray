@@ -350,7 +350,7 @@ class CompressedArray:
             + first.to_bytes(2, "little")
             + (last - first).to_bytes(2, "little")
             + palette
-            + _raw(Array(span, bits=bits))
+            + _direct_payload(span, bits)
         )
 
     def _encode(self, raw: bytes) -> bytes | int:
@@ -404,7 +404,7 @@ class CompressedArray:
                 for index, color in enumerate(period_palette):
                     translation[color] = index
                 pattern = pattern.translate(bytes(translation))
-            payload = _raw(Array(pattern, bits=period_bits))
+            payload = _direct_payload(pattern, period_bits)
             period_record = (
                 bytes((128 | period_bits, len(period_palette)))
                 + period_palette
@@ -448,10 +448,10 @@ class CompressedArray:
                 translation = bytearray(256)
                 for index, color in enumerate(colors):
                     translation[color] = index
-                indices = Array(raw.translate(bytes(translation)), bits=palette_bits)
-                return _Chunk(
-                    len(raw), "packed", palette_bits, colors, _raw(indices)
-                ).seal()
+                payload = _direct_payload(
+                    raw.translate(bytes(translation)), palette_bits
+                )
+                return _Chunk(len(raw), "packed", palette_bits, colors, payload).seal()
             payload = _direct_payload(raw, direct_bits) if mode == "packed" else raw
             return _Chunk(len(raw), mode, direct_bits, payload=payload).seal()
         candidates = [
@@ -470,9 +470,11 @@ class CompressedArray:
                 translation = bytearray(256)
                 for index, color in enumerate(colors):
                     translation[color] = index
-                indices = Array(raw.translate(bytes(translation)), bits=palette_bits)
+                payload = _direct_payload(
+                    raw.translate(bytes(translation)), palette_bits
+                )
                 candidates.append(
-                    _Chunk(len(raw), "packed", palette_bits, colors, _raw(indices))
+                    _Chunk(len(raw), "packed", palette_bits, colors, payload)
                 )
         if self._blosc is not None:
             for candidate in tuple(candidates):
