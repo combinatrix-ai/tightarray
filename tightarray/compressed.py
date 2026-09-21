@@ -11,7 +11,7 @@ import importlib
 import operator
 import sys
 from collections import OrderedDict
-from collections.abc import Iterable, Iterator
+from collections.abc import Callable, Iterable, Iterator
 from dataclasses import dataclass, fields
 from itertools import islice
 from typing import Literal, Protocol, SupportsIndex, cast, overload
@@ -24,6 +24,20 @@ _Bits = Literal[1, 2, 3, 4, 5, 6, 7, 8]
 _CodecName = Literal["none", "lz4", "zstd"]
 _Mode = Literal["packed", "bytes"]
 
+# Buffer support predates the typing.Buffer protocol (Python 3.12). The runtime
+# constructor validates it; incompatible formats retain elementwise validation.
+_memoryview = cast(Callable[[object], memoryview], memoryview)
+
+
+def _byte_view(values: object) -> memoryview | None:
+    try:
+        view = _memoryview(values)
+    except TypeError:
+        return None
+    if view.ndim == 1 and view.format == "B" and view.c_contiguous:
+        return view
+    return None
+
 
 class _Codecs(Protocol):
     LZ4: object
@@ -33,6 +47,13 @@ class _Codecs(Protocol):
 class _Filters(Protocol):
     NOFILTER: object
     BITSHUFFLE: object
+
+
+class _Native(Protocol):
+    def _byte_palette(self, raw: bytes, /) -> bytes: ...
+
+
+_native = cast(_Native, importlib.import_module("tightarray._core"))
 
 
 class _Blosc(Protocol):
@@ -90,6 +111,16 @@ class _Chunk:
     def nbytes(self) -> int:
         return len(self.palette) + len(self.payload)
 
+    def seal(self) -> bytes:
+        # Two private descriptor bytes, then palette and payload. Uniform chunks
+        # remain scalar ints. Avoid retaining a Python record per nonuniform chunk.
+        flags = (
+            self.bits
+            | (16 if self.compressed else 0)
+            | (32 if self.mode == "bytes" else 0)
+        )
+        return bytes((flags, len(self.palette))) + self.palette + self.payload
+
 
 @dataclass(slots=True)
 class _Hot:
@@ -121,9 +152,8 @@ def _value(value: SupportsIndex) -> int:
 
 def _values(values: Iterable[SupportsIndex]) -> bytes:
     # bytes(int) means allocation, and bytes(buffer) can bypass element checks.
-    return (
-        bytes(values) if isinstance(values, (bytes, bytearray)) else bytes(iter(values))
-    )
+    view = _byte_view(values)
+    return view.tobytes() if view is not None else bytes(iter(values))
 
 
 def _raw(data: Array) -> bytes:
@@ -134,12 +164,7 @@ def _raw(data: Array) -> bytes:
 
 def _restore(payload: bytes, length: int, bits: _Bits) -> Array:
     # _from_word_bytes is a different, word-aligned big-endian wire format.
-    result = Array(bytes(length), bits=bits, layout="packed")
-    view, start = result._word_view()
-    if start != 0 or len(payload) != len(view):
-        raise ValueError("invalid internal packed payload length")
-    view[:] = payload
-    return result
+    return Array._from_packed_bytes(payload, length, bits)
 
 
 class CompressedArray:
@@ -166,9 +191,10 @@ class CompressedArray:
         palette: bool = True,
     ) -> None:
         self._configure(chunk_size, cache_bytes, codec, palette)
-        if isinstance(values, (bytes, bytearray)):
-            for start in range(0, len(values), self._chunk_size):
-                self._append(bytes(values[start : start + self._chunk_size]))
+        view = _byte_view(values)
+        if view is not None:
+            for start in range(0, len(view), self._chunk_size):
+                self._append(view[start : start + self._chunk_size].tobytes())
         else:
             source = iter(values)
             while raw := bytes(islice(source, self._chunk_size)):
@@ -198,7 +224,7 @@ class CompressedArray:
                     "LZ4/ZSTD require pip install 'tightarray[compression]'"
                 ) from exc
         # Uniform chunks store their scalar directly: no per-chunk record/payload.
-        self._chunks: list[_Chunk | int] = []
+        self._chunks: list[bytes | int] = []
         self._cache: OrderedDict[int, _Hot] = OrderedDict()
         self._cache_used = 0
         self._length = 0
@@ -261,8 +287,8 @@ class CompressedArray:
             raise TypeError("Blosc2 did not return decompressed bytes")
         return result
 
-    def _encode(self, raw: bytes) -> _Chunk | int:
-        colors = bytes(sorted(set(raw)))
+    def _encode(self, raw: bytes) -> bytes | int:
+        colors = _native._byte_palette(raw)
         if len(colors) == 1:
             return raw[0]
         direct = Array(raw, bits=_bits(colors[-1]), layout="packed")
@@ -299,24 +325,27 @@ class CompressedArray:
                             True,
                         )
                     )
-        return min(candidates, key=lambda candidate: candidate.nbytes)
+        return min(candidates, key=lambda candidate: candidate.nbytes).seal()
 
     def _chunk_length(self, index: int) -> int:
         return min(self._chunk_size, self._length - index * self._chunk_size)
 
-    def _decode(self, chunk: _Chunk | int, length: int) -> _Hot:
+    def _decode(self, chunk: bytes | int, length: int) -> _Hot:
         if isinstance(chunk, int):
             return _Hot(Array(bytes(length), bits=1), bytes([chunk]))
-        raw = self._decompress(chunk.payload) if chunk.compressed else chunk.payload
-        if chunk.mode == "bytes":
-            if len(raw) != chunk.length:
+        flags, count = chunk[0], chunk[1]
+        bits = cast(_Bits, flags & 15)
+        palette, payload = chunk[2 : 2 + count], chunk[2 + count :]
+        raw = self._decompress(payload) if flags & 16 else payload
+        if flags & 32:
+            if len(raw) != length:
                 raise ValueError("invalid internal uint8 payload length")
-            return _Hot(Array(raw, bits=chunk.bits))
-        return _Hot(_restore(raw, chunk.length, chunk.bits), chunk.palette)
+            return _Hot(Array(raw, bits=bits))
+        return _Hot(_restore(raw, length, bits), palette)
 
     def _make_hot(self, raw: bytes) -> _Hot:
         """Choose a compact mutable representation independently of cold codecs."""
-        colors = bytes(sorted(set(raw))) if self._palette else b""
+        colors = _native._byte_palette(raw) if self._palette else b""
         direct_bits = _bits(colors[-1] if colors else max(raw, default=0))
         if colors:
             palette_bits = _bits(len(colors) - 1)
@@ -517,19 +546,17 @@ class CompressedArray:
         )
         return StorageInfo(
             self._length,
-            sum(chunk.nbytes for chunk in self._chunks if isinstance(chunk, _Chunk)),
+            sum(len(chunk) - 2 for chunk in self._chunks if isinstance(chunk, bytes)),
             self._cache_used,
             self._cache_limit,
             owned,
             len(self._chunks),
             sum(isinstance(chunk, int) for chunk in self._chunks),
+            sum(bool(chunk[1]) for chunk in self._chunks if isinstance(chunk, bytes)),
             sum(
-                bool(chunk.palette)
+                bool(chunk[0] & 16)
                 for chunk in self._chunks
-                if isinstance(chunk, _Chunk)
-            ),
-            sum(
-                chunk.compressed for chunk in self._chunks if isinstance(chunk, _Chunk)
+                if isinstance(chunk, bytes)
             ),
             self._hits,
             self._misses,

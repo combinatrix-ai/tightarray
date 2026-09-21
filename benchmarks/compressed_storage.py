@@ -300,7 +300,13 @@ def source_hashes():
     root = Path(__file__).resolve().parents[1]
     return {
         name: hashlib.sha256((root / name).read_bytes()).hexdigest()
-        for name in ("tightarray/compressed.py", "benchmarks/compressed_storage.py")
+        for name in (
+            "tightarray/compressed.py",
+            "tightarray/_compressed.h",
+            "tightarray/_core.c",
+            "setup.py",
+            "benchmarks/compressed_storage.py",
+        )
     }
 
 
