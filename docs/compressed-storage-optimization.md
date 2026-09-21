@@ -160,3 +160,68 @@ read paths benefit more than hot hits. Dense Blosc2 still wins some hot-hit and
 codec-heavy operations. Uniform read paths bypass native entries, so their small
 timing differences are noise. Native-entry behavior was checked under ASan/UBSan,
 including array views, both layouts, all widths, ownership and invalid palettes.
+
+
+## Native run encoding
+
+Cold chunks now also consider ULEB128(run length minus one) plus a value/index
+byte. The C encoder stops when the result cannot beat the best uncompressed
+candidate, including any retained decode palette. This is a size comparison,
+not an entropy heuristic. The none path returns a winning run record before
+allocating discarded packed arrays. Codec paths still evaluate every old codec
+candidate and select runs only when strictly smaller. No external dependency
+is added to `codec="none"`. `storage_info().rle_chunks` reports the new format.
+
+The initial prototype saved space but rebuilt local alphabets on every decode.
+Retaining the decode palette and width fixes that cost; the native encoder maps
+run values directly to palette indices without translating the whole input.
+The native decoder validates the full stream and exact expanded length before
+allocating. Cache admission/writeback semantics remain unchanged.
+
+[The integrated 84-row run](compressed-storage-runs-results.json) includes
+source hashes, all samples, exact-content checks, and cache bounds. Main cases
+use 1 MiB logical data, 4096-element chunks, a 64 KiB hot budget and three repeats.
+
+| Case | none cold owned bytes | Dense ZSTD cold owned bytes | none build / global read (ms) | Dense ZSTD build / global read (ms) |
+| --- | ---: | ---: | ---: | ---: |
+| runs32 | 75,171 | 80,001 | 0.891 / 0.808 | 40.964 / 1.778 |
+| rare-spikes | 18,536 | 37,746 | 0.985 / 0.533 | 4.777 / 1.214 |
+
+The old non-codec representations retained approximately 667 KB and 343 KB for
+these inputs. Retained size is not RSS. Run decoding is still slower than copying
+already-packed storage; it exchanges that cost for substantially smaller cold
+storage. Failed run probes also cost time: random8 construction is 1.563 ms in
+this run, versus roughly 0.9 ms before run probing. It remains faster than this
+run's dense ZSTD construction (4.865 ms). Hot local reads still lose on several
+cases; the results do not establish a general win over every Blosc2 operation.
+
+The two earlier 14-case prototypes and the final integrated comparison are
+preserved by `benchmarks/compressed_rle_policy.py` and its linked raw results.
+They use five randomized repeats and restore the pre-run Python implementation
+from pinned commit `0933f18` while using current native Array helpers. Historical
+prototype JSONs are copied unchanged and are not presented as later reruns.
+
+- [Prototype that rediscovers palettes on decode](compressed-rle-rediscover-results.json)
+- [Prototype retaining decode metadata](compressed-rle-palette-results.json)
+- [Integrated 14-case comparison](compressed-rle-integrated-results.json)
+
+The separate [shared-context experiment](compressed-shared-context.md) improves
+codec-backed whole-operation throughput by about 21% for LZ4 and 7% for ZSTD in
+its six-case aggregate, but retains roughly 1–2 MB of additional shared RSS in
+these tests. It remains a benchmark prototype, not an implicit runtime cache;
+fork/lifetime policy and its memory tradeoff need an explicit production decision.
+
+The integrated 14-case comparison verifies that **every initial and post-flush
+cold payload is no larger than the pinned pre-run implementation**, for both
+none and ZSTD, across all five repeats. This does not guarantee throughput:
+none construction regresses by up to 2.58x on skew8; codec-backed construction
+adds roughly 1–8% in this comparison.
+
+Global reads with none beat both dense codecs in all 14 cases, but retained cold
+size loses to both on high-two-period31, threebit-period67, cycle31, high-cycle32
+and half-random-half-zero; it additionally loses to ZSTD on skew8 and
+periodic-sparse-high. Integrated ZSTD global reads lose to both dense codecs on
+high-cycle32 and to LZ4 on skew8. ZSTD cold owned size beats dense LZ4 on all 14
+cases and dense ZSTD on 12; cycle31 loses by 42 bytes and high-cycle32 by 413.
+These are storage/cache microbenchmarks, not application E2E. Short repeated
+patterns and skewed distributions remain concrete next targets.

@@ -34,7 +34,7 @@ b = CompressedArray([250, 251] * 8192, codec="zstd")  # Or codec="lz4".
 ```
 
 Defaults: `chunk_size=4096`, `cache_bytes=262144`, `codec="none"`, `palette=True`.
-The `none` codec still performs uniform/local-palette/bit-packing compression,
+The `none` codec still performs uniform/local-palette/bit-packing/run compression,
 with no NumPy, Numba, or Blosc2 import. LZ4/ZSTD use optional Blosc2, compression
 level 5 and one thread. The optional Blosc2 4.x extra requires Python 3.11+;
 the no-codec path retains the package's Python 3.10+ requirement. See the upstream
@@ -52,7 +52,8 @@ Public stubs contain no `Any` and are checked from the built wheel.
 
 ## Representation and writeback
 
-Cold chunks choose the smallest retained payload plus palette among:
+Cold chunks choose the smallest retained payload plus palette among these
+candidates (not every conceivable encoding):
 
 1. A single scalar for a uniform chunk, stored directly in the chunk index.
 2. Direct packed values or uint8 bytes (bytes can beat word padding on tiny tails).
@@ -61,6 +62,12 @@ Cold chunks choose the smallest retained payload plus palette among:
    compressed uint8 using BITSHUFFLE. Candidates smaller than 64 bytes skip the
    codec. Incompressible candidates stay uncompressed; equal-size ties favor the
    earlier uncompressed candidate.
+5. Runs encoded as ULEB128(run length minus one) plus a value/index byte. A
+   decode palette is retained when it narrows hot storage; `palette=False` uses
+   direct values. Only a strictly smaller payload plus palette wins. Run scanning
+   stops once it cannot beat the best uncompressed form. With LZ4/ZSTD, all prior
+   codec candidates are still evaluated, and uncompressed runs compete with the
+   winner (runs are not additionally fed to the codec).
 
 Nonuniform cold chunks retain one bytes object: two private descriptor bytes,
 then palette and payload. The descriptor is included in `owned_bytes` but excluded
@@ -91,7 +98,9 @@ prefix committed. It is not a transactional store or a thread-safe container.
 - `owned_bytes`: a `sys.getsizeof` estimate of the retained object graph including
   Python chunk/cache metadata and both cold and hot storage, deduplicated by object
   identity. Shared runtime/codec objects and allocator overhead are excluded.
-- Chunk representation counts and cache hit/miss/eviction counters. Direct uniform
+- `rle_chunks` counts run records; `compressed_chunks` counts Blosc2-compressed
+  records. Palette counts can overlap either. Cache hit/miss/eviction counters
+  are separate. Direct uniform
   reads bypass cache admission and do not count as hits or misses.
 
 These are **not process RSS**. A cache miss allocates scratch before eviction.
