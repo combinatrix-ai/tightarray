@@ -1,0 +1,32 @@
+from pathlib import Path
+
+import numpy as np
+import pytest
+
+from benchmarks.real_sokoban_search import SOURCE, encode, run_case
+
+
+def test_keys_preserve_identity():
+    fixed = np.zeros((10, 10), dtype=np.int64)
+    variants = []
+    for position in (0, 7, 21, 63, 99):
+        for value in range(1, 6):
+            board = fixed.copy()
+            board.flat[position] = value
+            variants.append(board)
+    for backend in ("marshal", "uint8", "tightarray", "sparse"):
+        keys = [encode(board, backend, fixed) for board in variants]
+        assert len(set(keys)) == len(variants)
+        assert keys == [encode(board.copy(), backend, fixed) for board in variants]
+
+
+@pytest.mark.skipif(
+    not Path(SOURCE).exists(), reason="Optional pinned upstream source not downloaded"
+)
+def test_real_search_unchanged():
+    rows = [
+        run_case(SOURCE, 11, backend, 100)
+        for backend in ("marshal", "uint8", "tightarray", "sparse")
+    ]
+    assert all(row["identity"] == rows[0]["identity"] for row in rows)
+    assert rows[0]["identity"]["visited"] > 0

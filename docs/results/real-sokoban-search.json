@@ -1,0 +1,755 @@
+{
+  "upstream_commit": "8e06e44e8bf3bb8bc73eeb1e7f0354508ce3fc89",
+  "source_sha256": "2b4e9b6922d7d6322e6fdde0904e534f23855e41681ef3fea42eca68595292a7",
+  "environment": {
+    "python": "3.12.8",
+    "numpy": "2.5.3",
+    "platform": "macOS-27.0-arm64-arm-64bit"
+  },
+  "rows": [
+    {
+      "seed": 11,
+      "backend": "marshal",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.0012859159978688695,
+      "key_payload_bytes": 17710,
+      "retained_key_set_bytes": 20700,
+      "identity": {
+        "visited": 22,
+        "key_calls": 177,
+        "score": 0,
+        "board_sha256": "84639c9fd6c1ab45ebd966eaa7c3f44beaff6829e0bd7c6eca764df73ba3e58e",
+        "mapping": [
+          [
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          [
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              6
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.001226749998750165,
+        0.0012859159978688695,
+        0.0013392499968176708
+      ]
+    },
+    {
+      "seed": 11,
+      "backend": "uint8",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.001161500003945548,
+      "key_payload_bytes": 2200,
+      "retained_key_set_bytes": 5190,
+      "identity": {
+        "visited": 22,
+        "key_calls": 177,
+        "score": 0,
+        "board_sha256": "84639c9fd6c1ab45ebd966eaa7c3f44beaff6829e0bd7c6eca764df73ba3e58e",
+        "mapping": [
+          [
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          [
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              6
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.0013014580035815015,
+        0.0010513750021345913,
+        0.001161500003945548
+      ]
+    },
+    {
+      "seed": 11,
+      "backend": "tightarray",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.0012125419962103479,
+      "key_payload_bytes": 880,
+      "retained_key_set_bytes": 3870,
+      "identity": {
+        "visited": 22,
+        "key_calls": 177,
+        "score": 0,
+        "board_sha256": "84639c9fd6c1ab45ebd966eaa7c3f44beaff6829e0bd7c6eca764df73ba3e58e",
+        "mapping": [
+          [
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          [
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              6
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.0012125419962103479,
+        0.0013260830019135028,
+        0.0012029159988742322
+      ]
+    },
+    {
+      "seed": 11,
+      "backend": "sparse",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.0016950420031207614,
+      "key_payload_bytes": 330,
+      "retained_key_set_bytes": 3320,
+      "identity": {
+        "visited": 22,
+        "key_calls": 177,
+        "score": 0,
+        "board_sha256": "84639c9fd6c1ab45ebd966eaa7c3f44beaff6829e0bd7c6eca764df73ba3e58e",
+        "mapping": [
+          [
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              3
+            ]
+          ],
+          [
+            [
+              8,
+              6
+            ],
+            [
+              8,
+              6
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.0018344999989494681,
+        0.0015959579977788962,
+        0.0016950420031207614
+      ]
+    },
+    {
+      "seed": 23,
+      "backend": "marshal",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.05172358300478663,
+      "key_payload_bytes": 1023960,
+      "retained_key_set_bytes": 1197224,
+      "identity": {
+        "visited": 1272,
+        "key_calls": 10177,
+        "score": 0,
+        "board_sha256": "9606c4ccfed54b09fd43300fb1e7c362fe76a09333005416672a7787c55da7b6",
+        "mapping": [
+          [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              5
+            ]
+          ],
+          [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.05395733399927849,
+        0.051613458002975676,
+        0.05172358300478663
+      ]
+    },
+    {
+      "seed": 23,
+      "backend": "uint8",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.04958837500453228,
+      "key_payload_bytes": 127200,
+      "retained_key_set_bytes": 300464,
+      "identity": {
+        "visited": 1272,
+        "key_calls": 10177,
+        "score": 0,
+        "board_sha256": "9606c4ccfed54b09fd43300fb1e7c362fe76a09333005416672a7787c55da7b6",
+        "mapping": [
+          [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              5
+            ]
+          ],
+          [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.050564250006573275,
+        0.0489973329968052,
+        0.04958837500453228
+      ]
+    },
+    {
+      "seed": 23,
+      "backend": "tightarray",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.05505875000380911,
+      "key_payload_bytes": 50880,
+      "retained_key_set_bytes": 224144,
+      "identity": {
+        "visited": 1272,
+        "key_calls": 10177,
+        "score": 0,
+        "board_sha256": "9606c4ccfed54b09fd43300fb1e7c362fe76a09333005416672a7787c55da7b6",
+        "mapping": [
+          [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              5
+            ]
+          ],
+          [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.056297499999345746,
+        0.054277041999739595,
+        0.05505875000380911
+      ]
+    },
+    {
+      "seed": 23,
+      "backend": "sparse",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.08225845899869455,
+      "key_payload_bytes": 19080,
+      "retained_key_set_bytes": 192344,
+      "identity": {
+        "visited": 1272,
+        "key_calls": 10177,
+        "score": 0,
+        "board_sha256": "9606c4ccfed54b09fd43300fb1e7c362fe76a09333005416672a7787c55da7b6",
+        "mapping": [
+          [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              5
+            ]
+          ],
+          [
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.08455633300036425,
+        0.08225845899869455,
+        0.0808204159984598
+      ]
+    },
+    {
+      "seed": 37,
+      "backend": "marshal",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.20429745900037233,
+      "key_payload_bytes": 4025000,
+      "retained_key_set_bytes": 4714504,
+      "identity": {
+        "visited": 5000,
+        "key_calls": 36770,
+        "score": 1440,
+        "board_sha256": "7cf6d7d80a2f6b687d30f783a063d6ada8696916ebf2aa7ef00a03d2d5f25588",
+        "mapping": [
+          [
+            [
+              5,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          [
+            [
+              8,
+              2
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.20529166699998314,
+        0.20318491599755362,
+        0.20429745900037233
+      ]
+    },
+    {
+      "seed": 37,
+      "backend": "uint8",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.19743049999669893,
+      "key_payload_bytes": 500000,
+      "retained_key_set_bytes": 1189504,
+      "identity": {
+        "visited": 5000,
+        "key_calls": 36770,
+        "score": 1440,
+        "board_sha256": "7cf6d7d80a2f6b687d30f783a063d6ada8696916ebf2aa7ef00a03d2d5f25588",
+        "mapping": [
+          [
+            [
+              5,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          [
+            [
+              8,
+              2
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.19700387500051875,
+        0.19743049999669893,
+        0.19749250000313623
+      ]
+    },
+    {
+      "seed": 37,
+      "backend": "tightarray",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.2210526250055409,
+      "key_payload_bytes": 200000,
+      "retained_key_set_bytes": 889504,
+      "identity": {
+        "visited": 5000,
+        "key_calls": 36770,
+        "score": 1440,
+        "board_sha256": "7cf6d7d80a2f6b687d30f783a063d6ada8696916ebf2aa7ef00a03d2d5f25588",
+        "mapping": [
+          [
+            [
+              5,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          [
+            [
+              8,
+              2
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.2210526250055409,
+        0.21961929200188024,
+        0.22395449999748962
+      ]
+    },
+    {
+      "seed": 37,
+      "backend": "sparse",
+      "limit": 5000,
+      "size": 10,
+      "elapsed_s": 0.3209329999954207,
+      "key_payload_bytes": 75000,
+      "retained_key_set_bytes": 764504,
+      "identity": {
+        "visited": 5000,
+        "key_calls": 36770,
+        "score": 1440,
+        "board_sha256": "7cf6d7d80a2f6b687d30f783a063d6ada8696916ebf2aa7ef00a03d2d5f25588",
+        "mapping": [
+          [
+            [
+              5,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          [
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              2
+            ]
+          ],
+          [
+            [
+              7,
+              2
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          [
+            [
+              8,
+              2
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        ]
+      },
+      "samples_s": [
+        0.32041258300159825,
+        0.3209329999954207,
+        0.3239579169967328
+      ]
+    }
+  ]
+}
