@@ -1,0 +1,4635 @@
+{
+  "scope": "Real upstream repertoire.load, MotifBoostClassifier.fit and predict_proba; warm imports/JIT, augmentation disabled; default 100-tree LightGBM, one worker/thread. Fixture demonstration only, not clinical accuracy.",
+  "source_pins": {
+    "MotifBoost": "0fd515b787cd0834c02becefc772bc6059247d5a",
+    "DeepRC": "108d08d8cf2d2d69eb3f6caef1aa04d624dec871"
+  },
+  "source_guards": {
+    "/private/tmp/ta-capacity/benchmarks/bio/motifboost_pipeline.py": "4bd4a5b17292b2b0d21dc7dfe7ae2c178bb2653331bc12a1c85c9234939bbb86",
+    "/tmp/ta-capacity/packages/tightarray-immune/src/tightarray_immune/motifboost_integration.py": "20d1a13f6b9bb787a5fe0805b6f732f3e021ebac32e1c9fa02bdc2e55cd78b2d",
+    "/tmp/ta-capacity/packages/tightarray-immune/src/tightarray_immune/motifboost.py": "31d19297a4a74caec1e7b8050ec1c3916fd8dbeac8bebf11d36bfd14bab25cb1",
+    "/tmp/ta-capacity/packages/tightarray-immune/src/tightarray_immune/sequences.py": "4daa34cd21f2fff10e4d148f20fe6da78228efb9452ec026475adf81754a029b",
+    "/tmp/ta-capacity/tightarray/__init__.py": "8c9e7d1079358e3006bb68a6fb45433d1e07f8503d03f27801a0c1b5fc07db55",
+    "/tmp/ta-capacity/tightarray/_core.cpython-312-darwin.so": "0ea3749a47bec59b71027192d02e1522582b9d59cd6592a2d6790aa9d7ddce2c",
+    "/tmp/ta-motifboost-integration/motifboost/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/ta-motifboost-integration/motifboost/features.py": "6afe3aa3c5b1f36a1bd4c084f7d9e2277fb0d1bc46618f96f2ff87ffc86c1469",
+    "/tmp/ta-motifboost-integration/motifboost/fisher_exact.py": "aea76a57259c95d4ef7943cc6a42efdcb8bcbae6b4924aeea345d7fe5a89ed72",
+    "/tmp/ta-motifboost-integration/motifboost/methods/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/ta-motifboost-integration/motifboost/methods/atchley_mil.py": "999e7b91e7e33d53654f2ae1a01ad4b53958ad25492e38b13f1890283bef4a1e",
+    "/tmp/ta-motifboost-integration/motifboost/methods/atchley_simple.py": "c4bffa286b35c9e74f5ea7a1637f92dbcf0bbe8e7f699545e88ff8daf4984d07",
+    "/tmp/ta-motifboost-integration/motifboost/methods/emerson.py": "ffdd018558d6232bb2682ac11d1515a049eeb55d638757d9bf9b98c5322a3114",
+    "/tmp/ta-motifboost-integration/motifboost/methods/motif.py": "9c9e9966cad0db6b7953b28c973b83f900a9384fbaa5e992c0eff097ecde899b",
+    "/tmp/ta-motifboost-integration/motifboost/repertoire.py": "9a99a448dc07445077009036a9e00a3b2ce27095fd890666b109d39b855ea041",
+    "/tmp/ta-motifboost-integration/motifboost/sequences.py": "59446d005c47f5784d795d968e350189a36cbbbaa3b5fdb6fed60087ad84af24",
+    "/tmp/ta-motifboost-integration/motifboost/util.py": "102d989d2d433e44d9e69086711d668dc833fdc6f69c921254de57043a808fce"
+  },
+  "python": "3.12.8 (main, Dec  6 2024, 19:42:06) [Clang 18.1.8 ]",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "dependencies": {
+    "tightarray": "0.1.0.dev0",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "cloudpickle": "3.1.2",
+    "kiwisolver": "1.5.1",
+    "colorlog": "6.12.0",
+    "click": "8.5.0",
+    "fastapi": "0.141.1",
+    "pip": "24.3.1",
+    "packaging": "26.3",
+    "joblib": "1.6.0",
+    "iniconfig": "2.3.0",
+    "Mako": "1.4.1",
+    "fonttools": "4.65.0",
+    "charset-normalizer": "3.5.1",
+    "GitPython": "3.1.62",
+    "Pygments": "2.21.0",
+    "requests": "2.34.2",
+    "bitarray": "3.11.0",
+    "pydantic_core": "2.46.5",
+    "cachetools": "7.2.0",
+    "pyarrow": "25.0.1",
+    "mlflow-skinny": "3.16.1",
+    "sqlparse": "0.6.0",
+    "contourpy": "1.4.0",
+    "starlette": "1.6.0",
+    "alembic": "1.20.0",
+    "tqdm": "4.70.1",
+    "opentelemetry-semantic-conventions": "0.65b0",
+    "pytest": "9.1.1",
+    "urllib3": "2.8.0",
+    "importlib_metadata": "9.0.1",
+    "h11": "0.16.0",
+    "pydantic": "2.13.5",
+    "protobuf": "6.33.6",
+    "gitdb": "4.0.12",
+    "smmap": "5.0.3",
+    "pycparser": "3.0",
+    "llvmlite": "0.49.0",
+    "pyasn1": "0.6.4",
+    "google-auth": "2.58.0",
+    "python-dateutil": "2.9.0.post0",
+    "PyYAML": "6.0.3",
+    "numba": "0.67.0",
+    "matplotlib": "3.11.2",
+    "cffi": "2.1.1",
+    "certifi": "2026.7.22",
+    "zipp": "4.1.0",
+    "opentelemetry-api": "1.44.0",
+    "cycler": "0.12.1",
+    "annotated-types": "0.8.0",
+    "databricks-sdk": "0.140.0",
+    "opentelemetry-proto": "1.44.0",
+    "annotated-doc": "0.0.5",
+    "MarkupSafe": "3.0.3",
+    "lightgbm": "4.7.0",
+    "threadpoolctl": "3.7.0",
+    "cryptography": "50.0.1",
+    "typing-inspection": "0.4.4",
+    "pandas": "3.0.6",
+    "pluggy": "1.6.0",
+    "python-dotenv": "1.2.3",
+    "optuna": "5.0.0",
+    "SQLAlchemy": "2.0.54",
+    "typing_extensions": "4.16.0",
+    "pyasn1_modules": "0.4.2",
+    "optuna-integration": "5.0.0",
+    "pillow": "12.3.0",
+    "anyio": "4.15.1",
+    "pyparsing": "3.3.3",
+    "uvicorn": "0.53.0",
+    "six": "1.17.0",
+    "scipy": "1.18.1",
+    "opentelemetry-sdk": "1.44.0",
+    "narwhals": "2.26.0",
+    "idna": "3.20"
+  },
+  "dataset": [
+    {
+      "id": "rep_00134",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00134.tsv",
+      "source_sha256": "dd08717c6dd3cc67df28828dc93db1c44fc7c91fa4c8fbb41d766e029aa64521",
+      "sequences": 16,
+      "total_weight": 84
+    },
+    {
+      "id": "rep_00138",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00138.tsv",
+      "source_sha256": "897eb73fb061d426c1ccfe82bcf4b7d766806cfa40a2f1623c027689567a5adf",
+      "sequences": 32,
+      "total_weight": 163
+    },
+    {
+      "id": "rep_00148",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00148.tsv",
+      "source_sha256": "a51b711eb540fa39eb352202b839ad6a0806f2302a7986cd8737d5b0e0d464b0",
+      "sequences": 33,
+      "total_weight": 169
+    },
+    {
+      "id": "rep_00291",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00291.tsv",
+      "source_sha256": "4da2529f474d6dd92c57e6fd52ea32da7773dc5ddeef0e148fb66d5a1c014802",
+      "sequences": 13,
+      "total_weight": 71
+    },
+    {
+      "id": "rep_00159",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00159.tsv",
+      "source_sha256": "fe548e809f9bbd2ba3bc50bbffd97f305074ae7ef822dc84a5a71d7a50ef0afd",
+      "sequences": 15,
+      "total_weight": 70
+    },
+    {
+      "id": "rep_00304",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00304.tsv",
+      "source_sha256": "af9e400f76447529cea813a5e9e97d09676be070989ffd0abcad01e7b8118fad",
+      "sequences": 16,
+      "total_weight": 96
+    },
+    {
+      "id": "rep_00333",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00333.tsv",
+      "source_sha256": "0562a9cbaa724cf256ce07fd240b6375f07b27442d8e05b14268c53598784060",
+      "sequences": 11,
+      "total_weight": 60
+    },
+    {
+      "id": "rep_00308",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00308.tsv",
+      "source_sha256": "b0cf3a3b0231809a5fb0d063e5a2a057f2a1470b22fd80844efe5db392d00a6a",
+      "sequences": 26,
+      "total_weight": 139
+    },
+    {
+      "id": "rep_00376",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00376.tsv",
+      "source_sha256": "2a7526b6531657ee3a50bf997b4544c8d16948bd5c14705fb4496c985267d5b8",
+      "sequences": 39,
+      "total_weight": 193
+    },
+    {
+      "id": "rep_00381",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00381.tsv",
+      "source_sha256": "9366105754d0f1eb6d78f7cccfc3712dbc4b80fde8494e1db5058356aaf6ea48",
+      "sequences": 44,
+      "total_weight": 246
+    },
+    {
+      "id": "rep_00398",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00398.tsv",
+      "source_sha256": "9099a70c8d5c993c143fe0f27fa01023c3bbf37d565fef00a2ba4d249cdf6d99",
+      "sequences": 19,
+      "total_weight": 97
+    },
+    {
+      "id": "rep_00464",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00464.tsv",
+      "source_sha256": "aa5e5ac66d7f0d308bdd200d0013b60de10a99df6d1ac5752e010d42f18c9bdc",
+      "sequences": 34,
+      "total_weight": 182
+    },
+    {
+      "id": "rep_00402",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00402.tsv",
+      "source_sha256": "2278332dec1992c2366415d4d28b2cc0afd8ed688e69f44487814458628831a3",
+      "sequences": 14,
+      "total_weight": 47
+    },
+    {
+      "id": "rep_00608",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00608.tsv",
+      "source_sha256": "06913109a359c76fe50fffc5ae242070cba9b23d6a84e8859c98c4339b7ea095",
+      "sequences": 23,
+      "total_weight": 128
+    },
+    {
+      "id": "rep_00453",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00453.tsv",
+      "source_sha256": "a5bf22c95b2bef3664ab8331981c4be6ebef2b1f7a9a27e708da4aaa4e5c1ddb",
+      "sequences": 34,
+      "total_weight": 142
+    },
+    {
+      "id": "rep_00675",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00675.tsv",
+      "source_sha256": "e6718a1f0790a12bc2e1e6eb301efae9c915b29650ff9e52eb390051cdba6029",
+      "sequences": 29,
+      "total_weight": 155
+    },
+    {
+      "id": "rep_00483",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00483.tsv",
+      "source_sha256": "e0d1c40b992a557bc66d80450abe8e9d150f85b35f2fa5697cc32d1d41f0e6a8",
+      "sequences": 40,
+      "total_weight": 184
+    },
+    {
+      "id": "rep_00817",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00817.tsv",
+      "source_sha256": "9d3dd88126543a959ae21f368268e972507ed9ce329ca447e5bb8af2b7b485a0",
+      "sequences": 12,
+      "total_weight": 67
+    },
+    {
+      "id": "rep_00502",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00502.tsv",
+      "source_sha256": "9a6aead9de19dc9bc33839b73571abc925fe0b335a987cd48840223bf4682a58",
+      "sequences": 48,
+      "total_weight": 258
+    },
+    {
+      "id": "rep_00862",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00862.tsv",
+      "source_sha256": "34bd4e8ad735f0f684682e26958d013c71e7e5330fd52e2f6a676625e15c70b1",
+      "sequences": 15,
+      "total_weight": 68
+    },
+    {
+      "id": "rep_00533",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00533.tsv",
+      "source_sha256": "95fedd5b65bde75c9a8ecceb9d44764a009e1a790033fcab9d7ac4df88314f05",
+      "sequences": 44,
+      "total_weight": 211
+    },
+    {
+      "id": "rep_00906",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00906.tsv",
+      "source_sha256": "adffbaeacd726e76c923c562282012b647dd1dfcfd776c5f0aa45c7f76b6ab68",
+      "sequences": 18,
+      "total_weight": 83
+    },
+    {
+      "id": "rep_00567",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00567.tsv",
+      "source_sha256": "40fcf46a4b5f6e1922f938f5cee9796d8d7400e86cf001daa2885f5e4a375759",
+      "sequences": 29,
+      "total_weight": 127
+    },
+    {
+      "id": "rep_01095",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01095.tsv",
+      "source_sha256": "cf487b976c47d6eef0d341d9a1725fb17dab31456073fb67a06eecfb624faaa7",
+      "sequences": 16,
+      "total_weight": 70
+    },
+    {
+      "id": "rep_00636",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00636.tsv",
+      "source_sha256": "c3503781f41494fa96f76af4a1b6f6221141cae5003621434af812d5b96af98a",
+      "sequences": 46,
+      "total_weight": 241
+    },
+    {
+      "id": "rep_01098",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01098.tsv",
+      "source_sha256": "6d07b3e7cf4aec641e8a0173472720796c9d779b72c609310ab6cb446961b95c",
+      "sequences": 22,
+      "total_weight": 116
+    },
+    {
+      "id": "rep_00690",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00690.tsv",
+      "source_sha256": "3e79fe45db54e65a343ab937743bdd26ad6b8adbbcd0306695a9e19a1fc03c8d",
+      "sequences": 26,
+      "total_weight": 149
+    },
+    {
+      "id": "rep_01270",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01270.tsv",
+      "source_sha256": "715751474da58acbd200664b7d2cceac6d8f5a01eff9c3cd3c29c9cb2770a514",
+      "sequences": 36,
+      "total_weight": 176
+    },
+    {
+      "id": "rep_00933",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_00933.tsv",
+      "source_sha256": "5f8ce6f0c96447c6cc8f61ab9bc7ca75cf7277b1a9c24dcc493bc59bedecbd28",
+      "sequences": 27,
+      "total_weight": 124
+    },
+    {
+      "id": "rep_01281",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01281.tsv",
+      "source_sha256": "0928f1deba8d3122c9398a798556d02472ac57d3013184dae7a500c47d21c0ef",
+      "sequences": 19,
+      "total_weight": 112
+    },
+    {
+      "id": "rep_01002",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01002.tsv",
+      "source_sha256": "e3335aea552c326df5019c1f1d56ca76f3ef23c95c3b6be1aaedd27d5ce153e2",
+      "sequences": 23,
+      "total_weight": 116
+    },
+    {
+      "id": "rep_01362",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01362.tsv",
+      "source_sha256": "8c15fcb622b86ca7af4c09c540a36cb2bb41052ef0389b5477dda1793c00c833",
+      "sequences": 31,
+      "total_weight": 160
+    },
+    {
+      "id": "rep_01139",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01139.tsv",
+      "source_sha256": "b324535574fbafa949316d1f565f4b89a1bb3f243d6a3035489ada40fcf1b0ff",
+      "sequences": 21,
+      "total_weight": 95
+    },
+    {
+      "id": "rep_01571",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01571.tsv",
+      "source_sha256": "bdd57b1dadfaa05a5d4b296f31c1ae086e6e601189305d8a60e2aea6aabfdc76",
+      "sequences": 27,
+      "total_weight": 163
+    },
+    {
+      "id": "rep_01161",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01161.tsv",
+      "source_sha256": "b53e863ed04a3529a34eefec9de875ba3035af5923a38e47a9f687356e3db24f",
+      "sequences": 15,
+      "total_weight": 75
+    },
+    {
+      "id": "rep_02036",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02036.tsv",
+      "source_sha256": "e1f346b004eeaeecdac0799023565f1ab1e51c42af319da4669a0e962426d5f8",
+      "sequences": 33,
+      "total_weight": 175
+    },
+    {
+      "id": "rep_01261",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01261.tsv",
+      "source_sha256": "d4edc9901ccd8f87bc425574efaaee8f72ccb6a14d2f697092a2e3d03682f89e",
+      "sequences": 11,
+      "total_weight": 60
+    },
+    {
+      "id": "rep_02111",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02111.tsv",
+      "source_sha256": "509d7dde1e45228411c3b7af965311734e10d2fe7b8aaf085d3424fc50fbe0c0",
+      "sequences": 38,
+      "total_weight": 175
+    },
+    {
+      "id": "rep_01329",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01329.tsv",
+      "source_sha256": "546c35adb2c804cde87aa2dc2b5f60c124aaf6f92f1ff871e148bd5f261b66e5",
+      "sequences": 22,
+      "total_weight": 95
+    },
+    {
+      "id": "rep_02172",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02172.tsv",
+      "source_sha256": "03998b1138fb0e45c47615f6b3f0524519f980f02dbcb7f5a6431fc7a736efa1",
+      "sequences": 15,
+      "total_weight": 65
+    },
+    {
+      "id": "rep_01563",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01563.tsv",
+      "source_sha256": "7903a94f79e0581b49479c4ed8ce4f582087d67edcfc20f451dbe24fa0d34319",
+      "sequences": 22,
+      "total_weight": 120
+    },
+    {
+      "id": "rep_02230",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02230.tsv",
+      "source_sha256": "6b75f4239558b813e6be37329922b6707e25360ecc6fde32d27083d9a0da9c7a",
+      "sequences": 38,
+      "total_weight": 194
+    },
+    {
+      "id": "rep_01654",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01654.tsv",
+      "source_sha256": "b1e51c410fd9df106c9276a0f338aaaab5541a9f83640045c9255eb93c9eb2dd",
+      "sequences": 38,
+      "total_weight": 191
+    },
+    {
+      "id": "rep_02412",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02412.tsv",
+      "source_sha256": "4c97d17f5ed331a3ef2d5f1564e36142d3e8369cf347894595707f291010b1c0",
+      "sequences": 35,
+      "total_weight": 170
+    },
+    {
+      "id": "rep_01778",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01778.tsv",
+      "source_sha256": "47c13de7255ec9f127111effd538a9303e8ad9df0fbad60bc749cc6de7c29bd0",
+      "sequences": 14,
+      "total_weight": 57
+    },
+    {
+      "id": "rep_02545",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02545.tsv",
+      "source_sha256": "921920b44d918290b0ca4b803fee982b6254557d6c49f251b6cd5634a86d5f2a",
+      "sequences": 31,
+      "total_weight": 163
+    },
+    {
+      "id": "rep_01875",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01875.tsv",
+      "source_sha256": "69247834a94fbfd17f8f3eea1a2ac9e943fc45da7886a0d864d4751b8fe4acd9",
+      "sequences": 18,
+      "total_weight": 82
+    },
+    {
+      "id": "rep_02796",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02796.tsv",
+      "source_sha256": "f96645945796f6c5d11a000d75d992c9d51c4a26433b56d53af5fa7f17bf0708",
+      "sequences": 21,
+      "total_weight": 104
+    },
+    {
+      "id": "rep_01902",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01902.tsv",
+      "source_sha256": "8d9b2cfbed60babc6be085edef6179e9b595cfb47ab8d9412e77c75897734234",
+      "sequences": 45,
+      "total_weight": 200
+    },
+    {
+      "id": "rep_02825",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02825.tsv",
+      "source_sha256": "be921aaa890c97312ae00bee7a4bb1cb54a486ec19c458d2faebd7876d1bcd09",
+      "sequences": 34,
+      "total_weight": 142
+    },
+    {
+      "id": "rep_01965",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_01965.tsv",
+      "source_sha256": "4296ec9f9635d66e8c579f209847681c8f07bf22d58f94fbe985a6b32b02eae6",
+      "sequences": 31,
+      "total_weight": 184
+    },
+    {
+      "id": "rep_02876",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02876.tsv",
+      "source_sha256": "85e2ede5209a798068ca48b4c587ca422d5747d91acf43dee0fae277a56d8339",
+      "sequences": 44,
+      "total_weight": 246
+    },
+    {
+      "id": "rep_02048",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02048.tsv",
+      "source_sha256": "4700de1f249f4e63260bc50b593b291b941349d18b3e63396fc1ecfea1bca955",
+      "sequences": 23,
+      "total_weight": 117
+    },
+    {
+      "id": "rep_02886",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02886.tsv",
+      "source_sha256": "bab06a08b6416e79487b90ea1279c6d0775c6565ef4e78a6ececc938f4711120",
+      "sequences": 13,
+      "total_weight": 63
+    },
+    {
+      "id": "rep_02219",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02219.tsv",
+      "source_sha256": "40a02707e18b4eede00489516c2161f3d00c0c54ae1a855db9330cc8af5beb41",
+      "sequences": 21,
+      "total_weight": 97
+    },
+    {
+      "id": "rep_03009",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03009.tsv",
+      "source_sha256": "dfa1d2a1a2919f1c438ba2ddc1523187e2f2be921dc8049c297856f812514759",
+      "sequences": 16,
+      "total_weight": 79
+    },
+    {
+      "id": "rep_02466",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02466.tsv",
+      "source_sha256": "155f9d5ea4a083879c5d4eb9e43a348e7a4fa294c9565770f6e271438d900c95",
+      "sequences": 15,
+      "total_weight": 69
+    },
+    {
+      "id": "rep_03014",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03014.tsv",
+      "source_sha256": "e38a76617e0d811b06bf42bcf4976698845cdb7efdbe1f9a49851215641132ac",
+      "sequences": 32,
+      "total_weight": 147
+    },
+    {
+      "id": "rep_02530",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02530.tsv",
+      "source_sha256": "2448fe6a6537a8ac42a2ca7564a6840dfb3604ae37a92e0cf49538f4d15609a8",
+      "sequences": 32,
+      "total_weight": 158
+    },
+    {
+      "id": "rep_03625",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03625.tsv",
+      "source_sha256": "793f59f307df4f9bc6d85a3b603aea2c5b183f6da31c9aad13b5f58b56eaa720",
+      "sequences": 39,
+      "total_weight": 195
+    },
+    {
+      "id": "rep_02550",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02550.tsv",
+      "source_sha256": "36203c6ffe18e93f13b95c24cbb1545aab2757d4df14bcb185d4b841465819a8",
+      "sequences": 42,
+      "total_weight": 196
+    },
+    {
+      "id": "rep_03635",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03635.tsv",
+      "source_sha256": "64526e91063ba44cc2f08ed010a9ce99dfc985ec3b0035ee49fa03e5c2f65fb3",
+      "sequences": 42,
+      "total_weight": 192
+    },
+    {
+      "id": "rep_02636",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02636.tsv",
+      "source_sha256": "9b113c7f3afc337a34f575cf68c869294f96e977c2c7ed8bc62563ad8a711760",
+      "sequences": 10,
+      "total_weight": 55
+    },
+    {
+      "id": "rep_03696",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03696.tsv",
+      "source_sha256": "49032ea587e3fb0a4f49e0688f24d92ed9de1ac1c31a810942ed3b5398233cf2",
+      "sequences": 45,
+      "total_weight": 188
+    },
+    {
+      "id": "rep_02814",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02814.tsv",
+      "source_sha256": "d9be501f3eac2afc6c32b1fb9c7fc8903c708ea1e25273ef2417a67e9e7e3280",
+      "sequences": 39,
+      "total_weight": 170
+    },
+    {
+      "id": "rep_03740",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03740.tsv",
+      "source_sha256": "1314e267ff4cd135ed6de9b2183c68c00463181a8fbe142381f30889c5540937",
+      "sequences": 35,
+      "total_weight": 208
+    },
+    {
+      "id": "rep_02831",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02831.tsv",
+      "source_sha256": "3344edac90a7d5fb44e640b2b66f12fe27c5e5390773258f416e7c1734f69d2c",
+      "sequences": 21,
+      "total_weight": 107
+    },
+    {
+      "id": "rep_03777",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03777.tsv",
+      "source_sha256": "0662584f1f88ab321e506a5448ba58584c4516ab5b3f2f0ba0760ff663cef88a",
+      "sequences": 18,
+      "total_weight": 93
+    },
+    {
+      "id": "rep_02929",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_02929.tsv",
+      "source_sha256": "11d78a691c2480dc718fd089c475b6aa80d576b602b81954b17e99a8a34b4f79",
+      "sequences": 15,
+      "total_weight": 69
+    },
+    {
+      "id": "rep_03861",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03861.tsv",
+      "source_sha256": "91a534c9425b6b59768900ddb4480d1d87054c7b45706e05dfedbb6bc4d109f0",
+      "sequences": 25,
+      "total_weight": 125
+    },
+    {
+      "id": "rep_03048",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03048.tsv",
+      "source_sha256": "e2363f6d4e3f156c6812940100f659c54d8402dc22a074db691bb0dde1dd4d83",
+      "sequences": 23,
+      "total_weight": 131
+    },
+    {
+      "id": "rep_04085",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04085.tsv",
+      "source_sha256": "7e67587a4024d01a06d34e4c40b640bbb081d93094e93f4db09f3c28194369c9",
+      "sequences": 10,
+      "total_weight": 68
+    },
+    {
+      "id": "rep_03054",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03054.tsv",
+      "source_sha256": "4566679a9b52d8110620f31b388ccac3d813554539968b78fb49965ab96ab19c",
+      "sequences": 47,
+      "total_weight": 235
+    },
+    {
+      "id": "rep_04214",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04214.tsv",
+      "source_sha256": "01bb47620ba21ed49ef8f16c47af60f483725645334ec480fcc6ec739989977b",
+      "sequences": 34,
+      "total_weight": 175
+    },
+    {
+      "id": "rep_03170",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03170.tsv",
+      "source_sha256": "0d8534bd9e2c7c16b9df3c55be1ddc75ad1b94d3f82fffa4fbec8a2e8c2c4d88",
+      "sequences": 24,
+      "total_weight": 104
+    },
+    {
+      "id": "rep_04258",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04258.tsv",
+      "source_sha256": "11be615549d58ba39468fc6b5e21f6d51a3d181ad13521f1374e9f5ac6fe632b",
+      "sequences": 20,
+      "total_weight": 111
+    },
+    {
+      "id": "rep_03222",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03222.tsv",
+      "source_sha256": "13b329b25167a9189f617e66b0717d821680d4d664e3f9d3ad997a9da1379beb",
+      "sequences": 36,
+      "total_weight": 171
+    },
+    {
+      "id": "rep_04572",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04572.tsv",
+      "source_sha256": "1ac2c8ea3eda09cfd205fd9e8ea03fd1ec192c870f819f7170f1a7a7013deafb",
+      "sequences": 30,
+      "total_weight": 155
+    },
+    {
+      "id": "rep_03411",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03411.tsv",
+      "source_sha256": "8b093fbb1fc7a2d98cac3ae60547d0d8cf4b9f098ebd025a168f14341e68272f",
+      "sequences": 24,
+      "total_weight": 135
+    },
+    {
+      "id": "rep_04643",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04643.tsv",
+      "source_sha256": "94f889c2b1c8ca07841a73a578eddf18de10775064c7f4ea6b0b80bff3bf7957",
+      "sequences": 22,
+      "total_weight": 121
+    },
+    {
+      "id": "rep_03528",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03528.tsv",
+      "source_sha256": "64f53708098901f84b4b1469bb298f1201c11354dc559b0bd219fe2147e6608e",
+      "sequences": 45,
+      "total_weight": 220
+    },
+    {
+      "id": "rep_04682",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04682.tsv",
+      "source_sha256": "536b1f2946fe4cd06ac703ca8367003e772b57d54e90bd424fbb049c949780e4",
+      "sequences": 26,
+      "total_weight": 107
+    },
+    {
+      "id": "rep_03583",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03583.tsv",
+      "source_sha256": "f3693108b5a149f40bda2774bde4ec4b9bbf1980009dac6ff070ded208c56526",
+      "sequences": 45,
+      "total_weight": 212
+    },
+    {
+      "id": "rep_04763",
+      "label": false,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04763.tsv",
+      "source_sha256": "06677030c2eb1b7368995bccb0eb1ed12d62c566109e75592725f987c07784cb",
+      "sequences": 43,
+      "total_weight": 218
+    },
+    {
+      "id": "rep_03589",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03589.tsv",
+      "source_sha256": "470856964ba1b5189d440bc281d212802a5329a7b6d05b63200d7efa33271019",
+      "sequences": 49,
+      "total_weight": 202
+    },
+    {
+      "id": "rep_03711",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03711.tsv",
+      "source_sha256": "222b5048498fa22c6e72710dce8d2162ebb99c56339db070dc170a2174915253",
+      "sequences": 14,
+      "total_weight": 57
+    },
+    {
+      "id": "rep_03833",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03833.tsv",
+      "source_sha256": "f65b74099c7f8fddbe7becc8064d018eb5bd1fba9ad630e82ae4ff49692f1278",
+      "sequences": 21,
+      "total_weight": 96
+    },
+    {
+      "id": "rep_03897",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03897.tsv",
+      "source_sha256": "5eb3334ad5f0858ed70807dc71521db2d1c6ea21a101f3c49f0c5f2a9fc4f328",
+      "sequences": 47,
+      "total_weight": 219
+    },
+    {
+      "id": "rep_03901",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03901.tsv",
+      "source_sha256": "bf8e2689cf68ccf9b88f50c3826ebf655d8521b8e93dc46403d7b660ecbe0083",
+      "sequences": 14,
+      "total_weight": 73
+    },
+    {
+      "id": "rep_03936",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_03936.tsv",
+      "source_sha256": "9764c78f6eeadc5dd4132aa8757a3bbc3f4bd64eb0172ed8e7792c083250fe4c",
+      "sequences": 38,
+      "total_weight": 207
+    },
+    {
+      "id": "rep_04070",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04070.tsv",
+      "source_sha256": "ad797d0eb65ac4ecc6cf005fe77725e8507611bab0232d9bd47811d056d8e888",
+      "sequences": 23,
+      "total_weight": 106
+    },
+    {
+      "id": "rep_04175",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04175.tsv",
+      "source_sha256": "3e1c748becfe8ebe95a8610f782f1d7af936402da0d637f39176ee97d4b0c731",
+      "sequences": 39,
+      "total_weight": 197
+    },
+    {
+      "id": "rep_04178",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04178.tsv",
+      "source_sha256": "bee256d9bc4763a5fd8330788aeab5c7d7409f6cb68e30fdc5bacb9cc8e5610d",
+      "sequences": 39,
+      "total_weight": 171
+    },
+    {
+      "id": "rep_04268",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04268.tsv",
+      "source_sha256": "de8d4a4292d83d56b399c1a89e656c6438c08808ce45d1e6c929aeb765464122",
+      "sequences": 24,
+      "total_weight": 131
+    },
+    {
+      "id": "rep_04344",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04344.tsv",
+      "source_sha256": "c25c9eec71657c62034f0a899aebc58532d599d9f88281cc3467116f532f295c",
+      "sequences": 27,
+      "total_weight": 135
+    },
+    {
+      "id": "rep_04390",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04390.tsv",
+      "source_sha256": "18034425f9fd4b5428307284d0a16851477b55cf549790a1ab2e0d90830579da",
+      "sequences": 34,
+      "total_weight": 166
+    },
+    {
+      "id": "rep_04394",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04394.tsv",
+      "source_sha256": "281e41c727c4146e5bb0c9ac0bedf1b2cc4f5d6a0d047ae1a1a78ada24bf385c",
+      "sequences": 14,
+      "total_weight": 69
+    },
+    {
+      "id": "rep_04523",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04523.tsv",
+      "source_sha256": "d1a47400cde974670cd0db35a58bb8d2ac889690ba7a66902b14cbb90ac1307f",
+      "sequences": 34,
+      "total_weight": 186
+    },
+    {
+      "id": "rep_04775",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04775.tsv",
+      "source_sha256": "a743f4fe0d1088b4add5cca4cd2a9608db119e5356395d1e501de3ff07f1f4c9",
+      "sequences": 29,
+      "total_weight": 141
+    },
+    {
+      "id": "rep_04836",
+      "label": true,
+      "source": "/Volumes/Shared/local/repos/tightarray-bio-pilots/repos/DeepRC/deeprc/datasets/example_dataset/repertoires/rep_04836.tsv",
+      "source_sha256": "d8cddc3338b08e494cba6e40839252e6d2801782c4886a33e87a56be4c89b431",
+      "sequences": 45,
+      "total_weight": 224
+    }
+  ],
+  "tsv_to_repertoire_feather_preparation_s": 2.0471394170017447,
+  "metadata_sha256": "4f159581c5c5ddcfc04123932b8546dc0c1ad2992efc3a51e164253102406fd1",
+  "train_samples": 80,
+  "test_samples": 20,
+  "parity": "Exact feature, IDF and predicted-class equality; probability absolute tolerance1e-12; source guards passed",
+  "rows": [
+    {
+      "backend": "numpy",
+      "tfidf": false,
+      "load_s": 0.08354258300096262,
+      "fit_s": 0.11801054199167993,
+      "predict_s": 0.036376875010319054,
+      "total_s": 0.2379300000029616,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "upstream",
+      "tfidf": false,
+      "load_s": 0.07245304100797512,
+      "fit_s": 0.06926754199957941,
+      "predict_s": 0.021464249992277473,
+      "total_s": 0.163184832999832,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": false,
+      "load_s": 0.15661112499947194,
+      "fit_s": 0.10398175001319032,
+      "predict_s": 0.0243900829955237,
+      "total_s": 0.28498295800818596,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "upstream",
+      "tfidf": false,
+      "load_s": 0.07239537499845028,
+      "fit_s": 0.06746054199174978,
+      "predict_s": 0.021130250010173768,
+      "total_s": 0.16098616700037383,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": false,
+      "load_s": 0.06910733399854507,
+      "fit_s": 0.0578239579917863,
+      "predict_s": 0.01962037500925362,
+      "total_s": 0.146551666999585,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "numpy",
+      "tfidf": false,
+      "load_s": 0.07191699999384582,
+      "fit_s": 0.09753941699455027,
+      "predict_s": 0.030504666006891057,
+      "total_s": 0.19996108299528714,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "upstream",
+      "tfidf": false,
+      "load_s": 0.07805650000227615,
+      "fit_s": 0.07564704200194683,
+      "predict_s": 0.021548999997321516,
+      "total_s": 0.1752525420015445,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "numpy",
+      "tfidf": false,
+      "load_s": 0.0725801669905195,
+      "fit_s": 0.10203395799908321,
+      "predict_s": 0.032547834009164944,
+      "total_s": 0.20716195899876766,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": false,
+      "load_s": 0.07268470799317583,
+      "fit_s": 0.061298625005292706,
+      "predict_s": 0.020584750003763475,
+      "total_s": 0.15456808300223202,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": false,
+      "load_s": 0.07065270800376311,
+      "fit_s": 0.06582870800048113,
+      "predict_s": 0.021083125000586733,
+      "total_s": 0.15756454100483097,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "upstream",
+      "tfidf": false,
+      "load_s": 0.07264700000814628,
+      "fit_s": 0.07394841600034852,
+      "predict_s": 0.1772858749900479,
+      "total_s": 0.3238812909985427,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "numpy",
+      "tfidf": false,
+      "load_s": 0.07833649999520276,
+      "fit_s": 0.10868520899384748,
+      "predict_s": 0.03644029100541957,
+      "total_s": 0.2234619999944698,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": false,
+      "load_s": 0.09393724999972619,
+      "fit_s": 0.0737727499945322,
+      "predict_s": 0.02136337499541696,
+      "total_s": 0.18907337498967536,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    },
+    {
+      "backend": "upstream",
+      "tfidf": false,
+      "load_s": 0.08840887500264216,
+      "fit_s": 0.07645541599777061,
+      "predict_s": 0.0220972920069471,
+      "total_s": 0.18696158300735988,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    },
+    {
+      "backend": "numpy",
+      "tfidf": false,
+      "load_s": 0.07940783300728071,
+      "fit_s": 0.103454750002129,
+      "predict_s": 0.03259049999178387,
+      "total_s": 0.2154530830011936,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "4637e9318bede2bf44e7f0e953cf99260b4d5deb302827b27a0c1ac2b7a707a0",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    },
+    {
+      "backend": "numpy",
+      "tfidf": true,
+      "load_s": 0.07519449999381322,
+      "fit_s": 0.10422212500998285,
+      "predict_s": 0.03748458299378399,
+      "total_s": 0.21690120799758006,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "upstream",
+      "tfidf": true,
+      "load_s": 0.09798162500374019,
+      "fit_s": 0.07512137500452809,
+      "predict_s": 0.026084290992002934,
+      "total_s": 0.19918729100027122,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": true,
+      "load_s": 0.08382195800368208,
+      "fit_s": 0.06558545799634885,
+      "predict_s": 0.023196624999400228,
+      "total_s": 0.17260404099943116,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 0
+    },
+    {
+      "backend": "upstream",
+      "tfidf": true,
+      "load_s": 0.11688849999336526,
+      "fit_s": 0.08220625000831205,
+      "predict_s": 0.024120999994920567,
+      "total_s": 0.22321574999659788,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": true,
+      "load_s": 0.07204262500454206,
+      "fit_s": 0.06632958400587086,
+      "predict_s": 0.020157332997769117,
+      "total_s": 0.15852954200818203,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "numpy",
+      "tfidf": true,
+      "load_s": 0.07375912500720005,
+      "fit_s": 0.10005016598734073,
+      "predict_s": 0.03148216700355988,
+      "total_s": 0.20529145799810067,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 1
+    },
+    {
+      "backend": "upstream",
+      "tfidf": true,
+      "load_s": 0.07503983400238212,
+      "fit_s": 0.07519150000007357,
+      "predict_s": 0.028697125002508983,
+      "total_s": 0.17892845900496468,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "numpy",
+      "tfidf": true,
+      "load_s": 0.0843193749897182,
+      "fit_s": 0.12288375000935048,
+      "predict_s": 0.0357704579946585,
+      "total_s": 0.24297358299372718,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": true,
+      "load_s": 0.07657504199596588,
+      "fit_s": 0.06340312500833534,
+      "predict_s": 0.020422165995114483,
+      "total_s": 0.1604003329994157,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 2
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": true,
+      "load_s": 0.07377337501384318,
+      "fit_s": 0.06509529199684039,
+      "predict_s": 0.021120249992236495,
+      "total_s": 0.15998891700292006,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "upstream",
+      "tfidf": true,
+      "load_s": 0.08341458400536794,
+      "fit_s": 0.07491970800037961,
+      "predict_s": 0.027710750000551343,
+      "total_s": 0.1860450420062989,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "numpy",
+      "tfidf": true,
+      "load_s": 0.07517970800108742,
+      "fit_s": 0.1063615419989219,
+      "predict_s": 0.03358866600319743,
+      "total_s": 0.21512991600320674,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 3
+    },
+    {
+      "backend": "tightarray",
+      "tfidf": true,
+      "load_s": 0.09225275000790134,
+      "fit_s": 0.07293516698700842,
+      "predict_s": 0.023545917007140815,
+      "total_s": 0.18873383400205057,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    },
+    {
+      "backend": "upstream",
+      "tfidf": true,
+      "load_s": 0.07261083299817983,
+      "fit_s": 0.07293779200699646,
+      "predict_s": 0.02410987499752082,
+      "total_s": 0.1696585000026971,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    },
+    {
+      "backend": "numpy",
+      "tfidf": true,
+      "load_s": 0.07313770899781957,
+      "fit_s": 0.10836962499888614,
+      "predict_s": 0.03323387500131503,
+      "total_s": 0.21474120899802074,
+      "train_features_sha256": "ce6034667d41be862d7a3b7611e08774b8cfa9035e746cf4e72a7464dec6918b",
+      "test_features_sha256": "5ffef05963211c6c1f9169ed98e512028b9734e3da3e3b9ded5e9f7800146644",
+      "idf_sha256": "c4403527c96ca238de47ffc915c81a31c267e9a955939f26b7af4581f760faeb",
+      "probabilities": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "predictions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "train_shape": [
+        80,
+        9261
+      ],
+      "test_shape": [
+        20,
+        9261
+      ],
+      "repeat": 4
+    }
+  ]
+}
