@@ -1,5 +1,11 @@
 # Bio application pilots
 
+Newer explicit application integrations now run actual encoder/feature extraction,
+classifier fit and prediction: [immuneML](../../docs/bio-immuneml-pipeline.md) and
+[MotifBoost](../../docs/bio-motifboost-pipeline.md). Use their separate results,
+source pins, dependency caveats and execution boundaries for pipeline claims.
+The table below remains the earlier method-level study.
+
 Six local, output-equivalent experiments on macOS arm64 / CPython 3.12.8 (September 2026). These are selected real application methods, **not full application or model-training benchmarks**. The strongest opportunities are removing string conversions in MotifBoost and unnecessary label generation in immuneML. Neither large speedup establishes a packing-specific benefit.
 
 | Measured operation | Original ms | Candidate ms | Original / candidate |
@@ -19,7 +25,7 @@ On 1,550 TCR sequences, the original `PackedStringArray.get_all_strs()` plus act
 
 An additional test starts from ordinary Python strings, as `ngram_features` normally accepts. Including encoding and packing on every candidate call, the original takes **6.548 ms versus 0.523 ms (12.53x)**. This is one process/five timed samples per backend. The resident comparison is a distinct usage mode, not the default string-input baseline.
 
-A NumPy uint8 version of the same numeric pipeline takes **0.319 ms** (one process/five samples). Most of the gain comes from eliminating strings and intermediate small arrays. The original already packs its storage efficiently: retained data plus indices is **26,460 bytes**, versus **40,800 bytes** for our packed adapter and **50,395 bytes** for the NumPy adapter. Our extra boundaries and two index arrays make it larger than MotifBoost's original packed representation. Classifier training, augmentation, hyperparameter search and multiprocessing were not measured. The next useful experiment is integrating numeric feature extraction into actual training preprocessing and measuring the whole run.
+A NumPy uint8 version of the same numeric pipeline takes **0.319 ms** (one process/five samples). Most of the gain comes from eliminating strings and intermediate small arrays. The original already packs its storage efficiently: retained data plus indices is **26,460 bytes**, versus **40,800 bytes** for our packed adapter and **50,395 bytes** for the NumPy adapter. Our extra boundaries and two index arrays make it larger than MotifBoost's original packed representation. Classifier training, augmentation, hyperparameter search and multiprocessing were not measured. The [later pipeline study](../../docs/bio-motifboost-pipeline.md) connects this adapter to actual classifier training and prediction; its timings are separate from these method-level results.
 
 ## Interpretation of the other pilots
 

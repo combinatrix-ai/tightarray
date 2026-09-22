@@ -43,7 +43,73 @@ codes, lengths = deeprc.padded_batch(batch, [0, 2])
 distances = scirpy.hamming_distance(batch, cutoff=2)
 ```
 
+## Explicit application integration
+
+The experimental bridges target the source revisions and environments recorded in
+[MotifBoost pipeline validation](../../docs/bio-motifboost-pipeline.md) and
+[immuneML pipeline validation](../../docs/bio-immuneml-pipeline.md). They do not
+change upstream installations merely by being imported.
+
+For MotifBoost, wrap actual classifier construction, fitting and prediction:
+
+```python
+from motifboost.methods.motif import MotifBoostClassifier
+from tightarray_immune.motifboost_integration import motifboost_backend
+
+with motifboost_backend("tightarray"):
+    model = MotifBoostClassifier(
+        n_jobs=1, classifier_method="linear_regression",
+        augmentation_times=0, tfidf_mode=False
+    )
+    model.fit(train_repertoires, train_labels)
+    probabilities = model.predict_proba(test_repertoires)
+```
+
+This temporarily selects the feature function used by upstream fork workers;
+TF-IDF, feature caching and the classifier remain upstream. The context restores
+the previous function on exit, including failure. Nested or concurrent selection
+is unsupported. Use single-character ASCII symbols, a distinct boundary absent
+from sequences, and at most 1,000,000 total features across the requested k-mer
+blocks.
+Weights must be nonnegative integers whose totals remain exactly representable.
+The application must support its upstream `fork` multiprocessing path.
+
+On the 100-repertoire example fixture, actual load/fit/predict with upstream
+logistic regression and TF-IDF disabled measured 194.2 ms versus 136.2 ms
+(three fresh-process repetitions). Features and predictions matched; peak RSS
+was essentially unchanged. This small-fixture result is separate from the much
+larger feature-only speedups below. See the pipeline report for timing variance,
+preparation costs and upstream LightGBM/TF-IDF limitations.
+
+For immuneML, apply the source-pinned
+[encoder patch](../../benchmarks/bio/patches/immuneml-continuous-aa.patch) to a local
+checkout first, then select a backend on the encoder instance:
+
+```python
+from tightarray_immune.immuneml_integration import configure_encoder
+
+configure_encoder(encoder, backend="tightarray")
+# Continue with immuneML's normal encoder/vectorizer/classifier calls.
+```
+
+Only continuous amino-acid k-mers without gene/locus prefixes are supported.
+Gapped encoding modes are rejected. The original BioNumPy path remains the
+default. The pinned immuneML version declares dependency bounds incompatible with this package's
+NumPy 2 requirement; this is a tested source-level experiment, not a supported
+ordinary pip co-installation. See the validation document for exact setup.
+
+On all 100 example repertoires, the continuous 3-mer pipeline measured 41.36 s
+versus 14.26 s (2.90x). Including TSV ingestion and repertoire preparation,
+medians were 55.96 s versus 28.97 s (1.93x). Three fresh processes per backend
+matched CSR values and structure, features, model coefficients and predictions
+exactly. The final feature matrices occupy the same memory; RSS was not measured.
+Avoiding full-vocabulary label generation explains the gain, rather than a
+measured SIMD-only advantage.
+
 ## Supported contracts
+
+The primitive adapters below remain independently usable. The explicit application
+bridges above connect the MotifBoost and immuneML primitives to upstream pipelines.
 
 | Adapter | Provided | Left to the application |
 | --- | --- | --- |
@@ -77,7 +143,7 @@ python -m pytest -q packages/tightarray-immune/tests
 python -m mypy --strict packages/tightarray-immune/src
 ```
 
-Twenty-one independent contract tests cover windows, empty/short rows, invalid symbols,
+Independent contract tests cover windows, empty/short rows, invalid symbols,
 weights, feature budgets, padding, selection order and sparse-distance semantics.
 Four additional upstream comparisons ran locally and passed: actual MotifBoost
 and immuneML functions, DeepRC's resident `get_sample`, and Scirpy's supplied
@@ -111,15 +177,9 @@ than upstream.
 
 ## Numba belongs in the core integration layer
 
-Numba support is a useful next step, but is not implemented by this adapter.
-NumPy conversion/Array API conformance alone does not make a packed array usable
-inside `@njit`. Numba has an explicit [custom-type extension mechanism](https://numba.readthedocs.io/en/stable/extending/interval-example.html).
-
-A first implementation should support read-only 1D access, length and iteration,
-with distinct lowering for packed and word-aligned layouts. It needs a native
-storage descriptor, correct owner lifetime management, slice offsets, bounds
-behavior and protection against reallocation while compiled code uses the storage.
-The acceptance test is a custom `@njit` loop over packed data without first
-materializing a uint8 array, compared with Python and NumPy for time and memory.
-Ragged offsets are the next useful step for repertoire-level loops. Writes and
-automatic bit-width growth need a separate mutation/lifetime contract.
+The optional [`tightarray.numba`](../../docs/numba.md) integration provides explicit
+native descriptors and checked load/store helpers for fixed-width packed arrays.
+It does not automatically compile these immune adapters or upstream classifiers.
+Writes outside the existing bit width raise `ValueError`; compiled code does not
+widen storage automatically. Install the core's `numba` extra when using those
+helpers. No Numba dependency is added to this adapter package.
