@@ -1,0 +1,38 @@
+--- a/immuneML/encodings/kmer_frequency/KmerFreqRepertoireEncoder.py
++++ b/immuneML/encodings/kmer_frequency/KmerFreqRepertoireEncoder.py
+@@ -14,6 +14,8 @@
+ 
+ 
+ class KmerFreqRepertoireEncoder(KmerFrequencyEncoder):
++
++    _tightarray_dispatch_version = 1
+ 
+     def _encode_locus(self, dataset):
+         loci = [set(rep.data.locus.tolist()) for rep in dataset.repertoires]
+@@ -66,11 +68,21 @@
+         locus_labels = data.locus.tolist() if encode_locus else None
+         v_genes = get_v_genes(data) if self.sequence_encoding in V_GENE_ENCODING_TYPES else None
+ 
+-        flat_kmers, row_ids = dispatch_encoding(
+-            seq_array, self.sequence_encoding,
+-            self.k, self.k_left, self.k_right, self.min_gap, self.max_gap,
+-            self.region_type, v_genes, locus_labels,
+-        )
++        if getattr(self, "_tightarray_backend", "bionumpy") == "tightarray":
++            from tightarray_immune.immuneml_integration import encode_continuous_aa
++            flat_kmers, row_ids = encode_continuous_aa(
++                seq_array.tolist(), alphabet=bytes(seq_array.encoding._alphabet).decode("ascii"),
++                k=self.k, sequence_encoding=self.sequence_encoding.name,
++                sequence_type=self.sequence_type.name, locus_labels=locus_labels,
++                v_genes=v_genes, k_left=self.k_left, k_right=self.k_right,
++                min_gap=self.min_gap, max_gap=self.max_gap,
++            )
++        else:
++            flat_kmers, row_ids = dispatch_encoding(
++                seq_array, self.sequence_encoding,
++                self.k, self.k_left, self.k_right, self.min_gap, self.max_gap,
++                self.region_type, v_genes, locus_labels,
++            )
+ 
+         labels = None
+         if params.encode_labels:
