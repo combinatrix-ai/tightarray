@@ -38,23 +38,26 @@ largest completed sizes from a 1024-step search, not exact maxima.
 ### Compared with other libraries
 
 65,536 uniform 5-bit values on an Apple M1 Pro (median of five samples; best in
-each column in bold):
+each column in bold). Both tightarray layouts are shown.
 
-| Library | Payload KiB | Get ns | Set ns | Count µs | Gather 256 µs | Sum µs |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| **tightarray** (packed) | **40.0** | 39.8 | 73.1 | **3.29** | 0.364 | **8.84\*** |
-| NumPy uint8 | 64.0 | 64.0 | 126.1 | 4.85 | **0.331** | 13.6 |
-| array.array `B` | 64.0 | 39.9 | 81.3 | 486.3 | 7.06 | 187.7 |
-| Python list | 512.0 | **31.7** | **45.0** | 353.2 | 4.96 | 165.8 |
-| bitstring | **40.0** | 1,851 | 9,143 | 100,874 | 476.2 | 101,312 |
-| bitformat | **40.0** | 769 | 1,949 | 10,369 | 200.9 | 9,592 |
-| Blosc2 (1 thread) | 40.3 | 62,061 | 834,989 | 496.5 | 71.8 | 407.6 |
+| Library | Payload KiB | Copy µs | Count µs | Equals µs | Gather 256 µs | Sum µs | Get ns |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| **tightarray** packed | **40.0** | 0.735 | 3.29 | **1.11** | 0.364 | 8.84\* | 39.8 |
+| **tightarray** word-aligned | 42.7 | **0.596** | **1.80** | 1.19 | **0.287** | **3.21\*** | 39.4 |
+| NumPy uint8 | 64.0 | 1.06 | 4.85 | 4.11 | 0.331 | 13.6 | 64.0 |
+| array.array `B` | 64.0 | 0.916 | 486 | 20.6 | 7.06 | 188 | 39.9 |
+| Python list | 512.0 | 81.6 | 353 | 40.8 | 4.96 | 166 | **31.7** |
+| bitstring | **40.0** | 4.57 | 100,874 | 1.39 | 476 | 101,312 | 1,851 |
+| bitformat | **40.0** | 20.3 | 10,369 | 65.5 | 201 | 9,592 | 769 |
+| Blosc2 (1 thread) | 40.3 | 33.0 | 497 | 535 | 71.8 | 408 | 62,061 |
 
-At 1 bit, tightarray matches bitarray (8 KiB; count 0.25 vs 0.23 µs) and gathers
-about 11× faster (0.21 vs 2.32 µs). \*Sum is from the later native-sum kernel
-run ([core performance](docs/core-performance.md)); other columns are from
+Across 1–8 bits, tightarray is the fastest measured library for copy, slice copy,
+count, equality, gather and sum at 2–8 bits, and on par with bitarray at 1 bit.
+Python lists remain faster for scalar get/set and for conversion to and from
+lists. \*Sum is from the later native-sum kernel run
+([core performance](docs/core-performance.md)); other columns are from
 [competitor performance](docs/competitor-performance.md), which also covers
-bitstruct, cbitstruct, bpack, ml_dtypes and codec throughput.
+bitarray, bitstruct, cbitstruct, bpack, ml_dtypes and codec throughput.
 
 ## Immune-repertoire software
 
