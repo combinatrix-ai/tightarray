@@ -29,6 +29,26 @@ without decompressing a block.
 | Online category edits | 6 MiB vs uint8 16 MiB; scalar edits without rewriting compressed regions | [storage exploration](docs/storage-exploration.md) |
 | Sokoban visited-state keys | **25% less** retained memory than uint8 | [Sokoban](docs/real-sokoban-search.md) |
 
+### Compared with other libraries
+
+65,536 uniform 5-bit values on an Apple M1 Pro (median of five samples):
+
+| Library | Payload KiB | Get ns | Set ns | Count µs | Gather 256 µs | Sum µs |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| **tightarray** (packed) | **40.0** | 39.8 | 73.1 | 3.29 | 0.364 | 8.84* |
+| NumPy uint8 | 64.0 | 64.0 | 126.1 | 4.85 | 0.331 | 13.6 |
+| array.array `B` | 64.0 | 39.9 | 81.3 | 486.3 | 7.06 | 187.7 |
+| Python list | 512.0 | 31.7 | 45.0 | 353.2 | 4.96 | 165.8 |
+| bitstring | 40.0 | 1,851 | 9,143 | 100,874 | 476.2 | 101,312 |
+| bitformat | 40.0 | 769 | 1,949 | 10,369 | 200.9 | 9,592 |
+| Blosc2 (1 thread) | 40.3 | 62,061 | 834,989 | 496.5 | 71.8 | 407.6 |
+
+At 1 bit, tightarray matches bitarray (8 KiB; count 0.25 vs 0.23 µs) and gathers
+about 11× faster (0.21 vs 2.32 µs). \*Sum is from the later native-sum kernel
+run ([core performance](docs/core-performance.md)); other columns are from
+[competitor performance](docs/competitor-performance.md), which also covers
+bitstruct, cbitstruct, bpack, ml_dtypes and codec throughput.
+
 The label-patch, replay, genotype and edit rows use synthetic uniform data.
 When values repeat spatially or are highly skewed, general-purpose compression
 is smaller (for example on MiniGrid replay history and segmentation masks); see
