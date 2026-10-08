@@ -29,6 +29,12 @@ without decompressing a block.
 | Online category edits | 6 MiB vs uint8 16 MiB; scalar edits without rewriting compressed regions | [storage exploration](docs/storage-exploration.md) |
 | Sokoban visited-state keys | **25% less** retained memory than uint8 | [Sokoban](docs/real-sokoban-search.md) |
 
+The label-patch, replay, genotype and edit rows use synthetic uniform data.
+When values repeat spatially or are highly skewed, general-purpose compression
+is smaller (for example on MiniGrid replay history and segmentation masks); see
+[non-bio experiments](docs/nonbio-experiments.md). Capacity figures are the
+largest completed sizes from a 1024-step search, not exact maxima.
+
 ### Compared with other libraries
 
 65,536 uniform 5-bit values on an Apple M1 Pro (median of five samples):
@@ -48,12 +54,6 @@ about 11× faster (0.21 vs 2.32 µs). \*Sum is from the later native-sum kernel
 run ([core performance](docs/core-performance.md)); other columns are from
 [competitor performance](docs/competitor-performance.md), which also covers
 bitstruct, cbitstruct, bpack, ml_dtypes and codec throughput.
-
-The label-patch, replay, genotype and edit rows use synthetic uniform data.
-When values repeat spatially or are highly skewed, general-purpose compression
-is smaller (for example on MiniGrid replay history and segmentation masks); see
-[non-bio experiments](docs/nonbio-experiments.md). Capacity figures are the
-largest completed sizes from a 1024-step search, not exact maxima.
 
 ## Immune-repertoire software
 
