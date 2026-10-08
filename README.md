@@ -6,9 +6,28 @@ An experimental C extension for unsigned 1–8 bit values. Supports 1D arrays,
 rectangular matrices, and ragged rows without retaining a Python object per
 value or row. The core has no DNA, amino-acid, or other domain-specific encoding.
 
+## What it is for
+
+The main benefit is **memory footprint**: fitting more small-integer state into
+the same RAM. It is usually not a speedup by itself. Measured results:
+
+| Workload | Memory result | Cost | Details |
+| --- | --- | --- | --- |
+| Multi-state cellular automaton under a 512 MiB process RSS budget | 3-bit: **2.61× more cells** than uint8 (462M vs 177M); 5-bit: 1.51× | Per-cell update time about 1.1× uint8 at those sizes | [capacity grid](docs/capacity-grid.md) |
+| Diploid genotypes with missing calls (scikit-allel queries) | **Half the payload** of scikit-allel's own packed format (4.0 vs 8.0 MiB) | Similar query time | [genotypes](docs/explore-genotypes.md) |
+| Sokoban search visited-state keys | **25% less** retained key memory than uint8 | 12% slower | [Sokoban](docs/real-sokoban-search.md) |
+| DeepRC repertoire sequences | **37.5% smaller** sequence payload | Extraction slightly slower | [bio pilots](benchmarks/bio/README.md) |
+
+General-purpose compression wins when values repeat spatially or are highly
+skewed: Blosc2 stores the genotype data in less space, and ZSTD beats packing on
+MiniGrid replay history and segmentation masks
+([storage exploration](docs/storage-exploration.md),
+[non-bio experiments](docs/nonbio-experiments.md)). The capacity figures are the
+largest completed sizes from a 1024-step search, not exact maxima.
+
 ## Immune-repertoire software
 
-tightarray is developed alongside work to improve machine-learning software for
+tightarray is also used to improve machine-learning software for
 immune-repertoire analysis, starting with
 [MotifBoost](https://github.com/hmirin/MotifBoost)
 ([paper](https://doi.org/10.3389/fimmu.2022.797640)). The optional
@@ -16,18 +35,21 @@ immune-repertoire analysis, starting with
 the core arrays to existing tools without modifying installed applications.
 Each connector is tested against a pinned upstream commit:
 
-| Tool | Pinned upstream | Connector | Verified result |
-| --- | --- | --- | --- |
-| MotifBoost | [`0fd515b`](https://github.com/hmirin/MotifBoost/tree/0fd515b787cd0834c02becefc772bc6059247d5a) | Opt-in feature backend for actual `fit` / `predict_proba` | Load + fit + predict median 194.2 ms → 136.2 ms; identical features and classes ([details](docs/bio-motifboost-pipeline.md)) |
-| immuneML | [`24d74abb`](https://github.com/uio-bmi/immuneML/tree/24d74abb2d30b081f9d6359a688a3e827c983e44) | Continuous k-mer encoder dispatch ([AGPL-3.0 patch](benchmarks/bio/patches/README.md)) | Encoding + classifier pipeline 41.36 s → 14.26 s; bit-identical matrices and predictions ([details](docs/bio-immuneml-pipeline.md)) |
-| DeepRC | [`108d08d`](https://github.com/ml-jku/DeepRC/tree/108d08d8cf2d2d69eb3f6caef1aa04d624dec871) | Padded batch extraction | Sequence payload 37.5% smaller; extraction slightly slower |
-| Scirpy | [`eb04a91`](https://github.com/scverse/scirpy/tree/eb04a91cc2f07bfc38c84f4d3ce6778c6fc2cb27) | Symmetric Hamming distance with cutoff (CSR) | Matches Scirpy's reference matrix exactly |
+| Tool | Pinned upstream | Connector | Time | Memory |
+| --- | --- | --- | --- | --- |
+| MotifBoost | [`0fd515b`](https://github.com/hmirin/MotifBoost/tree/0fd515b787cd0834c02becefc772bc6059247d5a) | Opt-in feature backend for actual `fit` / `predict_proba` | Load + fit + predict median 194.2 → 136.2 ms ([details](docs/bio-motifboost-pipeline.md)) | Peak RSS unchanged (350.8 vs 350.3 MiB); upstream strings and dense features are still retained |
+| immuneML | [`24d74abb`](https://github.com/uio-bmi/immuneML/tree/24d74abb2d30b081f9d6359a688a3e827c983e44) | Continuous k-mer encoder dispatch ([AGPL-3.0 patch](benchmarks/bio/patches/README.md)) | Encoding + classifier pipeline 41.36 → 14.26 s ([details](docs/bio-immuneml-pipeline.md)) | Same feature matrix (333,372 bytes) |
+| DeepRC | [`108d08d`](https://github.com/ml-jku/DeepRC/tree/108d08d8cf2d2d69eb3f6caef1aa04d624dec871) | Padded batch extraction | Slightly slower | Sequence payload 53,314 → 33,328 bytes |
+| Scirpy | [`eb04a91`](https://github.com/scverse/scirpy/tree/eb04a91cc2f07bfc38c84f4d3ce6778c6fc2cb27) | Symmetric Hamming distance with cutoff (CSR) | Faster mainly by avoiding per-call JIT setup | Lower RSS, mostly from less Numba compilation |
 
-BioNumPy and CompAIRR were also compared; neither showed a demonstrated gain.
-All measurements use the small bundled example datasets on one ARM64 Mac. Much
-of the immuneML and MotifBoost gain comes from removing string conversions, not
-from bit packing itself. No biological or clinical performance is claimed. See
-the [bio application pilots](benchmarks/bio/README.md) for methods and limits.
+All connectors reproduce upstream outputs exactly (Scirpy against its reference
+matrix). BioNumPy and CompAIRR were also compared; neither showed a gain.
+Measurements use small bundled example datasets on one ARM64 Mac, where imports
+and JIT dominate process memory, so they do not yet show a whole-process RAM
+reduction. Most of the speedup comes from removing string conversions, not from
+bit packing. No biological or clinical performance is claimed. Larger
+repertoires under a fixed memory budget are the next measurement. See the
+[bio application pilots](benchmarks/bio/README.md) for methods and limits.
 
 ## Install and test
 
