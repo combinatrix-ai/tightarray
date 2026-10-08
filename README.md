@@ -6,6 +6,29 @@ An experimental C extension for unsigned 1–8 bit values. Supports 1D arrays,
 rectangular matrices, and ragged rows without retaining a Python object per
 value or row. The core has no DNA, amino-acid, or other domain-specific encoding.
 
+## Immune-repertoire software
+
+tightarray is developed alongside work to improve machine-learning software for
+immune-repertoire analysis, starting with
+[MotifBoost](https://github.com/hmirin/MotifBoost)
+([paper](https://doi.org/10.3389/fimmu.2022.797640)). The optional
+[`tightarray-immune`](packages/tightarray-immune/README.md) package connects
+the core arrays to existing tools without modifying installed applications.
+Each connector is tested against a pinned upstream commit:
+
+| Tool | Pinned upstream | Connector | Verified result |
+| --- | --- | --- | --- |
+| MotifBoost | [`0fd515b`](https://github.com/hmirin/MotifBoost/tree/0fd515b787cd0834c02becefc772bc6059247d5a) | Opt-in feature backend for actual `fit` / `predict_proba` | Load + fit + predict median 194.2 ms → 136.2 ms; identical features and classes ([details](docs/bio-motifboost-pipeline.md)) |
+| immuneML | [`24d74abb`](https://github.com/uio-bmi/immuneML/tree/24d74abb2d30b081f9d6359a688a3e827c983e44) | Continuous k-mer encoder dispatch ([AGPL-3.0 patch](benchmarks/bio/patches/README.md)) | Encoding + classifier pipeline 41.36 s → 14.26 s; bit-identical matrices and predictions ([details](docs/bio-immuneml-pipeline.md)) |
+| DeepRC | [`108d08d`](https://github.com/ml-jku/DeepRC/tree/108d08d8cf2d2d69eb3f6caef1aa04d624dec871) | Padded batch extraction | Sequence payload 37.5% smaller; extraction slightly slower |
+| Scirpy | [`eb04a91`](https://github.com/scverse/scirpy/tree/eb04a91cc2f07bfc38c84f4d3ce6778c6fc2cb27) | Symmetric Hamming distance with cutoff (CSR) | Matches Scirpy's reference matrix exactly |
+
+BioNumPy and CompAIRR were also compared; neither showed a demonstrated gain.
+All measurements use the small bundled example datasets on one ARM64 Mac. Much
+of the immuneML and MotifBoost gain comes from removing string conversions, not
+from bit packing itself. No biological or clinical performance is claimed. See
+the [bio application pilots](benchmarks/bio/README.md) for methods and limits.
+
 ## Install and test
 
 ```sh
@@ -170,4 +193,4 @@ randomized reference checks, and ASan/UBSan checks accompany optimized kernels.
 Deferred: full native C N-dimensional execution, resizing, serialization/mmap,
 Zero-copy NumPy dtype integration, parallel mutation, and wider-platform tuning.
 The name is provisional and conflicts with existing libraries; a replacement is pending.
-Licensing and public publication remain pending decisions.
+Licensed under [Apache-2.0](LICENSE), except the immuneML patch (AGPL-3.0).

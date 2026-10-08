@@ -6,7 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "tightarray"
 version = "0.1.0.dev0"
 description = "Compact small-integer arrays for CPython"
+readme = "README.md"
 requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 
 [project.optional-dependencies]
 numpy = ["numpy>=2"]

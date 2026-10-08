@@ -8,6 +8,8 @@ version = "0.1.0.dev0"
 description = "Experimental immune sequence adapters backed by tightarray"
 readme = "README.md"
 requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 dependencies = ["tightarray==0.1.0.dev0", "numpy>=2"]
 
 [project.optional-dependencies]
