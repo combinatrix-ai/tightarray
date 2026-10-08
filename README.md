@@ -37,16 +37,17 @@ largest completed sizes from a 1024-step search, not exact maxima.
 
 ### Compared with other libraries
 
-65,536 uniform 5-bit values on an Apple M1 Pro (median of five samples):
+65,536 uniform 5-bit values on an Apple M1 Pro (median of five samples; best in
+each column in bold):
 
 | Library | Payload KiB | Get ns | Set ns | Count µs | Gather 256 µs | Sum µs |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| **tightarray** (packed) | **40.0** | 39.8 | 73.1 | 3.29 | 0.364 | 8.84* |
-| NumPy uint8 | 64.0 | 64.0 | 126.1 | 4.85 | 0.331 | 13.6 |
+| **tightarray** (packed) | **40.0** | 39.8 | 73.1 | **3.29** | 0.364 | **8.84\*** |
+| NumPy uint8 | 64.0 | 64.0 | 126.1 | 4.85 | **0.331** | 13.6 |
 | array.array `B` | 64.0 | 39.9 | 81.3 | 486.3 | 7.06 | 187.7 |
-| Python list | 512.0 | 31.7 | 45.0 | 353.2 | 4.96 | 165.8 |
-| bitstring | 40.0 | 1,851 | 9,143 | 100,874 | 476.2 | 101,312 |
-| bitformat | 40.0 | 769 | 1,949 | 10,369 | 200.9 | 9,592 |
+| Python list | 512.0 | **31.7** | **45.0** | 353.2 | 4.96 | 165.8 |
+| bitstring | **40.0** | 1,851 | 9,143 | 100,874 | 476.2 | 101,312 |
+| bitformat | **40.0** | 769 | 1,949 | 10,369 | 200.9 | 9,592 |
 | Blosc2 (1 thread) | 40.3 | 62,061 | 834,989 | 496.5 | 71.8 | 407.6 |
 
 At 1 bit, tightarray matches bitarray (8 KiB; count 0.25 vs 0.23 µs) and gathers
