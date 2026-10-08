@@ -8,21 +8,30 @@ value or row. The core has no DNA, amino-acid, or other domain-specific encoding
 
 ## What it is for
 
-The main benefit is **memory footprint**: fitting more small-integer state into
-the same RAM. It is usually not a speedup by itself. Measured results:
+tightarray keeps small-integer data compact in RAM. It helps in two ways.
 
-| Workload | Memory result | Cost | Details |
-| --- | --- | --- | --- |
-| Multi-state cellular automaton under a 512 MiB process RSS budget | 3-bit: **2.61× more cells** than uint8 (462M vs 177M); 5-bit: 1.51× | Per-cell update time about 1.1× uint8 at those sizes | [capacity grid](docs/capacity-grid.md) |
-| Diploid genotypes with missing calls (scikit-allel queries) | **Half the payload** of scikit-allel's own packed format (4.0 vs 8.0 MiB) | Similar query time | [genotypes](docs/explore-genotypes.md) |
-| Sokoban search visited-state keys | **25% less** retained key memory than uint8 | 12% slower | [Sokoban](docs/real-sokoban-search.md) |
-| DeepRC repertoire sequences | **37.5% smaller** sequence payload | Extraction slightly slower | [bio pilots](benchmarks/bio/README.md) |
+### Bigger simulations in the same RAM
 
-General-purpose compression wins when values repeat spatially or are highly
-skewed: Blosc2 stores the genotype data in less space, and ZSTD beats packing on
-MiniGrid replay history and segmentation masks
-([storage exploration](docs/storage-exploration.md),
-[non-bio experiments](docs/nonbio-experiments.md)). The capacity figures are the
+| Workload | Result | Details |
+| --- | --- | --- |
+| Multi-state cellular automaton, 512 MiB process RSS budget | 3-bit: **2.61× more cells** than uint8 (462M vs 177M); 5-bit: **1.51×** | [capacity grid](docs/capacity-grid.md) |
+
+### Small memory with fast access
+
+Unlike general-purpose compression, packed values are read and written in place
+without decompressing a block.
+
+| Workload | Result | Details |
+| --- | --- | --- |
+| Small 3D label patches (256³ volume) | 6 MiB, patch read **10.75 µs** vs Blosc LZ4 6.81 MiB / 261.79 µs | [storage exploration](docs/storage-exploration.md) |
+| Discrete replay observations | 37.5% of uint8; batch sampling **0.099 ms** vs BITSHUFFLE+ZSTD 0.302 ms | [storage exploration](docs/storage-exploration.md) |
+| Diploid genotypes with missing calls | **Half** of scikit-allel's packed format (4.0 vs 8.0 MiB) at similar query time | [genotypes](docs/explore-genotypes.md) |
+| Online category edits | 6 MiB vs uint8 16 MiB; scalar edits without rewriting compressed regions | [storage exploration](docs/storage-exploration.md) |
+| Sokoban visited-state keys | **25% less** retained memory than uint8 | [Sokoban](docs/real-sokoban-search.md) |
+
+When values repeat spatially or are highly skewed, general-purpose compression
+is smaller (for example on MiniGrid replay history and segmentation masks); see
+[non-bio experiments](docs/nonbio-experiments.md). Capacity figures are the
 largest completed sizes from a 1024-step search, not exact maxima.
 
 ## Immune-repertoire software
