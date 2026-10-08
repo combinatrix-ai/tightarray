@@ -29,6 +29,7 @@ without decompressing a block.
 | Online category edits | 6 MiB vs uint8 16 MiB; scalar edits without rewriting compressed regions | [storage exploration](docs/storage-exploration.md) |
 | Sokoban visited-state keys | **25% less** retained memory than uint8 | [Sokoban](docs/real-sokoban-search.md) |
 
+The label-patch, replay, genotype and edit rows use synthetic uniform data.
 When values repeat spatially or are highly skewed, general-purpose compression
 is smaller (for example on MiniGrid replay history and segmentation masks); see
 [non-bio experiments](docs/nonbio-experiments.md). Capacity figures are the
